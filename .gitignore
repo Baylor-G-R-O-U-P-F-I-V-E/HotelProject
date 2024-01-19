@@ -1,0 +1,2 @@
+*.out           # Binaries
+.DS_Store       # macOS system files
