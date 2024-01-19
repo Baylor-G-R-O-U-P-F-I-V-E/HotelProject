@@ -2,6 +2,7 @@
 
 Created by:  
 [Afraz Iqbal]()  
+[Brendon Newton]()
 [Chase Crayne](https://github.com/Starkrights)  
 [Cole Flenniken]()  
 [Siri Kothapalli]()  
