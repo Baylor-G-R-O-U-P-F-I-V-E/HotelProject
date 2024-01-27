@@ -10,7 +10,15 @@ Created by:
 
 ## Contents
 
-1. [Source Files](./src)
+1. [Cloning This Repository Locally](./Installation.md)
+2. [Usage](#usage)
+3. [About This Project](#about-this-project)
+    * [The Stay & Shop Reservation System](#the-stay-shop-reservation-system)
+        * [Hotel Section](#hotel-section)
+4. [Development Process](#development-process)
+    1. [Iteration 1](#iteration-1)
+    2. [Iteration 2](#iteration-2)
+    3. [Iteration 3](#iteration-3)
 
 ## Usage
 
@@ -18,7 +26,7 @@ Created by:
 make <target>
 ```
 
-## About
+## About This Project
 
 This project is a 3-layered application with Java SE. The data models contain 
 at least seven data entities/concepts with one-to-many and many-to-many 
