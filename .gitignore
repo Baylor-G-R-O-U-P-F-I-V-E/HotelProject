@@ -1,3 +1,3 @@
-*.out           # Binaries
-.DS_Store       # macOS system files
-.idea/          # IntelliJ IDEA bloat
+*.out
+.DS_Store
+.idea/
