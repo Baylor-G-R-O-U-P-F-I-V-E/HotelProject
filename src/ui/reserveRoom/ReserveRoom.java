@@ -1,6 +1,7 @@
+package reserveRoom;
+
 import javax.swing.SwingUtilities;
 import java.awt.*;
-import javax.swing.*;
 
 class ReserveRoom {
     public static void ReserveRoomGUI() {
