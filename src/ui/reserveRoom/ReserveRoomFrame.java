@@ -10,6 +10,7 @@ public class ReserveRoomFrame extends JFrame{
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        getContentPane().setBackground(new Color(0xe6f7ff));
         setLayout(new GridBagLayout());
     }
 }

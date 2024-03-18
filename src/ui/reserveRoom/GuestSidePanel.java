@@ -1,12 +1,14 @@
 package reserveRoom;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class GuestSidePanel extends JPanel{
     public GuestSidePanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(new JLabel("Guest Side Panel"));
         addButtons();
+        setBackground(new Color(0x19122a));
 
     }
 
