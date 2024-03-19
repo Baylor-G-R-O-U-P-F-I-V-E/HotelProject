@@ -6,6 +6,7 @@ public class ReserveRoomPanel extends JPanel{
 
     // Init a default field size
     Dimension fieldSize = new Dimension(200, 50);
+    JTextField nameField;
     JTextField roomNumberField;
     JTextField startDateField;
     JTextField endDateField;
@@ -19,6 +20,7 @@ public class ReserveRoomPanel extends JPanel{
 
         // Add subpanels to main panel
         add(getReserveRoomTitle());
+        add(getNamePanel());
         add(getRoomNumberPanel());
         add(getStartDatePanel());
         add(getEndDatePanel());
@@ -38,6 +40,26 @@ public class ReserveRoomPanel extends JPanel{
         reserveRoomTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         reserveRoomTitle.setFont(new Font("Arial", Font.PLAIN, 20));
         return reserveRoomTitle;
+    }
+
+    public JPanel getNamePanel () {
+        //Create a new panel for the name
+        JPanel namePanel = new JPanel();
+
+        JLabel nameLabel = new JLabel("Name:");
+        nameLabel.setBounds(200, 50, 200, 50);
+        nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+
+        nameField = new JTextField();
+        nameField.setBounds(400, 50, 200, 50);
+        nameField.setFont(new Font("Arial", Font.PLAIN, 20));
+        nameField.setPreferredSize(fieldSize);
+        nameField.setMaximumSize(fieldSize);
+
+        namePanel.add(nameLabel);
+        namePanel.add(nameField);
+
+        return namePanel;
     }
 
     public JPanel getRoomNumberPanel() {
@@ -112,7 +134,7 @@ public class ReserveRoomPanel extends JPanel{
         reserveButton.setBackground(new Color(0, 0, 153));
         reserveButton.setForeground(new Color(255, 255, 255));
 
-        reserveButton.addActionListener(new ReserveActionListener(roomNumberField, startDateField, endDateField));
+        reserveButton.addActionListener(new ReserveActionListener(nameField, roomNumberField, startDateField, endDateField));
 
         return reserveButton;
     }

@@ -5,8 +5,10 @@ public class ReserveActionListener implements ActionListener {
     private JTextField roomNumberField;
     private JTextField startDateField;
     private JTextField endDateField;
+    private JTextField nameField;
 
-    public ReserveActionListener(JTextField roomNumberField, JTextField startDateField, JTextField endDateField) {
+    public ReserveActionListener(JTextField nameField,JTextField roomNumberField, JTextField startDateField, JTextField endDateField) {
+        this.nameField = nameField;
         this.roomNumberField = roomNumberField;
         this.startDateField = startDateField;
         this.endDateField = endDateField;
@@ -14,14 +16,40 @@ public class ReserveActionListener implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
+        // Create a default message
+        String message = "Reservation successful!";
+
+        // Get the name
+        String name = nameField.getText();
+        if (name.isEmpty()) {
+            message = "Please enter a name";
+            JOptionPane.showMessageDialog(null, message);
+            return;
+        }
+
         // Get the room number
-        //String roomNumber = roomNumberField.getText();
+        String roomNumber = roomNumberField.getText();
+        if (roomNumber.isEmpty()) {
+            message = "Please enter a room number";
+            JOptionPane.showMessageDialog(null, message);
+            return;
+        }
 
         // Get the start date
-        //String startDate = startDateField.getText();
+        String startDate = startDateField.getText();
+        if (startDate.isEmpty()) {
+            message = "Please enter a start date";
+            JOptionPane.showMessageDialog(null, message);
+            return;
+        }
 
         // Get the end date
-        //String endDate = endDateField.getText();
+        String endDate = endDateField.getText();
+        if (endDate.isEmpty()) {
+            message = "Please enter an end date";
+            JOptionPane.showMessageDialog(null, message);
+            return;
+        }
 
         /* Create a new reservation
         Reservation reservation = new Reservation(roomNumber, startDate, endDate);
@@ -37,7 +65,7 @@ public class ReserveActionListener implements ActionListener {
         endDateField.setText("");
 
         // Display a message
-        JOptionPane.showMessageDialog(null, "Reservation successful!");
+        JOptionPane.showMessageDialog(null, message);
         
     }
 }
