@@ -1,11 +1,15 @@
 // Purpose: This file is used to create the panel for the reserve room page.
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class ReserveRoomPanel extends JPanel{
 
     // Init a default field size
-    Dimension fieldSize = new Dimension(200, 50); 
+    Dimension fieldSize = new Dimension(200, 50);
+    JTextField roomNumberField;
+    JTextField startDateField;
+    JTextField endDateField;
 
     ReserveRoomPanel(){
         // Set the layout of the panel
@@ -46,8 +50,8 @@ public class ReserveRoomPanel extends JPanel{
         roomNumberLabel.setBounds(200, 150, 200, 50);
         roomNumberLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
-        // Create the text field for the room number
-        JTextField roomNumberField = new JTextField();
+        // Init the text field for the room number
+        roomNumberField = new JTextField();
         roomNumberField.setBounds(400, 150, 200, 50);
         roomNumberField.setFont(new Font("Arial", Font.PLAIN, 20));
         roomNumberField.setPreferredSize(fieldSize);
@@ -67,8 +71,8 @@ public class ReserveRoomPanel extends JPanel{
         startDateLabel.setBounds(200, 250, 200, 50);
         startDateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
-        // Create the text field for the start date
-        JTextField startDateField = new JTextField();
+        // Init the text field for the start date
+        startDateField = new JTextField();
         startDateField.setBounds(400, 250, 200, 50);
         startDateField.setFont(new Font("Arial", Font.PLAIN, 20));
         startDateField.setPreferredSize(fieldSize);
@@ -88,8 +92,8 @@ public class ReserveRoomPanel extends JPanel{
         endDateLabel.setBounds(200, 350, 200, 50);
         endDateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
-        // Create the text field for the end date
-        JTextField endDateField = new JTextField();
+        // Init the text field for the end date
+        endDateField = new JTextField();
         endDateField.setBounds(400, 350, 200, 50);
         endDateField.setFont(new Font("Arial", Font.PLAIN, 20));
         endDateField.setPreferredSize(fieldSize);
@@ -109,8 +113,7 @@ public class ReserveRoomPanel extends JPanel{
         reserveButton.setBackground(new Color(0, 0, 153));
         reserveButton.setForeground(new Color(255, 255, 255));
 
-        //TODO: Add action listener to button to process info and send
-        // it to controller
+        reserveButton.addActionListener(new ReserveActionListener(roomNumberField, startDateField, endDateField));
 
         return reserveButton;
     }
