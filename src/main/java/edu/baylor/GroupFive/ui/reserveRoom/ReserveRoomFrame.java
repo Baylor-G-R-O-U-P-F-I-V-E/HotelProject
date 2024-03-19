@@ -1,4 +1,6 @@
 // Purpose: This file contains the ReserveRoomFrame class which is a JFrame that will be used to reserve a room.
+package edu.baylor.GroupFive.ui.reserveRoom;
+
 import javax.swing.*;
 import java.awt.*;
 

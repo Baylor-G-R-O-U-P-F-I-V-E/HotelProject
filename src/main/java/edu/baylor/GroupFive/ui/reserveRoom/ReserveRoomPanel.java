@@ -1,4 +1,6 @@
 // Purpose: This file is used to create the panel for the reserve room page.
+package edu.baylor.GroupFive.ui.reserveRoom;
+
 import javax.swing.*;
 import java.awt.*;
 
