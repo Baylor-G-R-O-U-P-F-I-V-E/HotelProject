@@ -40,7 +40,7 @@ public class GuestSidePanel extends JPanel {
 
     public JButton getHomeButton() throws IOException {
         // Init home button
-        Image homeImage = ImageIO.read(new File("resources/button-icons/home-icon.png"));
+        Image homeImage = ImageIO.read(new File("src/main/resources/button-icons/home-icon.png"));
         ImageIcon homeIcon = new ImageIcon(homeImage);
         JButton homeButton = new JButton(homeIcon);
         homeButton.setPreferredSize(buttonSize);
@@ -50,7 +50,7 @@ public class GuestSidePanel extends JPanel {
 
     public JButton getReservationsButton() throws IOException {
         // Init view reservations button
-        Image viewReservationsImage = ImageIO.read(new File("resources/button-icons/reservations-icon.png"));
+        Image viewReservationsImage = ImageIO.read(new File("src/main/resources/button-icons/reservations-icon.png"));
         ImageIcon checkoutIcon = new ImageIcon(viewReservationsImage);
         JButton checkoutButton = new JButton(checkoutIcon);
         checkoutButton.setPreferredSize(buttonSize);
@@ -60,7 +60,7 @@ public class GuestSidePanel extends JPanel {
 
     public JButton getCheckoutButton() throws IOException {
         // Init view reservations button
-        Image checkoutImage = ImageIO.read(new File("resources/button-icons/reservations-icon.png"));
+        Image checkoutImage = ImageIO.read(new File("src/main/resources/button-icons/reservations-icon.png"));
         ImageIcon checkoutIcon = new ImageIcon(checkoutImage);
         JButton checkoutButton = new JButton(checkoutIcon);
         checkoutButton.setPreferredSize(buttonSize);
