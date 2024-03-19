@@ -1,7 +1,6 @@
 // Purpose: This file is used to create the panel for the reserve room page.
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class ReserveRoomPanel extends JPanel{
 

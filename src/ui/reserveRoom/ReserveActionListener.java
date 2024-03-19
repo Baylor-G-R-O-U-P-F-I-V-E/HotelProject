@@ -15,13 +15,13 @@ public class ReserveActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // Get the room number
-        String roomNumber = roomNumberField.getText();
+        //String roomNumber = roomNumberField.getText();
 
         // Get the start date
-        String startDate = startDateField.getText();
+        //String startDate = startDateField.getText();
 
         // Get the end date
-        String endDate = endDateField.getText();
+        //String endDate = endDateField.getText();
 
         /* Create a new reservation
         Reservation reservation = new Reservation(roomNumber, startDate, endDate);
