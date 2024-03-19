@@ -12,6 +12,9 @@ public class ReserveRoomPanel extends JPanel{
         reserveRoomTitle.setBounds(300, 50, 200, 50);
         reserveRoomTitle.setFont(new Font("Arial", Font.PLAIN, 20));
 
+        // Create a panel for the room number
+        JPanel roomNumberPanel = new JPanel();
+
         // Create the label for the room number
         JLabel roomNumberLabel = new JLabel("Room Number:");
         roomNumberLabel.setBounds(200, 150, 200, 50);
@@ -53,8 +56,11 @@ public class ReserveRoomPanel extends JPanel{
 
         // Add the components to the panel
         add(reserveRoomTitle);
-        add(roomNumberLabel);
-        add(roomNumberField);
+
+        roomNumberPanel.add(roomNumberLabel);
+        roomNumberPanel.add(roomNumberField);
+        
+        add(roomNumberPanel);
         add(dateLabel);
         add(dateField);
         add(timeLabel);
