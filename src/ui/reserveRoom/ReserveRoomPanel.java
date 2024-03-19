@@ -3,18 +3,41 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ReserveRoomPanel extends JPanel{
+
+     // Init a default field size
+     Dimension fieldSize = new Dimension(200, 50); 
+
     ReserveRoomPanel(){
+        // Set the layout of the panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        // Set the background color of the panel
         setBackground(new Color(255, 255, 255));
 
-        // Init a default field size
-        Dimension fieldSize = new Dimension(200, 50);
+        // Add subpanels to main panel
+        add(getReserveRoomTitle());
+        add(getRoomNumberPanel());
+        add(getStartDatePanel());
+        add(getEndDatePanel());
 
-        // Create the title for the reserve room page
+        // Add the reserve button to the panel
+        add(getReserveButton());
+
+        // Set the panel to be visible
+        setVisible(true);
+
+        //Set size of the panel
+        setSize(800, 600);
+    }
+
+    public JLabel getReserveRoomTitle() {
         JLabel reserveRoomTitle = new JLabel("Reserve a Room");
         reserveRoomTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         reserveRoomTitle.setFont(new Font("Arial", Font.PLAIN, 20));
+        return reserveRoomTitle;
+    }
 
+    public JPanel getRoomNumberPanel() {
         // Create a panel for the room number
         JPanel roomNumberPanel = new JPanel();
 
@@ -30,37 +53,54 @@ public class ReserveRoomPanel extends JPanel{
         roomNumberField.setPreferredSize(fieldSize);
         roomNumberField.setMaximumSize(fieldSize);
 
-        // Create a panel for the date
+        roomNumberPanel.add(roomNumberLabel);
+        roomNumberPanel.add(roomNumberField);
+        return roomNumberPanel;
+    }
+
+    public JPanel getStartDatePanel() {
+        // Create a panel for the start date
         JPanel startDatePanel = new JPanel();
 
-        // Create the label for the date
+        // Create the label for the start date
         JLabel startDateLabel = new JLabel("Start Date:");
         startDateLabel.setBounds(200, 250, 200, 50);
         startDateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
-        // Create the text field for the date
+        // Create the text field for the start date
         JTextField startDateField = new JTextField();
         startDateField.setBounds(400, 250, 200, 50);
         startDateField.setFont(new Font("Arial", Font.PLAIN, 20));
         startDateField.setPreferredSize(fieldSize);
         startDateField.setMaximumSize(fieldSize);
 
-        // Create a panel for the time
+        startDatePanel.add(startDateLabel);
+        startDatePanel.add(startDateField);
+        return startDatePanel;
+    }
+
+    public JPanel getEndDatePanel() {
+        // Create a panel for the end date
         JPanel endDatePanel = new JPanel();
 
-        // Create the label for the time
+        // Create the label for the end date
         JLabel endDateLabel = new JLabel("End Date:");
         endDateLabel.setBounds(200, 350, 200, 50);
         endDateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
-        // Create the text field for the time
+        // Create the text field for the end date
         JTextField endDateField = new JTextField();
         endDateField.setBounds(400, 350, 200, 50);
         endDateField.setFont(new Font("Arial", Font.PLAIN, 20));
         endDateField.setPreferredSize(fieldSize);
         endDateField.setMaximumSize(fieldSize);
 
-        // Create the button to reserve the room
+        endDatePanel.add(endDateLabel);
+        endDatePanel.add(endDateField);
+        return endDatePanel;
+    }
+
+    public JButton getReserveButton() {
         JButton reserveButton = new JButton("Reserve");
         reserveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         reserveButton.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -68,32 +108,6 @@ public class ReserveRoomPanel extends JPanel{
         reserveButton.setBorderPainted(false);
         reserveButton.setBackground(new Color(0, 0, 153));
         reserveButton.setForeground(new Color(255, 255, 255));
-
-        // Add the components to the panel
-        add(reserveRoomTitle);
-
-        // Add the room number panel to the panel
-        roomNumberPanel.add(roomNumberLabel);
-        roomNumberPanel.add(roomNumberField);
-        add(roomNumberPanel);
-
-        // Add the date panel to the panel
-        startDatePanel.add(startDateLabel);
-        startDatePanel.add(startDateField);
-        add(startDatePanel);
-
-        // Add the time panel to the panel
-        endDatePanel.add(endDateLabel);
-        endDatePanel.add(endDateField);
-        add(endDatePanel);
-
-        // Add the reserve button to the panel
-        add(reserveButton);
-
-        // Set the panel to be visible
-        setVisible(true);
-
-        //Set size of the panel
-        setSize(800, 600);
+        return reserveButton;
     }
 }
