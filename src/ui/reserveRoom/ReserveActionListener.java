@@ -60,6 +60,7 @@ public class ReserveActionListener implements ActionListener {
         */
 
         // Clear the text fields
+        nameField.setText("");
         roomNumberField.setText("");
         startDateField.setText("");
         endDateField.setText("");
