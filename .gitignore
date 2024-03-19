@@ -1,3 +1,9 @@
+.classpath
+.project
+.settings/
+
+target/
+
 *.out
 .DS_Store
 .idea/
