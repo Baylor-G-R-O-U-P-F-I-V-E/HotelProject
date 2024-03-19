@@ -1,6 +1,4 @@
 // Purpose: This file contains the ReserveRoomFrame class which is a JFrame that will be used to reserve a room.
-package reserveRoom;
-
 import javax.swing.*;
 import java.awt.*;
 

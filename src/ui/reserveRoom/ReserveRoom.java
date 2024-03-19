@@ -1,5 +1,3 @@
-package reserveRoom;
-
 import javax.swing.SwingUtilities;
 import java.awt.*;
 
@@ -15,6 +13,10 @@ class ReserveRoom {
         
         //Add the GuestSidePanel to the frame
         frame.add(new GuestSidePanel(), gbc);
+        gbc.gridx = 1;
+
+        //Add the ReserveRoomPanel to the frame
+        frame.add(new ReserveRoomPanel(), gbc);
     }
 
     public static void main(String[] args) {

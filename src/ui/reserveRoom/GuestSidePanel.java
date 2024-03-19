@@ -1,5 +1,3 @@
-package reserveRoom;
-
 import javax.swing.*;
 import java.awt.*;
 
