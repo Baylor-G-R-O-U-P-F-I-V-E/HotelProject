@@ -38,7 +38,7 @@ tests, git, JavaDoc, polymorphism, and Maven.
 You have been contracted to create a system that automates the reservation 
 process for a combined store and hotel. The establishment offers a unique 
 experience where guests can stay in comfortable rooms and also have access to 
-an exclusive shopping experience within the same premises.  
+an exclusive shopping experience within the same premises!  
 
 #### Hotel Section
 
