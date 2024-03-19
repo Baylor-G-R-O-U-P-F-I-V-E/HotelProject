@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class ReserveRoomPanel extends JPanel{
 
-     // Init a default field size
-     Dimension fieldSize = new Dimension(200, 50); 
+    // Init a default field size
+    Dimension fieldSize = new Dimension(200, 50); 
 
     ReserveRoomPanel(){
         // Set the layout of the panel
@@ -108,6 +108,10 @@ public class ReserveRoomPanel extends JPanel{
         reserveButton.setBorderPainted(false);
         reserveButton.setBackground(new Color(0, 0, 153));
         reserveButton.setForeground(new Color(255, 255, 255));
+
+        //TODO: Add action listener to button to process info and send
+        // it to controller
+
         return reserveButton;
     }
 }
