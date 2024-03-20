@@ -60,7 +60,7 @@ public class GuestSidePanel extends JPanel {
 
     public JButton getCheckoutButton() throws IOException {
         // Init view reservations button
-        Image checkoutImage = ImageIO.read(new File("src/main/resources/button-icons/reservations-icon.png"));
+        Image checkoutImage = ImageIO.read(new File("src/main/resources/button-icons/checkout-icon.png"));
         ImageIcon checkoutIcon = new ImageIcon(checkoutImage);
         JButton checkoutButton = new JButton(checkoutIcon);
         checkoutButton.setPreferredSize(buttonSize);
