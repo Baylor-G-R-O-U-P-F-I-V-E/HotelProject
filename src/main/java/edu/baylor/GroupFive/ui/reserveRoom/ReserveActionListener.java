@@ -1,14 +1,20 @@
 package edu.baylor.GroupFive.ui.reserveRoom;
 
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import org.jdatepicker.impl.JDatePickerImpl;
+
+import javafx.scene.image.Image;
 
 public class ReserveActionListener implements ActionListener {
     private JTextField roomNumberField;
@@ -33,7 +39,11 @@ public class ReserveActionListener implements ActionListener {
         String name = nameField.getText();
         if (name.isEmpty()) {
             message = "Please enter a name";
-            JOptionPane.showMessageDialog(null, message);
+            try {
+                getBadInputDialog(message);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             return;
         }
 
@@ -41,7 +51,11 @@ public class ReserveActionListener implements ActionListener {
         String roomNumber = roomNumberField.getText();
         if (roomNumber.isEmpty()) {
             message = "Please enter a room number";
-            JOptionPane.showMessageDialog(null, message);
+            try {
+                getBadInputDialog(message);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             return;
         }
 
@@ -60,7 +74,11 @@ public class ReserveActionListener implements ActionListener {
         // Check if the start date is before the end date
         if (startDate.after(endDate)) {
             message = "The start date must be before the end date";
-            JOptionPane.showMessageDialog(null, message);
+            try {
+                getBadInputDialog(message);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             return;
         }
 
@@ -83,5 +101,12 @@ public class ReserveActionListener implements ActionListener {
         // Display a message
         JOptionPane.showMessageDialog(null, message);
 
+    }
+
+    public void getBadInputDialog(String message) throws IOException {
+        BufferedImage badImage = ImageIO.read(new File("src/main/resources/dialog-icons/mad-guy.png"));
+        ImageIcon badIcon = new ImageIcon(badImage);
+
+        JOptionPane.showMessageDialog(null, message, "Reservation not made", JOptionPane.INFORMATION_MESSAGE, badIcon);
     }
 }
