@@ -14,8 +14,6 @@ import javax.swing.*;
 
 import org.jdatepicker.impl.JDatePickerImpl;
 
-import javafx.scene.image.Image;
-
 public class ReserveActionListener implements ActionListener {
     private JTextField roomNumberField;
     private JDatePickerImpl startDatePicker;
