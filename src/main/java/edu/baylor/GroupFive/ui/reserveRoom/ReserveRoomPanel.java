@@ -91,7 +91,8 @@ public class ReserveRoomPanel extends JPanel{
     }
 
     public JPanel getEndDatePanel() {
-        return new DatePanel("End Date:");
+        DatePanel endDatePanel = new DatePanel("End Date:", 1);
+        return endDatePanel;
     }
 
     public JButton getReserveButton() {

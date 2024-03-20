@@ -15,16 +15,27 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 public class DatePanel extends JPanel {
+    //Calendar to store the displayed date
+    private Calendar cal;
+
     DatePanel(String title) {
+        this(title, 0);
+    }
+
+    DatePanel(String title, int daysAhead) {
 
         // Create the label for the start date
+        if (title == null) {
+            title = "Start Date:";
+        }
         JLabel dateLabel = new JLabel(title);
         dateLabel.setBounds(200, 250, 200, 50);
         dateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
         // Init the date picker for the start date
         UtilDateModel model = new UtilDateModel();
-        Calendar cal = Calendar.getInstance();
+        cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, daysAhead);
         model.setDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
         model.setSelected(true);
         Properties i18nStrings = new Properties();
@@ -33,8 +44,17 @@ public class DatePanel extends JPanel {
         i18nStrings.put("text.year", "Year");
         JDatePanelImpl datePanel = new JDatePanelImpl(model, i18nStrings);
         
-        AbstractFormatter formatter = new AbstractFormatter() {
-            private String datePattern = "yyyy-MM-dd";
+        AbstractFormatter formatter = getFormatter();
+
+        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, formatter);
+
+        add(dateLabel);
+        add(datePicker);
+    }
+
+    public AbstractFormatter getFormatter() {
+        return new AbstractFormatter() {
+            private String datePattern = "MM/dd/yyyy";
             private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
 
             @Override
@@ -51,10 +71,5 @@ public class DatePanel extends JPanel {
                 return "";
             }
         };
-
-        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, formatter);
-
-        add(dateLabel);
-        add(datePicker);
     }
 }
