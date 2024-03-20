@@ -2,6 +2,7 @@
 package edu.baylor.GroupFive.ui.reserveRoom;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 public class ReserveRoomPanel extends JPanel{
@@ -86,45 +87,11 @@ public class ReserveRoomPanel extends JPanel{
     }
 
     public JPanel getStartDatePanel() {
-        // Create a panel for the start date
-        JPanel startDatePanel = new JPanel();
-
-        // Create the label for the start date
-        JLabel startDateLabel = new JLabel("Start Date:");
-        startDateLabel.setBounds(200, 250, 200, 50);
-        startDateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Init the text field for the start date
-        startDateField = new JTextField();
-        startDateField.setBounds(400, 250, 200, 50);
-        startDateField.setFont(new Font("Arial", Font.PLAIN, 20));
-        startDateField.setPreferredSize(fieldSize);
-        startDateField.setMaximumSize(fieldSize);
-
-        startDatePanel.add(startDateLabel);
-        startDatePanel.add(startDateField);
-        return startDatePanel;
+        return new DatePanel("Start Date:");
     }
 
     public JPanel getEndDatePanel() {
-        // Create a panel for the end date
-        JPanel endDatePanel = new JPanel();
-
-        // Create the label for the end date
-        JLabel endDateLabel = new JLabel("End Date:");
-        endDateLabel.setBounds(200, 350, 200, 50);
-        endDateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Init the text field for the end date
-        endDateField = new JTextField();
-        endDateField.setBounds(400, 350, 200, 50);
-        endDateField.setFont(new Font("Arial", Font.PLAIN, 20));
-        endDateField.setPreferredSize(fieldSize);
-        endDateField.setMaximumSize(fieldSize);
-
-        endDatePanel.add(endDateLabel);
-        endDatePanel.add(endDateField);
-        return endDatePanel;
+        return new DatePanel("End Date:");
     }
 
     public JButton getReserveButton() {
