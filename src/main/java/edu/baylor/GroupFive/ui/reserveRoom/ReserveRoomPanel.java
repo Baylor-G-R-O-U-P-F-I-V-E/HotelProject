@@ -3,6 +3,8 @@ package edu.baylor.GroupFive.ui.reserveRoom;
 
 import javax.swing.*;
 
+import org.jdatepicker.impl.JDatePickerImpl;
+
 import java.awt.*;
 
 public class ReserveRoomPanel extends JPanel{
@@ -11,8 +13,8 @@ public class ReserveRoomPanel extends JPanel{
     Dimension fieldSize = new Dimension(200, 50);
     JTextField nameField;
     JTextField roomNumberField;
-    JTextField startDateField;
-    JTextField endDateField;
+    DatePanel startDate;
+    DatePanel endDate;
 
     ReserveRoomPanel(){
         // Set the layout of the panel
@@ -87,12 +89,22 @@ public class ReserveRoomPanel extends JPanel{
     }
 
     public JPanel getStartDatePanel() {
-        return new DatePanel("Start Date:");
+        startDate = new DatePanel("Start Date:");
+        return startDate;
+    }
+
+    public JDatePickerImpl getDate(DatePanel panel) {
+        for (Component component : panel.getComponents()) {
+            if (component instanceof JDatePickerImpl) {
+                return (JDatePickerImpl) component;
+            }
+        }
+        return null;
     }
 
     public JPanel getEndDatePanel() {
-        DatePanel endDatePanel = new DatePanel("End Date:", 1);
-        return endDatePanel;
+        endDate = new DatePanel("End Date:", 1);
+        return endDate;
     }
 
     public JButton getReserveButton() {
@@ -104,7 +116,7 @@ public class ReserveRoomPanel extends JPanel{
         reserveButton.setBackground(new Color(0, 0, 153));
         reserveButton.setForeground(new Color(255, 255, 255));
 
-        reserveButton.addActionListener(new ReserveActionListener(nameField, roomNumberField, startDateField, endDateField));
+        reserveButton.addActionListener(new ReserveActionListener(nameField, roomNumberField, getDate(startDate), getDate(endDate)));
 
         return reserveButton;
     }
