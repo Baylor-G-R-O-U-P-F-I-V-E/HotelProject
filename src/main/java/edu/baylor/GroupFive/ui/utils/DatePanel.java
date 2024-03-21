@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.ui.reserveRoom;
+package edu.baylor.GroupFive.ui.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,11 +18,11 @@ public class DatePanel extends JPanel {
     //Calendar to store the displayed date
     private Calendar cal;
 
-    DatePanel(String title) {
+    public DatePanel(String title) {
         this(title, 0);
     }
 
-    DatePanel(String title, int daysAhead) {
+    public DatePanel(String title, int daysAhead) {
 
         // Create the label for the start date
         if (title == null) {

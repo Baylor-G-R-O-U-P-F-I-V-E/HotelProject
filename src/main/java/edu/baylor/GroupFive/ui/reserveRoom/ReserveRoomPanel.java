@@ -5,6 +5,8 @@ import javax.swing.*;
 
 import org.jdatepicker.impl.JDatePickerImpl;
 
+import edu.baylor.GroupFive.ui.utils.DatePanel;
+
 import java.awt.*;
 
 public class ReserveRoomPanel extends JPanel{
@@ -16,7 +18,7 @@ public class ReserveRoomPanel extends JPanel{
     DatePanel startDate;
     DatePanel endDate;
 
-    ReserveRoomPanel(){
+    public ReserveRoomPanel(){
         // Set the layout of the panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
