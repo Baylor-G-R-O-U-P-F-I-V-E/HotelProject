@@ -16,7 +16,7 @@ public class ReserveRoomPanel extends JPanel{
     DatePanel startDate;
     DatePanel endDate;
 
-    ReserveRoomPanel(){
+    public ReserveRoomPanel(){
         // Set the layout of the panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

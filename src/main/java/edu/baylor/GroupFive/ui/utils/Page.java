@@ -2,6 +2,7 @@ package edu.baylor.GroupFive.ui.utils;
 
 import javax.swing.*;
 
+import edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
 import java.awt.*;
@@ -9,13 +10,21 @@ import java.awt.*;
 public class Page extends JFrame implements InputDelegate {
 
     private Dashboard dashboard;
+    private GridBagConstraints constraints = new GridBagConstraints();
     
     public Page(String privilige) {
         super();
+        //Init new frame
         createFrame();
+
+        //Create constraints to add dashboard to the frame
         dashboard = new Dashboard(this, privilige);
-        addComponent(dashboard, 0, 0);
-        
+        addDashboard();
+
+        constraints.gridx = 1;
+        constraints.weightx = 1;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        add(new ReserveRoomPanel(), constraints);
     }
 
     public void createFrame() {
@@ -27,14 +36,15 @@ public class Page extends JFrame implements InputDelegate {
         setVisible(true);
     }
 
-    public void addComponent(Component component, int x, int y) {
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridx = x;
-        constraints.gridy = y;
-        add(component, constraints);
+    public void addDashboard() {
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.anchor = GridBagConstraints.WEST;
+        add(dashboard, constraints);
     }
 
     public void onPageSwitch() {
+        //todo: add logic for switching pages on dashboard button press
         setVisible(true);
     }
 
