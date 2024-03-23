@@ -3,7 +3,7 @@ package edu.baylor.GroupFive.ui.utils.buttons;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import edu.baylor.GroupFive.ui.utils.DashboardButton;
+import edu.baylor.GroupFive.ui.utils.dashboard.DashboardButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
 public class HomeButton extends DashboardButton {

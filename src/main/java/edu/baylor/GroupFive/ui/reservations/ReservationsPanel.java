@@ -14,7 +14,7 @@ import edu.baylor.GroupFive.ui.utils.table.SpringUtilities;
 import net.coderazzi.filters.gui.TableFilterHeader;
 import net.coderazzi.filters.gui.AutoChoices;
 
-public class ReservationPanel extends JPanel implements PagePanel {
+public class ReservationsPanel extends JPanel implements PagePanel {
     private JTable table;
     private JTextField filterText;
     private JTextField statusText;
@@ -31,8 +31,10 @@ public class ReservationPanel extends JPanel implements PagePanel {
             String.class, String.class, String.class, Integer.class, Boolean.class
     };
 
-    public ReservationPanel() {
+    public ReservationsPanel() {
         super();
+
+        // Create a model of the data.
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -44,46 +46,18 @@ public class ReservationPanel extends JPanel implements PagePanel {
                 return columnClass[columnIndex];
             }
         };
-        model.setRowCount(0); // remove table
+
         openFile(model);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Create a table with a sorter.
-        sorter = new TableRowSorter<DefaultTableModel>(model);
-        table = new JTable(model);
-        table.setRowSorter(sorter);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-        table.setFillsViewportHeight(true);
+        table = setupTable(model);
+        
+        //Create a filter for the table
+        setupFilterAndToolbar();
 
-        TableFilterHeader filterHeader = new TableFilterHeader(table, AutoChoices.ENABLED);
-        JToolBar toolbar = new JToolBar();
-        Box floatRightBox = Box.createHorizontalBox();
-        floatRightBox.add(Box.createHorizontalGlue());
-        floatRightBox.add(toolbar);
-        add(floatRightBox);
-
-        // For the purposes of this example, better to have a single
-        // selection.
-        table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-
-        // When selection changes, provide user with row numbers for
-        // both view and model.
-        table.getSelectionModel().addListSelectionListener(
-                new ListSelectionListener() {
-                    public void valueChanged(ListSelectionEvent event) {
-                        int viewRow = table.getSelectedRow();
-                        if (viewRow < 0) {
-                            // Selection got filtered away.
-                            statusText.setText("");
-                        } else {
-                            int modelRow = table.convertRowIndexToModel(viewRow);
-                            statusText.setText(
-                                    String.format("Selected Row in view: %d. " +
-                                            "Selected Row in model: %d.",
-                                            viewRow, modelRow));
-                        }
-                    }
-                });
+        // Limits the user to single selection
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         // Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table);
@@ -93,9 +67,10 @@ public class ReservationPanel extends JPanel implements PagePanel {
 
         // Create a separate form for filterText and statusText
         JPanel form = new JPanel(new SpringLayout());
-        JLabel l1 = new JLabel("Filter Text:", SwingConstants.TRAILING);
+        JLabel l1 = new JLabel("Customer name:", SwingConstants.TRAILING);
         form.add(l1);
         filterText = new JTextField();
+
         // Whenever filterText changes, invoke newFilter.
         filterText.getDocument().addDocumentListener(
                 new DocumentListener() {
@@ -111,6 +86,7 @@ public class ReservationPanel extends JPanel implements PagePanel {
                         newFilter();
                     }
                 });
+
         l1.setLabelFor(filterText);
         form.add(filterText);
         JLabel l2 = new JLabel("Status:", SwingConstants.TRAILING);
@@ -142,6 +118,24 @@ public class ReservationPanel extends JPanel implements PagePanel {
             JOptionPane.showMessageDialog(null, "Issue opening file: " + ex.getMessage());
         }
 
+    }
+
+    private JTable setupTable(DefaultTableModel model) {
+        sorter = new TableRowSorter<DefaultTableModel>(model);
+        table = new JTable(model);
+        table.setRowSorter(sorter);
+        table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+        table.setFillsViewportHeight(true);
+        return table;
+    }
+
+    private void setupFilterAndToolbar() {
+        TableFilterHeader filterHeader = new TableFilterHeader(table, AutoChoices.ENABLED);
+        JToolBar toolbar = new JToolBar();
+        Box floatRightBox = Box.createHorizontalBox();
+        floatRightBox.add(Box.createHorizontalGlue());
+        floatRightBox.add(toolbar);
+        add(floatRightBox);
     }
 
     /**

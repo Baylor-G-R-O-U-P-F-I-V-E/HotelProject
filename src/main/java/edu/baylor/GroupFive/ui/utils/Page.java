@@ -2,8 +2,9 @@ package edu.baylor.GroupFive.ui.utils;
 
 import javax.swing.*;
 
-import edu.baylor.GroupFive.ui.reservations.ReservationPanel;
+import edu.baylor.GroupFive.ui.reservations.ReservationsPanel;
 import edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel;
+import edu.baylor.GroupFive.ui.utils.dashboard.Dashboard;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
 import java.awt.*;
@@ -26,7 +27,7 @@ public class Page extends JFrame implements InputDelegate {
         constraints.gridx = 1;
         constraints.weightx = 1;
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        currentPanel = new ReserveRoomPanel();
+        currentPanel = new ReservationsPanel();
         add(currentPanel, constraints);
     }
 
@@ -51,9 +52,9 @@ public class Page extends JFrame implements InputDelegate {
         remove(currentPanel);
         switch (option) {
             case "home":
-                currentPanel = new ReservationPanel();
+                currentPanel = new ReservationsPanel();
                 break;
-            case "addReservation":
+            case "reservation":
                 currentPanel = new ReserveRoomPanel();
                 break;
                 /*
