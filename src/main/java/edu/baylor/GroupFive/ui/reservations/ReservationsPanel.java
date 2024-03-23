@@ -3,7 +3,6 @@ package edu.baylor.GroupFive.ui.reservations;
 import java.awt.*;
 
 import java.io.*;
-import java.util.Vector;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -11,13 +10,11 @@ import javax.swing.table.*;
 
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.SpringUtilities;
-import net.coderazzi.filters.gui.TableFilterHeader;
-import net.coderazzi.filters.gui.AutoChoices;
+import edu.baylor.GroupFive.ui.utils.table.CustomRenderer;
 
 public class ReservationsPanel extends JPanel implements PagePanel {
     private JTable table;
     private JTextField filterText;
-    private JTextField statusText;
     private TableRowSorter<DefaultTableModel> sorter;
 
     private String[] columnNames = { "Name",
@@ -52,9 +49,6 @@ public class ReservationsPanel extends JPanel implements PagePanel {
 
         // Create a table with a sorter.
         table = setupTable(model);
-        
-        //Create a filter for the table
-        setupFilterAndToolbar();
 
         // Limits the user to single selection
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -89,16 +83,10 @@ public class ReservationsPanel extends JPanel implements PagePanel {
 
         l1.setLabelFor(filterText);
         form.add(filterText);
-        JLabel l2 = new JLabel("Status:", SwingConstants.TRAILING);
-        form.add(l2);
-        statusText = new JTextField();
-        l2.setLabelFor(statusText);
-        form.add(statusText);
-        SpringUtilities.makeCompactGrid(form, 2, 2, 6, 6, 6, 6);
+        SpringUtilities.makeCompactGrid(form, 1, 2, 6, 6, 6, 6);
         add(form);
 
         setVisible(true);
-        setSize(800, 600);
 
     }
 
@@ -124,18 +112,10 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         sorter = new TableRowSorter<DefaultTableModel>(model);
         table = new JTable(model);
         table.setRowSorter(sorter);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+        table.setPreferredScrollableViewportSize(new Dimension(700, 300));
         table.setFillsViewportHeight(true);
+        table.setDefaultRenderer(Object.class, new CustomRenderer());
         return table;
-    }
-
-    private void setupFilterAndToolbar() {
-        TableFilterHeader filterHeader = new TableFilterHeader(table, AutoChoices.ENABLED);
-        JToolBar toolbar = new JToolBar();
-        Box floatRightBox = Box.createHorizontalBox();
-        floatRightBox.add(Box.createHorizontalGlue());
-        floatRightBox.add(toolbar);
-        add(floatRightBox);
     }
 
     /**
