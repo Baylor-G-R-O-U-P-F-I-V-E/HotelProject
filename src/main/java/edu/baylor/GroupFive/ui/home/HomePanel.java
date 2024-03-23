@@ -13,8 +13,6 @@ import javax.swing.table.*;
 
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.SpringUtilities;
-import edu.baylor.GroupFive.ui.utils.table.TableDialog;
-import javafx.event.ActionEvent;
 import net.coderazzi.filters.gui.TableFilterHeader;
 import net.coderazzi.filters.gui.AutoChoices;
 
@@ -52,8 +50,11 @@ public class HomePanel extends JPanel implements PagePanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         //Create a table with a sorter.
-
-        // ...
+        sorter = new TableRowSorter<DefaultTableModel>(model);
+        table = new JTable(model);
+        table.setRowSorter(sorter);
+        table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+        table.setFillsViewportHeight(true);
 
         TableFilterHeader filterHeader = new TableFilterHeader(table, AutoChoices.ENABLED);
         JToolBar toolbar = new JToolBar();
@@ -120,10 +121,14 @@ public class HomePanel extends JPanel implements PagePanel {
         form.add(statusText);
         SpringUtilities.makeCompactGrid(form, 2, 2, 6, 6, 6, 6);
         add(form);
+
+        setVisible(true);
+        setSize(800, 600);
+
     }
 
     private void openFile(DefaultTableModel model) {
-        InputStream inputStream = getClass().getResourceAsStream("/data.csv");
+        InputStream inputStream = getClass().getResourceAsStream("src/main/resources/test.csv");
         if (inputStream != null) {
             try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
                 String line;

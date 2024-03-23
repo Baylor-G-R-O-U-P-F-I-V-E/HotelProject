@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.ui.utils;
+package edu.baylor.GroupFive.ui.utils.table;
 /*
  * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.
  *

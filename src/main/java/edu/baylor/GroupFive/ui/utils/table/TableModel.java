@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.ui.utils;
+package edu.baylor.GroupFive.ui.utils.table;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
