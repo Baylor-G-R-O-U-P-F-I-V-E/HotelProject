@@ -44,7 +44,7 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
     }
 
     public JLabel getReserveRoomTitle() {
-        JLabel reserveRoomTitle = new JLabel("Reserve a Room");
+        JLabel reserveRoomTitle = new JLabel("Reserve a room");
         reserveRoomTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         reserveRoomTitle.setFont(new Font("Arial", Font.PLAIN, 20));
         return reserveRoomTitle;
