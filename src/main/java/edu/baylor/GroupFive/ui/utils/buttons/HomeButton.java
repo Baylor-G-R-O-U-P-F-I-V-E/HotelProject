@@ -11,7 +11,7 @@ public class HomeButton extends DashboardButton {
         addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Add the dashboard
-                page.onPageSwitch();
+                page.onPageSwitch("home");
             }
         });
     }
