@@ -14,7 +14,9 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-public class DatePanel extends JPanel {
+import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
+
+public class DatePanel extends JPanel implements PagePanel {
     //Calendar to store the displayed date
     private Calendar cal;
 
@@ -28,28 +30,16 @@ public class DatePanel extends JPanel {
         if (title == null) {
             title = "Start Date:";
         }
+
+        // Style label
         JLabel dateLabel = new JLabel(title);
         dateLabel.setBounds(200, 250, 200, 50);
         dateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
-        // Init the date picker for the start date
-        UtilDateModel model = new UtilDateModel();
-        cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, daysAhead);
-        model.setDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
-        model.setSelected(true);
-        Properties i18nStrings = new Properties();
-        i18nStrings.put("text.today", "Today");
-        i18nStrings.put("text.month", "Month");                    
-        i18nStrings.put("text.year", "Year");
-        JDatePanelImpl datePanel = new JDatePanelImpl(model, i18nStrings);
-        
-        AbstractFormatter formatter = getFormatter();
-
-        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, formatter);
-
+        // Add the label to the panel    
         add(dateLabel);
-        add(datePicker);
+
+        addComponents(daysAhead);
     }
 
     public AbstractFormatter getFormatter() {
@@ -71,5 +61,52 @@ public class DatePanel extends JPanel {
                 return "";
             }
         };
+    }
+
+    public UtilDateModel createModel(int daysAhead) {
+        //Create Model for the date picker
+        UtilDateModel model = new UtilDateModel();
+
+        //Set the date to the current date
+        cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, daysAhead);
+
+        //Set the date to the model
+        model.setDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
+        model.setSelected(true);
+        return model;
+    }
+
+    public Properties getI18nStrings() {
+        Properties i18nStrings = new Properties();
+        i18nStrings.put("text.today", "Today");
+        i18nStrings.put("text.month", "Month");
+        i18nStrings.put("text.year", "Year");
+        return i18nStrings;
+    }
+
+    private void addComponents(int daysAhead) {
+
+        UtilDateModel model = createModel(daysAhead);
+        Properties i18nStrings = getI18nStrings();
+
+        JDatePanelImpl datePanel = new JDatePanelImpl(model, i18nStrings);
+        
+        AbstractFormatter formatter = getFormatter();
+
+        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, formatter);
+
+        add(datePicker);
+        
+    }
+
+    @Override
+    public void clear() {
+        //Clear all components
+        for (Component component : getComponents()) {
+            if (component instanceof JDatePickerImpl) {
+                ((JDatePickerImpl) component).getModel().setValue(null);
+            }
+        }
     }
 }

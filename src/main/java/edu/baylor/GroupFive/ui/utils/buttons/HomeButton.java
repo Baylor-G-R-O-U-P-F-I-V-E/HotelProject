@@ -3,6 +3,7 @@ package edu.baylor.GroupFive.ui.utils.buttons;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import edu.baylor.GroupFive.ui.utils.dashboard.DashboardButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
 public class HomeButton extends DashboardButton {
@@ -11,7 +12,7 @@ public class HomeButton extends DashboardButton {
         addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Add the dashboard
-                page.onPageSwitch();
+                page.onPageSwitch("home");
             }
         });
     }
