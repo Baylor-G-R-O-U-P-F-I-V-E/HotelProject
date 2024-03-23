@@ -52,10 +52,10 @@ public class Page extends JFrame implements InputDelegate {
             case "home":
                 currentPanel = new ReserveRoomPanel();
                 break;
-                /*
-            case "reserve":
+            case "addReservation":
                 currentPanel = new ReserveRoomPanel();
                 break;
+                /*
             case "view":
                 currentPanel = new ReserveRoomPanel();
                 break;

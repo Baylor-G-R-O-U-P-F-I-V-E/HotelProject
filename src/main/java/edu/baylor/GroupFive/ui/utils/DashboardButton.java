@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.ui.utils.buttons;
+package edu.baylor.GroupFive.ui.utils;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

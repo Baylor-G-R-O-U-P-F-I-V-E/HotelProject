@@ -1,6 +1,6 @@
 package edu.baylor.GroupFive.ui.utils;
 
-import edu.baylor.GroupFive.ui.utils.buttons.DashboardButton;
+import edu.baylor.GroupFive.ui.utils.buttons.AddReservationButton;
 import edu.baylor.GroupFive.ui.utils.buttons.HomeButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
@@ -15,6 +15,7 @@ public class Dashboard extends JPanel {
         add(new HomeButton(page, "src/main/resources/button-icons/home-icon.png"));
         add(new DashboardButton("src/main/resources/button-icons/reservations-icon.png"));
         add(new DashboardButton("src/main/resources/button-icons/checkout-icon.png"));
+        add(new AddReservationButton(page, "src/main/resources/button-icons/add-reservation-icon.png"));
 
 
     }
