@@ -91,7 +91,6 @@ public class ReservationsPanel extends JPanel implements PagePanel {
     }
 
     private void openFile(DefaultTableModel model) {
-        System.out.println("Opening file");
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/test.csv"))) {
             String line;
             if ((line = br.readLine()) != null) {
@@ -126,7 +125,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         RowFilter<DefaultTableModel, Object> rf = null;
         // If current expression doesn't parse, don't update.
         try {
-            rf = RowFilter.regexFilter(filterText.getText(), 0, 1, 2);
+            rf = RowFilter.regexFilter(filterText.getText(), table.getColumnModel().getColumnIndex("Name"));
         } catch (java.util.regex.PatternSyntaxException e) {
             return;
         }
