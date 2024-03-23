@@ -2,7 +2,7 @@ package edu.baylor.GroupFive.ui.utils;
 
 import javax.swing.*;
 
-import edu.baylor.GroupFive.ui.home.HomePanel;
+import edu.baylor.GroupFive.ui.reservations.ReservationPanel;
 import edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
@@ -51,7 +51,7 @@ public class Page extends JFrame implements InputDelegate {
         remove(currentPanel);
         switch (option) {
             case "home":
-                currentPanel = new HomePanel();
+                currentPanel = new ReservationPanel();
                 break;
             case "addReservation":
                 currentPanel = new ReserveRoomPanel();

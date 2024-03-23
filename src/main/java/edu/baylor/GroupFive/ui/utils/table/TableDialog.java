@@ -2,11 +2,8 @@ package edu.baylor.GroupFive.ui.utils.table;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
-
-import javafx.event.ActionEvent;
 
 public class TableDialog extends JDialog {
 private JTable table;

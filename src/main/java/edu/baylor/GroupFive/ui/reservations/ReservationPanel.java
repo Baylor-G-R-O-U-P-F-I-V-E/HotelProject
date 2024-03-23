@@ -1,10 +1,8 @@
-package edu.baylor.GroupFive.ui.home;
+package edu.baylor.GroupFive.ui.reservations;
 
 import java.awt.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -16,16 +14,16 @@ import edu.baylor.GroupFive.ui.utils.table.SpringUtilities;
 import net.coderazzi.filters.gui.TableFilterHeader;
 import net.coderazzi.filters.gui.AutoChoices;
 
-public class HomePanel extends JPanel implements PagePanel {
+public class ReservationPanel extends JPanel implements PagePanel {
     private JTable table;
     private JTextField filterText;
     private JTextField statusText;
     private TableRowSorter<DefaultTableModel> sorter;
 
-    private String[] columnNames = {"Name",
+    private String[] columnNames = { "Name",
             "Start Date",
             "End Date",
-            "Room"};
+            "Room" };
 
     private Object[][] data;
 
@@ -33,13 +31,14 @@ public class HomePanel extends JPanel implements PagePanel {
             String.class, String.class, String.class, Integer.class, Boolean.class
     };
 
-    public HomePanel() {
+    public ReservationPanel() {
         super();
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
+
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 return columnClass[columnIndex];
@@ -49,7 +48,7 @@ public class HomePanel extends JPanel implements PagePanel {
         openFile(model);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        //Create a table with a sorter.
+        // Create a table with a sorter.
         sorter = new TableRowSorter<DefaultTableModel>(model);
         table = new JTable(model);
         table.setRowSorter(sorter);
@@ -63,51 +62,51 @@ public class HomePanel extends JPanel implements PagePanel {
         floatRightBox.add(toolbar);
         add(floatRightBox);
 
-        //For the purposes of this example, better to have a single
-        //selection.
+        // For the purposes of this example, better to have a single
+        // selection.
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-        //When selection changes, provide user with row numbers for
-        //both view and model.
+        // When selection changes, provide user with row numbers for
+        // both view and model.
         table.getSelectionModel().addListSelectionListener(
                 new ListSelectionListener() {
                     public void valueChanged(ListSelectionEvent event) {
                         int viewRow = table.getSelectedRow();
                         if (viewRow < 0) {
-                            //Selection got filtered away.
+                            // Selection got filtered away.
                             statusText.setText("");
                         } else {
-                            int modelRow =
-                                    table.convertRowIndexToModel(viewRow);
+                            int modelRow = table.convertRowIndexToModel(viewRow);
                             statusText.setText(
                                     String.format("Selected Row in view: %d. " +
-                                                    "Selected Row in model: %d.",
+                                            "Selected Row in model: %d.",
                                             viewRow, modelRow));
                         }
                     }
-                }
-        );
-        
-        //Create the scroll pane and add the table to it.
+                });
+
+        // Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table);
 
-        //Add the scroll pane to this panel.
+        // Add the scroll pane to this panel.
         add(scrollPane);
 
-        //Create a separate form for filterText and statusText
+        // Create a separate form for filterText and statusText
         JPanel form = new JPanel(new SpringLayout());
         JLabel l1 = new JLabel("Filter Text:", SwingConstants.TRAILING);
         form.add(l1);
         filterText = new JTextField();
-        //Whenever filterText changes, invoke newFilter.
+        // Whenever filterText changes, invoke newFilter.
         filterText.getDocument().addDocumentListener(
                 new DocumentListener() {
                     public void changedUpdate(DocumentEvent e) {
                         newFilter();
                     }
+
                     public void insertUpdate(DocumentEvent e) {
                         newFilter();
                     }
+
                     public void removeUpdate(DocumentEvent e) {
                         newFilter();
                     }
@@ -128,23 +127,19 @@ public class HomePanel extends JPanel implements PagePanel {
     }
 
     private void openFile(DefaultTableModel model) {
-        InputStream inputStream = getClass().getResourceAsStream("src/main/resources/test.csv");
-        if (inputStream != null) {
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    String[] row = line.split(",");
-                    Vector<Object> correction = new Vector<>();
-                    for (int i = 0; i < 3; i++) {
-                        correction.add(row[i]);
-                    }
-                    correction.add(Integer.parseInt(row[3]));
-                    correction.add(Boolean.parseBoolean(row[4]));
-                    model.addRow(correction);
-                }
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Issue opening file: " + ex.getMessage());
+        System.out.println("Opening file");
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/test.csv"))) {
+            String line;
+            if ((line = br.readLine()) != null) {
+                String[] header = line.split(",");
+                model.setColumnIdentifiers(header);
             }
+            while ((line = br.readLine()) != null) {
+                String[] row = line.split(",");
+                model.addRow(row);
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Issue opening file: " + ex.getMessage());
         }
 
     }
@@ -155,7 +150,7 @@ public class HomePanel extends JPanel implements PagePanel {
      */
     private void newFilter() {
         RowFilter<DefaultTableModel, Object> rf = null;
-        //If current expression doesn't parse, don't update.
+        // If current expression doesn't parse, don't update.
         try {
             rf = RowFilter.regexFilter(filterText.getText(), 0, 1, 2);
         } catch (java.util.regex.PatternSyntaxException e) {
