@@ -69,6 +69,9 @@ public class Page extends JFrame implements InputDelegate {
                 currentPanel = new ReserveRoomPanel();
                 break;  */
         }
+        add(currentPanel, constraints);
+        revalidate();
+        repaint();
     }
 
 
