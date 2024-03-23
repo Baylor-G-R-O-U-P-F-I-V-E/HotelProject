@@ -10,7 +10,7 @@ import javax.swing.table.*;
 
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.SpringUtilities;
-import edu.baylor.GroupFive.ui.utils.table.CustomRenderer;
+import edu.baylor.GroupFive.ui.utils.table.StringRenderer;
 
 public class ReservationsPanel extends JPanel implements PagePanel {
     private JTable table;
@@ -114,7 +114,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         table.setRowSorter(sorter);
         table.setPreferredScrollableViewportSize(new Dimension(700, 300));
         table.setFillsViewportHeight(true);
-        table.setDefaultRenderer(Object.class, new CustomRenderer());
+        table.setDefaultRenderer(Object.class, new StringRenderer());
         return table;
     }
 
