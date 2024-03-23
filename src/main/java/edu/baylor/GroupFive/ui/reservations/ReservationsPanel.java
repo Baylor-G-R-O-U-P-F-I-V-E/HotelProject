@@ -62,7 +62,6 @@ public class ReservationsPanel extends JPanel implements PagePanel {
 
         addForm();
 
-
         setVisible(true);
 
     }
@@ -113,7 +112,12 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         RowFilter<DefaultTableModel, Object> rf = null;
         // If current expression doesn't parse, don't update.
         try {
-            rf = RowFilter.regexFilter(roomText.getText(), table.getColumnModel().getColumnIndex("Room"));
+            if (roomText.getText().isEmpty()) {
+                sorter.setRowFilter(null);
+                return;
+            }
+            String regex = "^" + roomText.getText() + "$";
+            rf = RowFilter.regexFilter(regex, table.getColumnModel().getColumnIndex("Room"));
         } catch (java.util.regex.PatternSyntaxException e) {
             return;
         }
