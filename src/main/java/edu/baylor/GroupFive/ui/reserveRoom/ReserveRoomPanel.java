@@ -5,9 +5,12 @@ import javax.swing.*;
 
 import org.jdatepicker.impl.JDatePickerImpl;
 
+import edu.baylor.GroupFive.ui.utils.DatePanel;
+import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
+
 import java.awt.*;
 
-public class ReserveRoomPanel extends JPanel{
+public class ReserveRoomPanel extends JPanel implements PagePanel {
 
     // Init a default field size
     Dimension fieldSize = new Dimension(200, 50);
@@ -16,7 +19,7 @@ public class ReserveRoomPanel extends JPanel{
     DatePanel startDate;
     DatePanel endDate;
 
-    ReserveRoomPanel(){
+    public ReserveRoomPanel(){
         // Set the layout of the panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -41,7 +44,7 @@ public class ReserveRoomPanel extends JPanel{
     }
 
     public JLabel getReserveRoomTitle() {
-        JLabel reserveRoomTitle = new JLabel("Reserve a Room");
+        JLabel reserveRoomTitle = new JLabel("Reserve a room");
         reserveRoomTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         reserveRoomTitle.setFont(new Font("Arial", Font.PLAIN, 20));
         return reserveRoomTitle;
@@ -119,5 +122,13 @@ public class ReserveRoomPanel extends JPanel{
         reserveButton.addActionListener(new ReserveActionListener(nameField, roomNumberField, getDate(startDate), getDate(endDate)));
 
         return reserveButton;
+    }
+
+    @Override
+    public void clear() {
+        nameField.setText("");
+        roomNumberField.setText("");
+        startDate.clear();
+        endDate.clear();
     }
 }
