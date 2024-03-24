@@ -12,8 +12,8 @@ import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import java.awt.Insets;
 
 public class LandingPanel extends JPanel implements PagePanel {
-    GridBagConstraints gbc;
-    InputDelegate delegate;
+    private GridBagConstraints gbc;
+    private InputDelegate delegate;
     
     public LandingPanel(InputDelegate delegate) {
         super();
@@ -21,6 +21,7 @@ public class LandingPanel extends JPanel implements PagePanel {
         setLayout(new GridBagLayout());
 
         setOpaque(false);
+        setVisible(true);
 
         // Create a GridBagConstraints object
         gbc = new GridBagConstraints();

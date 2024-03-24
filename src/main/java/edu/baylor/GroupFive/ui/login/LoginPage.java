@@ -2,8 +2,6 @@ package edu.baylor.GroupFive.ui.login;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.image.*;
 import java.awt.Image;
 import java.io.IOException;
@@ -12,7 +10,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
 public class LoginPage extends JFrame implements InputDelegate {
@@ -32,7 +29,7 @@ public class LoginPage extends JFrame implements InputDelegate {
         // Create the surface panel
         surface = new LandingPanel(this);
 
-        // Add the surface panel to the background panel
+        // Add the surface panel to the frame
         add(surface);
     }
 
@@ -65,21 +62,18 @@ public class LoginPage extends JFrame implements InputDelegate {
         setLocationRelativeTo(null);
     }
 
-    
-
     public void onPageSwitch(String option) {
         
         // Switch to the login page
         if (option.equals("login")) {
-            // Close the frame and open a Page object
-            dispose();
 
-            // Remove surface panel
+            //Replace surface panel with login panel
             remove(surface);
+            surface = new LoginPanel(this);
+            add(surface);
+            revalidate();
+            repaint();
 
-            // Open a new Page
-            @SuppressWarnings("unused")
-            InputDelegate page = new Page("admin");
         } else if (option.equals("createAccount")) {
             // TODO: Switch to the create account panel
         
