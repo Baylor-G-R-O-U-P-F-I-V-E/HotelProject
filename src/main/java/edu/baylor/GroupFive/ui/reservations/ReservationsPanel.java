@@ -1,7 +1,6 @@
 package edu.baylor.GroupFive.ui.reservations;
 
 import java.awt.*;
-
 import java.io.*;
 
 import javax.swing.*;
@@ -24,7 +23,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
     private Object[][] data;
 
     final Class<?>[] columnClass = new Class[] {
-            String.class, String.class, String.class, Integer.class, Boolean.class
+            String.class, String.class, String.class, String.class
     };
 
     public ReservationsPanel() {
@@ -60,6 +59,13 @@ public class ReservationsPanel extends JPanel implements PagePanel {
 
         add(new FormPane(table, sorter));
 
+        /*
+        JButton viewReservation = new JButton("View Selected Reservation");
+        JButton viewRoom = new JButton("View Selected Room");
+        add(viewReservation);
+        add(viewRoom);
+        */
+
         setVisible(true);
 
     }
@@ -82,12 +88,23 @@ public class ReservationsPanel extends JPanel implements PagePanel {
     }
 
     private JTable setupTable(DefaultTableModel model) {
+        
+        // Create a table with a sorter.
         sorter = new TableRowSorter<DefaultTableModel>(model);
         table = new JTable(model);
+
+        // Set the sorter
         table.setRowSorter(sorter);
+
+        // Set the table properties
         table.setPreferredScrollableViewportSize(new Dimension(700, 300));
         table.setFillsViewportHeight(true);
         table.setDefaultRenderer(Object.class, new StringRenderer());
+        
+        // Set the header font
+        JTableHeader header = table.getTableHeader();
+        header.setFont(new Font("Arial", Font.BOLD, 14));
+
         return table;
     }
 
