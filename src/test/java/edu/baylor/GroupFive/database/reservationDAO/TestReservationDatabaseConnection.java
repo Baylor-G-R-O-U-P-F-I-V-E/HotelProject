@@ -14,6 +14,11 @@ public class TestReservationDatabaseConnection {
         conn = new ReservationDatabaseConnection();
     }
 
-    @Test
 
+    // REMOVE FOR MERGE
+    @Test
+    @Tag("Database")
+    public void testConnection(){
+        //conn.connect();
+    }
 }
