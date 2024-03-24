@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 public class ReservationDatabaseConnection {
 
-    
+
     ArrayList<Reservation> data;
     Integer currID = 0;
     ReservationDatabaseConnection(){
         this.data = new ArrayList<>();
         try{
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
             File myFile = new File("Reservations.txt");
             Scanner myReader = new Scanner(myFile);
             while(myReader.hasNextLine()){
@@ -35,10 +35,9 @@ public class ReservationDatabaseConnection {
         }
     }
 
-    public void addReservation(Date startDate, Date endDate, String roomID, String guestID, Double price){
-        Reservation r = new Reservation(startDate,endDate,roomID,guestID, currID.toString(), price);
+    public void addReservation(Reservation reservation){;
         currID++;
-        data.add(r);
+        data.add(reservation);
     }
 
     public void save()  {
