@@ -13,5 +13,8 @@ public class DashboardButton extends PageButton {
         setPreferredSize(buttonSize);
         setMaximumSize(buttonSize);
         setMinimumSize(buttonSize);
+
+        revalidate();
+        repaint();
     }
 }

@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import edu.baylor.GroupFive.ui.utils.Page;
+import edu.baylor.GroupFive.ui.utils.buttons.landingButtons.CreateAccountButton;
 import edu.baylor.GroupFive.ui.utils.buttons.landingButtons.LoginButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 import java.awt.Insets;
@@ -39,22 +40,14 @@ public class LoginPage extends JFrame implements InputDelegate {
         // Create a GridBagConstraints object
         gbc = new GridBagConstraints();
 
-        // Set the constraints for the login button
-        // ...
+        // Add the login button to the surface panel
+        addLoginButton();
 
-            gbc.gridx = 0; // The x-coordinate of the cell where the button should be placed
-            gbc.gridy = 1; // The y-coordinate of the cell where the button should be placed
-            gbc.weightx = 1.0; // Make the cell take up all available horizontal space
-            gbc.weighty = 1.0; // Make the cell take up all available vertical space
-            gbc.anchor = GridBagConstraints.SOUTHWEST; // The button should be anchored to the bottom-left corner of the
-                                   // cell
-            gbc.insets = new Insets(0, 80, 80, 0); // Add a margin of 20 pixels on the left and bottom
+        // Add the create account button to the surface panel
+        addCreateAccountButton();
 
-            // Add the login button to the surface panel with the specified constraints
-            surface.add(new LoginButton(this, "src/main/resources/button-icons/login-button-icon.png"), gbc);
-
-            // Add the surface panel to the background panel
-            background.add(surface, BorderLayout.CENTER);
+        // Add the surface panel to the background panel
+        background.add(surface, BorderLayout.CENTER);
     }
 
     public void createFrame() {
@@ -85,16 +78,49 @@ public class LoginPage extends JFrame implements InputDelegate {
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
     }
-    
+
+    private void addLoginButton() {
+        
+        // Set the constraints for the login button
+        gbc.gridx = 0;
+        gbc.gridy = 1; 
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.anchor = GridBagConstraints.SOUTHWEST;
+        gbc.insets = new Insets(0, 250, 130, 0); // Add a margin of 20 pixels on the left and bottom
+
+        // Add the login button to the surface panel with the specified constraints
+        surface.add(new LoginButton(this, "src/main/resources/button-icons/login-button-icon.png"), gbc);
+    }
+
+    //Write method to create create account button
+    private void addCreateAccountButton() {
+        // Set the constraints for the create account button
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.anchor = GridBagConstraints.SOUTHEAST;
+        gbc.insets = new Insets(0, 0, 130, 250); // Add a margin of 20 pixels on the left and bottom
+
+        // Add the create account button to the surface panel with the specified constraints
+        surface.add(new CreateAccountButton(this, "src/main/resources/button-icons/create-acct-button-icon.png"), gbc);
+    }
+
     public void onPageSwitch(String option) {
         // Switch to the login page
         if (option.equals("login")) {
             // Close the frame and open a Page object
             dispose();
 
-            //Open a new Page
+            // Open a new Page
             @SuppressWarnings("unused")
             InputDelegate page = new Page("admin");
+        } else if (option.equals("createAccount")) {
+            // TODO: Switch to the create account panel
+        
+        } else {
+            System.out.println("Invalid option");
         }
     }
 
