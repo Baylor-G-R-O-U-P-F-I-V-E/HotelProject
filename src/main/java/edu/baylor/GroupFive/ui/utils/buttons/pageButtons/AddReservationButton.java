@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.ui.utils.buttons;
+package edu.baylor.GroupFive.ui.utils.buttons.pageButtons;
 import edu.baylor.GroupFive.ui.utils.dashboard.DashboardButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 

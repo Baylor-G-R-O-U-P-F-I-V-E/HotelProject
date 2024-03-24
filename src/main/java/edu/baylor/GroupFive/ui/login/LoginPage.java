@@ -15,6 +15,7 @@ import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 public class LoginPage extends JFrame implements InputDelegate {
     
     private JPanel background;
+    private JPanel surface;
 
     public LoginPage() {
         super();
@@ -22,6 +23,13 @@ public class LoginPage extends JFrame implements InputDelegate {
         createFrame();
         // Set the frame to be visible
         setVisible(true);
+
+        // Create the surface panel
+        surface = new JPanel();
+        // Set the layout manager of the panel
+        surface.setLayout(new BorderLayout());
+        // Add the panel to the frame
+        background.add(surface, BorderLayout.CENTER);
     }
 
     public void createFrame() {
