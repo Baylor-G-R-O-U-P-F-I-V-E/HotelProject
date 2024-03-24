@@ -9,6 +9,7 @@ import javax.swing.table.*;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.StringRenderer;
+import edu.baylor.GroupFive.ui.utils.table.BorderRenderer;
 
 public class ReservationsPanel extends JPanel implements PagePanel {
     
@@ -48,6 +49,9 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         // Create a table with a sorter.
         table = setupTable(model);
 
+        // Set the table properties
+        table.setDefaultRenderer(Object.class, new BorderRenderer());
+
         // Limits the user to single selection
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -57,15 +61,13 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         // Add the scroll pane to this panel.
         add(scrollPane);
 
+        // Add the form pane
         add(new FormPane(table, sorter));
 
-        /*
-        JButton viewReservation = new JButton("View Selected Reservation");
-        JButton viewRoom = new JButton("View Selected Room");
-        add(viewReservation);
-        add(viewRoom);
-        */
-
+        // Add the button panel
+        addButtonPanel();
+        
+        // Set the panel properties
         setVisible(true);
 
     }
@@ -106,6 +108,47 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         header.setFont(new Font("Arial", Font.BOLD, 14));
 
         return table;
+    }
+
+    private void addButtonPanel() {
+        // Create button panel
+        JPanel buttonPanel = new JPanel();
+
+        // Create buttons
+        JButton viewReservation = new JButton("View Selected Reservation");
+        JButton viewRoom = new JButton("View Selected Room");
+
+        // Add buttons to panel
+        addButtonListeners(viewReservation, viewRoom);
+        buttonPanel.add(viewReservation);
+        buttonPanel.add(viewRoom);
+
+        add(buttonPanel);
+    }
+
+    private void addButtonListeners(JButton viewReservation, JButton viewRoom) {
+        viewReservation.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row != -1) {
+                String name = (String) table.getValueAt(row, 0);
+                String startDate = (String) table.getValueAt(row, 1);
+                String endDate = (String) table.getValueAt(row, 2);
+                String room = (String) table.getValueAt(row, 3);
+                JOptionPane.showMessageDialog(null, "Name: " + name + "\nStart Date: " + startDate + "\nEnd Date: " + endDate + "\nRoom: " + room);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
+            }
+        });
+
+        viewRoom.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row != -1) {
+                String room = (String) table.getValueAt(row, 3);
+                JOptionPane.showMessageDialog(null, "Room: " + room);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
+            }
+        });
     }
 
     @Override
