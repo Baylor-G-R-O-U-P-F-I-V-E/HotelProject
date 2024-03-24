@@ -1,23 +1,19 @@
 package edu.baylor.GroupFive.ui.reservations;
 
 import java.awt.*;
-
 import java.io.*;
-import java.util.Vector;
 
 import javax.swing.*;
-import javax.swing.event.*;
 import javax.swing.table.*;
 
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
-import edu.baylor.GroupFive.ui.utils.table.SpringUtilities;
-import net.coderazzi.filters.gui.TableFilterHeader;
-import net.coderazzi.filters.gui.AutoChoices;
+import edu.baylor.GroupFive.ui.utils.table.FormPane;
+import edu.baylor.GroupFive.ui.utils.table.StringRenderer;
+import edu.baylor.GroupFive.ui.utils.table.BorderRenderer;
 
 public class ReservationsPanel extends JPanel implements PagePanel {
+    
     private JTable table;
-    private JTextField filterText;
-    private JTextField statusText;
     private TableRowSorter<DefaultTableModel> sorter;
 
     private String[] columnNames = { "Name",
@@ -28,7 +24,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
     private Object[][] data;
 
     final Class<?>[] columnClass = new Class[] {
-            String.class, String.class, String.class, Integer.class, Boolean.class
+            String.class, String.class, String.class, String.class
     };
 
     public ReservationsPanel() {
@@ -52,9 +48,9 @@ public class ReservationsPanel extends JPanel implements PagePanel {
 
         // Create a table with a sorter.
         table = setupTable(model);
-        
-        //Create a filter for the table
-        setupFilterAndToolbar();
+
+        // Set the table properties
+        table.setDefaultRenderer(Object.class, new BorderRenderer());
 
         // Limits the user to single selection
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -65,45 +61,18 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         // Add the scroll pane to this panel.
         add(scrollPane);
 
-        // Create a separate form for filterText and statusText
-        JPanel form = new JPanel(new SpringLayout());
-        JLabel l1 = new JLabel("Customer name:", SwingConstants.TRAILING);
-        form.add(l1);
-        filterText = new JTextField();
+        // Add the form pane
+        add(new FormPane(table, sorter));
 
-        // Whenever filterText changes, invoke newFilter.
-        filterText.getDocument().addDocumentListener(
-                new DocumentListener() {
-                    public void changedUpdate(DocumentEvent e) {
-                        newFilter();
-                    }
-
-                    public void insertUpdate(DocumentEvent e) {
-                        newFilter();
-                    }
-
-                    public void removeUpdate(DocumentEvent e) {
-                        newFilter();
-                    }
-                });
-
-        l1.setLabelFor(filterText);
-        form.add(filterText);
-        JLabel l2 = new JLabel("Status:", SwingConstants.TRAILING);
-        form.add(l2);
-        statusText = new JTextField();
-        l2.setLabelFor(statusText);
-        form.add(statusText);
-        SpringUtilities.makeCompactGrid(form, 2, 2, 6, 6, 6, 6);
-        add(form);
-
+        // Add the button panel
+        addButtonPanel();
+        
+        // Set the panel properties
         setVisible(true);
-        setSize(800, 600);
 
     }
 
     private void openFile(DefaultTableModel model) {
-        System.out.println("Opening file");
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/test.csv"))) {
             String line;
             if ((line = br.readLine()) != null) {
@@ -121,36 +90,65 @@ public class ReservationsPanel extends JPanel implements PagePanel {
     }
 
     private JTable setupTable(DefaultTableModel model) {
+        
+        // Create a table with a sorter.
         sorter = new TableRowSorter<DefaultTableModel>(model);
         table = new JTable(model);
+
+        // Set the sorter
         table.setRowSorter(sorter);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+
+        // Set the table properties
+        table.setPreferredScrollableViewportSize(new Dimension(700, 300));
         table.setFillsViewportHeight(true);
+        table.setDefaultRenderer(Object.class, new StringRenderer());
+        
+        // Set the header font
+        JTableHeader header = table.getTableHeader();
+        header.setFont(new Font("Arial", Font.BOLD, 14));
+
         return table;
     }
 
-    private void setupFilterAndToolbar() {
-        TableFilterHeader filterHeader = new TableFilterHeader(table, AutoChoices.ENABLED);
-        JToolBar toolbar = new JToolBar();
-        Box floatRightBox = Box.createHorizontalBox();
-        floatRightBox.add(Box.createHorizontalGlue());
-        floatRightBox.add(toolbar);
-        add(floatRightBox);
+    private void addButtonPanel() {
+        // Create button panel
+        JPanel buttonPanel = new JPanel();
+
+        // Create buttons
+        JButton viewReservation = new JButton("View Selected Reservation");
+        JButton viewRoom = new JButton("View Selected Room");
+
+        // Add buttons to panel
+        addButtonListeners(viewReservation, viewRoom);
+        buttonPanel.add(viewReservation);
+        buttonPanel.add(viewRoom);
+
+        add(buttonPanel);
     }
 
-    /**
-     * Update the row filter regular expression from the expression in
-     * the text box.
-     */
-    private void newFilter() {
-        RowFilter<DefaultTableModel, Object> rf = null;
-        // If current expression doesn't parse, don't update.
-        try {
-            rf = RowFilter.regexFilter(filterText.getText(), 0, 1, 2);
-        } catch (java.util.regex.PatternSyntaxException e) {
-            return;
-        }
-        sorter.setRowFilter(rf);
+    private void addButtonListeners(JButton viewReservation, JButton viewRoom) {
+        viewReservation.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row != -1) {
+                String name = (String) table.getValueAt(row, 0);
+                String startDate = (String) table.getValueAt(row, 1);
+                String endDate = (String) table.getValueAt(row, 2);
+                String room = (String) table.getValueAt(row, 3);
+                JOptionPane.showMessageDialog(null, "Name: " + name + "\nStart Date: " + startDate + "\nEnd Date: " + endDate + "\nRoom: " + room);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
+            }
+        });
+
+        viewRoom.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row != -1) {
+                String room = (String) table.getValueAt(row, 3);
+                JOptionPane.showMessageDialog(null, "Room: " + room);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
+            }
+        });
     }
 
     @Override
