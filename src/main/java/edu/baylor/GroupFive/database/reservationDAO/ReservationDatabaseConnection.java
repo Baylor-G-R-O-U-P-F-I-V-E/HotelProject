@@ -14,15 +14,17 @@ public class ReservationDatabaseConnection {
         String guestID;
         String roomID;
         String reservationID;
+        Double price;
 
 
 
-        Reservation(Date startDate, Date endDate, String guestID, String roomID, String reservationID){
+        Reservation(Date startDate, Date endDate, String guestID, String roomID, String reservationID, Double price){
             this.reservationID = reservationID;
             this.startDate = startDate;
             this.endDate = endDate;
             this.guestID = guestID;
             this.roomID = roomID;
+            this.price = price;
         }
 
     }
@@ -31,8 +33,8 @@ public class ReservationDatabaseConnection {
     ReservationDatabaseConnection(){
         this.data = new ArrayList<>();
         try{
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
-            File myFile = new File("Reservations.csv");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+            File myFile = new File("Reservations.txt");
             Scanner myReader = new Scanner(myFile);
             while(myReader.hasNextLine()){
                 //assume row looks like startDate,endDate,guestID,roomID
@@ -42,7 +44,7 @@ public class ReservationDatabaseConnection {
                 if(Integer.parseInt(row[4]) >= currID){
                     currID = Integer.parseInt(row[4]) + 1;
                 }
-                data.add(new Reservation(startDate,endDate,row[2],row[3],row[4]));
+                data.add(new Reservation(startDate,endDate,row[2],row[3],row[4], Double.parseDouble(row[5])));
             }
             myReader.close();
         }catch(FileNotFoundException e){
@@ -52,8 +54,8 @@ public class ReservationDatabaseConnection {
         }
     }
 
-    public void addReservation(Date startDate, Date endDate, String roomID, String guestID){
-        Reservation r = new Reservation(startDate,endDate,roomID,guestID, currID.toString());
+    public void addReservation(Date startDate, Date endDate, String roomID, String guestID, Double price){
+        Reservation r = new Reservation(startDate,endDate,roomID,guestID, currID.toString(), price);
         currID++;
         data.add(r);
     }
@@ -61,12 +63,13 @@ public class ReservationDatabaseConnection {
     public void save()  {
         try{
             FileWriter myWriter = new FileWriter("filename.txt");
-
+            StringBuilder toF = new StringBuilder();
             for(Reservation r : data){
-                String toF = r.startDate.toString() + "," + r.endDate.toString() + "," +
-                             r.guestID + "," + r.roomID + "," + r.reservationID + "\n";
-                myWriter.write(toF);
+                toF.append(r.startDate.toString() + "," + r.endDate.toString() + "," +
+                             r.guestID + "," + r.roomID + "," + r.reservationID + "," + r.price + '\n');
+
             }
+            myWriter.write(toF.toString());
             //Date startDate, Date endDate, String guestID, String roomID, String reservationID
         }catch (IOException e){
             System.out.println("Unable to save");
@@ -93,9 +96,7 @@ public class ReservationDatabaseConnection {
         return null;
     }
 
-       // System.out.println(calendar1.before(calendar2));
-        //System.out.println(calendar1.equals(calendar2));
-      //  System.out.println(calendar1.after(calendar2));
+
 
     public Boolean checkIfAvailable(String roomID, Date startDate, Date endDate){
         for(Reservation r : data){
@@ -115,7 +116,7 @@ public class ReservationDatabaseConnection {
         return true;
     }
 
-    
+
 
 
 
