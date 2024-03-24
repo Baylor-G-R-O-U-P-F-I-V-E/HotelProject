@@ -13,15 +13,17 @@ public class Page extends JFrame implements InputDelegate {
 
     private Dashboard dashboard;
     private GridBagConstraints constraints = new GridBagConstraints();
+    private String acctNum;
+    
     
     public JPanel currentPanel;
-    public Page(String privilige) {
+    public Page(String acctNum) {
         super();
         //Init new frame
         createFrame();
 
         //Create constraints to add dashboard to the frame
-        dashboard = new Dashboard(this, privilige);
+        dashboard = new Dashboard(this, acctNum);
         addDashboard();
 
         constraints.gridx = 1;
