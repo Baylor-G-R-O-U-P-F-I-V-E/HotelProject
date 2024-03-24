@@ -1,7 +1,8 @@
 package edu.baylor.GroupFive.ui.utils.dashboard;
 
-import edu.baylor.GroupFive.ui.utils.buttons.AddReservationButton;
-import edu.baylor.GroupFive.ui.utils.buttons.HomeButton;
+import edu.baylor.GroupFive.ui.utils.buttons.DashboardButton;
+import edu.baylor.GroupFive.ui.utils.buttons.pageButtons.AddReservationButton;
+import edu.baylor.GroupFive.ui.utils.buttons.pageButtons.HomeButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
 import javax.swing.*;

@@ -1,8 +1,6 @@
-package edu.baylor.GroupFive.ui.utils.dashboard;
+package edu.baylor.GroupFive.ui.utils.buttons;
 
 import java.awt.Dimension;
-
-import edu.baylor.GroupFive.ui.utils.buttons.PageButton;
 
 public class DashboardButton extends PageButton {
 

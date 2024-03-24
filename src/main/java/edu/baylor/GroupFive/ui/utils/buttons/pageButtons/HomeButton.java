@@ -1,9 +1,9 @@
-package edu.baylor.GroupFive.ui.utils.buttons;
+package edu.baylor.GroupFive.ui.utils.buttons.pageButtons;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import edu.baylor.GroupFive.ui.utils.dashboard.DashboardButton;
+import edu.baylor.GroupFive.ui.utils.buttons.DashboardButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
 public class HomeButton extends DashboardButton {
