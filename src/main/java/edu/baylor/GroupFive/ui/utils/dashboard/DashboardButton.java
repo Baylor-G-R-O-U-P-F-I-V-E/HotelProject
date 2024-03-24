@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.ui.utils.buttons;
+package edu.baylor.GroupFive.ui.utils.dashboard;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -11,7 +11,7 @@ import javax.swing.JButton;
 public class DashboardButton extends JButton {
 
     // Creates a default size
-    Dimension buttonSize = new Dimension(250, 250);
+    Dimension buttonSize = new Dimension(150, 150);
     
     public DashboardButton(String path) {
         try {

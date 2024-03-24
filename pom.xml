@@ -36,7 +36,12 @@
             <artifactId>jdatepicker</artifactId>
             <version>1.3.4</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/net.coderazzi/tablefilter-swing -->
+      <dependency>
+            <groupId>net.coderazzi</groupId>
+            <artifactId>tablefilter-swing</artifactId>
+            <version>5.5.4</version>
+        </dependency>
     </dependencies>
 
     <build>

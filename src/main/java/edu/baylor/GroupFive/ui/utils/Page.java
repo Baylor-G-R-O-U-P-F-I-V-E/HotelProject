@@ -2,7 +2,9 @@ package edu.baylor.GroupFive.ui.utils;
 
 import javax.swing.*;
 
+import edu.baylor.GroupFive.ui.reservations.ReservationsPanel;
 import edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel;
+import edu.baylor.GroupFive.ui.utils.dashboard.Dashboard;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
 import java.awt.*;
@@ -12,6 +14,7 @@ public class Page extends JFrame implements InputDelegate {
     private Dashboard dashboard;
     private GridBagConstraints constraints = new GridBagConstraints();
     
+    public JPanel currentPanel;
     public Page(String privilige) {
         super();
         //Init new frame
@@ -24,7 +27,8 @@ public class Page extends JFrame implements InputDelegate {
         constraints.gridx = 1;
         constraints.weightx = 1;
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        add(new ReserveRoomPanel(), constraints);
+        currentPanel = new ReservationsPanel();
+        add(currentPanel, constraints);
     }
 
     public void createFrame() {
@@ -43,9 +47,33 @@ public class Page extends JFrame implements InputDelegate {
         add(dashboard, constraints);
     }
 
-    public void onPageSwitch() {
+    public void onPageSwitch(String option) {
         //todo: add logic for switching pages on dashboard button press
-        setVisible(true);
+        remove(currentPanel);
+        switch (option) {
+            case "home":
+                currentPanel = new ReservationsPanel();
+                break;
+            case "reservation":
+                currentPanel = new ReserveRoomPanel();
+                break;
+                /*
+            case "view":
+                currentPanel = new ReserveRoomPanel();
+                break;
+            case "cancel":
+                currentPanel = new ReserveRoomPanel();
+                break;
+            case "admin":
+                currentPanel = new ReserveRoomPanel();
+                break;
+            default:
+                currentPanel = new ReserveRoomPanel();
+                break;  */
+        }
+        add(currentPanel, constraints);
+        revalidate();
+        repaint();
     }
 
 
