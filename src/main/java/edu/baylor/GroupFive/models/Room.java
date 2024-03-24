@@ -8,7 +8,8 @@ public class Room {
     public enum THEME { ThemeA, ThemeB, ThemeC };
 
     private int roomNumber;
-    private QualityDescription quality;
+    //private QualityDescription quality;
+    private int quality;
     private THEME theme;
     private boolean smoking;
     private int singleBeds;
@@ -23,6 +24,17 @@ public class Room {
         this.bookings = new ArrayList<>();
     }
 
+    public Room(int roomNumber, int quality, THEME theme, boolean smoking, int singles, int doubles, int queens, int kings){
+        this.roomNumber = roomNumber;
+        this.quality = quality;
+        this.theme = theme;
+        this.smoking = smoking;
+        this.singleBeds = singles;
+        this.doubleBeds = doubles;
+        this.queenBeds = queens;
+        this.kingBeds = kings;
+    }
+
 //    public boolean isAvailableOn(Date date){
 //        return this.bookings.stream().findAny();
 //    }
@@ -35,11 +47,11 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
-    public QualityDescription getQuality() {
+    public int getQuality() {
         return quality;
     }
 
-    public void setQuality(QualityDescription quality) {
+    public void setQuality(int quality) {
         this.quality = quality;
     }
 

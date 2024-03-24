@@ -11,7 +11,7 @@ public class ReservationDatabaseConnection {
 
     ArrayList<Reservation> data;
     Integer currID = 0;
-    ReservationDatabaseConnection(){
+    public ReservationDatabaseConnection(){
         this.data = new ArrayList<>();
         try{
             SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
@@ -35,25 +35,31 @@ public class ReservationDatabaseConnection {
         }
     }
 
-    public void addReservation(Reservation reservation){;
+
+
+    public String addReservation(Reservation reservation){;
         currID++;
+        reservation.reservationID = currID.toString();
         data.add(reservation);
+        return String.valueOf(currID);
     }
 
-    public void save()  {
+    public boolean save()  {
         try{
             FileWriter myWriter = new FileWriter("filename.txt");
             StringBuilder toF = new StringBuilder();
             for(Reservation r : data){
                 toF.append(r.startDate.toString() + "," + r.endDate.toString() + "," +
-                             r.guestID + "," + r.roomID + "," + r.reservationID + "," + r.price + '\n');
+                    r.guestID + "," + r.roomID + "," + r.reservationID + "," + r.price + '\n');
 
             }
             myWriter.write(toF.toString());
             //Date startDate, Date endDate, String guestID, String roomID, String reservationID
         }catch (IOException e){
             System.out.println("Unable to save");
+            return false;
         }
+        return true;
     }
 
 
@@ -89,7 +95,7 @@ public class ReservationDatabaseConnection {
             }
 
             if((startDate.after(r.startDate) || startDate.equals(r.startDate)) &&
-                    (endDate.equals(r.endDate) || endDate.before(r.endDate))){
+                (endDate.equals(r.endDate) || endDate.before(r.endDate))){
                 return false;
             }
         }
@@ -104,5 +110,5 @@ public class ReservationDatabaseConnection {
 
 
 
-    
+
 }
