@@ -15,6 +15,10 @@ public class ReservationController {
 
     }
 
+    static List<Room> getAllRooms(){
+        return RoomServices.getRooms();
+    }
+
     static List<Room> findRooms(Date start, Date end, int singles, int doubles, int queens, int kings, List<Room.THEME> themes, List<QualityDescription> qualities){
         List<Room> rooms = RoomServices.getRooms();
         return rooms.stream()
