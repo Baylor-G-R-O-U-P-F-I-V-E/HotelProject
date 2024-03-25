@@ -20,7 +20,6 @@ import java.awt.Font;
 
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.BorderRenderer;
-import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.StringRenderer;
 
 public class NewReserveRoomPanel extends JPanel implements PagePanel {
@@ -129,7 +128,7 @@ public class NewReserveRoomPanel extends JPanel implements PagePanel {
         JPanel buttonPanel = new JPanel();
 
         // Create buttons
-        JButton viewReservation = new JButton("View Selected Reservation");
+        JButton viewReservation = new JButton("Reserve Selected Room");
         JButton viewRoom = new JButton("View Selected Room");
 
         // Add buttons to panel
