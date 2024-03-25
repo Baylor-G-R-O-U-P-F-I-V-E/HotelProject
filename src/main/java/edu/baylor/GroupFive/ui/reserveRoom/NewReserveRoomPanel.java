@@ -90,7 +90,7 @@ public class NewReserveRoomPanel extends JPanel implements PagePanel {
     }
 
     private void openFile(DefaultTableModel model) {
-        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/edu/baylor/GroupFive/database/reservationDAO/Rooms.TXT"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/edu/baylor/GroupFive/database/roomDAO/Rooms.TXT"))) {
             String line;
             if ((line = br.readLine()) != null) {
                 String[] header = line.split(",");
