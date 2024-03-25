@@ -10,12 +10,15 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
 public class LoginPage extends JFrame implements InputDelegate {
 
     private JPanel background;
     private JPanel surface;
+    private String username;
+    private String password;
 
     public LoginPage() {
         super();
@@ -77,9 +80,23 @@ public class LoginPage extends JFrame implements InputDelegate {
         } else if (option.equals("createAccount")) {
             // TODO: Switch to the create account panel
         
+        } else if (option.equals("success")) {
+            dispose();
+
+            @SuppressWarnings("unused")
+            Page page = new Page(username);
+
         } else {
             System.out.println("Invalid option");
         }
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

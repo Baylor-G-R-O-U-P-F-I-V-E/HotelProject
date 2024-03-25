@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import java.awt.Insets;
@@ -23,9 +24,11 @@ public class LoginPanel extends JPanel implements PagePanel {
     private GridBagConstraints gbc = new GridBagConstraints();
     private JTextField nameField;
     private JTextField passwordField;
-    private InputDelegate delegate;
+    private LoginPage delegate;
+    public String username;
+    public String password;
 
-    public LoginPanel(InputDelegate delegate) {
+    public LoginPanel(LoginPage delegate) {
         super();
         this.delegate = delegate;
         // Set the layout of the panel
@@ -124,6 +127,21 @@ public class LoginPanel extends JPanel implements PagePanel {
         gbc.insets = new Insets(0, 0, 100, 600);
 
         add(loginButton, gbc);
+    }
+
+    public void onClick(String username, String password) {
+        delegate.setUsername(username);
+        delegate.setPassword(password);
+
+        delegate.onPageSwitch("success");
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     @Override
