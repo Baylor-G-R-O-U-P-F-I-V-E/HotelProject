@@ -20,7 +20,6 @@ import java.awt.Font;
 
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.BorderRenderer;
-import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.StringRenderer;
 
 public class NewReserveRoomPanel extends JPanel implements PagePanel {
@@ -76,7 +75,7 @@ public class NewReserveRoomPanel extends JPanel implements PagePanel {
         add(scrollPane);
 
         // Add the form pane
-        add(new FormPane(table, sorter));
+        add(new RoomFormPane(table, sorter));
 
         // Add the button panel
         addButtonPanel();
@@ -87,7 +86,7 @@ public class NewReserveRoomPanel extends JPanel implements PagePanel {
     }
 
     private void openFile(DefaultTableModel model) {
-        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/test.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/edu/baylor/GroupFive/database/reservationDAO/Rooms.TXT"))) {
             String line;
             if ((line = br.readLine()) != null) {
                 String[] header = line.split(",");
@@ -129,7 +128,7 @@ public class NewReserveRoomPanel extends JPanel implements PagePanel {
         JPanel buttonPanel = new JPanel();
 
         // Create buttons
-        JButton viewReservation = new JButton("View Selected Reservation");
+        JButton viewReservation = new JButton("Reserve Selected Room");
         JButton viewRoom = new JButton("View Selected Room");
 
         // Add buttons to panel
