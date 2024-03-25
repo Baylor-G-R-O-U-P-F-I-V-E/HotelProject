@@ -28,10 +28,8 @@ public class RoomDatabaseConnection {
                 int quality = Integer.parseInt(row[1]);
                 String theme = row[2];
                 boolean smoking = Boolean.parseBoolean(row[3]);
-                int singles = Integer.parseInt(row[4]);
-                int doubles = Integer.parseInt(row[5]);
-                int queens = Integer.parseInt(row[6]);
-                int kings = Integer.parseInt(row[7]);
+                int numBeds = Integer.parseInt(row[4]);
+                String bedType = row[5];
 
                 if(Integer.parseInt(row[4]) >= currID){
                     currID = Integer.parseInt(row[4]) + 1;
@@ -40,7 +38,7 @@ public class RoomDatabaseConnection {
                     : theme.equals("themeB") ? Room.THEME.ThemeB
                     : theme.equals("themeC") ? Room.THEME.ThemeC
                     : null;
-                data.add(new Room(roomNumber, quality, themeEnum, smoking, singles, doubles, queens, kings));
+                data.add(new Room(roomNumber, quality, themeEnum, smoking, numBeds, Room.BED_TYPE.valueOf(bedType)));
             }
             myReader.close();
         }catch(FileNotFoundException e){
@@ -61,10 +59,8 @@ public class RoomDatabaseConnection {
                     +room.getQuality()+","
                     +room.getTheme().name()+","
                     +room.isSmoking()+","
-                    +room.getSingleBeds()+","
-                    +room.getDoubleBeds()+","
-                    +room.getQueenBeds()+","
-                    +room.getKingBeds()+","
+                    +room.getNumBeds()+","
+                    +room.getBedType().name()
                     +"\n"
                 );
 
