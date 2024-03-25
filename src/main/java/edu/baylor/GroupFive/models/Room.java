@@ -6,16 +6,15 @@ import java.util.List;
 
 public class Room {
     public enum THEME { ThemeA, ThemeB, ThemeC };
+    public enum BED_TYPE {Single, Double, Queen, King};
 
     private int roomNumber;
     //private QualityDescription quality;
     private int quality;
     private THEME theme;
     private boolean smoking;
-    private int singleBeds;
-    private int doubleBeds;
-    private int queenBeds;
-    private int kingBeds;
+    private BED_TYPE bedType;
+    private int numBeds;
 
     private List<Booking> bookings;
 
@@ -24,21 +23,33 @@ public class Room {
         this.bookings = new ArrayList<>();
     }
 
-    public Room(int roomNumber, int quality, THEME theme, boolean smoking, int singles, int doubles, int queens, int kings){
+    public Room(int roomNumber, int quality, THEME theme, boolean smoking, int numBeds, BED_TYPE bedType){
         this.roomNumber = roomNumber;
         this.quality = quality;
         this.theme = theme;
         this.smoking = smoking;
-        this.singleBeds = singles;
-        this.doubleBeds = doubles;
-        this.queenBeds = queens;
-        this.kingBeds = kings;
+        this.numBeds = numBeds;
+        this.bedType = bedType;
     }
 
 //    public boolean isAvailableOn(Date date){
 //        return this.bookings.stream().findAny();
 //    }
+    public BED_TYPE getBedType() {
+        return bedType;
+    }
 
+    public void setBedType(BED_TYPE bedType) {
+        this.bedType = bedType;
+    }
+
+    public int getNumBeds() {
+        return numBeds;
+    }
+
+    public void setNumBeds(int numBeds) {
+        this.numBeds = numBeds;
+    }
     public int getRoomNumber() {
         return roomNumber;
     }
@@ -69,38 +80,6 @@ public class Room {
 
     public void setSmoking(boolean smoking) {
         this.smoking = smoking;
-    }
-
-    public int getSingleBeds() {
-        return singleBeds;
-    }
-
-    public void setSingleBeds(int singleBeds) {
-        this.singleBeds = singleBeds;
-    }
-
-    public int getDoubleBeds() {
-        return doubleBeds;
-    }
-
-    public void setDoubleBeds(int doubleBeds) {
-        this.doubleBeds = doubleBeds;
-    }
-
-    public int getQueenBeds() {
-        return queenBeds;
-    }
-
-    public void setQueenBeds(int queenBeds) {
-        this.queenBeds = queenBeds;
-    }
-
-    public int getKingBeds() {
-        return kingBeds;
-    }
-
-    public void setKingBeds(int kingBeds) {
-        this.kingBeds = kingBeds;
     }
 
     public List<Booking> getBookings() {
