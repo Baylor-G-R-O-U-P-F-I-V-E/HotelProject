@@ -76,7 +76,7 @@ public class NewReserveRoomPanel extends JPanel implements PagePanel {
         add(scrollPane);
 
         // Add the form pane
-        add(new FormPane(table, sorter));
+        add(new RoomFormPane(table, sorter));
 
         // Add the button panel
         addButtonPanel();
@@ -87,7 +87,7 @@ public class NewReserveRoomPanel extends JPanel implements PagePanel {
     }
 
     private void openFile(DefaultTableModel model) {
-        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/test.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/edu/baylor/GroupFive/database/reservationDAO/Rooms.TXT"))) {
             String line;
             if ((line = br.readLine()) != null) {
                 String[] header = line.split(",");
