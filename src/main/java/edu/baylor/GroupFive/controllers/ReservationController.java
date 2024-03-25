@@ -19,7 +19,7 @@ public class ReservationController {
         return RoomServices.getRooms();
     }
 
-    static List<Room> findRooms(Date start, Date end, int singles, int doubles, int queens, int kings, List<Room.THEME> themes, List<QualityDescription> qualities){
+    static List<Room> findRooms(Date start, Date end, int numBeds, Room.BED_TYPE bedType, List<Room.THEME> themes, List<QualityDescription> qualities){
         List<Room> rooms = RoomServices.getRooms();
         return rooms.stream()
             .filter(room ->{
@@ -27,10 +27,8 @@ public class ReservationController {
                    return booking.getStartDate().after(start) && booking.getEndDate().before(end);
                }).toList().isEmpty();
 
-               boolean matches = room.getSingleBeds() >= singles
-                   && room.getDoubleBeds() >= doubles
-                   && room.getQueenBeds() >= queens
-                   && room.getKingBeds() >= kings
+               boolean matches = room.getNumBeds() >= numBeds
+                   && room.getBedType() == bedType
                    && themes.contains(room.getTheme())
                    && qualities.contains(room.getQuality());
                return isAvailable && matches;
