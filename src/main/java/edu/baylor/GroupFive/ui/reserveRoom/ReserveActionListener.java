@@ -1,24 +1,24 @@
 package edu.baylor.GroupFive.ui.reserveRoom;
 
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import org.jdatepicker.impl.JDatePickerImpl;
+
+import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 
 public class ReserveActionListener implements ActionListener {
     private JTextField roomNumberField;
     private JDatePickerImpl startDatePicker;
     private JDatePickerImpl endDatePicker;
     private JTextField nameField;
+    private static String title = "Reservation Error";
 
     public ReserveActionListener(JTextField nameField, JTextField roomNumberField, JDatePickerImpl startDate,
             JDatePickerImpl endDate) {
@@ -38,7 +38,7 @@ public class ReserveActionListener implements ActionListener {
         if (name.isEmpty()) {
             message = "Please enter a name";
             try {
-                getBadInputDialog(message);
+                new BadInputDialog(message, title);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -50,7 +50,7 @@ public class ReserveActionListener implements ActionListener {
         if (roomNumber.isEmpty()) {
             message = "Please enter a room number";
             try {
-                getBadInputDialog(message);
+                new BadInputDialog(message, title);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -73,7 +73,7 @@ public class ReserveActionListener implements ActionListener {
         if (startDate.after(endDate)) {
             message = "The start date must be before the end date";
             try {
-                getBadInputDialog(message);
+                new BadInputDialog(message, title);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -101,10 +101,4 @@ public class ReserveActionListener implements ActionListener {
 
     }
 
-    public void getBadInputDialog(String message) throws IOException {
-        BufferedImage badImage = ImageIO.read(new File("src/main/resources/dialog-icons/mad-guy.png"));
-        ImageIcon badIcon = new ImageIcon(badImage);
-
-        JOptionPane.showMessageDialog(null, message, "Reservation not made", JOptionPane.INFORMATION_MESSAGE, badIcon);
-    }
 }

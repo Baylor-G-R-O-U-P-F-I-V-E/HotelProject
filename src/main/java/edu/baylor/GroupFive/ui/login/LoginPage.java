@@ -2,8 +2,6 @@ package edu.baylor.GroupFive.ui.login;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.image.*;
 import java.awt.Image;
 import java.io.IOException;
@@ -13,16 +11,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import edu.baylor.GroupFive.ui.utils.Page;
-import edu.baylor.GroupFive.ui.utils.buttons.landingButtons.CreateAccountButton;
-import edu.baylor.GroupFive.ui.utils.buttons.landingButtons.LoginButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
-import java.awt.Insets;
 
 public class LoginPage extends JFrame implements InputDelegate {
 
     private JPanel background;
     private JPanel surface;
-    private GridBagConstraints gbc;
+    private String username;
+    private String password;
 
     public LoginPage() {
         super();
@@ -34,20 +30,10 @@ public class LoginPage extends JFrame implements InputDelegate {
         setVisible(true);
 
         // Create the surface panel
-        surface = new JPanel(new GridBagLayout());
-        surface.setOpaque(false);
+        surface = new LandingPanel(this);
 
-        // Create a GridBagConstraints object
-        gbc = new GridBagConstraints();
-
-        // Add the login button to the surface panel
-        addLoginButton();
-
-        // Add the create account button to the surface panel
-        addCreateAccountButton();
-
-        // Add the surface panel to the background panel
-        background.add(surface, BorderLayout.CENTER);
+        // Add the surface panel to the frame
+        add(surface);
     }
 
     public void createFrame() {
@@ -79,49 +65,38 @@ public class LoginPage extends JFrame implements InputDelegate {
         setLocationRelativeTo(null);
     }
 
-    private void addLoginButton() {
-        
-        // Set the constraints for the login button
-        gbc.gridx = 0;
-        gbc.gridy = 1; 
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.anchor = GridBagConstraints.SOUTHWEST;
-        gbc.insets = new Insets(0, 250, 130, 0); // Add a margin of 20 pixels on the left and bottom
-
-        // Add the login button to the surface panel with the specified constraints
-        surface.add(new LoginButton(this, "src/main/resources/button-icons/login-button-icon.png"), gbc);
-    }
-
-    //Write method to create create account button
-    private void addCreateAccountButton() {
-        // Set the constraints for the create account button
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.anchor = GridBagConstraints.SOUTHEAST;
-        gbc.insets = new Insets(0, 0, 130, 250); // Add a margin of 20 pixels on the left and bottom
-
-        // Add the create account button to the surface panel with the specified constraints
-        surface.add(new CreateAccountButton(this, "src/main/resources/button-icons/create-acct-button-icon.png"), gbc);
-    }
-
     public void onPageSwitch(String option) {
+        
         // Switch to the login page
         if (option.equals("login")) {
-            // Close the frame and open a Page object
-            dispose();
 
-            // Open a new Page
-            @SuppressWarnings("unused")
-            InputDelegate page = new Page("admin");
+            //Replace surface panel with login panel
+            remove(surface);
+            surface = new LoginPanel(this);
+            add(surface);
+            revalidate();
+            repaint();
+
         } else if (option.equals("createAccount")) {
             // TODO: Switch to the create account panel
         
+        } else if (option.equals("success")) {
+            dispose();
+
+            @SuppressWarnings("unused")
+            Page page = new Page(username);
+
         } else {
             System.out.println("Invalid option");
         }
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }
