@@ -1,12 +1,10 @@
+package edu.baylor.GroupFive.models;
 
 
 public class Product {
-    int prodictID;
-    Inventory inventory;
-    ProductDescription description;
-
-    Inventory getInventory(){return this.inventory;}
-    void setInventory(Inventory val) {this.inventory = val;}
+    private Inventory inventory;
+    private ProductDescription description;
+    private int productID;
 
     int getID(){return this.productID;}
     void setInventory(int val) {this.productID = val;}
