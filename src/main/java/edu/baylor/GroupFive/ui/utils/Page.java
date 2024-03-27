@@ -5,7 +5,6 @@ import javax.swing.*;
 import edu.baylor.GroupFive.model.Privilege;
 import edu.baylor.GroupFive.ui.reservations.ReservationsPanel;
 import edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel;
-import edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel;
 import edu.baylor.GroupFive.ui.utils.dashboard.Dashboard;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 

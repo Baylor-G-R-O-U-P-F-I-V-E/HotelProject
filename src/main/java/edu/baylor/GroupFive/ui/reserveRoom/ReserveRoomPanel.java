@@ -1,8 +1,5 @@
 package edu.baylor.GroupFive.ui.reserveRoom;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,19 +9,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
-
-import java.awt.Dimension;
-import java.awt.Font;
 
 import edu.baylor.GroupFive.ui.utils.DatePanel;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
-import edu.baylor.GroupFive.ui.utils.table.BorderRenderer;
-import edu.baylor.GroupFive.ui.utils.table.NewFormPane;
-import edu.baylor.GroupFive.ui.utils.table.StringRenderer;
+import edu.baylor.GroupFive.ui.utils.table.FormPane;
+import edu.baylor.GroupFive.ui.utils.table.HotelModel;
+import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 
 public class ReserveRoomPanel extends JPanel implements PagePanel {
     private JTable table;
@@ -47,32 +39,14 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
 
     public ReserveRoomPanel() {
         super();
-
-        // Create a model of the data.
-        DefaultTableModel model = new DefaultTableModel(null, columnNames) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-
-            @Override
-            public Class<?> getColumnClass(int columnIndex) {
-                return columnClass[columnIndex];
-            }
-        };
-
-        openFile(model, "src/main/java/edu/baylor/GroupFive/database/roomDAO/Rooms.TXT");
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+
+        // Create a model of the data.
+        DefaultTableModel model = new HotelModel(columnNames, columnClass, "src/main/java/edu/baylor/GroupFive/database/roomDAO/Rooms.TXT");
+        
         // Create a table with a sorter.
-        table = setupTable(model);
-        model.setColumnIdentifiers(columnNames);
-
-        // Set the table properties
-        table.setDefaultRenderer(Object.class, new BorderRenderer());
-
-        // Limits the user to single selection
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table = new HotelTable(model);
 
         // Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table);
@@ -81,7 +55,7 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
         add(scrollPane);
 
         // Add the form pane
-        add(new NewFormPane(table, sorter, columnNames));
+        add(new FormPane(table, sorter, columnNames));
 
         // Add the button panel
         addButtonPanel();
@@ -89,40 +63,6 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
         // Set the panel properties
         setVisible(true);
 
-    }
-
-    private void openFile(DefaultTableModel model, String path) {
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] row = line.split(",");
-                model.addRow(row);
-            }
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Issue opening file: " + ex.getMessage());
-        }
-
-    }
-
-    private JTable setupTable(DefaultTableModel model) {
-        
-        // Create a table with a sorter.
-        sorter = new TableRowSorter<DefaultTableModel>(model);
-        table = new JTable(model);
-
-        // Set the sorter
-        table.setRowSorter(sorter);
-
-        // Set the table properties
-        table.setPreferredScrollableViewportSize(new Dimension(700, 300));
-        table.setFillsViewportHeight(true);
-        table.setDefaultRenderer(Object.class, new StringRenderer());
-        
-        // Set the header font
-        JTableHeader header = table.getTableHeader();
-        header.setFont(new Font("Arial", Font.BOLD, 14));
-
-        return table;
     }
 
     private void addButtonPanel() {
