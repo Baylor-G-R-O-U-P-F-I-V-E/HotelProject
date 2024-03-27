@@ -16,7 +16,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
-import javax.swing.text.DateFormatter;
 
 import java.awt.Dimension;
 import java.awt.Font;
