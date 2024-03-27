@@ -1,105 +1,200 @@
 package edu.baylor.GroupFive.database.reservationDAO;
 
 import java.io.*;
+import java.nio.file.FileSystemNotFoundException;
+import java.sql.*;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.ArrayList;
+import java.util.Date;
+
+import edu.baylor.GroupFive.database.reservationDAO.Reservation;
 
 public class ReservationDatabaseConnection {
 
 
-    ArrayList<Reservation> data;
-    Integer currID = 0;
-    public ReservationDatabaseConnection(){
-        this.data = new ArrayList<>();
-        try{
-            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
-            File myFile = new File("Reservations.txt");
-            Scanner myReader = new Scanner(myFile);
-            while(myReader.hasNextLine()){
-                //assume row looks like startDate,endDate,guestID,roomID
-                String[] row = myReader.nextLine().split(",");
-                Date startDate = formatter.parse(row[0]);
-                Date endDate = formatter.parse(row[1]);
-                if(Integer.parseInt(row[4]) >= currID){
-                    currID = Integer.parseInt(row[4]) + 1;
-                }
-                data.add(new Reservation(startDate,endDate,row[2],row[3],row[4], Double.parseDouble(row[5])));
+
+    public ReservationDatabaseConnection(){}
+
+    private Connection getConnection(){
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:derby:Hotel;create=true", "", "");
+            if(connection == null) {
+                System.out.println("Could not connect");
+                return null;
             }
-            myReader.close();
-        }catch(FileNotFoundException e){
-            System.out.println("Error unable to find file");
-        } catch (ParseException e) {
+        } catch (SQLException e) {
+            return null;
+        }
+        return connection;
+    }
+
+    public String addReservation(Reservation reservation) throws SQLException {;
+        Connection connection = getConnection();
+        if(connection == null){
+            System.out.println("Connection Failed");
+            return null;
+        }
+        Statement statement = null;
+        String rowID = null;
+        // startDate endDate price guestID roomID
+        String sqlInsert = "INSERT INTO Reservation(START_DATE,END_DATE,PRICE,GUEST_ID,ROOM_ID) VALUES('" + formatDate(reservation.startDate) + "','" +
+                formatDate(reservation.endDate) + "'," + reservation.price + "," + reservation.guestID + "," + reservation.roomID + ");";
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate(sqlInsert);
+            ResultSet r = statement.executeQuery("SELECT MAX(reservationID) FROM RESERVATION");
+            rowID = r.getString("reservationID");
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }
-    }
-
-
-
-    public String addReservation(Reservation reservation){;
-        currID++;
-        reservation.reservationID = currID.toString();
-        data.add(reservation);
-        return String.valueOf(currID);
-    }
-
-    public boolean save()  {
-        try{
-            FileWriter myWriter = new FileWriter("filename.txt");
-            StringBuilder toF = new StringBuilder();
-            for(Reservation r : data){
-                toF.append(r.startDate.toString() + "," + r.endDate.toString() + "," +
-                    r.guestID + "," + r.roomID + "," + r.reservationID + "," + r.price + '\n');
-
+            return null;
+        }finally {
+            if (statement != null) {
+                statement.close();
             }
-            myWriter.write(toF.toString());
-            //Date startDate, Date endDate, String guestID, String roomID, String reservationID
-        }catch (IOException e){
-            System.out.println("Unable to save");
+            if (connection != null) {
+                connection.close();
+            }
+        }
+
+
+        return rowID;
+    }
+
+
+
+
+    public Boolean cancelReservation(String reservationID) throws SQLException {
+
+
+        Connection connection = getConnection();
+        if(connection == null){
+            System.out.println("Connection Failed");
+            return null;
+        }
+
+        Statement statement = null;
+        String sqlDelete = "DELETE FROM reservation WHERE reservationID = '" + reservationID + "';";
+        try {
+            statement = connection.createStatement();
+            statement.execute(sqlDelete);
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return false;
+        }finally {
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
+
+
+    }
+
+    public Reservation getInfo(String reservationID) throws SQLException {
+        Connection connection = getConnection();
+        if(connection == null){
+            System.out.println("Connection Failed");
+            return null;
+        }
+
+        ResultSet rs = null;
+        Statement statement = null;
+        String sqlQuery = "SELECT * FROM reservation WHERE reservationID = 'reservationID';";
+        try {
+            statement = connection.createStatement();
+            rs = statement.executeQuery(sqlQuery);
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }finally {
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        rs.next();
+        Reservation out = new Reservation(rs.getDate("startDate"),
+                rs.getDate("endDate"),
+                rs.getString("guestID"),
+                rs.getString("roomID"),
+                rs.getString("reservationID"),
+                rs.getDouble("price"));
+        return out;
+
+    }
+
+
+
+    public Boolean checkIfAvailable(String roomID, Date startDate, Date endDate) throws SQLException {
+        //'20150131'
+        Connection connection = getConnection();
+        if(connection == null){
+            System.out.println("Connection Failed");
+            return null;
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.ENGLISH);
+
+        ResultSet rs = null;
+        Statement statement = null;
+        String sqlQuery = "SELECT * FROM reservation WHERE roomid='" + roomID + "';";
+        try {
+            statement = connection.createStatement();
+            rs = statement.executeQuery(sqlQuery);
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }finally {
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        ArrayList<ArrayList<Date>> mem = new ArrayList<>();
+        while(rs.next()){
+            ArrayList<Date> temp = new ArrayList<>();
+            temp.add(rs.getDate("startDate"));
+            temp.add(rs.getDate("endDate"));
+            mem.add(temp);
+        }
+
+        for(ArrayList<Date> r : mem){
+
+            if((startDate.after(r.get(0)) || startDate.equals(r.get(0))) && startDate.before(r.get(1))){
+                return false;
+            }
+            if(endDate.after(r.get(0)) && (endDate.equals(r.get(1)) || endDate.before(r.get(1)))){
+                return false;
+            }
+
+            if(startDate.after(r.get(0)) || startDate.equals(r.get(0)) &&
+                (endDate.equals(r.get(1)) || endDate.before(r.get(1)))){
+                return false;
+            }
         }
         return true;
     }
 
 
-    public Boolean cancelReservation(String reservationID){
-        for(int i = 0; i < data.size(); i++){
-            if(data.get(i).reservationID.equals(reservationID)){
-                data.remove(i);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Reservation getInfo(String reservationID){
-        for(int i = 0; i < data.size(); i++){
-            if(data.get(i).reservationID.equals(reservationID)){
-                return data.get(i);
-            }
-        }
-        return null;
-    }
-
-
-
-    public Boolean checkIfAvailable(String roomID, Date startDate, Date endDate){
-        for(Reservation r : data){
-            if(!roomID.equals(r.roomID)){continue;}
-            if((startDate.after(r.startDate) || startDate.equals(r.startDate)) && startDate.before(r.endDate)){
-                return false;
-            }
-            if(endDate.after(r.startDate) && (endDate.equals(r.endDate) || endDate.before(r.endDate))){
-                return false;
-            }
-
-            if((startDate.after(r.startDate) || startDate.equals(r.startDate)) &&
-                (endDate.equals(r.endDate) || endDate.before(r.endDate))){
-                return false;
-            }
-        }
-        return true;
+    private static String formatDate(Date myDate) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(myDate.getTime());
     }
 
 

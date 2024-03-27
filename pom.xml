@@ -29,6 +29,21 @@
             <version>1.2.0</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
+        <!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>10.17.1.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.derby/derbyclient -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbyclient</artifactId>
+            <version>10.17.1.0</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.jdatepicker/jdatepicker -->
         <dependency>
             <groupId>org.jdatepicker</groupId>
