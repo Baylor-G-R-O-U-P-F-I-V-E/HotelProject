@@ -8,6 +8,7 @@ import javax.swing.table.*;
 
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
+import edu.baylor.GroupFive.ui.utils.table.NewFormPane;
 import edu.baylor.GroupFive.ui.utils.table.StringRenderer;
 import edu.baylor.GroupFive.ui.utils.table.BorderRenderer;
 
@@ -62,7 +63,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         add(scrollPane);
 
         // Add the form pane
-        add(new FormPane(table, sorter));
+        add(new NewFormPane(table, sorter, columnNames));
 
         // Add the button panel
         addButtonPanel();
