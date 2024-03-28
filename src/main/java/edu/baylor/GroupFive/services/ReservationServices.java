@@ -1,36 +1,56 @@
-package edu.baylor.GroupFive.Services;
+package edu.baylor.GroupFive.services;
 
-import edu.baylor.GroupFive.database.reservationDAO.Reservation;
+import edu.baylor.GroupFive.models.Reservation;
+import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.database.reservationDAO.ReservationDatabaseConnection;
+import edu.baylor.GroupFive.database.roomDAO.RoomDatabaseConnection;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
 
-//public class ReservationServices {
-//
-//    public static String addReservation(Date startDate, Date endDate, String roomID, String guestID){
-//
-//        RoomDatabaseConnection roomConn = new RoomDatabaseConnection();
-//        Room currRoom = roomConn.getRoom(roomID);
-//        if(currRoom == null) return null;
-//        Double roomPrice = currRoom.dailyPrice;
-//
-//        Double stayPrice = roomPrice * ChronoUnit.DAYS.between(startDate.toInstant(),endDate.toInstant());
-//
-//        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
-//        //-1 is a tempID as id will be assigned in addReservation
-//        Reservation newReservation = new Reservation(startDate,endDate,guestID,roomID, "-1", stayPrice);
-//        Boolean isAvailable = conn.checkIfAvailable(roomID,startDate,endDate);
-//
-//        if(!isAvailable){return null;}
-//
-//        String reservationID = conn.addReservation(newReservation);
-//        Boolean isSaved = conn.save();
-//        if(!isSaved) return null;
-//
-//        return reservationID;
-//    }
-//
-//
-//
-//}
+public class ReservationServices {
+
+    public static List<Reservation> getReservations() throws SQLException{
+        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        List<Reservation> reservations = conn.getReservationsFromResultSet(conn.getReservations());
+        return reservations;
+    }
+    
+    /*
+    public static Reservation getReservation(String reservationID) throws SQLException{
+        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        Reservation reservation = conn.getReservation(reservationID);
+        return reservation;
+    }
+    */
+
+    public static String addReservation(Date startDate, Date endDate, String roomID, String guestID) throws SQLException{
+
+        RoomDatabaseConnection roomConn = new RoomDatabaseConnection();
+        Room currRoom = roomConn.getRoom(Integer.parseInt(roomID));
+        if(currRoom == null) return null;
+            Double roomPrice = currRoom.getDailyPrice();
+
+        Double stayPrice = roomPrice * ChronoUnit.DAYS.between(startDate.toInstant(),endDate.toInstant());
+
+        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        //-1 is a tempID as id will be assigned in addReservation
+        Reservation newReservation = new Reservation(startDate,endDate,guestID,roomID, "-1", stayPrice);
+        Boolean isAvailable = conn.checkIfAvailable(roomID,startDate,endDate);
+
+        if(!isAvailable){return null;}
+
+        String reservationID = conn.addReservation(newReservation);
+        Boolean isSaved = conn.save();
+        
+        if(!isSaved) return null;
+
+        return reservationID;
+    }
+
+
+
+}

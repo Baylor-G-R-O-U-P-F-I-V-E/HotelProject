@@ -1,20 +1,18 @@
-package edu.baylor.GroupFive.ui.utils.table;
+package edu.baylor.GroupFive.ui.reserveRoom;
 
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
 
 import edu.baylor.GroupFive.controllers.ReservationController;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.Room.BED_TYPE;
 import edu.baylor.GroupFive.models.Room.THEME;
+import edu.baylor.GroupFive.ui.utils.interfaces.DataModel;
+import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 
-public class ReservationModel extends DefaultTableModel {
+public class AddReservationModel extends HotelModel implements DataModel {
 
-    private final Class<?>[] columnClass;
-
-    public ReservationModel(String[] columnNames, Class<?>[] columnClass) {
-        super(null, columnNames);
-        this.columnClass = columnClass;
+    public AddReservationModel(String[] columnNames, Class<?>[] columnClasses) {
+        super(columnNames, columnClasses);
 
         try {
             getData();
@@ -75,13 +73,4 @@ public class ReservationModel extends DefaultTableModel {
         }
     }
 
-    @Override
-    public boolean isCellEditable(int row, int column) {
-        return false;
-    }
-
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-        return columnClass[columnIndex];
-    }
 }

@@ -10,11 +10,9 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-import edu.baylor.GroupFive.database.reservationDAO.Reservation;
+import edu.baylor.GroupFive.models.Reservation;
 
 public class ReservationDatabaseConnection {
-
-
 
     public ReservationDatabaseConnection(){}
 
@@ -32,6 +30,47 @@ public class ReservationDatabaseConnection {
         return connection;
     }
 
+    public ResultSet getReservations() throws SQLException {
+        Connection connection = getConnection();
+        if(connection == null){
+            System.out.println("Connection Failed");
+            return null;
+        }
+        ResultSet rs = null;
+        Statement statement = null;
+        String sqlQuery = "SELECT * FROM reservation;";
+        try {
+            statement = connection.createStatement();
+            rs = statement.executeQuery(sqlQuery);
+            return rs;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }finally {
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+    }
+
+    public List<Reservation> getReservationsFromResultSet(ResultSet rs) throws SQLException {
+        List<Reservation> reservations = new ArrayList<>();
+        while(rs.next()){
+            Reservation temp = new Reservation(rs.getDate("startDate"),
+                    rs.getDate("endDate"),
+                    rs.getString("guestID"),
+                    rs.getString("roomID"),
+                    rs.getString("reservationID"),
+                    rs.getDouble("price"));
+            reservations.add(temp);
+        }
+        return reservations;
+    }
+
+
     public String addReservation(Reservation reservation) throws SQLException {;
         Connection connection = getConnection();
         if(connection == null){
@@ -41,8 +80,8 @@ public class ReservationDatabaseConnection {
         Statement statement = null;
         String rowID = null;
         // startDate endDate price guestID roomID
-        String sqlInsert = "INSERT INTO Reservation(START_DATE,END_DATE,PRICE,GUEST_ID,ROOM_ID) VALUES('" + formatDate(reservation.startDate) + "','" +
-                formatDate(reservation.endDate) + "'," + reservation.price + "," + reservation.guestID + "," + reservation.roomID + ");";
+        String sqlInsert = "INSERT INTO Reservation(START_DATE,END_DATE,PRICE,GUEST_ID,ROOM_ID) VALUES('" + formatDate(reservation.getStartDate()) + "','" +
+                formatDate(reservation.getEndDate()) + "'," + reservation.getPrice() + "," + reservation.getGuestID() + "," + reservation.getRoomID() + ");";
         try {
             statement = connection.createStatement();
             statement.executeUpdate(sqlInsert);
@@ -189,6 +228,15 @@ public class ReservationDatabaseConnection {
             }
         }
         return true;
+    }
+
+    /*
+     * TODO: Implement this method
+     */
+    public boolean save() {
+        // TODO
+        return true;
+        
     }
 
 
