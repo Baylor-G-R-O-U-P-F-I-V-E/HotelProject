@@ -31,14 +31,14 @@ public class RoomDatabaseConnection {
                 String theme = row[2];
                 boolean smoking = Boolean.parseBoolean(row[3]);
                 int numBeds = Integer.parseInt(row[4]);
-                String bedType = row[5];
+                String bedType = row[5].toUpperCase();
 
                 if(Integer.parseInt(row[4]) >= currID){
                     currID = Integer.parseInt(row[4]) + 1;
                 }
-                Room.THEME themeEnum = theme.equals("themeA") ? Room.THEME.ThemeA
-                    : theme.equals("themeB") ? Room.THEME.ThemeB
-                    : theme.equals("themeC") ? Room.THEME.ThemeC
+                Room.THEME themeEnum = theme.equals("ThemeA") ? Room.THEME.ThemeA
+                    : theme.equals("ThemeB") ? Room.THEME.ThemeB
+                    : theme.equals("ThemeC") ? Room.THEME.ThemeC
                     : null;
                 data.add(new Room(roomNumber, quality, themeEnum, smoking, numBeds, Room.BED_TYPE.valueOf(bedType)));
             }
@@ -73,6 +73,9 @@ public class RoomDatabaseConnection {
         }catch (IOException e){
             System.out.println("Unable to save");
             return false;
+        } finally {
+            // Close myWriter
+            
         }
         return true;
     }

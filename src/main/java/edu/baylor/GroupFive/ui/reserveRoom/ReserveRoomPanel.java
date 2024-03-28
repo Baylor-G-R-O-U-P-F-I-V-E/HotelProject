@@ -55,7 +55,7 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
         add(scrollPane);
 
         // Add the form pane
-        add(new FormPane(table, sorter, columnNames));
+        add(new FormPane(table, ((HotelTable)table).getSorter(), columnNames));
 
         // Add the button panel
         addButtonPanel();
