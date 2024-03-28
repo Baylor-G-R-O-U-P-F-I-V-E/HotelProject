@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Properties;
 import java.awt.*;
+import java.util.Date;
 
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JLabel;
@@ -98,6 +99,11 @@ public class DatePanel extends JPanel implements PagePanel {
 
         add(datePicker);
         
+    }
+
+    public Date getDate() {
+        Date date = (Date) cal.getTime();
+        return date;
     }
 
     @Override

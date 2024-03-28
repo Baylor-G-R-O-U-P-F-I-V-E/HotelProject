@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.database.reservationDAO;
+package edu.baylor.GroupFive.database.roomDAO;
 
 import edu.baylor.GroupFive.models.Room;
 
@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -19,7 +20,8 @@ public class RoomDatabaseConnection {
         this.data = new ArrayList<>();
         try{
             SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
-            File myFile = new File("Rooms.txt");
+            URL url = getClass().getResource("Rooms.txt");
+            File myFile = new File(url.toURI());
             Scanner myReader = new Scanner(myFile);
             while(myReader.hasNextLine()){
                 //assume row looks like rooomNumber,quality,theme,smoking,singles,doubles,queens,kings
@@ -29,20 +31,21 @@ public class RoomDatabaseConnection {
                 String theme = row[2];
                 boolean smoking = Boolean.parseBoolean(row[3]);
                 int numBeds = Integer.parseInt(row[4]);
-                String bedType = row[5];
+                String bedType = row[5].toUpperCase();
 
                 if(Integer.parseInt(row[4]) >= currID){
                     currID = Integer.parseInt(row[4]) + 1;
                 }
-                Room.THEME themeEnum = theme.equals("themeA") ? Room.THEME.ThemeA
-                    : theme.equals("themeB") ? Room.THEME.ThemeB
-                    : theme.equals("themeC") ? Room.THEME.ThemeC
+                Room.THEME themeEnum = theme.equals("ThemeA") ? Room.THEME.ThemeA
+                    : theme.equals("ThemeB") ? Room.THEME.ThemeB
+                    : theme.equals("ThemeC") ? Room.THEME.ThemeC
                     : null;
                 data.add(new Room(roomNumber, quality, themeEnum, smoking, numBeds, Room.BED_TYPE.valueOf(bedType)));
             }
             myReader.close();
-        }catch(FileNotFoundException e){
+        }catch(Exception e){
             System.out.println("Error unable to find file");
+            e.printStackTrace();
         }
     }
 
@@ -70,6 +73,9 @@ public class RoomDatabaseConnection {
         }catch (IOException e){
             System.out.println("Unable to save");
             return false;
+        } finally {
+            // Close myWriter
+            
         }
         return true;
     }

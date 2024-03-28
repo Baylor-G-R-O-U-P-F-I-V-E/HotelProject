@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Room {
     public enum THEME { ThemeA, ThemeB, ThemeC };
-    public enum BED_TYPE {Single, Double, Queen, King};
+    public enum BED_TYPE {SINGLE, DOUBLE, QUEEN, KING};
 
     private int roomNumber;
     //private QualityDescription quality;
