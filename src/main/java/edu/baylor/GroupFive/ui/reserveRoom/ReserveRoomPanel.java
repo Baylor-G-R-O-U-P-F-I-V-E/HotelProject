@@ -43,7 +43,7 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
 
 
         // Create a model of the data.
-        DefaultTableModel model = new ReservationModel(columnNames, columnClass);
+        DefaultTableModel model = new AddReservationModel(columnNames, columnClass);
         
         // Create a table with a sorter.
         table = new HotelTable(model);

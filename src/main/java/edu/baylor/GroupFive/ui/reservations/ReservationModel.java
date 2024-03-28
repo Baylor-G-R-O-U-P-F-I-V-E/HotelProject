@@ -11,7 +11,7 @@ import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 
 public class ReservationModel extends HotelModel implements DataModel {
 
-    public ReservationModel(String[] columnNames, Class<?>[] columnClass, String path) {
+    public ReservationModel(String[] columnNames, Class<?>[] columnClass) {
         super(columnNames, columnClass);
 
         try {
