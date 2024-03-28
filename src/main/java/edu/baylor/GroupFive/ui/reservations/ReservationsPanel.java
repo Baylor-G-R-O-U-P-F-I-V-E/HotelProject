@@ -5,7 +5,6 @@ import javax.swing.table.*;
 
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
-import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 
 public class ReservationsPanel extends JPanel implements PagePanel {
@@ -13,14 +12,16 @@ public class ReservationsPanel extends JPanel implements PagePanel {
     private JTable table;
 
     // Define column names
-    private String[] columnNames = { "Name",
+    private String[] columnNames = { "Reservation ID",
+            "Room ID",
             "Start Date",
             "End Date",
-            "Room" };
+            "Guest ID",
+            "Price"};
 
     // Define data types for the columns
     final Class<?>[] columnClass = new Class[] {
-            String.class, String.class, String.class, String.class
+            String.class, String.class, String.class, String.class, String.class, String.class
     };
 
     public ReservationsPanel() {
@@ -28,7 +29,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Create a model of the data.
-        DefaultTableModel model = new HotelModel(columnNames, columnClass, "src/main/resources/test.csv");
+        DefaultTableModel model = new ReservationModel(columnNames, columnClass, "src/main/resources/test.csv");
 
         // Create a table with a sorter.
         table = new HotelTable(model);
