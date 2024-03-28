@@ -17,6 +17,7 @@ import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
+import edu.baylor.GroupFive.ui.utils.table.ReservationModel;
 
 public class ReserveRoomPanel extends JPanel implements PagePanel {
     private JTable table;
@@ -28,8 +29,7 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
             "Theme",
             "Smoking",
             "Number of Beds",
-            "Bed Type",
-            "Nighty Rate"
+            "Bed Type"
          };
     
     //Define data types for the columns
@@ -43,7 +43,7 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
 
 
         // Create a model of the data.
-        DefaultTableModel model = new HotelModel(columnNames, columnClass, "src/main/java/edu/baylor/GroupFive/database/roomDAO/Rooms.TXT");
+        DefaultTableModel model = new ReservationModel(columnNames, columnClass);
         
         // Create a table with a sorter.
         table = new HotelTable(model);

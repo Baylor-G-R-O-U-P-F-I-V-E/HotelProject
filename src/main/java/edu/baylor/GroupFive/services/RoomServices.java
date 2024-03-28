@@ -1,6 +1,6 @@
 package edu.baylor.GroupFive.services;
 
-import edu.baylor.GroupFive.database.reservationDAO.RoomDatabaseConnection;
+import edu.baylor.GroupFive.database.roomDAO.RoomDatabaseConnection;
 import edu.baylor.GroupFive.models.Room;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.database.reservationDAO;
+package edu.baylor.GroupFive.database.roomDAO;
 
 import edu.baylor.GroupFive.models.Room;
 
@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -19,7 +20,8 @@ public class RoomDatabaseConnection {
         this.data = new ArrayList<>();
         try{
             SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
-            File myFile = new File("Rooms.txt");
+            URL url = getClass().getResource("Rooms.txt");
+            File myFile = new File(url.toURI());
             Scanner myReader = new Scanner(myFile);
             while(myReader.hasNextLine()){
                 //assume row looks like rooomNumber,quality,theme,smoking,singles,doubles,queens,kings
@@ -41,8 +43,9 @@ public class RoomDatabaseConnection {
                 data.add(new Room(roomNumber, quality, themeEnum, smoking, numBeds, Room.BED_TYPE.valueOf(bedType)));
             }
             myReader.close();
-        }catch(FileNotFoundException e){
+        }catch(Exception e){
             System.out.println("Error unable to find file");
+            e.printStackTrace();
         }
     }
 
