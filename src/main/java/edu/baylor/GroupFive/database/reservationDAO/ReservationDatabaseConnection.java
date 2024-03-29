@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-import edu.baylor.GroupFive.database.reservationDAO.Reservation;
+import edu.baylor.GroupFive.models.Reservation;
 
 public class ReservationDatabaseConnection {
 
@@ -41,8 +41,8 @@ public class ReservationDatabaseConnection {
         Statement statement = null;
         String rowID = null;
         // startDate endDate price guestID roomID
-        String sqlInsert = "INSERT INTO Reservation(START_DATE,END_DATE,PRICE,GUEST_ID,ROOM_ID) VALUES('" + formatDate(reservation.startDate) + "','" +
-                formatDate(reservation.endDate) + "'," + reservation.price + "," + reservation.guestID + "," + reservation.roomID + ")";
+        String sqlInsert = "INSERT INTO Reservation(START_DATE,END_DATE,PRICE,GUEST_ID,ROOM_ID) VALUES('" + formatDate(reservation.getStartDate()) + "','" +
+                formatDate(reservation.getEndDate()) + "'," + reservation.getPrice() + "," + reservation.getGuestID() + "," + reservation.getRoomID() + ")";
         try {
             statement = connection.createStatement();
             statement.executeUpdate(sqlInsert);

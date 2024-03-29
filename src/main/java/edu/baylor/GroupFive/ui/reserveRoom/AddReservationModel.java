@@ -35,7 +35,7 @@ public class AddReservationModel extends HotelModel implements DataModel {
         for (Room room : rooms) {
             try {
                 // Add the row to the table
-                addRow(new Object[] {room.getRoomNumber(), room.getQuality(), formatTheme(room.getTheme()), String.valueOf(room.isSmoking()), room.getNumBeds(), formatBedSize(room.getBedType())});
+                addRow(new Object[] {room.getRoomNumber(), room.getQuality(), formatTheme(room.getTheme()), String.valueOf(room.isSmoking()), room.getNumBeds(), formatBedSize(room.getBedType()), String.valueOf(room.getDailyPrice())});
                 // Print the row to the console
                 System.out.println("Added row to table: " + room.getRoomNumber() + ", " + room.getQuality() + ", " + room.getTheme() + ", " + room.isSmoking() + ", " + room.getNumBeds() + ", " + formatBedSize(room.getBedType()));
             } catch (Exception e) {

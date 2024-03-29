@@ -26,12 +26,13 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
             "Theme",
             "Smoking",
             "Number of Beds",
-            "Bed Type"
+            "Bed Type",
+            "Nightly Rate"
          };
     
     //Define data types for the columns
     final Class<?>[] columnClass = new Class[] {
-            String.class, String.class, String.class, String.class, String.class, String.class, String.class
+            String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class
     };
 
     public ReserveRoomPanel() {

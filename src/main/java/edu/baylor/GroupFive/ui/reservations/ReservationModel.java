@@ -15,7 +15,7 @@ public class ReservationModel extends HotelModel implements DataModel {
         super(columnNames, columnClass);
 
         try {
-            //getData();
+            getData();
         } catch (RuntimeException e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -24,7 +24,7 @@ public class ReservationModel extends HotelModel implements DataModel {
 
      public void getData() throws RuntimeException {
        // Fetch room data from the database
-        List<Reservation> reservations = new ArrayList<>();//= ReservationController.getAllReservations();
+        List<Reservation> reservations = ReservationController.getAllReservations();
         
         // Check if data was fetched successfully
         if (reservations == null) {

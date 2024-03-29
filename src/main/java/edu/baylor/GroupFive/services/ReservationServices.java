@@ -15,7 +15,7 @@ public class ReservationServices {
 
     public static List<Reservation> getReservations() throws SQLException{
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
-        List<Reservation> reservations = conn.getReservationsFromResultSet(conn.getReservations());
+        List<Reservation> reservations = conn.getReservations();
         return reservations;
     }
     
@@ -44,9 +44,8 @@ public class ReservationServices {
         if(!isAvailable){return null;}
 
         String reservationID = conn.addReservation(newReservation);
-        Boolean isSaved = conn.save();
-        
-        if(!isSaved) return null;
+
+        //if reservationID is null, then the reservation was not added
 
         return reservationID;
     }

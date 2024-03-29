@@ -10,7 +10,7 @@ public class Reservation {
     String reservationID;
     Double price;
 
-    Reservation(Date startDate, Date endDate, String guestID, String roomID, String reservationID, Double price){
+    public Reservation(Date startDate, Date endDate, String guestID, String roomID, String reservationID, Double price){
         this.reservationID = reservationID;
         this.startDate = startDate;
         this.endDate = endDate;
