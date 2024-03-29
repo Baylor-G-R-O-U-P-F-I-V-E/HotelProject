@@ -1,6 +1,5 @@
-Room Number,Quality,Theme,Smoking,Number of Beds,Bed Type
-1,1,ThemeA,true,5,single
-2,2,ThemeB,false,3,double
-3,3,ThemeC,true,2,king
-4,4,ThemeA,false,1,single
-5,5,ThemeB,true,4,double
+1,1,ThemeA,true,5,single,40
+2,2,ThemeB,false,3,double,60
+3,3,ThemeC,true,2,king,40
+4,4,ThemeA,false,1,single,90
+5,5,ThemeB,true,4,double,70

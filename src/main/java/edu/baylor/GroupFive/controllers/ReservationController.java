@@ -15,7 +15,7 @@ public class ReservationController {
 
     }
 
-    static List<Room> getAllRooms(){
+    public static List<Room> getAllRooms(){
         return RoomServices.getRooms();
     }
 

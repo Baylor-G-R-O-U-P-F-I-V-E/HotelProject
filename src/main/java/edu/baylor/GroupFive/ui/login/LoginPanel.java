@@ -8,8 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import edu.baylor.GroupFive.ui.utils.Page;
-import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import java.awt.Insets;
 
