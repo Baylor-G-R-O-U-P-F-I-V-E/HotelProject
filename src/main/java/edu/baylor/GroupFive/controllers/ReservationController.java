@@ -2,9 +2,12 @@ package edu.baylor.GroupFive.controllers;
 
 import edu.baylor.GroupFive.models.Account;
 import edu.baylor.GroupFive.models.QualityDescription;
+import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
+import edu.baylor.GroupFive.services.ReservationServices;
 import edu.baylor.GroupFive.services.RoomServices;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,5 +40,15 @@ public class ReservationController {
     };
     void createReservation() {
         
+    }
+
+    public static List<Reservation> getAllReservations() {
+        try {
+            return ReservationServices.getReservations();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -15,6 +15,7 @@ public class Room {
     private boolean smoking;
     private BED_TYPE bedType;
     private int numBeds;
+    private double dailyPrice;
 
     private List<Booking> bookings;
 
@@ -23,13 +24,14 @@ public class Room {
         this.bookings = new ArrayList<>();
     }
 
-    public Room(int roomNumber, int quality, THEME theme, boolean smoking, int numBeds, BED_TYPE bedType){
+    public Room(int roomNumber, int quality, THEME theme, boolean smoking, int numBeds, BED_TYPE bedType, double dailyPrice) {
         this.roomNumber = roomNumber;
         this.quality = quality;
         this.theme = theme;
         this.smoking = smoking;
         this.numBeds = numBeds;
         this.bedType = bedType;
+        this.dailyPrice = dailyPrice;
     }
 
 //    public boolean isAvailableOn(Date date){
@@ -80,6 +82,14 @@ public class Room {
 
     public void setSmoking(boolean smoking) {
         this.smoking = smoking;
+    }
+
+    public double getDailyPrice() {
+        return dailyPrice;
+    }
+
+    public void setDailyPrice(double dailyPrice) {
+        this.dailyPrice = dailyPrice;
     }
 
     public List<Booking> getBookings() {

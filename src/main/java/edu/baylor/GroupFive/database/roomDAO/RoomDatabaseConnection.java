@@ -32,6 +32,7 @@ public class RoomDatabaseConnection {
                 boolean smoking = Boolean.parseBoolean(row[3]);
                 int numBeds = Integer.parseInt(row[4]);
                 String bedType = row[5].toUpperCase();
+                double dailyPrice = Double.parseDouble(row[6]);
 
                 if(Integer.parseInt(row[4]) >= currID){
                     currID = Integer.parseInt(row[4]) + 1;
@@ -40,7 +41,7 @@ public class RoomDatabaseConnection {
                     : theme.equals("ThemeB") ? Room.THEME.ThemeB
                     : theme.equals("ThemeC") ? Room.THEME.ThemeC
                     : null;
-                data.add(new Room(roomNumber, quality, themeEnum, smoking, numBeds, Room.BED_TYPE.valueOf(bedType)));
+                data.add(new Room(roomNumber, quality, themeEnum, smoking, numBeds, Room.BED_TYPE.valueOf(bedType), dailyPrice));
             }
             myReader.close();
         }catch(Exception e){
@@ -78,6 +79,34 @@ public class RoomDatabaseConnection {
             
         }
         return true;
+    }
+
+    /*
+     * CHECK THIS METHOD
+     * i added it just to make vscode happy - Brendon
+     * 
+     * 
+     */
+    public boolean addRoom(int roomNumber, int quality, Room.THEME theme, boolean smoking, int numBeds, Room.BED_TYPE bedType, double dailyPrice){
+        Room room = new Room(roomNumber, quality, theme, smoking, numBeds, bedType, dailyPrice);
+        data.add(room);
+        return true;
+    }
+
+    /*
+     * CHECK THIS METHOD
+     * i added it just to make vscode happy - Brendon
+     * 
+     * 
+     
+     */
+    public Room getRoom(int roomNumber){
+        for(Room room : data){
+            if(room.getRoomNumber() == roomNumber){
+                return room;
+            }
+        }
+        return null;
     }
 
 

@@ -18,6 +18,7 @@ public class LoginPage extends JFrame implements InputDelegate {
     private JPanel background;
     private JPanel surface;
     private String username;
+    @SuppressWarnings("unused")
     private String password;
 
     public LoginPage() {
