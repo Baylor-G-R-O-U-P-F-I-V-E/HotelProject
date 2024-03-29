@@ -5,7 +5,6 @@ import javax.swing.table.*;
 
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
-import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 
 public class ReservationsPanel extends JPanel implements PagePanel {

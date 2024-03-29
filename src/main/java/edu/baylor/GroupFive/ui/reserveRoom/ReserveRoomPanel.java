@@ -10,18 +10,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 
 import edu.baylor.GroupFive.ui.utils.DatePanel;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
-import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
-import edu.baylor.GroupFive.ui.utils.table.ReservationModel;
 
 public class ReserveRoomPanel extends JPanel implements PagePanel {
     private JTable table;
-    private TableRowSorter<DefaultTableModel> sorter;
 
     private String[] columnNames = {
             "Room",
