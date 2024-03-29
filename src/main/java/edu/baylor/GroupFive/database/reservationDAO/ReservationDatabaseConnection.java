@@ -10,16 +10,18 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-import edu.baylor.GroupFive.models.Reservation;
+import edu.baylor.GroupFive.database.reservationDAO.Reservation;
 
 public class ReservationDatabaseConnection {
+
+
 
     public ReservationDatabaseConnection(){}
 
     private Connection getConnection(){
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:derby:Hotel;create=true", "", "");
+            connection = DriverManager.getConnection("jdbc:derby:FinalProject;", "", "");
             if(connection == null) {
                 System.out.println("Could not connect");
                 return null;
@@ -30,48 +32,7 @@ public class ReservationDatabaseConnection {
         return connection;
     }
 
-    public ResultSet getReservations() throws SQLException {
-        Connection connection = getConnection();
-        if(connection == null){
-            System.out.println("Connection Failed");
-            return null;
-        }
-        ResultSet rs = null;
-        Statement statement = null;
-        String sqlQuery = "SELECT * FROM reservation;";
-        try {
-            statement = connection.createStatement();
-            rs = statement.executeQuery(sqlQuery);
-            return rs;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }finally {
-            if (statement != null) {
-                statement.close();
-            }
-            if (connection != null) {
-                connection.close();
-            }
-        }
-    }
-
-    public List<Reservation> getReservationsFromResultSet(ResultSet rs) throws SQLException {
-        List<Reservation> reservations = new ArrayList<>();
-        while(rs.next()){
-            Reservation temp = new Reservation(rs.getDate("startDate"),
-                    rs.getDate("endDate"),
-                    rs.getString("guestID"),
-                    rs.getString("roomID"),
-                    rs.getString("reservationID"),
-                    rs.getDouble("price"));
-            reservations.add(temp);
-        }
-        return reservations;
-    }
-
-
-    public String addReservation(Reservation reservation) throws SQLException {;
+    public String addReservation(Reservation reservation) throws SQLException {
         Connection connection = getConnection();
         if(connection == null){
             System.out.println("Connection Failed");
@@ -80,8 +41,8 @@ public class ReservationDatabaseConnection {
         Statement statement = null;
         String rowID = null;
         // startDate endDate price guestID roomID
-        String sqlInsert = "INSERT INTO Reservation(START_DATE,END_DATE,PRICE,GUEST_ID,ROOM_ID) VALUES('" + formatDate(reservation.getStartDate()) + "','" +
-                formatDate(reservation.getEndDate()) + "'," + reservation.getPrice() + "," + reservation.getGuestID() + "," + reservation.getRoomID() + ");";
+        String sqlInsert = "INSERT INTO Reservation(START_DATE,END_DATE,PRICE,GUEST_ID,ROOM_ID) VALUES('" + formatDate(reservation.startDate) + "','" +
+                formatDate(reservation.endDate) + "'," + reservation.price + "," + reservation.guestID + "," + reservation.roomID + ")";
         try {
             statement = connection.createStatement();
             statement.executeUpdate(sqlInsert);
@@ -104,7 +65,53 @@ public class ReservationDatabaseConnection {
     }
 
 
+    public List<Reservation> getReservations(){
+        Connection connection =  getConnection();
+        if(connection == null){
+            System.out.println("Connection Failed");
+            return null;
+        }
 
+        Statement statement = null;
+        String sqlQuery = "SELECT * FROM Reservation;";
+        ResultSet rs = null;
+        List<Reservation> output = new ArrayList<>();
+        try {
+            statement = connection.createStatement();
+            rs = statement.executeQuery(sqlQuery);
+            while(rs.next()){
+                Reservation out = new Reservation(rs.getDate("startDate"),
+                        rs.getDate("endDate"),
+                        rs.getString("guestID"),
+                        rs.getString("roomID"),
+                        rs.getString("reservationID"),
+                        rs.getDouble("price"));
+                output.add(out);
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        return output;
+    }
 
     public Boolean cancelReservation(String reservationID) throws SQLException {
 
@@ -116,7 +123,7 @@ public class ReservationDatabaseConnection {
         }
 
         Statement statement = null;
-        String sqlDelete = "DELETE FROM reservation WHERE reservationID = '" + reservationID + "';";
+        String sqlDelete = "DELETE FROM reservation WHERE reservationID = '" + reservationID + "'";
         try {
             statement = connection.createStatement();
             statement.execute(sqlDelete);
@@ -147,7 +154,7 @@ public class ReservationDatabaseConnection {
 
         ResultSet rs = null;
         Statement statement = null;
-        String sqlQuery = "SELECT * FROM reservation WHERE reservationID = 'reservationID';";
+        String sqlQuery = "SELECT * FROM reservation WHERE reservationID = 'reservationID'";
         try {
             statement = connection.createStatement();
             rs = statement.executeQuery(sqlQuery);
@@ -188,7 +195,7 @@ public class ReservationDatabaseConnection {
 
         ResultSet rs = null;
         Statement statement = null;
-        String sqlQuery = "SELECT * FROM reservation WHERE roomid='" + roomID + "';";
+        String sqlQuery = "SELECT * FROM reservation WHERE roomid='" + roomID + "'";
         try {
             statement = connection.createStatement();
             rs = statement.executeQuery(sqlQuery);
@@ -230,18 +237,9 @@ public class ReservationDatabaseConnection {
         return true;
     }
 
-    /*
-     * TODO: Implement this method
-     */
-    public boolean save() {
-        // TODO
-        return true;
-        
-    }
-
 
     private static String formatDate(Date myDate) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         return dateFormat.format(myDate.getTime());
     }
 

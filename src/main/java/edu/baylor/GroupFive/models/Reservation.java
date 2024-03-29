@@ -10,7 +10,7 @@ public class Reservation {
     String reservationID;
     Double price;
 
-    public Reservation(Date startDate, Date endDate, String guestID, String roomID, String reservationID, Double price){
+    Reservation(Date startDate, Date endDate, String guestID, String roomID, String reservationID, Double price){
         this.reservationID = reservationID;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -23,44 +23,44 @@ public class Reservation {
         return startDate;
     }
 
-    public void setStartDate(Date startDate){
-        this.startDate = startDate;
-    }
-
     public Date getEndDate(){
         return endDate;
-    }
-
-    public void setEndDate(Date endDate){
-        this.endDate = endDate;
     }
 
     public String getGuestID(){
         return guestID;
     }
 
-    public void setGuestID(String guestID){
-        this.guestID = guestID;
-    }
-
     public String getRoomID(){
         return roomID;
-    }
-
-    public void setRoomID(String roomID){
-        this.roomID = roomID;
     }
 
     public String getReservationID(){
         return reservationID;
     }
 
-    public void setReservationID(String reservationID){
-        this.reservationID = reservationID;
-    }
-
     public Double getPrice(){
         return price;
+    }
+
+    public void setStartDate(Date startDate){
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate){
+        this.endDate = endDate;
+    }
+
+    public void setGuestID(String guestID){
+        this.guestID = guestID;
+    }
+
+    public void setRoomID(String roomID){
+        this.roomID = roomID;
+    }
+
+    public void setReservationID(String reservationID){
+        this.reservationID = reservationID;
     }
 
     public void setPrice(Double price){

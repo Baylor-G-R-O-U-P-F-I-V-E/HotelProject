@@ -29,7 +29,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Create a model of the data.
-        DefaultTableModel model = new ReservationModel(columnNames, columnClass, "src/main/resources/test.csv");
+        DefaultTableModel model = new ReservationModel(columnNames, columnClass);
 
         // Create a table with a sorter.
         table = new HotelTable(model);
