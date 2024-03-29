@@ -1,5 +1,5 @@
 
-
+/*
 public class Product {
     int prodictID;
     Inventory inventory;
@@ -15,3 +15,5 @@ public class Product {
     void setDescription(ProductDescription val) {this.description = val;}
 
 }
+
+ */
