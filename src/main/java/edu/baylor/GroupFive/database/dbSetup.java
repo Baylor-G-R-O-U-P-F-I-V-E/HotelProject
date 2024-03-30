@@ -1,5 +1,7 @@
 package edu.baylor.GroupFive.database;
 
+import edu.baylor.GroupFive.models.Room;
+
 import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.List;
@@ -27,10 +29,19 @@ public class dbSetup {
                     "userID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY(Start with 1, Increment by 1)," +
                     "firstName VARCHAR(30)," +
                     "lastName VARCHAR(30)," +
+                    "username VARCHAR(30)," +
+                    "password VARCHAR(30)," +
                     "CONSTRAINT PK_1 PRIMARY KEY(userID))";
+
             String sqlCreateRoom = "CREATE TABLE Room(" +
                     "roomID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY(Start with 1, Increment by 1)," +
+                    "roomNumber INTEGER, "+
+                    "quality VARCHAR(20)," +
                     "theme VARCHAR(50)," +
+                    "smoking INTEGER," +
+                    "bedType INTEGER,"+
+                    "numBeds INTEGER," +
+                    "dailyPrice DECIMAL," +
                     "CONSTRAINT PK_2 PRIMARY KEY(roomID))";
             String sqlCreateReservation =
                     "CREATE TABLE reservation(" +
@@ -45,28 +56,24 @@ public class dbSetup {
                             "" +
                             ")";
 
-            List<String> sqlInserts = List.of("INSERT INTO users(firstName, lastNAME) VALUES('Joe','Smith')" ,
-                    "INSERT INTO USERs(firstName, lastNAME) VALUES('Kevin','James')",
-                    "INSERT INTO USERs(firstName, lastNAME) VALUES('Axel','Washington')" ,
-                    "INSERT INTO USERs(firstName, lastNAME) VALUES('Andrew','Wiles')" ,
-                    "INSERT INTO USERs(firstName, lastNAME) VALUES('Larry','AB')" ,
-                    "INSERT INTO USERs(firstName, lastNAME) VALUES('Josh','Smith')" ,
-                    "INSERT INTO USERs(firstName, lastNAME) VALUES('Tyler','Lee')" ,
-                    "INSERT INTO USERs(firstName, lastNAME) VALUES('Antoine','Wu')" ,
-                    "INSERT INTO USERs(firstName, lastNAME) VALUES('Everett','Anderson')" ,
-                    "INSERT INTO USERs(firstName, lastNAME) VALUES('Joe','Smith')" ,
-                    "INSERT INTO ROOM(theme) VALUES ('TEST')" ,
-                    "INSERT INTO ROOM(theme) VALUES ('TEST')" ,
-                    "INSERT INTO ROOM(theme) VALUES ('TEST')" ,
-                    "INSERT INTO ROOM(theme) VALUES ('TEST')" ,
-                    "INSERT INTO ROOM(theme) VALUES ('TEST')" ,
-                    "INSERT INTO ROOM(theme) VALUES ('TEST')" ,
-                    "INSERT INTO ROOM(theme) VALUES ('TEST')" ,
-                    "INSERT INTO ROOM(theme) VALUES ('TEST')" ,
-                    "INSERT INTO ROOM(theme) VALUES ('TEST')" ,
-                    "INSERT INTO ROOM(theme) VALUES ('TEST')" ,
-                    "INSERT INTO ROOM(theme) VALUES ('TEST')" ,
-                    "INSERT INTO ROOM(theme) VALUES ('TEST')" ,
+            List<String> sqlInserts = List.of("INSERT INTO users(firstName, lastNAME, username,password) VALUES('Joe','Smith','Bongo','p1234')" ,
+                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Kevin','James', 'KevDog', 'password')",
+                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Axel','Washington', 'Axel112', 'password')" ,
+                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Andrew','Wiles', 'BigA', 'password')" ,
+                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Larry','AB', 'LarryTheLobster', 'password')" ,
+                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Josh','Smith', 'Jman', 'password')" ,
+                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Tyler','Lee', 'T-Lee', 'password')" ,
+                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Antoine','Wu', 'Ant', 'password')" ,
+                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Everett','Anderson', 'andyEv', 'password')" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (101,'High', 'Jungle',1,3,2,98.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (102,'High', 'Carnival',1,1,2,97.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (103,'Mid', 'Jungle',1,3,2,77.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (104,'Low', 'Jungle',1,4,2,89.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (105,'Mid', 'Jungle',1,5,2,99.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (106,'High', 'rustic',1,1,2,101.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (107,'Mid', 'Base',1,2,2,94.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (108,'Low', 'Base',1,3,2,92.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (109,'Mid', 'Jungle',1,2,2,98.22)" ,
                     "INSERT INTO RESERVATION(startDate, endDate, price, guestID, roomID) VALUES ('12/17/2024','12/19/2015',97.99,1,2)" ,
                     "INSERT INTO RESERVATION(startDate, endDate, price, guestID, roomID) VALUES ('07/12/2024','07/22/2024',97.99,3,3)" ,
                     "INSERT INTO RESERVATION(startDate, endDate, price, guestID, roomID) VALUES ('07/20/2024','07/23/2024',97.99,4,1)" ,

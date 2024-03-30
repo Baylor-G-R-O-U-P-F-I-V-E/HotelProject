@@ -73,7 +73,7 @@ public class ReservationDatabaseConnection {
         }
 
         Statement statement = null;
-        String sqlQuery = "SELECT * FROM Reservation;";
+        String sqlQuery = "SELECT * FROM Reservation";
         ResultSet rs = null;
         List<Reservation> output = new ArrayList<>();
         try {
@@ -123,7 +123,7 @@ public class ReservationDatabaseConnection {
         }
 
         Statement statement = null;
-        String sqlDelete = "DELETE FROM reservation WHERE reservationID = '" + reservationID + "'";
+        String sqlDelete = "DELETE FROM reservation WHERE reservationID = " + reservationID ;
         try {
             statement = connection.createStatement();
             statement.execute(sqlDelete);
@@ -154,7 +154,7 @@ public class ReservationDatabaseConnection {
 
         ResultSet rs = null;
         Statement statement = null;
-        String sqlQuery = "SELECT * FROM reservation WHERE reservationID = 'reservationID'";
+        String sqlQuery = "SELECT * FROM reservation WHERE reservationID = " + reservationID;
         try {
             statement = connection.createStatement();
             rs = statement.executeQuery(sqlQuery);
@@ -191,7 +191,7 @@ public class ReservationDatabaseConnection {
             System.out.println("Connection Failed");
             return null;
         }
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.ENGLISH);
+
 
         ResultSet rs = null;
         Statement statement = null;
@@ -202,6 +202,7 @@ public class ReservationDatabaseConnection {
 
 
         } catch (SQLException e) {
+            System.out.println("RDC check if available failed");
             System.out.println(e.getMessage());
             return null;
         }finally {

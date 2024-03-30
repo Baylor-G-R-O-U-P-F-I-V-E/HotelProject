@@ -34,7 +34,7 @@ public class Room {
         this.dailyPrice = dailyPrice;
     }
 
-//    public boolean isAvailableOn(Date date){
+    //    public boolean isAvailableOn(Date date){
 //        return this.bookings.stream().findAny();
 //    }
     public BED_TYPE getBedType() {
