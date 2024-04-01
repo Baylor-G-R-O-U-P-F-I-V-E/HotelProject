@@ -93,7 +93,7 @@ public class RoomDatabaseConnection {
      * 
      * 
      */
-    public Boolean addRoom(Integer roomNumber,Integer quality, String theme, Boolean smoking,Integer numBeds, String bedType, Double dailyPrice){
+    public Boolean addRoom(Room newRoom){
         Connection connection = getConnection();
         if(connection == null){
             System.out.println("Connection Failed");
@@ -103,7 +103,11 @@ public class RoomDatabaseConnection {
         String rowID = null;
         // startDate endDate price guestID roomID
         String sqlInsert = "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (" +
-                 roomNumber.toString() + "," + quality.toString() + ",'" + theme + "'," + smoking.toString() + "," + numBeds.toString() + ",'" + bedType + "'," + dailyPrice.toString() + ")";
+                newRoom.getRoomNumber().toString() + "," + newRoom.getQuality().toString() +
+                ",'ThemeNotIntegrated'," + newRoom.getSmoking().toString() + "," +
+                "'NOTDONE'" + "," +
+                newRoom.getNumBeds().toString()  + "," +
+                newRoom.getDailyPrice().toString() + ")";
         try {
             statement = connection.createStatement();
             statement.executeUpdate(sqlInsert);

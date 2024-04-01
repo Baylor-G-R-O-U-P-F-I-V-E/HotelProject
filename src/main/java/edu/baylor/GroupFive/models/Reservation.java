@@ -3,15 +3,14 @@ package edu.baylor.GroupFive.models;
 import java.util.Date;
 
 public class Reservation {
+    Integer reservationID;
     Date startDate;
     Date endDate;
     String guestID;
     String roomID;
-    String reservationID;
     Double price;
 
-    public Reservation(Date startDate, Date endDate, String guestID, String roomID, String reservationID, Double price){
-        this.reservationID = reservationID;
+    public Reservation(Date startDate, Date endDate, String guestID, String roomID, Double price){
         this.startDate = startDate;
         this.endDate = endDate;
         this.guestID = guestID;
@@ -35,9 +34,7 @@ public class Reservation {
         return roomID;
     }
 
-    public String getReservationID(){
-        return reservationID;
-    }
+
 
     public Double getPrice(){
         return price;
@@ -59,16 +56,31 @@ public class Reservation {
         this.roomID = roomID;
     }
 
-    public void setReservationID(String reservationID){
-        this.reservationID = reservationID;
-    }
+
 
     public void setPrice(Double price){
         this.price = price;
     }
 
+    public void setReservationID(Integer reservationID){
+        this.reservationID = reservationID;
+    }
+
+    public Integer getReservationID(){
+        return reservationID;
+    }
+
     public String toString(){
-        return "Reservation ID: " + reservationID + "\nStart Date: " + startDate + "\nEnd Date: " + endDate + "\nGuest ID: " + guestID + "\nRoom ID: " + roomID + "\nPrice: " + price;
+        String out = "ReservationID: ";
+        if(reservationID == null){
+            out = out +"IDISNULL \n";
+        }else{
+            out = out + reservationID.toString() + "\n";
+        }
+
+
+        out = out + "Start Date: " + startDate + "\nEnd Date: " + endDate + "\nGuest ID: " + guestID + "\nRoom ID: " + roomID + "\nPrice: " + price;
+        return out;
     }
 
 }

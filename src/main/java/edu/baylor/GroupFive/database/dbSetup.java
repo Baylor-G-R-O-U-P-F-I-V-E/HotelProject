@@ -19,7 +19,7 @@ public class dbSetup {
             Statement statement = null;
             String rowID = null;
             // startDate endDate price guestID roomID
-            String sqlDropReservation = "DROP TABLE reservation";
+            String sqlDropReservation = "DROP TABLE reservations";
             String sqlDropRoom = "DROP TABLE room";
             String sqlDropUser = "DROP TABLE users";
 
@@ -36,24 +36,24 @@ public class dbSetup {
             String sqlCreateRoom = "CREATE TABLE Room(" +
                     "roomID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY(Start with 1, Increment by 1)," +
                     "roomNumber INTEGER, "+
-                    "quality VARCHAR(20)," +
+                    "quality INTEGER," +
                     "theme VARCHAR(50)," +
-                    "smoking INTEGER," +
-                    "bedType INTEGER,"+
+                    "smoking Boolean," +
+                    "bedType VARCHAR(10),"+
                     "numBeds INTEGER," +
                     "dailyPrice DECIMAL," +
                     "CONSTRAINT PK_2 PRIMARY KEY(roomID))";
             String sqlCreateReservation =
-                    "CREATE TABLE reservation(" +
+                    "CREATE TABLE reservations(" +
                             "reservationID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY(Start with 1, Increment by 1), " +
                             "startDate DATE," +
                             "endDate Date," +
                             "price DECIMAL," +
                             "guestID INTEGER," +
                             "roomID INTEGER," +
-                            "CONSTRAINT FK_1 FOREIGN KEY (guestID) REFERENCES users(userID)," +
-                            "CONSTRAINT FK_2 FOREIGN KEY (roomID) REFERENCES ROOM(roomID)" +
-                            "" +
+                            "CONSTRAINT FK_11 FOREIGN KEY (guestID) REFERENCES users(userID)," +
+                            "CONSTRAINT FK_22 FOREIGN KEY (roomID) REFERENCES ROOM(roomID)," +
+                            "CONSTRAINT PK_RES2 PRIMARY KEY(reservationID)" +
                             ")";
 
             List<String> sqlInserts = List.of("INSERT INTO users(firstName, lastNAME, username,password) VALUES('Joe','Smith','Bongo','p1234')" ,
@@ -65,27 +65,27 @@ public class dbSetup {
                     "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Tyler','Lee', 'T-Lee', 'password')" ,
                     "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Antoine','Wu', 'Ant', 'password')" ,
                     "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Everett','Anderson', 'andyEv', 'password')" ,
-                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (101,'High', 'Jungle',1,3,2,98.22)" ,
-                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (102,'High', 'Carnival',1,1,2,97.22)" ,
-                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (103,'Mid', 'Jungle',1,3,2,77.22)" ,
-                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (104,'Low', 'Jungle',1,4,2,89.22)" ,
-                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (105,'Mid', 'Jungle',1,5,2,99.22)" ,
-                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (106,'High', 'rustic',1,1,2,101.22)" ,
-                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (107,'Mid', 'Base',1,2,2,94.22)" ,
-                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (108,'Low', 'Base',1,3,2,92.22)" ,
-                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (109,'Mid', 'Jungle',1,2,2,98.22)" ,
-                    "INSERT INTO RESERVATION(startDate, endDate, price, guestID, roomID) VALUES ('12/17/2024','12/19/2015',97.99,1,2)" ,
-                    "INSERT INTO RESERVATION(startDate, endDate, price, guestID, roomID) VALUES ('07/12/2024','07/22/2024',97.99,3,3)" ,
-                    "INSERT INTO RESERVATION(startDate, endDate, price, guestID, roomID) VALUES ('07/20/2024','07/23/2024',97.99,4,1)" ,
-                    "INSERT INTO RESERVATION(startDate, endDate, price, guestID, roomID) VALUES ('07/20/2024','07/23/2024',97.99,3,4)" ,
-                    "INSERT INTO RESERVATION(startDate, endDate, price, guestID, roomID) VALUES ('07/11/2024','07/13/2024',97.99,1,5)" ,
-                    "INSERT INTO RESERVATION(startDate, endDate, price, guestID, roomID) VALUES ('07/09/2024','07/12/2024',97.99,2,1)" ,
-                    "INSERT INTO RESERVATION(startDate, endDate, price, guestID, roomID) VALUES ('07/10/2024','07/17/2024',97.99,3,2)" ,
-                    "INSERT INTO RESERVATION(startDate, endDate, price, guestID, roomID) VALUES ('07/22/2024','07/25/2024',97.99,5,3)" ,
-                    "INSERT INTO RESERVATION(startDate, endDate, price, guestID, roomID) VALUES ('07/14/2024','07/19/2024',97.99,6,4)");
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (101,1  , 'Jungle',true,'KING',2,98.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (102,1  , 'Carnival',false,'KING',2,97.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (103,1 , 'Jungle',true,'TWIN',2,77.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (104,1 , 'Jungle',true,'TWIN',2,89.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (105,1 , 'Jungle',false,'QUEEN',2,99.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (106,1 , 'rustic',true,'TWIN',2,101.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (107,1 , 'Base',false,'TWIN',2,94.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (108,1 , 'Base',false,'QUEEN',2,92.22)" ,
+                    "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (109,1 , 'Jungle',true,'KING',2,98.22)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestID, roomID) VALUES ('12/17/2024','12/19/2015',97.99,1,2)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestID, roomID) VALUES ('07/12/2024','07/22/2024',95.99,3,3)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestID, roomID) VALUES ('07/20/2024','07/23/2024',96.99,4,1)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestID, roomID) VALUES ('07/20/2024','07/23/2024',97.99,3,4)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestID, roomID) VALUES ('07/11/2024','07/13/2024',88.99,1,5)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestID, roomID) VALUES ('07/09/2024','07/12/2024',97.99,2,1)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestID, roomID) VALUES ('07/10/2024','07/17/2024',88.99,3,2)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestID, roomID) VALUES ('07/22/2024','07/25/2024',97.99,5,3)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestID, roomID) VALUES ('07/14/2024','07/19/2024',97.99,6,4)");
 
             //mm/dd/yyyy
-            String sqlQ = "SELECT * FROM  RESERVATION";
+            String sqlQ = "SELECT * FROM  RESERVATIONs";
 
             try {
                 statement = connection.createStatement();

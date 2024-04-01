@@ -21,7 +21,7 @@ public class UserDatabaseConnection {
         }
         return connection;
     }
-    public User getUser(String userID){
+    public User getUser(String username){
         Connection connection =  getConnection();
         if(connection == null){
             System.out.println("Connection Failed");
@@ -29,14 +29,14 @@ public class UserDatabaseConnection {
         }
 
         Statement statement = null;
-        String sqlQuery = "SELECT * FROM users WHERE userID = " + userID;
+        String sqlQuery = "SELECT * FROM users WHERE username = '" + username + "'";
         ResultSet rs = null;
         List<Reservation> output = new ArrayList<>();
         try {
             statement = connection.createStatement();
             rs = statement.executeQuery(sqlQuery);
             while(rs.next()){
-                User out = new User("","","","");
+                User out = new User(rs.getString("firstname"),rs.getString("lastname"),rs.getString("username"),rs.getString("password"));
                 return out;
             }
 

@@ -3,19 +3,20 @@ package edu.baylor.GroupFive.models;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Room {
     public enum THEME { ThemeA, ThemeB, ThemeC };
     public enum BED_TYPE {SINGLE, DOUBLE, QUEEN, KING};
 
-    private int roomNumber;
+    private Integer roomNumber;
     //private QualityDescription quality;
-    private int quality;
+    private Integer quality;
     private THEME theme;
-    private boolean smoking;
+    private Boolean smoking;
     private BED_TYPE bedType;
-    private int numBeds;
-    private double dailyPrice;
+    private Integer numBeds;
+    private Double dailyPrice;
 
     private List<Booking> bookings;
 
@@ -45,14 +46,14 @@ public class Room {
         this.bedType = bedType;
     }
 
-    public int getNumBeds() {
+    public Integer getNumBeds() {
         return numBeds;
     }
 
     public void setNumBeds(int numBeds) {
         this.numBeds = numBeds;
     }
-    public int getRoomNumber() {
+    public Integer getRoomNumber() {
         return roomNumber;
     }
 
@@ -60,7 +61,7 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
-    public int getQuality() {
+    public Integer getQuality() {
         return quality;
     }
 
@@ -76,7 +77,7 @@ public class Room {
         this.theme = theme;
     }
 
-    public boolean isSmoking() {
+    public Boolean isSmoking() {
         return smoking;
     }
 
@@ -84,7 +85,7 @@ public class Room {
         this.smoking = smoking;
     }
 
-    public double getDailyPrice() {
+    public Double getDailyPrice() {
         return dailyPrice;
     }
 
@@ -92,6 +93,13 @@ public class Room {
         this.dailyPrice = dailyPrice;
     }
 
+    public void setSmoking(Boolean canSmoke){
+        smoking = canSmoke;
+    }
+
+    public Boolean getSmoking(){
+        return smoking;
+    }
     public List<Booking> getBookings() {
         return bookings;
     }
@@ -100,4 +108,16 @@ public class Room {
         this.bookings = reservations;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return Objects.equals(getRoomNumber(), room.getRoomNumber()) && Objects.equals(getQuality(), room.getQuality()) && getTheme() == room.getTheme() && Objects.equals(getSmoking(), room.getSmoking()) && getBedType() == room.getBedType() && Objects.equals(getNumBeds(), room.getNumBeds()) && Objects.equals(getDailyPrice(), room.getDailyPrice()) && Objects.equals(getBookings(), room.getBookings());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getRoomNumber(), getQuality(), getTheme(), getSmoking(), getBedType(), getNumBeds(), getDailyPrice(), getBookings());
+    }
 }
