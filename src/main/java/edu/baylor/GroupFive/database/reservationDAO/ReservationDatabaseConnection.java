@@ -42,6 +42,7 @@ public class ReservationDatabaseConnection {
         Statement statement = null;
         Integer rowID = null;
         // startDate endDate price guestID roomID
+        System.out.println("TEST1 - " + formatDate(reservation.getEndDate()));
         String sqlInsert = "INSERT INTO Reservations(STARTDATE,ENDDATE,PRICE,GUESTID,ROOMID) VALUES('" + formatDate(reservation.getStartDate()) + "','" +
                 formatDate(reservation.getEndDate()) + "'," + reservation.getPrice() + "," + reservation.getGuestID() + "," + reservation.getRoomID() + ")";
         try {
@@ -213,14 +214,20 @@ public class ReservationDatabaseConnection {
             return null;
         }
 
-
+        ArrayList<ArrayList<Date>> mem;
         ResultSet rs = null;
         Statement statement = null;
-        String sqlQuery = "SELECT * FROM reservations WHERE roomid='" + roomID + "'";
+        String sqlQuery = "SELECT * FROM reservations WHERE roomid=" + roomID;
         try {
             statement = connection.createStatement();
             rs = statement.executeQuery(sqlQuery);
-
+            mem = new ArrayList<>();
+            while(rs.next()){
+                ArrayList<Date> temp = new ArrayList<>();
+                temp.add(rs.getDate("startDate"));
+                temp.add(rs.getDate("endDate"));
+                mem.add(temp);
+            }
 
         } catch (SQLException e) {
             System.out.println("RDC check if available failed");
@@ -234,25 +241,22 @@ public class ReservationDatabaseConnection {
                 connection.close();
             }
         }
-        ArrayList<ArrayList<Date>> mem = new ArrayList<>();
-        while(rs.next()){
-            ArrayList<Date> temp = new ArrayList<>();
-            temp.add(rs.getDate("startDate"));
-            temp.add(rs.getDate("endDate"));
-            mem.add(temp);
-        }
+
 
         for(ArrayList<Date> r : mem){
-
+            System.out.println(r.get(0) + " " + r.get(1));
             if((startDate.after(r.get(0)) || startDate.equals(r.get(0))) && startDate.before(r.get(1))){
+                System.out.println("3");
                 return false;
             }
             if(endDate.after(r.get(0)) && (endDate.equals(r.get(1)) || endDate.before(r.get(1)))){
+                System.out.println("2");
                 return false;
             }
 
-            if(startDate.after(r.get(0)) || startDate.equals(r.get(0)) &&
+            if((startDate.after(r.get(0)) || startDate.equals(r.get(0))) &&
                 (endDate.equals(r.get(1)) || endDate.before(r.get(1)))){
+                System.out.println("1");
                 return false;
             }
         }

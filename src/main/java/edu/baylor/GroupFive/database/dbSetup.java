@@ -74,7 +74,7 @@ public class dbSetup {
                     "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (107,1 , 'Base',false,'TWIN',2,94.22)" ,
                     "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (108,1 , 'Base',false,'QUEEN',2,92.22)" ,
                     "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (109,1 , 'Jungle',true,'KING',2,98.22)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestID, roomID) VALUES ('12/17/2024','12/19/2015',97.99,1,2)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestID, roomID) VALUES ('12/17/2024','12/19/2024',97.99,1,2)" ,
                     "INSERT INTO RESERVATIONs( startDate, endDate, price, guestID, roomID) VALUES ('07/12/2024','07/22/2024',95.99,3,3)" ,
                     "INSERT INTO RESERVATIONs( startDate, endDate, price, guestID, roomID) VALUES ('07/20/2024','07/23/2024',96.99,4,1)" ,
                     "INSERT INTO RESERVATIONs( startDate, endDate, price, guestID, roomID) VALUES ('07/20/2024','07/23/2024',97.99,3,4)" ,
