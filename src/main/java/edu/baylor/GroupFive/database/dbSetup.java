@@ -45,7 +45,6 @@ public class dbSetup {
                     "CONSTRAINT PK_2 PRIMARY KEY(roomID))";
             String sqlCreateReservation =
                     "CREATE TABLE reservations(" +
-                            "reservationID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY(Start with 1, Increment by 1), " +
                             "startDate DATE," +
                             "endDate Date," +
                             "price DECIMAL," +
@@ -53,7 +52,7 @@ public class dbSetup {
                             "roomID INTEGER," +
                             "CONSTRAINT FK_11 FOREIGN KEY (guestID) REFERENCES users(userID)," +
                             "CONSTRAINT FK_22 FOREIGN KEY (roomID) REFERENCES ROOM(roomID)," +
-                            "CONSTRAINT PK_RES2 PRIMARY KEY(reservationID)" +
+                            "CONSTRAINT PK_RES2 PRIMARY KEY(roomID, startDate)" +
                             ")";
 
             List<String> sqlInserts = List.of("INSERT INTO users(firstName, lastNAME, username,password) VALUES('Joe','Smith','Bongo','p1234')" ,
@@ -145,7 +144,7 @@ public class dbSetup {
 
                     ResultSet rs = statement.executeQuery(sqlQ);
                     while(rs.next()){
-                        System.out.println(rs.getDate("startDate") + " " + rs.getString("reservationID") + " " + rs.getDouble("price"));
+                        System.out.println(rs.getDate("startDate") + " " + rs.getString("roomID") + " " + rs.getDouble("price"));
                     }
                 }catch(SQLException e){
                     System.out.println("SELECT ERROR");

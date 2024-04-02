@@ -95,7 +95,6 @@ public class ReservationDatabaseConnection {
                         rs.getString("guestID"),
                         rs.getString("roomID"),
                         rs.getDouble("price"));
-                out.setReservationID(rs.getInt("reservationID"));
                 output.add(out);
             }
 
@@ -122,7 +121,7 @@ public class ReservationDatabaseConnection {
         return output;
     }
     //works well enough
-    public Boolean cancelReservation(String reservationID) throws SQLException {
+    public Boolean cancelReservation(Integer roomID, Date startDate) throws SQLException {
         Connection connection = getConnection();
         if(connection == null){
             System.out.println("Connection Failed");
@@ -130,7 +129,7 @@ public class ReservationDatabaseConnection {
         }
 
         Statement statement = null;
-        String sqlDelete = "DELETE FROM reservations WHERE reservationID = " + reservationID ;
+        String sqlDelete = "DELETE FROM reservations WHERE roomID = " + roomID + " AND startDate = '" + formatDate(startDate) + "'";
         try {
             statement = connection.createStatement();
             statement.execute(sqlDelete);
@@ -152,7 +151,7 @@ public class ReservationDatabaseConnection {
 
     }
     //works well enough
-    public Reservation getInfo(String reservationID) throws SQLException {
+    public Reservation getInfo(Integer roomID, Date startDate) throws SQLException {
         Connection connection = getConnection();
         if(connection == null){
             System.out.println("Connection Failed");
@@ -163,7 +162,7 @@ public class ReservationDatabaseConnection {
         ResultSet id;
         Statement statement= null;
 
-        String sqlQuery = "SELECT * FROM reservations WHERE reservationID = " + reservationID;
+        String sqlQuery = "SELECT * FROM reservations WHERE roomID = " + roomID + " AND startDate = '" + formatDate(startDate) + "'";
         try {
             statement = connection.createStatement();
 
@@ -174,7 +173,7 @@ public class ReservationDatabaseConnection {
                         rs.getString("guestID"),
                         rs.getString("roomID"),
                         rs.getDouble("price"));
-                out.setReservationID(rs.getInt("reservationID"));
+
                 return out;
             }
 

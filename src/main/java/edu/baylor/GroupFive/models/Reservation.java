@@ -3,7 +3,7 @@ package edu.baylor.GroupFive.models;
 import java.util.Date;
 
 public class Reservation {
-    Integer reservationID;
+
     Date startDate;
     Date endDate;
     String guestID;
@@ -62,24 +62,8 @@ public class Reservation {
         this.price = price;
     }
 
-    public void setReservationID(Integer reservationID){
-        this.reservationID = reservationID;
-    }
-
-    public Integer getReservationID(){
-        return reservationID;
-    }
-
     public String toString(){
-        String out = "ReservationID: ";
-        if(reservationID == null){
-            out = out +"IDISNULL \n";
-        }else{
-            out = out + reservationID.toString() + "\n";
-        }
-
-
-        out = out + "Start Date: " + startDate + "\nEnd Date: " + endDate + "\nGuest ID: " + guestID + "\nRoom ID: " + roomID + "\nPrice: " + price;
+        String out = "Start Date: " + startDate + "\nEnd Date: " + endDate + "\nGuest ID: " + guestID + "\nRoom ID: " + roomID + "\nPrice: " + price;
         return out;
     }
 

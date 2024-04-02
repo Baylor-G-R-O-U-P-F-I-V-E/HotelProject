@@ -17,6 +17,7 @@ public class TestRoomDatabaseConnection {
 
     @Test
     void addARoom(){
+        dbSetup db = new dbSetup();
         Room newRoom = new Room(995, 1, Room.THEME.ThemeA, true, 5, Room.BED_TYPE.KING, 12.34);
         RoomDatabaseConnection conn = new RoomDatabaseConnection();
         Boolean added = conn.addRoom(newRoom);
@@ -26,6 +27,7 @@ public class TestRoomDatabaseConnection {
 
     @Test
     void addAndGetRoom(){
+        dbSetup db = new dbSetup();
         Room newRoom = new Room(995, 1, Room.THEME.ThemeA, true, 5, Room.BED_TYPE.KING, 12.34);
         RoomDatabaseConnection conn = new RoomDatabaseConnection();
         Boolean added = conn.addRoom(newRoom);
@@ -36,6 +38,7 @@ public class TestRoomDatabaseConnection {
 
     @Test
     void getSetupRoom(){
+        dbSetup db = new dbSetup();
         RoomDatabaseConnection conn = new RoomDatabaseConnection();
         Room pulledRoom = conn.getRoom(109);
         assert(pulledRoom != null);
@@ -43,6 +46,7 @@ public class TestRoomDatabaseConnection {
 
     @Test
     void getNonexistingRoom(){
+        dbSetup db = new dbSetup();
         RoomDatabaseConnection conn = new RoomDatabaseConnection();
         Room pulledRoom = conn.getRoom(1709);
         assert(pulledRoom == null);

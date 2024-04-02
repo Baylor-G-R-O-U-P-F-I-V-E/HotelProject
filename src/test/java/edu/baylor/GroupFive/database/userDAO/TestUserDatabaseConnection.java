@@ -15,6 +15,7 @@ public class TestUserDatabaseConnection {
 
     @Test
     void addAUser() {
+        dbSetup db = new dbSetup();
         UserDatabaseConnection conn = new UserDatabaseConnection();
         User newUser = new User("Cole", "Flenniken", "colef8", "cole123");
 
@@ -23,6 +24,7 @@ public class TestUserDatabaseConnection {
 
     @Test
     void addThenGetUser(){
+        dbSetup db = new dbSetup();
         UserDatabaseConnection conn = new UserDatabaseConnection();
         User newUser = new User("Cole", "Flenniken", "colef8", "cole123");
         conn.addUser(newUser);
@@ -32,6 +34,7 @@ public class TestUserDatabaseConnection {
 
     @Test
     void findExistingUserFromSetup(){
+        dbSetup db = new dbSetup();
         UserDatabaseConnection conn = new UserDatabaseConnection();
         User cole = conn.getUser("Axel112");
         assert(cole != null);
@@ -39,6 +42,7 @@ public class TestUserDatabaseConnection {
 
     @Test
     void findNonExistingUser(){
+        dbSetup db = new dbSetup();
         UserDatabaseConnection conn = new UserDatabaseConnection();
         User cole = conn.getUser("Axel113");
         assert(null == cole);

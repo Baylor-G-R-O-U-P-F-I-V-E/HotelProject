@@ -2,6 +2,7 @@ package edu.baylor.GroupFive.database.reservationDAO;
 import edu.baylor.GroupFive.database.dbSetup;
 import edu.baylor.GroupFive.models.Reservation;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 
@@ -18,14 +19,18 @@ public class TestReservationDatabaseConnection {
     ReservationDatabaseConnection conn;
 
 
+
+
     @BeforeEach
-    public void init(){
-        dbSetup temp = new dbSetup();
+    void init(){
+        dbSetup db = new dbSetup();
+
     }
 
 
     @Test
     public void checkAvailable1(){
+        dbSetup db = new dbSetup();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
         String sdate = "01/01/2200";
@@ -51,6 +56,7 @@ public class TestReservationDatabaseConnection {
 
     @Test
     public void checkAvailable2(){
+        dbSetup db = new dbSetup();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
         String sdate = "15/12/2024";
@@ -74,10 +80,11 @@ public class TestReservationDatabaseConnection {
     }
     @Test
     public void selectExisting(){
+        dbSetup db = new dbSetup();
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         Reservation myRes;
         try {
-             myRes = conn.getInfo("1");
+             myRes = conn.getInfo(1, new Date("07/20/2024"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -88,10 +95,11 @@ public class TestReservationDatabaseConnection {
 
     @Test
     public void selectNonExisting(){
+        dbSetup db = new dbSetup();
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         Reservation myRes;
         try {
-            myRes = conn.getInfo("99831");
+            myRes = conn.getInfo(2, new Date("01/01/2008"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -103,6 +111,7 @@ public class TestReservationDatabaseConnection {
 
     @Test
     public void addReservation(){
+        dbSetup db = new dbSetup();
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
 
         Date start = new Date("1/12/2009");
@@ -126,10 +135,11 @@ public class TestReservationDatabaseConnection {
 
     @Test
     public void cancelReservation(){
+        dbSetup db = new dbSetup();
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         Reservation r;
         try {
-            r = conn.getInfo("101");
+            r = conn.getInfo(3,new Date("07/22/2024"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -138,14 +148,14 @@ public class TestReservationDatabaseConnection {
 
 
         try {
-            conn.cancelReservation("101");
+            conn.cancelReservation(3,new Date("07/22/2024"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         r = null;
         try {
-            r = conn.getInfo("101");
+            r = conn.getInfo(3,new Date("07/22/2024"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -156,6 +166,7 @@ public class TestReservationDatabaseConnection {
     }
     @Test
     public void getAllReservations(){
+        dbSetup db = new dbSetup();
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
 
         List<Reservation> r = conn.getReservations();
