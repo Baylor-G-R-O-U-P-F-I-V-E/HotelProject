@@ -14,8 +14,6 @@ import edu.baylor.GroupFive.models.Reservation;
 
 public class ReservationDatabaseConnection {
 
-
-
     public ReservationDatabaseConnection(){}
 
     private Connection getConnection(){
@@ -73,7 +71,7 @@ public class ReservationDatabaseConnection {
         }
 
         Statement statement = null;
-        String sqlQuery = "SELECT * FROM Reservation;";
+        String sqlQuery = "SELECT * FROM Reservation";
         ResultSet rs = null;
         List<Reservation> output = new ArrayList<>();
         try {

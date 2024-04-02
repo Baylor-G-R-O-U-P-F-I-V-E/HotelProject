@@ -3,7 +3,7 @@ package edu.baylor.GroupFive;
 import javax.swing.SwingUtilities;
 
 import edu.baylor.GroupFive.ui.login.LoginPage;
-//import edu.baylor.GroupFive.ui.utils.Page;
+import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 import edu.baylor.GroupFive.database.dbSetup;
 public class Main {
@@ -12,7 +12,7 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 @SuppressWarnings("unused")
-                InputDelegate landing = new LoginPage();
+                InputDelegate landing = new Page("Login");
             }
         });
     }
