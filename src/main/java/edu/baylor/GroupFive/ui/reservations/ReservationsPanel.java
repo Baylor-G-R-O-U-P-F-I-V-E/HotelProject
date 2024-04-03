@@ -88,8 +88,8 @@ public class ReservationsPanel extends JPanel implements PagePanel {
             int row = table.getSelectedRow();
             if (row != -1) {
                 String roomNumber = (String) table.getValueAt(row, 3);
-                Room room = RoomController.getRoom(roomNumber);
-                JOptionPane.showMessageDialog(null, "Room: " + room);
+                //Room room = RoomController.getRoom(roomNumber);
+                JOptionPane.showMessageDialog(null, "Room: " + roomNumber);
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
             }

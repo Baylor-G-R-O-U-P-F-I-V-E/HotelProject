@@ -22,11 +22,11 @@ public class LoginPanel extends JPanel implements PagePanel {
     private GridBagConstraints gbc = new GridBagConstraints();
     private JTextField nameField;
     private JTextField passwordField;
-    private LoginPage delegate;
+    private LandingPage delegate;
     public String username;
     public String password;
 
-    public LoginPanel(LoginPage delegate) {
+    public LoginPanel(LandingPage delegate) {
         super();
         this.delegate = delegate;
         // Set the layout of the panel
