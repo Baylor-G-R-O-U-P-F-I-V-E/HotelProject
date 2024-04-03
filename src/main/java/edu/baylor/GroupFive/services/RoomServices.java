@@ -1,8 +1,11 @@
 package edu.baylor.GroupFive.services;
 
 import edu.baylor.GroupFive.database.roomDAO.RoomDatabaseConnection;
+import edu.baylor.GroupFive.database.reservationDAO.ReservationDatabaseConnection;
 import edu.baylor.GroupFive.models.Room;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RoomServices {
@@ -26,5 +29,19 @@ public class RoomServices {
         return conn.addRoom(newRoom);
     }
 
+
+    public static List<Room> getAvailableRooms(Date startDate, Date endDate){
+        List<Room> allRooms = getRooms();
+        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        List<Room> availableRooms = new ArrayList<>();
+
+        for(Room r : allRooms){
+            if(conn.checkIfAvailable(r.getRoomNumber().toString(),startDate,endDate)){
+                availableRooms.add(r);
+            }
+        }
+
+        return availableRooms;
+    }
 
 }

@@ -213,7 +213,7 @@ public class ReservationDatabaseConnection {
 
 
 
-    public Boolean checkIfAvailable(String roomID, Date startDate, Date endDate) throws SQLException {
+    public Boolean checkIfAvailable(String roomID, Date startDate, Date endDate) {
         //'20150131'
         Connection connection = getConnection();
         if(connection == null){
@@ -242,10 +242,18 @@ public class ReservationDatabaseConnection {
             return null;
         }finally {
             if (statement != null) {
-                statement.close();
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
             if (connection != null) {
-                connection.close();
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
 

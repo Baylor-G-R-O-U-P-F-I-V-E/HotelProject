@@ -1,5 +1,6 @@
 package edu.baylor.GroupFive.database.userDAO;
 
+import edu.baylor.GroupFive.models.Privilege;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.User;
 
@@ -36,7 +37,7 @@ public class UserDatabaseConnection {
             statement = connection.createStatement();
             rs = statement.executeQuery(sqlQuery);
             while(rs.next()){
-                User out = new User(rs.getString("firstname"),rs.getString("lastname"),rs.getString("username"),rs.getString("password"));
+                User out = new User(rs.getString("firstname"),rs.getString("lastname"),rs.getString("username"),rs.getString("password"), rs.getString("privilege"));
                 return out;
             }
 
@@ -74,8 +75,8 @@ public class UserDatabaseConnection {
         Statement statement = null;
         // "INSERT INTO USERs(firstName, lastNAME) VALUES('Kevin','James', 'KevDog', 'password')",
         // startDate endDate price guestID roomID
-        String sqlInsert = "INSERT INTO USERS(firstName, lastName, username, password) VALUES ('" +
-                 user.firstName + "','" + user.lastName + "','" + user.userName + "','" + user.passwordHash + "')" ;
+        String sqlInsert = "INSERT INTO USERS(firstName, lastName, username, password, privilege) VALUES ('" +
+                 user.firstName + "','" + user.lastName + "','" + user.userName + "','" + user.passwordHash + "','" + user.getPrivilege().toString() + "')" ;
         try {
             statement = connection.createStatement();
             statement.executeUpdate(sqlInsert);
