@@ -65,7 +65,7 @@ public class TestReservationDatabaseConnection {
         try {
             Date startDate = formatter.parse(sdate);
             Date endDate = formatter.parse(edate);
-            System.out.println(startDate.getYear() + " " + endDate.getTime());
+            //System.out.println(startDate.getYear() + " " + endDate.getTime());
             ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
             isAvailable = conn.checkIfAvailable("2",startDate,endDate);
             System.out.println(isAvailable);

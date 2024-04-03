@@ -243,7 +243,8 @@ public class ReservationDatabaseConnection {
 
 
         for(ArrayList<Date> r : mem){
-            System.out.println(r.get(0) + " " + r.get(1));
+            System.out.println(r.get(0) + " " + r.get(1) + " : " + startDate + " " + endDate);
+
             if((startDate.after(r.get(0)) || startDate.equals(r.get(0))) && startDate.before(r.get(1))){
                 System.out.println("3");
                 return false;
@@ -253,8 +254,8 @@ public class ReservationDatabaseConnection {
                 return false;
             }
 
-            if((startDate.after(r.get(0)) || startDate.equals(r.get(0))) &&
-                (endDate.equals(r.get(1)) || endDate.before(r.get(1)))){
+            if((startDate.before(r.get(0)) || startDate.equals(r.get(0))) &&
+                (endDate.equals(r.get(1)) || endDate.after(r.get(1)))){
                 System.out.println("1");
                 return false;
             }
