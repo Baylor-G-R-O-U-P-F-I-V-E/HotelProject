@@ -12,8 +12,8 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 @SuppressWarnings("unused")
-                InputDelegate landing = new LoginPage();
-                //InputDelegate landing = new Page("Login");
+                //InputDelegate landing = new LoginPage();
+                InputDelegate landing = new Page("Login");
             }
         });
     }
