@@ -147,11 +147,9 @@ public class TestReservationDatabaseConnection {
         assert(r != null);
 
 
-        try {
-            conn.cancelReservation(3,new Date("07/22/2024"));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
+        conn.cancelReservation(3,new Date("07/22/2024"));
+
 
         r = null;
         try {

@@ -10,4 +10,21 @@ public class RoomServices {
         RoomDatabaseConnection roomConn = new RoomDatabaseConnection();
         return roomConn.getRooms();
     };
+
+    public static Room getRoom(Integer roomNum){
+        RoomDatabaseConnection conn = new RoomDatabaseConnection();
+        return conn.getRoom(roomNum);
+    }
+
+    public static Boolean modifyRoom(Room updatedInfo){
+        RoomDatabaseConnection conn = new RoomDatabaseConnection();
+        return conn.modifyRoom(updatedInfo);
+    }
+
+    public static Boolean addRoom(Room newRoom){
+        RoomDatabaseConnection conn = new RoomDatabaseConnection();
+        return conn.addRoom(newRoom);
+    }
+
+
 }

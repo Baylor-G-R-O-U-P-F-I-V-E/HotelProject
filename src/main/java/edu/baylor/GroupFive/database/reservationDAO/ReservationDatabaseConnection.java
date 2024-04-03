@@ -121,7 +121,7 @@ public class ReservationDatabaseConnection {
         return output;
     }
     //works well enough
-    public Boolean cancelReservation(Integer roomID, Date startDate) throws SQLException {
+    public Boolean cancelReservation(Integer roomID, Date startDate) {
         Connection connection = getConnection();
         if(connection == null){
             System.out.println("Connection Failed");
@@ -140,10 +140,18 @@ public class ReservationDatabaseConnection {
             return false;
         }finally {
             if (statement != null) {
-                statement.close();
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
             if (connection != null) {
-                connection.close();
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         return true;
