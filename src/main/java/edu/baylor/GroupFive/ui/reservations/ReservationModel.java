@@ -38,6 +38,7 @@ public class ReservationModel extends HotelModel implements DataModel {
                 addRow(new Object[] {String.valueOf(reservation.getRoomID()), formatDate(reservation.getStartDate()), formatDate(reservation.getEndDate()), String.valueOf(reservation.getGuestID()), String.valueOf(reservation.getPrice())});
                 // Print the row to the console
                 System.out.println("Added row to table: " + reservation.getRoomID() + ", " + reservation.getStartDate() + ", " + reservation.getEndDate() + ", " + reservation.getGuestID() + ", " + reservation.getPrice());
+                System.out.println("Added row to table: " + reservation.getRoomID() + ", " + reservation.getStartDate() + ", " + reservation.getEndDate() + ", " + reservation.getGuestID() + ", " + reservation.getPrice());
             } catch (Exception e) {
                 // Log any errors
                 System.out.println("Error adding row to table");

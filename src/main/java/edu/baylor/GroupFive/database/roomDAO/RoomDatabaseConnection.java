@@ -1,5 +1,6 @@
 package edu.baylor.GroupFive.database.roomDAO;
 
+import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
 
 import java.io.File;
@@ -7,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -14,82 +16,122 @@ import java.util.*;
 public class RoomDatabaseConnection {
 
 
-    ArrayList<Room> data;
-    Integer currID = 0;
-    public RoomDatabaseConnection(){
-        this.data = new ArrayList<>();
-        try{
-            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
-            URL url = getClass().getResource("Rooms.txt");
-            File myFile = new File(url.toURI());
-            Scanner myReader = new Scanner(myFile);
-            while(myReader.hasNextLine()){
-                //assume row looks like rooomNumber,quality,theme,smoking,singles,doubles,queens,kings
-                String[] row = myReader.nextLine().split(",");
-                int roomNumber = Integer.parseInt(row[0]);
-                int quality = Integer.parseInt(row[1]);
-                String theme = row[2];
-                boolean smoking = Boolean.parseBoolean(row[3]);
-                int numBeds = Integer.parseInt(row[4]);
-                String bedType = row[5].toUpperCase();
-                double dailyPrice = Double.parseDouble(row[6]);
 
-                if(Integer.parseInt(row[4]) >= currID){
-                    currID = Integer.parseInt(row[4]) + 1;
+    public RoomDatabaseConnection(){}
+    private Connection getConnection(){
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:derby:FinalProject;", "", "");
+            if(connection == null) {
+                System.out.println("Could not connect");
+                return null;
+            }
+        } catch (SQLException e) {
+            return null;
+        }
+        return connection;
+    }
+
+    public List<Room> getRooms(){
+
+        Connection connection =  getConnection();
+        if(connection == null){
+            System.out.println("Connection Failed");
+            return null;
+        }
+
+        Statement statement = null;
+        String sqlQuery = "SELECT * FROM Room";
+        ResultSet rs = null;
+        List<Room> output = new ArrayList<>();
+        try {
+            statement = connection.createStatement();
+            rs = statement.executeQuery(sqlQuery);
+            //"INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (101,'High', 'Jungle',1,3,98.22)" ,
+            //Room(int roomNumber, int quality, THEME theme, boolean smoking, int numBeds, BED_TYPE bedType, double dailyPrice) {
+            while(rs.next()){
+                Room out = new Room(rs.getInt("roomNumber"),
+                        rs.getInt("quality"),
+                        Room.THEME.ThemeB,
+                        rs.getBoolean("smoking"),
+                        rs.getInt("numbeds"),
+                        Room.BED_TYPE.QUEEN,
+                        rs.getDouble("dailyPrice")
+                        );
+                output.add(out);
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
                 }
-                Room.THEME themeEnum = theme.equals("ThemeA") ? Room.THEME.ThemeA
-                    : theme.equals("ThemeB") ? Room.THEME.ThemeB
-                    : theme.equals("ThemeC") ? Room.THEME.ThemeC
-                    : null;
-                data.add(new Room(roomNumber, quality, themeEnum, smoking, numBeds, Room.BED_TYPE.valueOf(bedType), dailyPrice));
             }
-            myReader.close();
-        }catch(Exception e){
-            System.out.println("Error unable to find file");
-            e.printStackTrace();
-        }
-    }
-
-    public List<Room> getData(){
-        return this.data;
-    }
-
-    public boolean save()  {
-        try{
-            FileWriter myWriter = new FileWriter("RoomsSave.txt");
-            StringBuilder toF = new StringBuilder();
-            for(Room room : data){
-                toF.append(room.getRoomNumber()+","
-                    +room.getQuality()+","
-                    +room.getTheme().name()+","
-                    +room.isSmoking()+","
-                    +room.getNumBeds()+","
-                    +room.getBedType().name()
-                    +"\n"
-                );
-
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
-            myWriter.write(toF.toString());
-            //Date startDate, Date endDate, String guestID, String roomID, String reservationID
-        }catch (IOException e){
-            System.out.println("Unable to save");
-            return false;
-        } finally {
-            // Close myWriter
-            
         }
-        return true;
+
+
+        return null;
     }
+
 
     /*
-     * CHECK THIS METHOD
-     * i added it just to make vscode happy - Brendon
+     *
      * 
      * 
      */
-    public boolean addRoom(int roomNumber, int quality, Room.THEME theme, boolean smoking, int numBeds, Room.BED_TYPE bedType, double dailyPrice){
-        Room room = new Room(roomNumber, quality, theme, smoking, numBeds, bedType, dailyPrice);
-        data.add(room);
+    public Boolean addRoom(Room newRoom){
+        Connection connection = getConnection();
+        if(connection == null){
+            System.out.println("Connection Failed");
+            return null;
+        }
+        Statement statement = null;
+        String rowID = null;
+        // startDate endDate price guestID roomID
+        String sqlInsert = "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (" +
+                newRoom.getRoomNumber().toString() + "," + newRoom.getQuality().toString() +
+                ",'ThemeNotIntegrated'," + newRoom.getSmoking().toString() + "," +
+                "'NOTDONE'" + "," +
+                newRoom.getNumBeds().toString()  + "," +
+                newRoom.getDailyPrice().toString() + ")";
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate(sqlInsert);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+
         return true;
     }
 
@@ -100,12 +142,57 @@ public class RoomDatabaseConnection {
      * 
      
      */
-    public Room getRoom(int roomNumber){
-        for(Room room : data){
-            if(room.getRoomNumber() == roomNumber){
-                return room;
+    public Room getRoom(Integer roomNumber){
+        Connection connection =  getConnection();
+        if(connection == null){
+            System.out.println("Connection Failed");
+            return null;
+        }
+
+        Statement statement = null;
+        String sqlQuery = "SELECT * FROM Room WHERE roomNumber = " + roomNumber.toString();
+        ResultSet rs = null;
+
+        try {
+            statement = connection.createStatement();
+            rs = statement.executeQuery(sqlQuery);
+            //"INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (101,'High', 'Jungle',1,3,98.22)" ,
+            //Room(int roomNumber, int quality, THEME theme, boolean smoking, int numBeds, BED_TYPE bedType, double dailyPrice) {
+            while(rs.next()){
+                Room out = new Room(rs.getInt("roomNumber"),
+                        rs.getInt("quality"),
+                        Room.THEME.ThemeA,
+                        rs.getBoolean("smoking"),
+                        rs.getInt("numbeds"),
+                        Room.BED_TYPE.KING,
+                        rs.getDouble("dailyPrice")
+                );
+                return out;
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
+
+
         return null;
     }
 
