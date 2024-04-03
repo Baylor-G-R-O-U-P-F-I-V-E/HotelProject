@@ -13,7 +13,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.utils.DatePanel;
+import edu.baylor.GroupFive.ui.utils.Page;
+import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
@@ -21,6 +24,7 @@ import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 public class ReserveRoomPanel extends JPanel implements PagePanel {
 
     private JTable table;
+    private Page delegate;
 
     private String[] columnNames = {
             "Room",
@@ -38,8 +42,9 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
             String.class
     };
 
-    public ReserveRoomPanel() {
+    public ReserveRoomPanel(Page page) {
         super();
+        this.delegate = page;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Create a model of the data.
@@ -123,10 +128,11 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
                     
                     // Create an array of options to be displayed in the dialog
                     Object[] options = {"Reserve"};
+                    String room = (String) table.getValueAt(table.getSelectedRow(), 0);
 
                     // Create the JOptionPane
                     int choice = JOptionPane.showOptionDialog(null, 
-                        "Start Date: " + formatter.format(startDate) + "\nEnd Date: " + formatter.format(endDate), 
+                        "Room: " + room + "\nStart Date: " + formatter.format(startDate) + "\nEnd Date: " + formatter.format(endDate), 
                     "Create Reservation?", 
                         JOptionPane.DEFAULT_OPTION, 
                         JOptionPane.INFORMATION_MESSAGE, 
@@ -138,9 +144,17 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
                     if (choice == 0) {
                     
                         // The user clicked the "Reserve" button
-                        //ReservationController.reserveRoom(startDate, endDate);
-                        //ReservationController.reserveRoom(startDate, endDate); // Assuming ReservationController has a reserveRoom method that takes a start and end date and reserves the room
-                        JOptionPane.showMessageDialog(null, "Room reserved from " + formatter.format(startDate) + " to " + formatter.format(endDate));
+                        User user = delegate.getUser();
+                        boolean status = true;
+                        
+                        //Reserve the room using a reservation controller
+                        //boolean status = ReservationController.reserveRoom(user, room, startDate, endDate);
+
+                        if (!status) {
+                            JOptionPane.showMessageDialog(null, "Room is not available for the selected dates.");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Room " + room + " reserved from " + formatter.format(startDate) + " to " + formatter.format(endDate));
+                        }
                     }
 
                 }

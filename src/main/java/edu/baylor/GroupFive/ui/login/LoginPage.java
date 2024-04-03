@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
@@ -82,11 +83,11 @@ public class LoginPage extends JFrame implements InputDelegate {
         } else if (option.equals("success")) {
             dispose();
 
-            @SuppressWarnings("unused")
+            //FOR TESTING PURPOSES
+            User user = new User("John", "Doe", username, "password", "admin");
             
-            /*
             
-            Account user = AccountController.getAccount(username);
+            User user = AccountController.getAccount(username);
             
             if (user == null) {
                 System.out.println("Account not found");
@@ -96,7 +97,8 @@ public class LoginPage extends JFrame implements InputDelegate {
             Page page = new Page(user);
 
             */
-            Page page = new Page(username);
+            @SuppressWarnings("unused")
+            Page page = new Page(user);
 
         } else {
             System.out.println("Invalid option");
