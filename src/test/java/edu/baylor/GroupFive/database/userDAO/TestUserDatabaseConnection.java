@@ -1,5 +1,6 @@
 package edu.baylor.GroupFive.database.userDAO;
 import  edu.baylor.GroupFive.database.dbSetup;
+import edu.baylor.GroupFive.models.Privilege;
 import edu.baylor.GroupFive.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ public class TestUserDatabaseConnection {
     void addAUser() {
         dbSetup db = new dbSetup();
         UserDatabaseConnection conn = new UserDatabaseConnection();
-        User newUser = new User("Cole", "Flenniken", "colef8", "cole123");
+        User newUser = new User("Cole", "Flenniken", "colef8", "cole123", "Admin");
 
         assertEquals(conn.addUser(newUser), true);
     }
@@ -26,7 +27,7 @@ public class TestUserDatabaseConnection {
     void addThenGetUser(){
         dbSetup db = new dbSetup();
         UserDatabaseConnection conn = new UserDatabaseConnection();
-        User newUser = new User("Cole", "Flenniken", "colef8", "cole123");
+        User newUser = new User("Cole", "Flenniken", "colef8", "cole123", "Clerk");
         conn.addUser(newUser);
         User cole = conn.getUser("colef8");
         assertEquals(cole,newUser);

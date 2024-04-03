@@ -31,6 +31,7 @@ public class dbSetup {
                     "lastName VARCHAR(30)," +
                     "username VARCHAR(30)," +
                     "password VARCHAR(30)," +
+                    "privilege VARCHAR(20)," +
                     "CONSTRAINT PK_1 PRIMARY KEY(userID))";
 
             String sqlCreateRoom = "CREATE TABLE Room(" +
@@ -55,15 +56,15 @@ public class dbSetup {
                             "CONSTRAINT PK_RES2 PRIMARY KEY(roomID, startDate)" +
                             ")";
 
-            List<String> sqlInserts = List.of("INSERT INTO users(firstName, lastNAME, username,password) VALUES('Joe','Smith','Bongo','p1234')" ,
-                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Kevin','James', 'KevDog', 'password')",
-                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Axel','Washington', 'Axel112', 'password')" ,
-                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Andrew','Wiles', 'BigA', 'password')" ,
-                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Larry','AB', 'LarryTheLobster', 'password')" ,
-                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Josh','Smith', 'Jman', 'password')" ,
-                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Tyler','Lee', 'T-Lee', 'password')" ,
-                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Antoine','Wu', 'Ant', 'password')" ,
-                    "INSERT INTO USERs(firstName, lastNAME, username,password) VALUES('Everett','Anderson', 'andyEv', 'password')" ,
+            List<String> sqlInserts = List.of("INSERT INTO users(firstName, lastNAME, username,password,privilege) VALUES('Joe','Smith','Bongo','p1234', 'admin')" ,
+                    "INSERT INTO USERs(firstName, lastNAME, username,password, privilege) VALUES('Kevin','James', 'KevDog', 'password', 'clerk')",
+                    "INSERT INTO USERs(firstName, lastNAME, username,password, privilege) VALUES('Axel','Washington', 'Axel112', 'password', 'clerk')" ,
+                    "INSERT INTO USERs(firstName, lastNAME, username,password, privilege) VALUES('Andrew','Wiles', 'BigA', 'password', 'guest')" ,
+                    "INSERT INTO USERs(firstName, lastNAME, username,password, privilege) VALUES('Larry','AB', 'LarryTheLobster', 'password', 'guest')" ,
+                    "INSERT INTO USERs(firstName, lastNAME, username,password, privilege) VALUES('Josh','Smith', 'Jman', 'password', 'guest')" ,
+                    "INSERT INTO USERs(firstName, lastNAME, username,password, privilege) VALUES('Tyler','Lee', 'T-Lee', 'password', 'guest')" ,
+                    "INSERT INTO USERs(firstName, lastNAME, username,password, privilege) VALUES('Antoine','Wu', 'Ant', 'password', 'guest')" ,
+                    "INSERT INTO USERs(firstName, lastNAME, username,password, privilege) VALUES('Everett','Anderson', 'andyEv', 'password', 'guest')" ,
                     "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (101,1  , 'Jungle',true,'KING',2,98.22)" ,
                     "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (102,1  , 'Carnival',false,'KING',2,97.22)" ,
                     "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (103,1 , 'Jungle',true,'TWIN',2,77.22)" ,
