@@ -2,6 +2,8 @@ package edu.baylor.GroupFive.ui.utils;
 
 import javax.swing.*;
 
+import edu.baylor.GroupFive.models.Privilege;
+import edu.baylor.GroupFive.models.User;
 //import edu.baylor.GroupFive.model.Privilege;
 import edu.baylor.GroupFive.ui.reservations.ReservationsPanel;
 import edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel;
@@ -14,20 +16,26 @@ public class Page extends JFrame implements InputDelegate {
 
     private Dashboard dashboard;
     private GridBagConstraints constraints = new GridBagConstraints();
+    private User user;
     //private String acctNum;
-    //private Privilege privilege;
-    
+    private Privilege privilege;
     
     public JPanel currentPanel;
-    public Page(String acctNum) {
+    
+    public Page(User user) {
         super();
         //Init new frame
         createFrame();
+        this.user = user;
 
-        //privilege = getAccountPrivilege(acctNum);
+        if (user == null) {
+            dashboard = new Dashboard(this, Privilege.ADMIN);
+        } else {
+            privilege = user.getPrivilege();
+            dashboard = new Dashboard(this, privilege);
+        }
+        //privilege = AccountController.getAccountPrivilege(user);
 
-        //Create constraints to add dashboard to the frame
-        dashboard = new Dashboard(this, acctNum);
         addDashboard();
 
         constraints.gridx = 1;
@@ -80,6 +88,10 @@ public class Page extends JFrame implements InputDelegate {
         add(currentPanel, constraints);
         revalidate();
         repaint();
+    }
+
+    public User getUser() {
+        return user;
     }
 
 

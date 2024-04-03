@@ -7,12 +7,14 @@ public class User {
     public String lastName;
     public String userName;
     public String passwordHash;
+    public Privilege privilege;
 
-    public User(String firstName, String lastName, String userName, String passwordHash){
+    public User(String firstName, String lastName, String userName, String passwordHash, String privilege){
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.passwordHash = passwordHash;
+        this.privilege = Privilege.fromString(privilege);
     }
 
     @Override
@@ -26,5 +28,9 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName, userName, passwordHash);
+    }
+
+    public Privilege getPrivilege() {
+        return privilege;
     }
 }

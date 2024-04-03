@@ -13,7 +13,7 @@ public class Main {
             public void run() {
                 @SuppressWarnings("unused")
                 //InputDelegate landing = new LoginPage();
-                InputDelegate landing = new Page("Login");
+                InputDelegate landing = new Page(null); // Will be changed to LoginPage
             }
         });
     }
