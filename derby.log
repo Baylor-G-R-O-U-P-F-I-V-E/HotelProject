@@ -1,18 +1,6 @@
 ----------------------------------------------------------------
-<<<<<<< HEAD
-Wed Apr 03 12:59:00 CDT 2024:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.17.1.0 - (1913217): instance a816c00e-018e-a51d-3b9d-00000aa336a0 
-on database directory C:\Users\f8col\Desktop\Software Engineering\Final Project\HotelProject\FinalProject with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@76ed5528 
-Loaded from file:/C:/Users/f8col/.m2/repository/org/apache/derby/derby/10.17.1.0/derby-10.17.1.0.jar
-java.vendor=Oracle Corporation
-java.runtime.version=20.0.2+9-78
-user.dir=C:\Users\f8col\Desktop\Software Engineering\Final Project\HotelProject
-os.name=Windows 10
-os.arch=amd64
-os.version=10.0
-=======
-Tue Apr 02 14:58:40 CDT 2024:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.17.1.0 - (1913217): instance a816c00e-018e-a064-6ce7-000007807380 
+Wed Apr 03 15:21:14 CDT 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.17.1.0 - (1913217): instance a816c00e-018e-a59f-722e-000007807380 
 on database directory /Users/brendonnewton/Desktop/Programs/Software1/HotelProject/FinalProject with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@63c12fb0 
 Loaded from file:/Users/brendonnewton/.m2/repository/org/apache/derby/derby/10.17.1.0/derby-10.17.1.0.jar
 java.vendor=Eclipse Adoptium
@@ -21,6 +9,5 @@ user.dir=/Users/brendonnewton/Desktop/Programs/Software1/HotelProject
 os.name=Mac OS X
 os.arch=aarch64
 os.version=14.3.1
->>>>>>> f248834a0c10cf385b5a5df04fbbc786bb17c016
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

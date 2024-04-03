@@ -1,10 +1,12 @@
 package edu.baylor.GroupFive.ui.reserveRoom;
 
+import java.awt.Component;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,7 +19,7 @@ import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 
 public class ReserveRoomPanel extends JPanel implements PagePanel {
-    
+
     private JTable table;
 
     private String[] columnNames = {
@@ -28,21 +30,21 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
             "Number of Beds",
             "Bed Type",
             "Nightly Rate"
-         };
-    
-    //Define data types for the columns
+    };
+
+    // Define data types for the columns
     final Class<?>[] columnClass = new Class[] {
-            String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class
+            String.class, String.class, String.class, String.class, String.class, String.class, String.class,
+            String.class
     };
 
     public ReserveRoomPanel() {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-
         // Create a model of the data.
         DefaultTableModel model = new AddReservationModel(columnNames, columnClass);
-        
+
         // Create a table with a sorter.
         table = new HotelTable(model);
 
@@ -53,11 +55,11 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
         add(scrollPane);
 
         // Add the form pane
-        add(new FormPane(table, ((HotelTable)table).getSorter(), columnNames));
+        add(new FormPane(table, ((HotelTable) table).getSorter(), columnNames));
 
         // Add the button panel
         addButtonPanel();
-        
+
         // Set the panel properties
         setVisible(true);
 
@@ -118,9 +120,31 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
                     return;
                 } else {
                     SimpleDateFormat formatter = new SimpleDateFormat("EEE MM/dd/yyyy");
-                    JOptionPane.showMessageDialog(null, "Start Date: " + formatter.format(startDate) + "\nEnd Date: " + formatter.format(endDate));
-                    //ReservationController.reserveRoom(startDate, endDate); // Assuming ReservationController has a reserveRoom method that takes a start and end date and reserves the room
+                    
+                    // Create an array of options to be displayed in the dialog
+                    Object[] options = {"Reserve"};
+
+                    // Create the JOptionPane
+                    int choice = JOptionPane.showOptionDialog(null, 
+                        "Start Date: " + formatter.format(startDate) + "\nEnd Date: " + formatter.format(endDate), 
+                    "Create Reservation?", 
+                        JOptionPane.DEFAULT_OPTION, 
+                        JOptionPane.INFORMATION_MESSAGE, 
+                    null, 
+                        options, 
+                        options[0]);
+
+                    // Check the user's choice
+                    if (choice == 0) {
+                    
+                        // The user clicked the "Reserve" button
+                        //ReservationController.reserveRoom(startDate, endDate);
+                        //ReservationController.reserveRoom(startDate, endDate); // Assuming ReservationController has a reserveRoom method that takes a start and end date and reserves the room
+                        JOptionPane.showMessageDialog(null, "Room reserved from " + formatter.format(startDate) + " to " + formatter.format(endDate));
+                    }
+
                 }
+
             } else {
                 JOptionPane.showMessageDialog(null, "Please enter both start and end dates.");
             }
@@ -135,6 +159,6 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
 
     @Override
     public void clear() {
-        //Do nothing
+        // Do nothing
     }
 }
