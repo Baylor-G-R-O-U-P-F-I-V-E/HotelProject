@@ -10,17 +10,18 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import edu.baylor.GroupFive.controllers.AccountController;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
-public class LoginPage extends JFrame implements InputDelegate {
+public class LandingPage extends JFrame implements InputDelegate {
 
     private JPanel background;
     private JPanel surface;
     private String username;
 
-    public LoginPage() {
+    public LandingPage() {
         super();
 
         // Init new frame
@@ -82,21 +83,14 @@ public class LoginPage extends JFrame implements InputDelegate {
         
         } else if (option.equals("success")) {
             dispose();
-
-            //FOR TESTING PURPOSES
-            User user = new User("John", "Doe", username, "password", "admin");
             
-            
-            User user = AccountController.getAccount(username);
+            User user = AccountController.getUser(username);
             
             if (user == null) {
                 System.out.println("Account not found");
                 return;
             }
             
-            Page page = new Page(user);
-
-            */
             @SuppressWarnings("unused")
             Page page = new Page(user);
 
