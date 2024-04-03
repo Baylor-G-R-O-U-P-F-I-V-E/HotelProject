@@ -87,9 +87,8 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         viewRoom.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row != -1) {
-                String room = (String) table.getValueAt(row, 3);
-                //String roomID = (String) table.getValueAt(row, 3);
-                //Room room = RoomController.getRoom(roomID);
+                String roomNumber = (String) table.getValueAt(row, 3);
+                Room room = RoomController.getRoom(roomNumber);
                 JOptionPane.showMessageDialog(null, "Room: " + room);
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
