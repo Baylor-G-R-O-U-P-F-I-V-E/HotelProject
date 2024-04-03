@@ -8,6 +8,6 @@ import java.util.List;
 public class RoomServices {
     public static List<Room> getRooms(){
         RoomDatabaseConnection roomConn = new RoomDatabaseConnection();
-        return roomConn.getData();
+        return roomConn.getRooms();
     };
 }

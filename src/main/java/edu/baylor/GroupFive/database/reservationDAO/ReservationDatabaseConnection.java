@@ -17,7 +17,7 @@ public class ReservationDatabaseConnection {
 
 
     public ReservationDatabaseConnection(){}
-
+    //works well enough
     private Connection getConnection(){
         Connection connection = null;
         try {
@@ -32,22 +32,31 @@ public class ReservationDatabaseConnection {
         return connection;
     }
 
-    public String addReservation(Reservation reservation) throws SQLException {
+    //works well enough
+    public Integer addReservation(Reservation reservation) throws SQLException {
         Connection connection = getConnection();
         if(connection == null){
             System.out.println("Connection Failed");
             return null;
         }
         Statement statement = null;
-        String rowID = null;
+        Integer rowID = null;
         // startDate endDate price guestID roomID
-        String sqlInsert = "INSERT INTO Reservation(START_DATE,END_DATE,PRICE,GUEST_ID,ROOM_ID) VALUES('" + formatDate(reservation.getStartDate()) + "','" +
+        System.out.println("TEST1 - " + formatDate(reservation.getEndDate()));
+        String sqlInsert = "INSERT INTO Reservations(STARTDATE,ENDDATE,PRICE,GUESTID,ROOMID) VALUES('" + formatDate(reservation.getStartDate()) + "','" +
                 formatDate(reservation.getEndDate()) + "'," + reservation.getPrice() + "," + reservation.getGuestID() + "," + reservation.getRoomID() + ")";
         try {
             statement = connection.createStatement();
-            statement.executeUpdate(sqlInsert);
-            ResultSet r = statement.executeQuery("SELECT MAX(reservationID) FROM RESERVATION");
-            rowID = r.getString("reservationID");
+            statement.executeUpdate(sqlInsert, Statement.RETURN_GENERATED_KEYS);
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int generatedId = generatedKeys.getInt(1); // Assuming the generated key is an integer
+                System.out.println("Generated Key: " + generatedId);
+                return  generatedId;
+            } else {
+                System.out.println("No generated keys were retrieved");
+            }
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
@@ -61,10 +70,11 @@ public class ReservationDatabaseConnection {
         }
 
 
-        return rowID;
+        return null;
     }
 
 
+    //works well enough
     public List<Reservation> getReservations(){
         Connection connection =  getConnection();
         if(connection == null){
@@ -73,7 +83,7 @@ public class ReservationDatabaseConnection {
         }
 
         Statement statement = null;
-        String sqlQuery = "SELECT * FROM Reservation;";
+        String sqlQuery = "SELECT * FROM Reservations";
         ResultSet rs = null;
         List<Reservation> output = new ArrayList<>();
         try {
@@ -84,10 +94,8 @@ public class ReservationDatabaseConnection {
                         rs.getDate("endDate"),
                         rs.getString("guestID"),
                         rs.getString("roomID"),
-                        rs.getString("reservationID"),
                         rs.getDouble("price"));
                 output.add(out);
-
             }
 
 
@@ -112,10 +120,8 @@ public class ReservationDatabaseConnection {
         }
         return output;
     }
-
-    public Boolean cancelReservation(String reservationID) throws SQLException {
-
-
+    //works well enough
+    public Boolean cancelReservation(Integer roomID, Date startDate) throws SQLException {
         Connection connection = getConnection();
         if(connection == null){
             System.out.println("Connection Failed");
@@ -123,7 +129,7 @@ public class ReservationDatabaseConnection {
         }
 
         Statement statement = null;
-        String sqlDelete = "DELETE FROM reservation WHERE reservationID = '" + reservationID + "'";
+        String sqlDelete = "DELETE FROM reservations WHERE roomID = " + roomID + " AND startDate = '" + formatDate(startDate) + "'";
         try {
             statement = connection.createStatement();
             statement.execute(sqlDelete);
@@ -144,21 +150,32 @@ public class ReservationDatabaseConnection {
 
 
     }
-
-    public Reservation getInfo(String reservationID) throws SQLException {
+    //works well enough
+    public Reservation getInfo(Integer roomID, Date startDate) throws SQLException {
         Connection connection = getConnection();
         if(connection == null){
             System.out.println("Connection Failed");
             return null;
         }
 
-        ResultSet rs = null;
-        Statement statement = null;
-        String sqlQuery = "SELECT * FROM reservation WHERE reservationID = 'reservationID'";
+        ResultSet rs;
+        ResultSet id;
+        Statement statement= null;
+
+        String sqlQuery = "SELECT * FROM reservations WHERE roomID = " + roomID + " AND startDate = '" + formatDate(startDate) + "'";
         try {
             statement = connection.createStatement();
-            rs = statement.executeQuery(sqlQuery);
 
+            rs = statement.executeQuery(sqlQuery);
+            while(rs.next()){
+                Reservation out = new Reservation(rs.getDate("startDate"),
+                        rs.getDate("endDate"),
+                        rs.getString("guestID"),
+                        rs.getString("roomID"),
+                        rs.getDouble("price"));
+
+                return out;
+            }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -171,16 +188,20 @@ public class ReservationDatabaseConnection {
                 connection.close();
             }
         }
-        rs.next();
-        Reservation out = new Reservation(rs.getDate("startDate"),
-                rs.getDate("endDate"),
-                rs.getString("guestID"),
-                rs.getString("roomID"),
-                rs.getString("reservationID"),
-                rs.getDouble("price"));
-        return out;
+        if (statement != null) {
+            statement.close();
+        }
+        if (connection != null) {
+            connection.close();
+        }
+
+
+
+        return null;
 
     }
+
+
 
 
 
@@ -191,17 +212,24 @@ public class ReservationDatabaseConnection {
             System.out.println("Connection Failed");
             return null;
         }
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.ENGLISH);
 
+        ArrayList<ArrayList<Date>> mem;
         ResultSet rs = null;
         Statement statement = null;
-        String sqlQuery = "SELECT * FROM reservation WHERE roomid='" + roomID + "'";
+        String sqlQuery = "SELECT * FROM reservations WHERE roomid=" + roomID;
         try {
             statement = connection.createStatement();
             rs = statement.executeQuery(sqlQuery);
-
+            mem = new ArrayList<>();
+            while(rs.next()){
+                ArrayList<Date> temp = new ArrayList<>();
+                temp.add(rs.getDate("startDate"));
+                temp.add(rs.getDate("endDate"));
+                mem.add(temp);
+            }
 
         } catch (SQLException e) {
+            System.out.println("RDC check if available failed");
             System.out.println(e.getMessage());
             return null;
         }finally {
@@ -212,25 +240,23 @@ public class ReservationDatabaseConnection {
                 connection.close();
             }
         }
-        ArrayList<ArrayList<Date>> mem = new ArrayList<>();
-        while(rs.next()){
-            ArrayList<Date> temp = new ArrayList<>();
-            temp.add(rs.getDate("startDate"));
-            temp.add(rs.getDate("endDate"));
-            mem.add(temp);
-        }
+
 
         for(ArrayList<Date> r : mem){
+            System.out.println(r.get(0) + " " + r.get(1) + " : " + startDate + " " + endDate);
 
             if((startDate.after(r.get(0)) || startDate.equals(r.get(0))) && startDate.before(r.get(1))){
+                System.out.println("3");
                 return false;
             }
             if(endDate.after(r.get(0)) && (endDate.equals(r.get(1)) || endDate.before(r.get(1)))){
+                System.out.println("2");
                 return false;
             }
 
-            if(startDate.after(r.get(0)) || startDate.equals(r.get(0)) &&
-                (endDate.equals(r.get(1)) || endDate.before(r.get(1)))){
+            if((startDate.before(r.get(0)) || startDate.equals(r.get(0))) &&
+                (endDate.equals(r.get(1)) || endDate.after(r.get(1)))){
+                System.out.println("1");
                 return false;
             }
         }

@@ -38,16 +38,16 @@ public class ReservationServices {
 
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         //-1 is a tempID as id will be assigned in addReservation
-        Reservation newReservation = new Reservation(startDate,endDate,guestID,roomID, "-1", stayPrice);
+        Reservation newReservation = new Reservation(startDate,endDate,guestID,roomID,  stayPrice);
         Boolean isAvailable = conn.checkIfAvailable(roomID,startDate,endDate);
 
         if(!isAvailable){return null;}
 
-        String reservationID = conn.addReservation(newReservation);
+        Integer reservationID = conn.addReservation(newReservation);
 
         //if reservationID is null, then the reservation was not added
 
-        return reservationID;
+        return reservationID.toString();
     }
 
 
