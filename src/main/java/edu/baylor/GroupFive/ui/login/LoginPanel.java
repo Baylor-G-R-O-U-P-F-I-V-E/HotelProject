@@ -129,7 +129,6 @@ public class LoginPanel extends JPanel implements PagePanel {
 
     public void onClick(String username, String password) {
         delegate.setUsername(username);
-        delegate.setPassword(password);
 
         delegate.onPageSwitch("success");
     }
