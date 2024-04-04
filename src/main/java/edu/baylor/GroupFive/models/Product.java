@@ -5,10 +5,14 @@ public class Product {
     private Inventory inventory;
     private ProductDescription description;
 
-    public Product() {
-        productID = -1;
-        inventory = null;
-        description = null;
+    public Product(
+            int productID_,
+            Inventory inventory_,
+            ProductDescription description_
+            ) {
+        productID = productID_;
+        inventory = inventory_;
+        description = description_;
     }
 
     public int getProductID() { return productID; }

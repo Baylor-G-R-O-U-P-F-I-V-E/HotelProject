@@ -12,14 +12,22 @@ public class Account {
     private Address address;
     private Privilege privilege;
 
-    public Account() {
-        name = "";
-        phoneNumber = -1;
-        username = "";
-        password = "";
-        email = "";
-        address = null;
-        privilege = null;
+    public Account(
+            String name_,
+            int phoneNumber_,
+            String username_,
+            String password_,
+            String email_,
+            Address address_,
+            Privilege privilege_
+            ) {
+        name = name_;
+        phoneNumber = phoneNumber_;
+        username = username_;
+        password = password_;
+        email = email_;
+        address = address_;
+        privilege = privilege_;
     }
 
     public Privilege getPrivilege() {

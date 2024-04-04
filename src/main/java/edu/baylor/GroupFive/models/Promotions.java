@@ -8,11 +8,16 @@ public class Promotions {
     private Date expirationDate;
     private StayBill bill;
 
-    public Promotions() {
-        discountAmount = 0;
-        discountType = false;
-        expirationDate = null;
-        bill = null;
+    public Promotions(
+            double discountAmount_,
+            boolean discountType_,
+            Date expirationDate_,
+            StayBill bill_
+            ) {
+        discountAmount = discountAmount_;
+        discountType = discountType_;
+        expirationDate = expirationDate_;
+        bill = bill_;
     }
 
     public double getDiscountAmount() { return discountAmount; }

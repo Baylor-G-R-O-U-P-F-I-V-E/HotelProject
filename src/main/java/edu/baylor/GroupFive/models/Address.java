@@ -10,15 +10,24 @@ public class Address {
     private Account account;
     private BillingInfo billingInfo;
 
-    public Address() {
-        buildingNumber = -1;
-        zipCode = -1;
-        streetName = "";
-        aptNumber = -1;
-        state = "";
-        country = "";
-        account = null;
-        billingInfo = null;
+    public Address(
+            int buildingNumber_,
+            int zipCode_,
+            String streetName_,
+            int aptNumber_,
+            String state_,
+            String country_,
+            Account account_,
+            BillingInfo billingInfo_
+            ) {
+        buildingNumber = buildingNumber_;
+        zipCode = zipCode_;
+        streetName = streetName_;
+        aptNumber = aptNumber_;
+        state = state_;
+        country = country_;
+        account = account_;
+        billingInfo = billingInfo_;
     }
 
     public Account getAccount() { return account; }
