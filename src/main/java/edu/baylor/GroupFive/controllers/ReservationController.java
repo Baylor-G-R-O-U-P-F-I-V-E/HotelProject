@@ -4,6 +4,7 @@ import edu.baylor.GroupFive.models.Account;
 import edu.baylor.GroupFive.models.QualityDescription;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
+import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.services.ReservationServices;
 import edu.baylor.GroupFive.services.RoomServices;
 
@@ -14,8 +15,25 @@ import java.util.List;
 
 public class ReservationController {
 
-    void bookRoom(Account account, Date startDate, Date endDate, Room room){
+    public static boolean bookRoom(User account, Date startDate, Date endDate, Room room){
+        
+        String guestID = account.getUsername();
+        String reservationID = null;
 
+        try {
+            reservationID = ReservationServices.addReservation(startDate, endDate, String.valueOf(room.getRoomNumber()), guestID);
+        } catch (SQLException e) {
+            System.out.println("Error booking room");
+            e.printStackTrace();
+            return false;
+        }
+
+        if (reservationID == null) {
+            return false;
+        } else {
+            return true;
+        }
+        
     }
 
     public static List<Room> getAllRooms(){

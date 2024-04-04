@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 import edu.baylor.GroupFive.controllers.ReservationController;
+import edu.baylor.GroupFive.controllers.RoomController;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
@@ -87,10 +88,9 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         viewRoom.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row != -1) {
-                String room = (String) table.getValueAt(row, 3);
-                //String roomID = (String) table.getValueAt(row, 3);
-                //Room room = RoomController.getRoom(roomID);
-                JOptionPane.showMessageDialog(null, "Room: " + room);
+                Integer roomNumber = Integer.parseInt((String) table.getValueAt(row, 3));
+                Room room = RoomController.getRoomInfo(roomNumber);
+                JOptionPane.showMessageDialog(null, room.toString());
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
             }

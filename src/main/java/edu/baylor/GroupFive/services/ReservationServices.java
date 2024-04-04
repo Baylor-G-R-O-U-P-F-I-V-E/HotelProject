@@ -47,7 +47,12 @@ public class ReservationServices {
 
         //if reservationID is null, then the reservation was not added
 
-        return reservationID.toString();
+        if (reservationID == null) {
+            return null;
+        } else {
+            return reservationID.toString();
+        }
+        
     }
 
 
