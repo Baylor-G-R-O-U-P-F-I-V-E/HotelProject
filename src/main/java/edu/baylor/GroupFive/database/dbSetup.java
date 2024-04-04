@@ -19,16 +19,12 @@ public class dbSetup {
             Statement statement = null;
             String rowID = null;
             // startDate endDate price guestID roomID
-            
-            /*
-            String sqlDropReservation = "DROP TABLE reservations";
-            String sqlDropRoom = "DROP TABLE room";
-            String sqlDropUser = "DROP TABLE users";
-            */
-            
+//            String sqlDropReservation = "DROP TABLE RESERVATIONs";
+//            String sqlDropRoom = "DROP TABLE ROOM";
+//            String sqlDropUser = "DROP TABLE USERs";
 
             //startDate endDate price guestID roomID
-            String sqlCreateUser = "CREATE TABLE users(" +
+            String sqlCreateUser = "CREATE TABLE USERs(" +
                     "firstName VARCHAR(30)," +
                     "lastName VARCHAR(30)," +
                     "username VARCHAR(30) NOT NULL ," +
@@ -36,7 +32,7 @@ public class dbSetup {
                     "privilege VARCHAR(20)," +
                     "CONSTRAINT PK_USER PRIMARY KEY(username))";
 
-            String sqlCreateRoom = "CREATE TABLE Room(" +
+            String sqlCreateRoom = "CREATE TABLE ROOM(" +
                     "roomNumber INTEGER NOT NULL , "+
                     "quality INTEGER," +
                     "theme VARCHAR(50)," +
@@ -46,18 +42,19 @@ public class dbSetup {
                     "dailyPrice DECIMAL(5,2)," +
                     "CONSTRAINT PK_ROOM PRIMARY KEY(roomNumber))";
             String sqlCreateReservation =
-                    "CREATE TABLE reservations(" +
+                    "CREATE TABLE RESERVATIONs(" +
                             "startDate DATE," +
                             "endDate Date," +
                             "price DECIMAL(5,2)," +
                             "guestusername VARCHAR(30)," + 
                             "roomNumber INTEGER," +
+                            "id INTEGER," +
                             "CONSTRAINT FK_12 FOREIGN KEY (guestusername) REFERENCES users(username)," +
                             "CONSTRAINT FK_23 FOREIGN KEY (roomNumber) REFERENCES ROOM(roomNumber)," +
                             "CONSTRAINT PK_RES3 PRIMARY KEY(roomNumber, startDate)" +
                             ")";
 
-            List<String> sqlInserts = List.of("INSERT INTO users(firstName, lastNAME, username,password,privilege) VALUES('Joe','Smith','Bongo','p1234', 'admin')" ,
+            List<String> sqlInserts = List.of("INSERT INTO USERs(firstName, lastNAME, username,password,privilege) VALUES('Joe','Smith','Bongo','p1234', 'admin')" ,
                     "INSERT INTO USERs(firstName, lastNAME, username,password, privilege) VALUES('Kevin','James', 'KevDog', 'password', 'clerk')",
                     "INSERT INTO USERs(firstName, lastNAME, username,password, privilege) VALUES('Axel','Washington', 'Axel112', 'password', 'clerk')" ,
                     "INSERT INTO USERs(firstName, lastNAME, username,password, privilege) VALUES('Andrew','Wiles', 'BigA', 'password', 'guest')" ,
@@ -75,41 +72,40 @@ public class dbSetup {
                     "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (107,1, 'NatureRetreat',false,'DOUBLE',2,94.22)" ,
                     "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (108,1, 'NatureRetreat',false,'QUEEN',2,92.22)" ,
                     "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (109,1, 'VintageCharm',true,'KING',2,98.22)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('12/17/2024','12/19/2024',97.99,'Axel112',102)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/12/2024','07/22/2024',95.99,'BigA',103)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/20/2024','07/23/2024',96.99,'Ant',101)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/20/2024','07/23/2024',97.99,'Axel112',104)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/11/2024','07/13/2024',88.99,'andyEv',105)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/09/2024','07/12/2024',97.99,'LarryTheLobster',101)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/10/2024','07/17/2024',88.99,'KevDog',102)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/22/2024','07/25/2024',97.99,'Jman',103)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/14/2024','07/19/2024',97.99,'T-Lee',104)");
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('12/17/2024','12/19/2024',97.99,'Axel112',102, 1)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/12/2024','07/22/2024',95.99,'Axel112',103, 2)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/20/2024','07/23/2024',96.99,'Axel112',101, 3)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/20/2024','07/23/2024',97.99,'Axel112',104, 4)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/11/2024','07/13/2024',88.99,'Axel112',105, 5)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/09/2024','07/12/2024',97.99,'Axel112',101, 6)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/10/2024','07/17/2024',88.99,'Axel112',102, 7)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/22/2024','07/25/2024',97.99,'Axel112',103, 8)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/14/2024','07/19/2024',97.99,'Axel112',104, 9)");
+
 
             //mm/dd/yyyy
             String sqlQ = "SELECT * FROM  RESERVATIONs";
 
             try {
                 statement = connection.createStatement();
-                /*
-                try{
-                    statement.executeUpdate(sqlDropReservation);
-                }catch(SQLException e){
-                    System.out.println("DROP RESERVATION ERROR");
-                    System.out.println(e.getMessage());
-                }
-                try{
-                    statement.executeUpdate(sqlDropRoom);
-                }catch(SQLException e){
-                    System.out.println("DROP ROOM ERROR");
-                    System.out.println(e.getMessage());
-                }
-                try{
-                    statement.executeUpdate(sqlDropUser);
-                }catch(SQLException e){
-                    System.out.println("DROP USER ERROR");
-                    System.out.println(e.getMessage());
-                }
-                */
+//                try{
+//                    statement.executeUpdate(sqlDropReservation);
+//                }catch(SQLException e){
+//                    System.out.println("DROP RESERVATION ERROR");
+//                    System.out.println(e.getMessage());
+//                }
+//                try{
+//                    statement.executeUpdate(sqlDropRoom);
+//                }catch(SQLException e){
+//                    System.out.println("DROP ROOM ERROR");
+//                    System.out.println(e.getMessage());
+//                }
+//                try{
+//                    statement.executeUpdate(sqlDropUser);
+//                }catch(SQLException e){
+//                    System.out.println("DROP USER ERROR");
+//                    System.out.println(e.getMessage());
+//                }
 
 
                 try{
@@ -154,6 +150,32 @@ public class dbSetup {
                     System.out.println("SELECT ERROR");
                     System.out.println(e.getMessage());
                 }
+
+
+
+
+
+
+//              Join Logic that ended up being moot for the moment. Did the logic in the ReservationController
+//                System.out.println("==========================================");
+//                // bullshit
+//                Statement joinstatement = connection.createStatement();
+//                String sqlJoin =
+//                    "SELECT RESERVATIONs.id, ROOM.roomNumber, RESERVATIONs.startDate, RESERVATIONs.endDate " +
+//                        "FROM RESERVATIONs " +
+//                        "INNER JOIN ROOM ON RESERVATIONs.roomNumber=ROOM.roomNumber";
+//                try{
+////                    joinstatement.executeQuery("SELECT RESERVATIONs.id, ROOM.roomNumber, RESERVATIONs.startDate, RESERVATIONs.endDate");
+////                    joinstatement.executeQuery("FROM RESERVATIONs");
+////                    ResultSet rs = joinstatement.executeQuery("INNER JOIN ROOM ON RESERVATIONs.roomNumber=ROOM.roomNumber");
+//                    ResultSet rs = joinstatement.executeQuery(sqlJoin);
+//                    while(rs.next()){
+//                        System.out.println("rsrvation id:" + rs.getInt("id") + "for rm#" + rs.getInt("roomNumber") + " | start: " + rs.getDate("startDate") + " | end: " + rs.getDate("endDate"));
+//                    }
+//                }catch(SQLException e){
+//                    System.out.println("SELECT ERROR");
+//                    System.out.println(e.getMessage());
+//                }
 
 
             } catch (SQLException e) {
