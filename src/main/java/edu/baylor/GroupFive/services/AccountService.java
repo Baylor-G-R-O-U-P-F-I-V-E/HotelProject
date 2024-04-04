@@ -12,11 +12,6 @@ public class AccountService {
         return conn.getUser(username);
     }
 
-    public static boolean checkAccountExists(String username) {
-        UserDatabaseConnection conn = new UserDatabaseConnection();
-        return conn.getUser(username) != null;
-    }
-
     public static void changePassword(String username, String oldPassword, String newPassword) throws UserNotFoundException, InvalidCredentialsException {
         UserDatabaseConnection conn = new UserDatabaseConnection();
         User user = conn.getUser(username);
@@ -32,4 +27,10 @@ public class AccountService {
         user.changePassword(newPassword);
     }
     
+    public static void register(String firstName, String lastName, String username, String password, String privilege){
+        UserDatabaseConnection conn = new UserDatabaseConnection();
+        User user = new User(firstName, lastName, username, password, privilege);
+        conn.addUser(user);
+    }
+
 }
