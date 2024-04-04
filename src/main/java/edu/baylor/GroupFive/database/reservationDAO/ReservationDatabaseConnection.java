@@ -14,8 +14,6 @@ import edu.baylor.GroupFive.models.Reservation;
 
 public class ReservationDatabaseConnection {
 
-
-
     public ReservationDatabaseConnection(){}
     //works well enough
     private Connection getConnection(){
