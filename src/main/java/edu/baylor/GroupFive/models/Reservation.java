@@ -30,7 +30,7 @@ public class Reservation {
         return guestUsername;
     }
 
-    public String getRoomNumber(){
+    public Integer getRoomNumber(){
         return roomNumber;
     }
 
