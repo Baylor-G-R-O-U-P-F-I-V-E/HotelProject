@@ -19,9 +19,9 @@ public class dbSetup {
             Statement statement = null;
             String rowID = null;
             // startDate endDate price guestID roomID
-            String sqlDropReservation = "DROP TABLE RESERVATIONs";
-            String sqlDropRoom = "DROP TABLE ROOM";
-            String sqlDropUser = "DROP TABLE USERs";
+//            String sqlDropReservation = "DROP TABLE RESERVATIONs";
+//            String sqlDropRoom = "DROP TABLE ROOM";
+//            String sqlDropUser = "DROP TABLE USERs";
 
 
             //startDate endDate price guestID roomID
@@ -88,24 +88,24 @@ public class dbSetup {
 
             try {
                 statement = connection.createStatement();
-                try{
-                    statement.executeUpdate(sqlDropReservation);
-                }catch(SQLException e){
-                    System.out.println("DROP RESERVATION ERROR");
-                    System.out.println(e.getMessage());
-                }
-                try{
-                    statement.executeUpdate(sqlDropRoom);
-                }catch(SQLException e){
-                    System.out.println("DROP ROOM ERROR");
-                    System.out.println(e.getMessage());
-                }
-                try{
-                    statement.executeUpdate(sqlDropUser);
-                }catch(SQLException e){
-                    System.out.println("DROP USER ERROR");
-                    System.out.println(e.getMessage());
-                }
+//                try{
+//                    statement.executeUpdate(sqlDropReservation);
+//                }catch(SQLException e){
+//                    System.out.println("DROP RESERVATION ERROR");
+//                    System.out.println(e.getMessage());
+//                }
+//                try{
+//                    statement.executeUpdate(sqlDropRoom);
+//                }catch(SQLException e){
+//                    System.out.println("DROP ROOM ERROR");
+//                    System.out.println(e.getMessage());
+//                }
+//                try{
+//                    statement.executeUpdate(sqlDropUser);
+//                }catch(SQLException e){
+//                    System.out.println("DROP USER ERROR");
+//                    System.out.println(e.getMessage());
+//                }
 
 
                 try{
