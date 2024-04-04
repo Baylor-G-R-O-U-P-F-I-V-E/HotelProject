@@ -9,7 +9,6 @@ public class Purchase {
         this.id = -1;
         this.date = null;
         this.bill = null;
-
     }
 
     private StayBill bill;
