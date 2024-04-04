@@ -39,10 +39,10 @@ public class ReservationDatabaseConnection {
         }
         Statement statement = null;
         Integer rowID = null;
-        // startDate endDate price guestID roomID
+        // startDate endDate price guestUsername roomNumber
         System.out.println("TEST1 - " + formatDate(reservation.getEndDate()));
-        String sqlInsert = "INSERT INTO Reservations(STARTDATE,ENDDATE,PRICE,GUESTID,ROOMID) VALUES('" + formatDate(reservation.getStartDate()) + "','" +
-                formatDate(reservation.getEndDate()) + "'," + reservation.getPrice() + "," + reservation.getGuestID() + "," + reservation.getRoomID() + ")";
+        String sqlInsert = "INSERT INTO Reservations(STARTDATE,ENDDATE,PRICE,GUESTUsername,ROOMNumber) VALUES('" + formatDate(reservation.getStartDate()) + "','" +
+                formatDate(reservation.getEndDate()) + "'," + reservation.getPrice() + ",'" + reservation.getGuestUsername() + "'," + reservation.getRoomNumber() + ")";
         try {
             statement = connection.createStatement();
             statement.executeUpdate(sqlInsert, Statement.RETURN_GENERATED_KEYS);
@@ -90,8 +90,8 @@ public class ReservationDatabaseConnection {
             while(rs.next()){
                 Reservation out = new Reservation(rs.getDate("startDate"),
                         rs.getDate("endDate"),
-                        rs.getString("guestID"),
-                        rs.getString("roomID"),
+                        rs.getString("guestUsername"),
+                        rs.getString("roomNumber"),
                         rs.getDouble("price"));
                 output.add(out);
             }
@@ -119,7 +119,7 @@ public class ReservationDatabaseConnection {
         return output;
     }
     //works well enough
-    public Boolean cancelReservation(Integer roomID, Date startDate) {
+    public Boolean cancelReservation(Integer roomNumber, Date startDate) {
         Connection connection = getConnection();
         if(connection == null){
             System.out.println("Connection Failed");
@@ -127,7 +127,7 @@ public class ReservationDatabaseConnection {
         }
 
         Statement statement = null;
-        String sqlDelete = "DELETE FROM reservations WHERE roomID = " + roomID + " AND startDate = '" + formatDate(startDate) + "'";
+        String sqlDelete = "DELETE FROM reservations WHERE roomNumber = " + roomNumber + " AND startDate = '" + formatDate(startDate) + "'";
         try {
             statement = connection.createStatement();
             statement.execute(sqlDelete);
@@ -157,7 +157,7 @@ public class ReservationDatabaseConnection {
 
     }
     //works well enough
-    public Reservation getInfo(Integer roomID, Date startDate) throws SQLException {
+    public Reservation getInfo(Integer roomNumber, Date startDate) throws SQLException {
         Connection connection = getConnection();
         if(connection == null){
             System.out.println("Connection Failed");
@@ -168,7 +168,7 @@ public class ReservationDatabaseConnection {
         ResultSet id;
         Statement statement= null;
 
-        String sqlQuery = "SELECT * FROM reservations WHERE roomID = " + roomID + " AND startDate = '" + formatDate(startDate) + "'";
+        String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = " + roomNumber + " AND startDate = '" + formatDate(startDate) + "'";
         try {
             statement = connection.createStatement();
 
@@ -176,8 +176,8 @@ public class ReservationDatabaseConnection {
             while(rs.next()){
                 Reservation out = new Reservation(rs.getDate("startDate"),
                         rs.getDate("endDate"),
-                        rs.getString("guestID"),
-                        rs.getString("roomID"),
+                        rs.getString("guestUsername"),
+                        rs.getString("roomNumber"),
                         rs.getDouble("price"));
 
                 return out;
@@ -211,7 +211,7 @@ public class ReservationDatabaseConnection {
 
 
 
-    public Boolean checkIfAvailable(String roomID, Date startDate, Date endDate) {
+    public Boolean checkIfAvailable(String roomNumber, Date startDate, Date endDate) {
         //'20150131'
         Connection connection = getConnection();
         if(connection == null){
@@ -222,7 +222,7 @@ public class ReservationDatabaseConnection {
         ArrayList<ArrayList<Date>> mem;
         ResultSet rs = null;
         Statement statement = null;
-        String sqlQuery = "SELECT * FROM reservations WHERE roomid=" + roomID;
+        String sqlQuery = "SELECT * FROM reservations WHERE roomNumber=" + roomNumber;
         try {
             statement = connection.createStatement();
             rs = statement.executeQuery(sqlQuery);
