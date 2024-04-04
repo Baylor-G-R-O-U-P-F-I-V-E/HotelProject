@@ -30,6 +30,9 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setOpaque(false);
 
+        // Add a vertical strut to create vertical space at the top
+        add(Box.createVerticalStrut(500)); // Adjust the value as needed
+
         JPanel textPanel = new JPanel();
 
         addFirstNamePanel(textPanel);
@@ -41,7 +44,14 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
 
         add(textPanel);
 
-        addCreateAccountButton();
+        JPanel buttonPanel = new JPanel();
+
+        addCreateAccountButton(buttonPanel);
+        addBackButton(buttonPanel);
+
+        buttonPanel.setOpaque(false);
+
+        add(buttonPanel);
 
         setVisible(true);
 
@@ -126,7 +136,7 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         textPanel.add(passwordPanel);
     }
 
-    public void addCreateAccountButton() {
+    public void addCreateAccountButton(JPanel buttonPanel) {
         JButton createButton = new JButton("Create Account");
         createButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         createButton.setPreferredSize(new Dimension(200, 50));
@@ -139,7 +149,23 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         // Add an action listener to the button
         //createButton.addActionListener(new CreateAccountActionListener(delegate, firstName, lastName, username, password));
 
-        add(createButton);
+        buttonPanel.add(createButton);
+    }
+
+    public void addBackButton(JPanel buttonPanel) {
+        JButton backButton = new JButton("Back");
+        backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backButton.setPreferredSize(new Dimension(200, 50));
+        backButton.setFont(new Font("Arial", Font.PLAIN, 22));
+        backButton.setOpaque(true);
+        backButton.setBorderPainted(false);
+        backButton.setBackground(new Color(0, 0, 153));
+        backButton.setForeground(new Color(255, 255, 255));
+
+        // Add an action listener to the button
+        backButton.addActionListener(e -> delegate.onPageSwitch("cancel"));
+
+        buttonPanel.add(backButton);
     }
 
     public void onClick(String username, String password) {

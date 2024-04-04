@@ -3,6 +3,8 @@ package edu.baylor.GroupFive.ui.landing;
 import java.awt.Component;
 import java.awt.Dimension;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,14 +32,25 @@ public class LoginPanel extends JPanel implements PagePanel {
         super();
         this.delegate = delegate;
         // Set the layout of the panel
-        setLayout(new GridBagLayout());
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setOpaque(false);
+        add(Box.createVerticalStrut(500));
 
-        addNamePanel();
-        addPasswordPanel();
+        JPanel textPanel = new JPanel();
+        textPanel.setOpaque(false);
+
+        addNamePanel(textPanel);
+        addPasswordPanel(textPanel);
+
+        add(textPanel);
 
         // Add the reserve button to the panel
-        addLoginButton();
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setOpaque(false);
+        addLoginButton(buttonPanel);
+        addBackButton(buttonPanel);
+
+        add(buttonPanel);
 
         // Set the panel to be visible
         setVisible(true);
@@ -46,7 +59,7 @@ public class LoginPanel extends JPanel implements PagePanel {
         setSize(400, 400);
     }
 
-    public void addNamePanel() {
+    public void addNamePanel(JPanel textPanel) {
         // Create a new panel for the name
         JPanel namePanel = new JPanel();
         namePanel.setOpaque(true);
@@ -64,16 +77,10 @@ public class LoginPanel extends JPanel implements PagePanel {
         namePanel.add(nameLabel);
         namePanel.add(nameField);
 
-        // Set the constraints for the name panel
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.anchor = GridBagConstraints.SOUTHWEST;
-        gbc.insets = new Insets(0, 250, 100, 0);
-
-        add(namePanel, gbc);
+        textPanel.add(namePanel, gbc);
     }
 
-    public void addPasswordPanel() {
+    public void addPasswordPanel(JPanel textPanel) {
         // Create a panel for the room number
         JPanel passwordPanel = new JPanel();
         passwordPanel.setOpaque(true);
@@ -93,17 +100,10 @@ public class LoginPanel extends JPanel implements PagePanel {
         passwordPanel.add(roomNumberLabel);
         passwordPanel.add(passwordField);
 
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.anchor = GridBagConstraints.SOUTHEAST;
-        gbc.insets = new Insets(0, 0, 100, 250);
-
-        add(passwordPanel, gbc);
+        textPanel.add(passwordPanel, gbc);
     }
 
-    public void addLoginButton() {
+    public void addLoginButton(JPanel buttonPanel) {
         JButton loginButton = new JButton("Login");
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginButton.setPreferredSize(new Dimension(200, 50));
@@ -116,15 +116,25 @@ public class LoginPanel extends JPanel implements PagePanel {
         // Add an action listener to the button
         loginButton.addActionListener(new LoginActionListener(delegate, nameField, passwordField));
 
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        gbc.gridwidth = 2;
-        gbc.weightx = 0;
-        gbc.weighty = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, 0, 100, 600);
+        buttonPanel.add(loginButton);
+    }
 
-        add(loginButton, gbc);
+    public void addBackButton(JPanel buttonPanel) {
+        JButton backButton = new JButton("Back");
+        backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backButton.setPreferredSize(new Dimension(200, 50));
+        backButton.setFont(new Font("Arial", Font.PLAIN, 22));
+        backButton.setOpaque(true);
+        backButton.setBorderPainted(false);
+        backButton.setBackground(new Color(0, 0, 153));
+        backButton.setForeground(new Color(255, 255, 255));
+
+        // Add an action listener to the button
+        backButton.addActionListener(e -> {
+            delegate.onPageSwitch("cancel");
+        });
+
+        buttonPanel.add(backButton);
     }
 
     public void onClick(String username, String password) {

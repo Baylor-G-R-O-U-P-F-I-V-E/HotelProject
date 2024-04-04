@@ -104,6 +104,15 @@ public class LandingPage extends JFrame implements InputDelegate {
             @SuppressWarnings("unused")
             Page page = new Page(user);
 
+        } else if (option.equals("cancel")) {
+            
+            //Replace surface panel with landing panel
+            remove(surface);
+            surface = new LandingPanel(this);
+            add(surface);
+            revalidate();
+            repaint();
+
         } else {
             System.out.println("Invalid option");
         }
