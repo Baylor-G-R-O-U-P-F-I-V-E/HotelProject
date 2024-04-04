@@ -1,123 +1,220 @@
-// Purpose: This file is used to create the panel for the reserve room page.
 package edu.baylor.GroupFive.ui.reserveRoom;
 
-import javax.swing.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import org.jdatepicker.impl.JDatePickerImpl;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
-import java.awt.*;
+import edu.baylor.GroupFive.controllers.ReservationController;
+import edu.baylor.GroupFive.controllers.RoomController;
+import edu.baylor.GroupFive.models.Room;
+import edu.baylor.GroupFive.models.User;
+import edu.baylor.GroupFive.ui.utils.DatePanel;
+import edu.baylor.GroupFive.ui.utils.Page;
+import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
+import edu.baylor.GroupFive.ui.utils.table.FormPane;
+import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 
-public class ReserveRoomPanel extends JPanel{
+public class ReserveRoomPanel extends JPanel implements PagePanel {
 
-    // Init a default field size
-    Dimension fieldSize = new Dimension(200, 50);
-    JTextField nameField;
-    JTextField roomNumberField;
-    DatePanel startDate;
-    DatePanel endDate;
+    private JTable table;
+    private Page delegate;
 
-    ReserveRoomPanel(){
-        // Set the layout of the panel
+    private String[] columnNames = {
+            "Room",
+            "Quality",
+            "Theme",
+            "Smoking",
+            "Number of Beds",
+            "Bed Type",
+            "Nightly Rate"
+    };
+
+    // Define data types for the columns
+    final Class<?>[] columnClass = new Class[] {
+            String.class, String.class, String.class, String.class, String.class, String.class, String.class,
+            String.class
+    };
+
+    public ReserveRoomPanel(Page page) {
+        super();
+        this.delegate = page;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        // Set the background color of the panel
-        setBackground(new Color(255, 255, 255));
+        // Create a model of the data.
+        DefaultTableModel model = new AddReservationModel(columnNames, columnClass);
 
-        // Add subpanels to main panel
-        add(getReserveRoomTitle());
-        add(getNamePanel());
-        add(getRoomNumberPanel());
-        add(getStartDatePanel());
-        add(getEndDatePanel());
+        // Create a table with a sorter.
+        table = new HotelTable(model);
 
-        // Add the reserve button to the panel
-        add(getReserveButton());
+        // Create the scroll pane and add the table to it.
+        JScrollPane scrollPane = new JScrollPane(table);
 
-        // Set the panel to be visible
+        // Add the scroll pane to this panel.
+        add(scrollPane);
+
+        // Add the form pane
+        add(new FormPane(table, ((HotelTable) table).getSorter(), columnNames));
+
+        // Add the button panel
+        addButtonPanel();
+
+        // Set the panel properties
         setVisible(true);
 
-        //Set size of the panel
-        setSize(800, 600);
     }
 
-    public JLabel getReserveRoomTitle() {
-        JLabel reserveRoomTitle = new JLabel("Reserve a Room");
-        reserveRoomTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        reserveRoomTitle.setFont(new Font("Arial", Font.PLAIN, 20));
-        return reserveRoomTitle;
+    private void addButtonPanel() {
+        // Create button panel
+        JPanel buttonPanel = new JPanel();
+
+        // Create buttons
+        JButton reserveRoom = new JButton("Reserve Selected Room");
+        JButton viewRoom = new JButton("View Selected Room");
+        JButton adjustDates = new JButton("Adjust Dates");
+
+        // Add buttons to panel
+        addButtonListeners(reserveRoom, viewRoom, adjustDates);
+        buttonPanel.add(reserveRoom);
+        buttonPanel.add(viewRoom);
+        buttonPanel.add(adjustDates);
+
+        add(buttonPanel);
     }
 
-    public JPanel getNamePanel () {
-        //Create a new panel for the name
-        JPanel namePanel = new JPanel();
+    private void addButtonListeners(JButton reserveRoom, JButton viewRoom, JButton adjustDates) {
+        reserveRoom.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row != -1) {
+                List<Date> dates = showDates();
+                if (dates != null) {
+                    promptReservation(dates.get(0), dates.get(1));
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
+            }
+        });
 
-        JLabel nameLabel = new JLabel("Name:");
-        nameLabel.setBounds(200, 50, 200, 50);
-        nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        viewRoom.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row != -1) {
+                int roomColumnIndex = table.getColumnModel().getColumnIndex("Room");
+                Integer roomNumber = Integer.parseInt((String) table.getValueAt(row, roomColumnIndex));
+                Room room = RoomController.getRoomInfo(roomNumber);
+                JOptionPane.showMessageDialog(null, room.toString());
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
+            }
+        });
 
-        nameField = new JTextField();
-        nameField.setBounds(400, 50, 200, 50);
-        nameField.setFont(new Font("Arial", Font.PLAIN, 20));
-        nameField.setPreferredSize(fieldSize);
-        nameField.setMaximumSize(fieldSize);
+        adjustDates.addActionListener(e -> {
+            
+            // Get the dates from the user
+            List<Date> dates = showDates();
 
-        namePanel.add(nameLabel);
-        namePanel.add(nameField);
+            // Filter the rooms by the selected dates
+            if (dates != null) {
+                filterRoomsByDate(dates.get(0), dates.get(1));
+            }
 
-        return namePanel;
+        });
     }
 
-    public JPanel getRoomNumberPanel() {
-        // Create a panel for the room number
-        JPanel roomNumberPanel = new JPanel();
+    public List<Date> showDates() {
+        DatePanel startDatePanel = new DatePanel("");
+        int result = JOptionPane.showConfirmDialog(null, startDatePanel, "Select a start date",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-        // Create the label for the room number
-        JLabel roomNumberLabel = new JLabel("Room Number:");
-        roomNumberLabel.setBounds(200, 150, 200, 50);
-        roomNumberLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        if (result == JOptionPane.OK_OPTION) {
+            Date startDate = startDatePanel.getDate();
 
-        // Init the text field for the room number
-        roomNumberField = new JTextField();
-        roomNumberField.setBounds(400, 150, 200, 50);
-        roomNumberField.setFont(new Font("Arial", Font.PLAIN, 20));
-        roomNumberField.setPreferredSize(fieldSize);
-        roomNumberField.setMaximumSize(fieldSize);
+            DatePanel endDatePanel = new DatePanel("", 1);
 
-        roomNumberPanel.add(roomNumberLabel);
-        roomNumberPanel.add(roomNumberField);
-        return roomNumberPanel;
-    }
+            result = JOptionPane.showConfirmDialog(null, endDatePanel, "Select an end date",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-    public JPanel getStartDatePanel() {
-        startDate = new DatePanel("Start Date:");
-        return startDate;
-    }
-
-    public JDatePickerImpl getDate(DatePanel panel) {
-        for (Component component : panel.getComponents()) {
-            if (component instanceof JDatePickerImpl) {
-                return (JDatePickerImpl) component;
+            if (result == JOptionPane.OK_OPTION) {
+                Date endDate = endDatePanel.getDate();
+                System.out.println(startDate);
+                System.out.println(endDate);
+                if (startDate.after(endDate)) {
+                    JOptionPane.showMessageDialog(null, "End date must be after start date.");
+                    return null;
+                }
+                List<Date> dates = new ArrayList<>();
+                dates.add(startDate);
+                dates.add(endDate);
+                return dates;
+            } else {
+                JOptionPane.showMessageDialog(null, "Please enter both start and end dates.");
             }
         }
         return null;
     }
 
-    public JPanel getEndDatePanel() {
-        endDate = new DatePanel("End Date:", 1);
-        return endDate;
+    public void promptReservation(Date startDate, Date endDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE MM/dd/yyyy");
+
+        // Create an array of options to be displayed in the dialog
+        Object[] options = { "Reserve" };
+        String room = (String) table.getValueAt(table.getSelectedRow(), 0);
+
+        // Create the JOptionPane
+        int choice = JOptionPane.showOptionDialog(null,
+                "Room: " + room + "\nStart Date: " + formatter.format(startDate) + "\nEnd Date: "
+                        + formatter.format(endDate),
+                "Create Reservation?",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        // Check the user's choice
+        if (choice == 0) {
+
+            // The user clicked the "Reserve" button
+            User user = delegate.getUser();
+            Room roomObj = RoomController.getRoomInfo(Integer.parseInt(room));
+
+            // Reserve the room using a reservation controller
+            boolean result = ReservationController.bookRoom(user, startDate, endDate, roomObj);
+
+            if (!result) {
+                JOptionPane.showMessageDialog(null, "Room could not be reserved for the selected dates.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Room " + room + " reserved from " + formatter.format(startDate)
+                        + " to " + formatter.format(endDate));
+            }
+        }
     }
 
-    public JButton getReserveButton() {
-        JButton reserveButton = new JButton("Reserve");
-        reserveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        reserveButton.setFont(new Font("Arial", Font.PLAIN, 20));
-        reserveButton.setOpaque(true);
-        reserveButton.setBorderPainted(false);
-        reserveButton.setBackground(new Color(0, 0, 153));
-        reserveButton.setForeground(new Color(255, 255, 255));
+    public void filterRoomsByDate(Date startDate, Date endDate) {
+        
+        if (startDate == null || endDate == null) {
+            return;
+        }
+        
+        // Filter the rooms by date
+        ((AddReservationModel) table.getModel()).filterRoomsByDate(startDate, endDate);
+    }
 
-        reserveButton.addActionListener(new ReserveActionListener(nameField, roomNumberField, getDate(startDate), getDate(endDate)));
+    public SimpleDateFormat getFormatter() {
+        // Make a formatter for a date that looks like "Day of week MM/dd/yyyy"
 
-        return reserveButton;
+        return new SimpleDateFormat("EEEE MM/dd/yyyy");
+    }
+
+    @Override
+    public void clear() {
+        // Do nothing
     }
 }
