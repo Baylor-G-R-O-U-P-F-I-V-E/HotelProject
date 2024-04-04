@@ -64,18 +64,20 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         JPanel buttonPanel = new JPanel();
 
         // Create buttons
-        JButton viewReservation = new JButton("View Selected Reservation");
+        JButton modifyReservation = new JButton("Modify Selected Reservation");
         JButton viewRoom = new JButton("View Selected Room");
+        JButton deleteReservation = new JButton("Delete Selected Reservation");
 
         // Add buttons to panel
-        addButtonListeners(viewReservation, viewRoom);
-        buttonPanel.add(viewReservation);
+        addButtonListeners(modifyReservation, viewRoom, deleteReservation);
+        buttonPanel.add(modifyReservation);
         buttonPanel.add(viewRoom);
+        buttonPanel.add(deleteReservation);
 
         add(buttonPanel);
     }
 
-    private void addButtonListeners(JButton viewReservation, JButton viewRoom) {
+    private void addButtonListeners(JButton viewReservation, JButton viewRoom, JButton deleteReservation) {
         viewReservation.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row != -1) {
@@ -115,6 +117,35 @@ public class ReservationsPanel extends JPanel implements PagePanel {
                 JOptionPane.showMessageDialog(null, room.toString());
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
+            }
+        });
+
+        deleteReservation.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row != -1) {
+                Integer roomColumnIndex = table.getColumnModel().getColumnIndex("Room ID");
+                String roomID = (String) table.getValueAt(row, roomColumnIndex);
+                Integer startDateColumnIndex = table.getColumnModel().getColumnIndex("Start Date");
+                String startDate = (String) table.getValueAt(row, startDateColumnIndex);
+
+                // Parse the startDate from a string to a Date object
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date parsedDate = null;
+                try {
+                    parsedDate = dateFormat.parse(startDate);
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+
+                if (parsedDate == null) {
+                    JOptionPane.showMessageDialog(null, "Error parsing date.");
+                    return;
+                }
+
+                ReservationController.cancelReservation(Integer.parseInt(roomID), parsedDate);
+                ((DefaultTableModel)table.getModel()).removeRow(row);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select a reservation to delete.");
             }
         });
     }
