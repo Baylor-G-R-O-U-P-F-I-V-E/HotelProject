@@ -2,6 +2,7 @@ package edu.baylor.GroupFive.database.userDAO;
 
 import edu.baylor.GroupFive.models.Privilege;
 import edu.baylor.GroupFive.models.Reservation;
+import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.User;
 
 import java.sql.*;
@@ -105,6 +106,51 @@ public class UserDatabaseConnection {
     }
 
 
+
+    public Boolean modifyUser(User newUser){
+        Connection connection =  getConnection();
+        if(connection == null){
+            System.out.println("Connection Failed");
+            return null;
+        }
+
+
+
+        //just checking we already have the room in the db
+        User exists = getUser(newUser.getUsername());
+        if(exists == null){
+            return false;
+        }
+
+        Statement statement = null;
+        String sqlDelete = "DELETE FROM USERS WHERE username = '" + newUser.getUsername() + "'";
+        try {
+            statement = connection.createStatement();
+            statement.execute(sqlDelete);
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        return  addUser(newUser);
+    }
 
 }
 

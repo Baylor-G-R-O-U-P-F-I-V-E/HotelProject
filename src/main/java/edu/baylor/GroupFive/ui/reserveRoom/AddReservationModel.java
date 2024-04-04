@@ -84,12 +84,12 @@ public class AddReservationModel extends HotelModel implements DataModel {
 
     public String formatTheme(THEME theme) {
         switch (theme) {
-            case ThemeA:
-                return "Theme A";
-            case ThemeB:
-                return "Theme B";
-            case ThemeC:
-                return "Theme C";
+            case VintageCharm:
+                return "Vintage Charm";
+            case UrbanElegance:
+                return "Urban Elegance";
+            case NatureRetreat:
+                return "Nature Retreat";
             default:
                 return "Unknown";
         }
