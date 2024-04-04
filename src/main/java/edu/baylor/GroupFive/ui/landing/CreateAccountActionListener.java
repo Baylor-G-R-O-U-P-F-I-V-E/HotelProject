@@ -7,7 +7,9 @@ import java.io.IOException;
 import javax.swing.JTextField;
 
 import edu.baylor.GroupFive.controllers.AccountController;
+import edu.baylor.GroupFive.database.userDAO.UserDatabaseConnection;
 import edu.baylor.GroupFive.models.User;
+import edu.baylor.GroupFive.models.Privilege;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
@@ -26,6 +28,8 @@ public class CreateAccountActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        UserDatabaseConnection udao = new UserDatabaseConnection();
+
         // Create a default message
         String message = "Account created!";
 
@@ -64,19 +68,35 @@ public class CreateAccountActionListener implements ActionListener {
 
         // Get the username
         String userName = username.getText();
+        // while (notSet) {
 
-        // If the name is empty, show an error message
-        if (userName.isEmpty()) {
-            message = """
-                        Username is required.
+            // If the name is empty, show an error message
+            if (userName.isEmpty()) {
+                message = """
+                    Username is required.
                     """;
-            try {
-                new BadInputDialog(message, title);
-            } catch (IOException e1) {
-                e1.printStackTrace();
+                try {
+                    new BadInputDialog(message, title);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                return;
             }
-            return;
-        }
+
+            // If the username is already taken, show an error message
+            if (udao.getUser(userName) != null) {
+                System.err.println("Username already taken");
+                message = """
+                    Username already taken.
+                    """;
+                try {
+                    new BadInputDialog(message, title);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                return;
+            }
+        // }
 
         // Get the password
         String guestPassword = password.getText();
@@ -94,7 +114,16 @@ public class CreateAccountActionListener implements ActionListener {
             return;
         }
 
-        landingPage.onPageSwitch("success");
-        
+        // Create a new user and add to database
+        User user = new User(firstName, lastName, userName, guestPassword, "guest");
+        if(udao.addUser(user)) {
+            landingPage.onPageSwitch("success");
+        } else {
+            try {
+                new BadInputDialog(message, title);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
     }
 }
