@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import javax.swing.JTextField;
 
+import edu.baylor.GroupFive.controllers.AccountController;
+import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
@@ -28,6 +30,8 @@ public class LoginActionListener implements ActionListener {
 
         // Get the name
         String name = nameField.getText();
+
+        // If the name is empty, show an error message
         if (name.isEmpty()) {
             message = """
                         Oh, honey, did you misplace your identity along with your username? 
@@ -48,6 +52,8 @@ public class LoginActionListener implements ActionListener {
 
         // Get the password
         String password = passwordField.getText();
+        
+        // If the password is empty, show an error message
         if (password.isEmpty()) {
             message = """
                     
@@ -65,8 +71,11 @@ public class LoginActionListener implements ActionListener {
             return;
         }
 
-        // Check if the name and password are correct
-        if (!name.equals("admin") || !password.equals("admin")) {
+        // Attempt to login
+        User user = AccountController.login(name, password);
+        
+        // If the user is null, the login failed
+        if (user == null) {
             message = "Incorrect name or password";
             try {
                 new BadInputDialog(message, title);
@@ -76,20 +85,8 @@ public class LoginActionListener implements ActionListener {
             return;
         }
 
-        // Account user = validateLogin(name, password);
-        // if (user == null) {
-        //     message = "Incorrect name or password";
-        //     try {
-        //         new BadInputDialog(message, title);
-        //     } catch (IOException e1) {
-        //         e1.printStackTrace();
-        //     }
-        //     return;
-        // }
-
-        // Switch to the reserve room page
+        // Switch to the success page
         loginPage.onPageSwitch("success");
-
         
     }
 }

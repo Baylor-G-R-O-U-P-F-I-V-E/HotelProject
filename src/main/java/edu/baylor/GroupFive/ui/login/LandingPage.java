@@ -8,20 +8,21 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import edu.baylor.GroupFive.controllers.AccountController;
+import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
-public class LoginPage extends JFrame implements InputDelegate {
+public class LandingPage extends JFrame implements InputDelegate {
 
     private JPanel background;
     private JPanel surface;
     private String username;
-    @SuppressWarnings("unused")
-    private String password;
 
-    public LoginPage() {
+    public LandingPage() {
         super();
 
         // Init new frame
@@ -82,10 +83,20 @@ public class LoginPage extends JFrame implements InputDelegate {
             // TODO: Switch to the create account panel
         
         } else if (option.equals("success")) {
+            //User user = AccountController.getUser(username);
+            //Make a default user to test
+            User user = new User("John", "Doe", "johndoe", "password", "ADMIN");
+            
+            if (user == null) {
+                //Display an error optionpane
+                JOptionPane.showMessageDialog(null, "Invalid username or password");
+                return;
+            }
+            
             dispose();
-
+            
             @SuppressWarnings("unused")
-            Page page = new Page(username);
+            Page page = new Page(user);
 
         } else {
             System.out.println("Invalid option");
@@ -94,10 +105,6 @@ public class LoginPage extends JFrame implements InputDelegate {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
 }

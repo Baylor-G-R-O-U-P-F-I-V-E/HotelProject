@@ -1,6 +1,5 @@
 package edu.baylor.GroupFive.ui.reservations;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,9 +34,9 @@ public class ReservationModel extends HotelModel implements DataModel {
         for (Reservation reservation : reservations) {
             try {
                 // Add the row to the table
-                addRow(new Object[] {reservation.getReservationID(), reservation.getRoomID(), formatDate(reservation.getStartDate()), formatDate(reservation.getEndDate()), reservation.getGuestID(), String.valueOf(reservation.getPrice())});
+                addRow(new Object[] {reservation.getRoomNumber(), formatDate(reservation.getStartDate()), formatDate(reservation.getEndDate()), reservation.getGuestUsername(), String.valueOf(reservation.getPrice())});
                 // Print the row to the console
-                System.out.println("Added row to table: " + reservation.getReservationID() + ", " + reservation.getRoomID() + ", " + reservation.getStartDate() + ", " + reservation.getEndDate() + ", " + reservation.getGuestID() + ", " + reservation.getPrice());
+                System.out.println("Added row to table: " + reservation.getRoomNumber() + ", " + reservation.getStartDate() + ", " + reservation.getEndDate() + ", " + reservation.getGuestUsername() + ", " + reservation.getPrice());
             } catch (Exception e) {
                 // Log any errors
                 System.out.println("Error adding row to table");
