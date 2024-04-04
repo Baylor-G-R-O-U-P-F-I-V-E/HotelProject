@@ -20,6 +20,7 @@ import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 public class DatePanel extends JPanel implements PagePanel {
     //Calendar to store the displayed date
     private Calendar cal;
+    private UtilDateModel model;
 
     public DatePanel(String title) {
         this(title, 0);
@@ -66,7 +67,7 @@ public class DatePanel extends JPanel implements PagePanel {
 
     public UtilDateModel createModel(int daysAhead) {
         //Create Model for the date picker
-        UtilDateModel model = new UtilDateModel();
+        model = new UtilDateModel();
 
         //Set the date to the current date
         cal = Calendar.getInstance();
@@ -98,12 +99,12 @@ public class DatePanel extends JPanel implements PagePanel {
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, formatter);
 
         add(datePicker);
+
         
     }
 
     public Date getDate() {
-        Date date = (Date) cal.getTime();
-        return date;
+        return (Date) model.getValue();
     }
 
     @Override

@@ -1,7 +1,9 @@
 package edu.baylor.GroupFive.ui.reserveRoom;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -11,6 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import edu.baylor.GroupFive.controllers.ReservationController;
+import edu.baylor.GroupFive.controllers.RoomController;
+import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.utils.DatePanel;
 import edu.baylor.GroupFive.ui.utils.Page;
@@ -80,6 +85,7 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
         addButtonListeners(reserveRoom, viewRoom, adjustDates);
         buttonPanel.add(reserveRoom);
         buttonPanel.add(viewRoom);
+        buttonPanel.add(adjustDates);
 
         add(buttonPanel);
     }
@@ -88,7 +94,10 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
         reserveRoom.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row != -1) {
-                showDates();
+                List<Date> dates = showDates();
+                if (dates != null) {
+                    promptReservation(dates.get(0), dates.get(1));
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
             }
@@ -97,31 +106,35 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
         viewRoom.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row != -1) {
-                String room = (String) table.getValueAt(row, 3);
-                JOptionPane.showMessageDialog(null, "Room: " + room);
+                int roomColumnIndex = table.getColumnModel().getColumnIndex("Room");
+                Integer roomNumber = Integer.parseInt((String) table.getValueAt(row, roomColumnIndex));
+                Room room = RoomController.getRoomInfo(roomNumber);
+                JOptionPane.showMessageDialog(null, room.toString());
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
             }
         });
 
         adjustDates.addActionListener(e -> {
-            int row = table.getSelectedRow();
-            if (row != -1) {
-                showDates();
-            } else {
-                JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
+            
+            // Get the dates from the user
+            List<Date> dates = showDates();
+
+            // Filter the rooms by the selected dates
+            if (dates != null) {
+                filterRoomsByDate(dates.get(0), dates.get(1));
             }
+
         });
     }
 
-    public void showDates() {
+    public List<Date> showDates() {
         DatePanel startDatePanel = new DatePanel("");
         int result = JOptionPane.showConfirmDialog(null, startDatePanel, "Select a start date",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
-            Date startDate = startDatePanel.getDate(); // Assuming DatePanel has a getDate method that returns the
-                                                       // selected date
+            Date startDate = startDatePanel.getDate();
 
             DatePanel endDatePanel = new DatePanel("", 1);
 
@@ -130,15 +143,21 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
 
             if (result == JOptionPane.OK_OPTION) {
                 Date endDate = endDatePanel.getDate();
+                System.out.println(startDate);
+                System.out.println(endDate);
                 if (startDate.after(endDate)) {
                     JOptionPane.showMessageDialog(null, "End date must be after start date.");
-                    return;
+                    return null;
                 }
-                promptReservation(startDate, endDate);
+                List<Date> dates = new ArrayList<>();
+                dates.add(startDate);
+                dates.add(endDate);
+                return dates;
             } else {
                 JOptionPane.showMessageDialog(null, "Please enter both start and end dates.");
             }
         }
+        return null;
     }
 
     public void promptReservation(Date startDate, Date endDate) {
@@ -164,19 +183,28 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
 
             // The user clicked the "Reserve" button
             User user = delegate.getUser();
-            boolean status = true;
+            Room roomObj = RoomController.getRoomInfo(Integer.parseInt(room));
 
             // Reserve the room using a reservation controller
-            // boolean status = ReservationController.reserveRoom(user, room, startDate,
-            // endDate);
+            boolean result = ReservationController.bookRoom(user, startDate, endDate, roomObj);
 
-            if (!status) {
-                JOptionPane.showMessageDialog(null, "Room is not available for the selected dates.");
+            if (!result) {
+                JOptionPane.showMessageDialog(null, "Room could not be reserved for the selected dates.");
             } else {
                 JOptionPane.showMessageDialog(null, "Room " + room + " reserved from " + formatter.format(startDate)
                         + " to " + formatter.format(endDate));
             }
         }
+    }
+
+    public void filterRoomsByDate(Date startDate, Date endDate) {
+        
+        if (startDate == null || endDate == null) {
+            return;
+        }
+        
+        // Filter the rooms by date
+        ((AddReservationModel) table.getModel()).filterRoomsByDate(startDate, endDate);
     }
 
     public SimpleDateFormat getFormatter() {

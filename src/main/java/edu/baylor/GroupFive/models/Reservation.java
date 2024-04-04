@@ -56,8 +56,6 @@ public class Reservation {
         this.roomID = roomID;
     }
 
-
-
     public void setPrice(Double price){
         this.price = price;
     }

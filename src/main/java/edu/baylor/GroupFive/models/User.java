@@ -33,4 +33,8 @@ public class User {
     public Privilege getPrivilege() {
         return privilege;
     }
+
+    public String getUsername() {
+        return userName;
+    }
 }
