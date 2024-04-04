@@ -19,10 +19,13 @@ public class dbSetup {
             Statement statement = null;
             String rowID = null;
             // startDate endDate price guestID roomID
+            
+            /*
             String sqlDropReservation = "DROP TABLE reservations";
             String sqlDropRoom = "DROP TABLE room";
             String sqlDropUser = "DROP TABLE users";
-
+            */
+            
 
             //startDate endDate price guestID roomID
             String sqlCreateUser = "CREATE TABLE users(" +
@@ -73,20 +76,21 @@ public class dbSetup {
                     "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (108,1, 'NatureRetreat',false,'QUEEN',2,92.22)" ,
                     "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (109,1, 'VintageCharm',true,'KING',2,98.22)" ,
                     "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('12/17/2024','12/19/2024',97.99,'Axel112',102)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/12/2024','07/22/2024',95.99,'Axel112',103)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/20/2024','07/23/2024',96.99,'Axel112',101)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/12/2024','07/22/2024',95.99,'BigA',103)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/20/2024','07/23/2024',96.99,'Ant',101)" ,
                     "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/20/2024','07/23/2024',97.99,'Axel112',104)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/11/2024','07/13/2024',88.99,'Axel112',105)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/09/2024','07/12/2024',97.99,'Axel112',101)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/10/2024','07/17/2024',88.99,'Axel112',102)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/22/2024','07/25/2024',97.99,'Axel112',103)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/14/2024','07/19/2024',97.99,'Axel112',104)");
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/11/2024','07/13/2024',88.99,'andyEv',105)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/09/2024','07/12/2024',97.99,'LarryTheLobster',101)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/10/2024','07/17/2024',88.99,'KevDog',102)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/22/2024','07/25/2024',97.99,'Jman',103)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber) VALUES ('07/14/2024','07/19/2024',97.99,'T-Lee',104)");
 
             //mm/dd/yyyy
             String sqlQ = "SELECT * FROM  RESERVATIONs";
 
             try {
                 statement = connection.createStatement();
+                /*
                 try{
                     statement.executeUpdate(sqlDropReservation);
                 }catch(SQLException e){
@@ -105,6 +109,7 @@ public class dbSetup {
                     System.out.println("DROP USER ERROR");
                     System.out.println(e.getMessage());
                 }
+                */
 
 
                 try{
