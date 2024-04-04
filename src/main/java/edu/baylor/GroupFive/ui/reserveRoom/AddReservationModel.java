@@ -8,8 +8,9 @@ import javax.swing.JTextField;
 import edu.baylor.GroupFive.controllers.ReservationController;
 import edu.baylor.GroupFive.controllers.RoomController;
 import edu.baylor.GroupFive.models.Room;
-import edu.baylor.GroupFive.models.Room.BED_TYPE;
-import edu.baylor.GroupFive.models.Room.THEME;
+import edu.baylor.GroupFive.models.enums.BedType;
+import edu.baylor.GroupFive.models.enums.Quality;
+import edu.baylor.GroupFive.models.enums.Theme;
 import edu.baylor.GroupFive.ui.utils.interfaces.DataModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 
@@ -82,7 +83,7 @@ public class AddReservationModel extends HotelModel implements DataModel {
         }
     }
 
-    public String formatTheme(THEME theme) {
+    public String formatTheme(Theme theme) {
         switch (theme) {
             case VintageCharm:
                 return "Vintage Charm";
@@ -95,7 +96,7 @@ public class AddReservationModel extends HotelModel implements DataModel {
         }
     }
 
-    public String formatBedSize(BED_TYPE bedtype) {
+    public String formatBedSize(BedType bedtype) {
         switch (bedtype) {
             case KING:
                 return "King";

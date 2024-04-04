@@ -2,10 +2,13 @@ package edu.baylor.GroupFive.ui.utils;
 
 import javax.swing.*;
 
-import edu.baylor.GroupFive.models.Privilege;
+import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.models.User;
+<<<<<<< HEAD
 import edu.baylor.GroupFive.ui.modifyReservation.ModifyReservationPanel;
 //import edu.baylor.GroupFive.model.Privilege;
+=======
+>>>>>>> main
 import edu.baylor.GroupFive.ui.reservations.ReservationsPanel;
 import edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel;
 import edu.baylor.GroupFive.ui.utils.dashboard.Dashboard;

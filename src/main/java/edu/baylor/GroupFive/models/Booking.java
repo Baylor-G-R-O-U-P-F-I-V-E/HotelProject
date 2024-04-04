@@ -12,11 +12,21 @@ public class Booking {
     private Account holder;
     private long id;
 
-    Booking(){
-        this.startDate = null;
-        this.endDate = null;
+    Booking(
+            Date startDate_,
+            Date endDate_,
+            boolean active_,
+            boolean canceled_,
+            Account holder_,
+            long id_
+            ){
+        this.startDate = startDate_;
+        this.endDate = endDate_;
         this.bill = new StayBill();
-        this.holder = null;
+        this.active = true;
+        this.canceled = false;
+        this.holder = holder_;
+        this.id = id_;
     }
 
     public long getId() {

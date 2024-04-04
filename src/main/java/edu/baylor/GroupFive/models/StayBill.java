@@ -9,11 +9,27 @@ public class StayBill {
     private Room room;
     private Booking booking;
 
+    // TODO: workaround for now because I am instantiating a new StayBill in models/Booking.java
+    // but it is currently 3:14 am and I am tired
     public StayBill() {
+        payments = null;
+        purchases = null;
         room = null;
         booking = null;
-        purchases = new ArrayList<>();
-        payments = new ArrayList<>();
+    }
+
+    public StayBill(
+            List<Payment> payments_,
+            List<Purchase> purchases_,
+            Room room_,
+            Booking booking_
+            ) {
+        room = room_;
+        booking = booking_;
+        // purchases = new ArrayList<>();
+        // payments = new ArrayList<>();
+        purchases = purchases_;
+        payments = payments_;
     }
 
     public void addPayment(Payment pay) {
@@ -35,25 +51,25 @@ public class StayBill {
         }
     }
 
-    public Payment getLatestPayment() {
-        return payments.getLast();
-    }
-
-    public Payment getOldestPayment() {
-        return payments.getFirst();
-    }
-
-    public Payment getPayment(int pay) {
-        return payments.get(pay);
-    }
-
-    public Purchase getLatestPurchase() {
-        return purchases.getLast();
-    }
-
-    public Purchase getOldestPurchase() {
-        return purchases.getFirst();
-    }
+//    public Payment getLatestPayment() {
+//        return payments.getLast();
+//    }
+//
+//    public Payment getOldestPayment() {
+//        return payments.getFirst();
+//    }
+//
+//    public Payment getPayment(int pay) {
+//        return payments.get(pay);
+//    }
+//
+//    public Purchase getLatestPurchase() {
+//        return purchases.getLast();
+//    }
+//
+//    public Purchase getOldestPurchase() {
+//        return purchases.getFirst();
+//    }
 
     public Purchase getPurchase(int purchase) {
         return purchases.get(purchase);
