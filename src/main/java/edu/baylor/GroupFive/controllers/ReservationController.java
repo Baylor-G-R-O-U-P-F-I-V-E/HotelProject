@@ -24,8 +24,8 @@ public class ReservationController {
         return true;
     }
 
-    public static Boolean modifyReservation(Reservation newInfo, Date oldStart){
-        return ReservationServices.modifyReservation(newInfo,oldStart);
+    public static Boolean modifyReservation(Reservation newInfo, String originalRoom, Date oldStart){
+        return ReservationServices.modifyReservation(newInfo,originalRoom, oldStart);
     }
 
 

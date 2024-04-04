@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import edu.baylor.GroupFive.models.Privilege;
 import edu.baylor.GroupFive.models.User;
+import edu.baylor.GroupFive.ui.modifyReservation.ModifyReservationPanel;
 //import edu.baylor.GroupFive.model.Privilege;
 import edu.baylor.GroupFive.ui.reservations.ReservationsPanel;
 import edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel;
@@ -11,10 +12,13 @@ import edu.baylor.GroupFive.ui.utils.dashboard.Dashboard;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Page extends JFrame implements InputDelegate {
 
     private Dashboard dashboard;
+    private List<String> info = new ArrayList<>();
     private GridBagConstraints constraints = new GridBagConstraints();
     private User user;
     //private String acctNum;
@@ -41,7 +45,7 @@ public class Page extends JFrame implements InputDelegate {
         constraints.gridx = 1;
         constraints.weightx = 1;
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        currentPanel = new ReservationsPanel();
+        currentPanel = new ReservationsPanel(this);
         add(currentPanel, constraints);
     }
 
@@ -66,10 +70,13 @@ public class Page extends JFrame implements InputDelegate {
         remove(currentPanel);
         switch (option) {
             case "home":
-                currentPanel = new ReservationsPanel();
+                currentPanel = new ReservationsPanel(this);
                 break;
             case "reservation":
                 currentPanel = new ReserveRoomPanel(this);
+                break;
+            case "modifyReservation":
+                currentPanel = new ModifyReservationPanel(this, info.get(0), info.get(1));
                 break;
                 /*
             case "view":
@@ -92,6 +99,14 @@ public class Page extends JFrame implements InputDelegate {
 
     public User getUser() {
         return user;
+    }
+
+    public void addInfo(String info) {
+        this.info.add(info);
+    }
+
+    public List<String> getInfo() {
+        return info;
     }
 
 

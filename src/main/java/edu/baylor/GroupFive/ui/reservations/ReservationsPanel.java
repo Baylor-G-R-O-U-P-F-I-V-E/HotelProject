@@ -11,6 +11,7 @@ import edu.baylor.GroupFive.controllers.ReservationController;
 import edu.baylor.GroupFive.controllers.RoomController;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
+import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
@@ -18,6 +19,7 @@ import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 public class ReservationsPanel extends JPanel implements PagePanel {
     
     private JTable table;
+    private Page page;
 
     // Define column names
     private String[] columnNames = {
@@ -32,9 +34,10 @@ public class ReservationsPanel extends JPanel implements PagePanel {
             String.class, String.class, String.class, String.class, String.class, String.class
     };
 
-    public ReservationsPanel() {
+    public ReservationsPanel(Page page) {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.page = page;
 
         // Create a model of the data.
         DefaultTableModel model = new ReservationModel(columnNames, columnClass);
@@ -86,22 +89,10 @@ public class ReservationsPanel extends JPanel implements PagePanel {
                 Integer startDateColumnIndex = table.getColumnModel().getColumnIndex("Start Date");
                 String startDate = (String) table.getValueAt(row, startDateColumnIndex);
 
-                // Parse the startDate from a string to a Date object
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                Date parsedDate = null;
-                try {
-                    parsedDate = dateFormat.parse(startDate);
-                } catch (ParseException ex) {
-                    ex.printStackTrace();
-                }
+                page.addInfo(roomID);
+                page.addInfo(startDate);
 
-                if (parsedDate == null) {
-                    JOptionPane.showMessageDialog(null, "Error parsing date.");
-                    return;
-                }
-
-                Reservation reservation = ReservationController.getInfo(Integer.parseInt(roomID), parsedDate);
-                JOptionPane.showMessageDialog(null, reservation.toString());
+                page.onPageSwitch("modifyReservation");
 
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a reservation to view.");

@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.Box;
@@ -16,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import edu.baylor.GroupFive.CoreUtils;
 import edu.baylor.GroupFive.ui.utils.DatePanel;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
@@ -29,11 +31,18 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
     private String originalRoom;
     private Date originalStart;
 
-    public ModifyReservationPanel(Page delegate, String originalRoom, Date originalStart) {
+    public ModifyReservationPanel(Page delegate, String originalRoom, String originalStart) {
         super();
         this.delegate = delegate;
         this.originalRoom = originalRoom;
-        this.originalStart = originalStart;
+        SimpleDateFormat sdf = new SimpleDateFormat(CoreUtils.DATE_FORMAT);
+
+        try {
+            this.originalStart = sdf.parse(originalStart);
+        } catch (Exception e) {
+            e.printStackTrace();
+            delegate.onPageSwitch("home");
+        }
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setOpaque(false);
@@ -75,7 +84,7 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         JPanel roomPanel = new JPanel();
         roomPanel.setOpaque(true);
 
-        JLabel roomLabel = new JLabel("First Name:");
+        JLabel roomLabel = new JLabel("Room Number:");
         roomLabel.setBounds(200, 50, 200, 50);
         roomLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
@@ -94,7 +103,7 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         JPanel pricePanel = new JPanel();
         pricePanel.setOpaque(true);
 
-        JLabel priceLabel = new JLabel("Last Name:");
+        JLabel priceLabel = new JLabel("Price:");
         priceLabel.setBounds(200, 50, 200, 50);
         priceLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
@@ -111,7 +120,7 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
     }
 
     public void addModifyReservationButton(JPanel buttonPanel) {
-        JButton modifyButton = new JButton("Confirm Changes");
+        JButton modifyButton = new JButton("Confirm");
         modifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         modifyButton.setPreferredSize(new Dimension(200, 50));
         modifyButton.setFont(new Font("Arial", Font.PLAIN, 22));
