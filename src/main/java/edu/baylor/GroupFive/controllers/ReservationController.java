@@ -56,9 +56,17 @@ public class ReservationController {
             })
             .toList();
     };
-    void createReservation() {
-        
+    public Boolean createReservation(Date startDate, Date endDate, String roomID, String guestID) {
+        // return true if reservation successful
+        try {
+            String status = ReservationServices.addReservation(startDate, endDate, roomID, guestID);
+            if(status != null){
+                return true;
+            }
+        } catch (SQLException e) { }
+        return false;
     }
+
 
     public static List<Reservation> getAllReservations() {
         try {
