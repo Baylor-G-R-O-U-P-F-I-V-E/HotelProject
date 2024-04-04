@@ -40,13 +40,13 @@ public class dbSetup {
                     "smoking Boolean," +
                     "bedType VARCHAR(10),"+
                     "numBeds INTEGER," +
-                    "dailyPrice DECIMAL," +
+                    "dailyPrice DECIMAL(5,2)," +
                     "CONSTRAINT PK_ROOM PRIMARY KEY(roomNumber))";
             String sqlCreateReservation =
                     "CREATE TABLE reservations(" +
                             "startDate DATE," +
                             "endDate Date," +
-                            "price DECIMAL," +
+                            "price DECIMAL(5,2)," +
                             "guestusername VARCHAR(30)," +
                             "roomNumber INTEGER," +
                             "CONSTRAINT FK_12 FOREIGN KEY (guestusername) REFERENCES users(username)," +
