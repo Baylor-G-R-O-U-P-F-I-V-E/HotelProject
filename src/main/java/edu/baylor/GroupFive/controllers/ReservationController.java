@@ -9,6 +9,7 @@ import edu.baylor.GroupFive.services.ReservationServices;
 import edu.baylor.GroupFive.services.RoomServices;
 
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -71,6 +72,17 @@ public class ReservationController {
         return ReservationServices.getReservations();
     }
 
+    private static boolean isOverlap(Date start1, Date end1, Date start2, Date end2) {
+        return !start1.after(end2) && !end1.before(start2);
+    }
+    public static boolean isRoomBookedOn(int roomNumber, Date startDate, Date endDate){
+        List<Reservation> reservations = getAllReservations();
+        List<Reservation> roomReservations = reservations.stream()
+            .filter(rsv -> rsv.getRoomNumber() == roomNumber)
+            .toList();
+        return roomReservations.stream().anyMatch(rsv ->
+            isOverlap(startDate, endDate, rsv.getStartDate(), rsv.getEndDate()));
+    }
 
 
 }
