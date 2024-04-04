@@ -1,6 +1,6 @@
 package edu.baylor.GroupFive.ui.utils.dashboard;
 
-import edu.baylor.GroupFive.models.Privilege;
+import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.ui.utils.buttons.DashboardButton;
 import edu.baylor.GroupFive.ui.utils.buttons.pageButtons.AddReservationButton;
 import edu.baylor.GroupFive.ui.utils.buttons.pageButtons.HomeButton;

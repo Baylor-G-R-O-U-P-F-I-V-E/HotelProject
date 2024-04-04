@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.models;
+package edu.baylor.GroupFive.models.enums;
 
 public enum Privilege {
     ADMIN, CLERK, GUEST;

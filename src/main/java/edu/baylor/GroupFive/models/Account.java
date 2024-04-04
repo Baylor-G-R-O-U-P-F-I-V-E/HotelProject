@@ -1,5 +1,7 @@
 package edu.baylor.GroupFive.models;
 
+import edu.baylor.GroupFive.models.enums.Privilege;
+
 public class Account {
     private String name;
     private int phoneNumber;

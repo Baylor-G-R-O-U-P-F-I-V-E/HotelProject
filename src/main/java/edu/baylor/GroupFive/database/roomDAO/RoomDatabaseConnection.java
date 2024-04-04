@@ -2,6 +2,9 @@ package edu.baylor.GroupFive.database.roomDAO;
 
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
+import edu.baylor.GroupFive.models.enums.BedType;
+import edu.baylor.GroupFive.models.enums.Theme;
+import edu.baylor.GroupFive.models.enums.Quality;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,8 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class RoomDatabaseConnection {
-
-
 
     public RoomDatabaseConnection(){}
     private Connection getConnection(){
@@ -52,10 +53,12 @@ public class RoomDatabaseConnection {
             while(rs.next()){
                 Room out = new Room(rs.getInt("roomNumber"),
                         rs.getInt("quality"),
-                        Room.THEME.fromString(rs.getString("theme")),
+                        // Room.THEME.fromString(rs.getString("theme")),
+                        Theme.fromString(rs.getString("theme")),
                         rs.getBoolean("smoking"),
                         rs.getInt("numbeds"),
-                        Room.BED_TYPE.fromString(rs.getString("bedtype")),
+                        BedType.fromString(rs.getString("bedtype")),
+                        // Room.BED_TYPE.fromString(rs.getString("bedtype")),
                         rs.getDouble("dailyPrice")
                         );
                 output.add(out);
@@ -103,7 +106,8 @@ public class RoomDatabaseConnection {
         String rowID = null;
         // startDate endDate price guestID roomID
         String sqlInsert = "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (" +
-                newRoom.getRoomNumber().toString() + "," + newRoom.getQuality().toString() +
+                newRoom.getRoomNumber().toString() + "," + newRoom.getQuality() +
+                // newRoom.getRoomNumber().toString() + "," + newRoom.getQuality().toString() +
                 ",'" + newRoom.getTheme().toString() + "'," + newRoom.getSmoking().toString() + ",'" +
                 newRoom.getBedType().toString() + "'," +
                 newRoom.getNumBeds().toString()  + "," +
@@ -161,10 +165,10 @@ public class RoomDatabaseConnection {
             while(rs.next()){
                 Room out = new Room(rs.getInt("roomNumber"),
                         rs.getInt("quality"),
-                        Room.THEME.fromString(rs.getString("THEME")),
+                        Theme.fromString(rs.getString("THEME")),
                         rs.getBoolean("smoking"),
                         rs.getInt("numbeds"),
-                        Room.BED_TYPE.fromString(rs.getString("BEDTYPE")),
+                        BedType.fromString(rs.getString("BEDTYPE")),
                         rs.getDouble("dailyPrice")
                 );
                 return out;
