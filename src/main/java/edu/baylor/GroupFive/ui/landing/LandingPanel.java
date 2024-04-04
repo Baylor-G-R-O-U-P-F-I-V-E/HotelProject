@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.ui.login;
+package edu.baylor.GroupFive.ui.landing;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

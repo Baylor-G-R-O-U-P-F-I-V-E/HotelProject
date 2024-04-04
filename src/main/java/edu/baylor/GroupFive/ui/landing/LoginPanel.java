@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.ui.login;
+package edu.baylor.GroupFive.ui.landing;
 
 import java.awt.Component;
 import java.awt.Dimension;
