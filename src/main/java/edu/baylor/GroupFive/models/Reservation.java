@@ -6,15 +6,15 @@ public class Reservation {
 
     Date startDate;
     Date endDate;
-    String guestID;
-    String roomID;
+    String guestUsername;
+    String roomNumber;
     Double price;
 
-    public Reservation(Date startDate, Date endDate, String guestID, String roomID, Double price){
+    public Reservation(Date startDate, Date endDate, String guestUsername, String roomNumber, Double price){
         this.startDate = startDate;
         this.endDate = endDate;
-        this.guestID = guestID;
-        this.roomID = roomID;
+        this.guestUsername = guestUsername;
+        this.roomNumber = roomNumber;
         this.price = price;
     }
 
@@ -26,12 +26,12 @@ public class Reservation {
         return endDate;
     }
 
-    public String getGuestID(){
-        return guestID;
+    public String getGuestUsername(){
+        return guestUsername;
     }
 
-    public String getRoomID(){
-        return roomID;
+    public String getRoomNumber(){
+        return roomNumber;
     }
 
 
@@ -48,12 +48,12 @@ public class Reservation {
         this.endDate = endDate;
     }
 
-    public void setGuestID(String guestID){
-        this.guestID = guestID;
+    public void setGuestID(String guestUsername){
+        this.guestUsername = guestUsername;
     }
 
-    public void setRoomID(String roomID){
-        this.roomID = roomID;
+    public void setRoomID(String roomNumber){
+        this.roomNumber = roomNumber;
     }
 
 
@@ -63,7 +63,7 @@ public class Reservation {
     }
 
     public String toString(){
-        String out = "Start Date: " + startDate + "\nEnd Date: " + endDate + "\nGuest ID: " + guestID + "\nRoom ID: " + roomID + "\nPrice: " + price;
+        String out = "Start Date: " + startDate + "\nEnd Date: " + endDate + "\nGuest Username: " + guestUsername + "\nRoom Number: " + roomNumber + "\nPrice: " + price;
         return out;
     }
 
