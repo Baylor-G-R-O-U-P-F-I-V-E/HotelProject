@@ -6,8 +6,31 @@ import java.util.List;
 import java.util.Objects;
 
 public class Room {
-    public enum THEME { ThemeA, ThemeB, ThemeC };
-    public enum BED_TYPE {SINGLE, DOUBLE, QUEEN, KING};
+    public enum THEME {
+        NatureRetreat, UrbanElegance, VintageCharm;
+        public static THEME fromString(String text) {
+            for (THEME b : THEME.values()) {
+                if (b.toString().equalsIgnoreCase(text)) {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+
+    };
+    public enum BED_TYPE {
+        SINGLE, DOUBLE, QUEEN, KING;
+        public static BED_TYPE fromString(String text) {
+            for (BED_TYPE b : BED_TYPE.values()) {
+                if (b.toString().equalsIgnoreCase(text)) {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+    };
 
     private Integer roomNumber;
     //private QualityDescription quality;
