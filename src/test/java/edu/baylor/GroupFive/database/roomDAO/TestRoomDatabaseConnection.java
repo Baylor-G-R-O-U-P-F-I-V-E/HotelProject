@@ -18,7 +18,7 @@ public class TestRoomDatabaseConnection {
     @Test
     void addARoom(){
         dbSetup db = new dbSetup();
-        Room newRoom = new Room(995, 1, Room.THEME.ThemeA, true, 5, Room.BED_TYPE.KING, 12.34);
+        Room newRoom = new Room(995, 1, Room.THEME.UrbanElegance, true, 5, Room.BED_TYPE.KING, 12.34);
         RoomDatabaseConnection conn = new RoomDatabaseConnection();
         Boolean added = conn.addRoom(newRoom);
         assert(added.equals(true));
@@ -28,7 +28,7 @@ public class TestRoomDatabaseConnection {
     @Test
     void addAndGetRoom(){
         dbSetup db = new dbSetup();
-        Room newRoom = new Room(995, 1, Room.THEME.ThemeA, true, 5, Room.BED_TYPE.KING, 12.34);
+        Room newRoom = new Room(995, 1, Room.THEME.NatureRetreat, true, 5, Room.BED_TYPE.KING, 12.34);
         RoomDatabaseConnection conn = new RoomDatabaseConnection();
         Boolean added = conn.addRoom(newRoom);
         Room pulledRoom = conn.getRoom(995);
@@ -56,7 +56,7 @@ public class TestRoomDatabaseConnection {
     @Test
     void modifyRoom(){
         dbSetup db = new dbSetup();
-        Room myRoom = new Room(99,3, Room.THEME.ThemeA,true, 11, Room.BED_TYPE.KING, 90D);
+        Room myRoom = new Room(99,3, Room.THEME.VintageCharm,true, 11, Room.BED_TYPE.KING, 90D);
         RoomDatabaseConnection conn = new RoomDatabaseConnection();
 
         Boolean added = conn.addRoom(myRoom);

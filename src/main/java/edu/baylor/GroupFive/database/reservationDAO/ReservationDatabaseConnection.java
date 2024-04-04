@@ -31,44 +31,41 @@ public class ReservationDatabaseConnection {
     }
 
     //works well enough
-    public Integer addReservation(Reservation reservation) throws SQLException {
+    public Boolean addReservation(Reservation reservation){
         Connection connection = getConnection();
         if(connection == null){
             System.out.println("Connection Failed");
             return null;
         }
         Statement statement = null;
-        Integer rowID = null;
+
         // startDate endDate price guestUsername roomNumber
-        System.out.println("TEST1 - " + formatDate(reservation.getEndDate()));
+
         String sqlInsert = "INSERT INTO Reservations(STARTDATE,ENDDATE,PRICE,GUESTUsername,ROOMNumber) VALUES('" + formatDate(reservation.getStartDate()) + "','" +
                 formatDate(reservation.getEndDate()) + "'," + reservation.getPrice() + ",'" + reservation.getGuestUsername() + "'," + reservation.getRoomNumber() + ")";
         try {
             statement = connection.createStatement();
-            statement.executeUpdate(sqlInsert, Statement.RETURN_GENERATED_KEYS);
-            ResultSet generatedKeys = statement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                int generatedId = generatedKeys.getInt(1); // Assuming the generated key is an integer
-                System.out.println("Generated Key: " + generatedId);
-                return  generatedId;
-            } else {
-                System.out.println("No generated keys were retrieved");
-            }
-
+            statement.executeUpdate(sqlInsert);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return null;
+            return false;
         }finally {
             if (statement != null) {
-                statement.close();
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
             if (connection != null) {
-                connection.close();
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
-
-
-        return null;
+        return true;
     }
 
 
@@ -157,7 +154,7 @@ public class ReservationDatabaseConnection {
 
     }
     //works well enough
-    public Reservation getInfo(Integer roomNumber, Date startDate) throws SQLException {
+    public Reservation getInfo(Integer roomNumber, Date startDate) {
         Connection connection = getConnection();
         if(connection == null){
             System.out.println("Connection Failed");
@@ -188,18 +185,21 @@ public class ReservationDatabaseConnection {
             return null;
         }finally {
             if (statement != null) {
-                statement.close();
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
             if (connection != null) {
-                connection.close();
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
-        if (statement != null) {
-            statement.close();
-        }
-        if (connection != null) {
-            connection.close();
-        }
+
 
 
 
