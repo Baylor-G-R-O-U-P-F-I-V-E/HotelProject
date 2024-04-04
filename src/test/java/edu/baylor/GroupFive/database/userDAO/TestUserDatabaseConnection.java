@@ -1,6 +1,6 @@
 package edu.baylor.GroupFive.database.userDAO;
 import  edu.baylor.GroupFive.database.dbSetup;
-import edu.baylor.GroupFive.models.Privilege;
+import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

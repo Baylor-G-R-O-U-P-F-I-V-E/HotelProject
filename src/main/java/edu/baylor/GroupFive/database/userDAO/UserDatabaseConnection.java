@@ -1,9 +1,11 @@
 package edu.baylor.GroupFive.database.userDAO;
 
-import edu.baylor.GroupFive.models.Privilege;
+import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.User;
+import edu.baylor.GroupFive.models.enums.BedType;
+import edu.baylor.GroupFive.models.enums.Theme;
 
 import java.sql.*;
 import java.util.ArrayList;

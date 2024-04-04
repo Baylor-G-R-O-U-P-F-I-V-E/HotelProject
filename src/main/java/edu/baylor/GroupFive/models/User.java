@@ -1,5 +1,7 @@
 package edu.baylor.GroupFive.models;
 
+import edu.baylor.GroupFive.models.enums.Privilege;
+
 import java.util.Objects;
 
 public class User {

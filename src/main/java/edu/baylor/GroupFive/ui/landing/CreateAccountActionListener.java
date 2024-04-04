@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 import edu.baylor.GroupFive.controllers.AccountController;
 import edu.baylor.GroupFive.database.userDAO.UserDatabaseConnection;
 import edu.baylor.GroupFive.models.User;
-import edu.baylor.GroupFive.models.Privilege;
+import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 

@@ -1,54 +1,35 @@
 package edu.baylor.GroupFive.models;
 
+import edu.baylor.GroupFive.models.enums.Theme;
+import edu.baylor.GroupFive.models.enums.BedType;
+import edu.baylor.GroupFive.models.enums.Quality;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Room {
-    public enum THEME {
-        NatureRetreat, UrbanElegance, VintageCharm;
-        public static THEME fromString(String text) {
-            for (THEME b : THEME.values()) {
-                if (b.toString().equalsIgnoreCase(text)) {
-                    return b;
-                }
-            }
-            return null;
-        }
-
-
-    };
-    public enum BED_TYPE {
-        SINGLE, DOUBLE, QUEEN, KING;
-        public static BED_TYPE fromString(String text) {
-            for (BED_TYPE b : BED_TYPE.values()) {
-                if (b.toString().equalsIgnoreCase(text)) {
-                    return b;
-                }
-            }
-            return null;
-        }
-
-    };
 
     private Integer roomNumber;
-    //private QualityDescription quality;
-    private Integer quality;
-    private THEME theme;
+    // TODO change int to enum maybe but also maybe not because
+    // that would really fuck up the database
+    // private QualityDescription quality;
+    private int quality;
+    private Theme theme;
     private Boolean smoking;
-    private BED_TYPE bedType;
+    private BedType bedType;
     private Integer numBeds;
     private Double dailyPrice;
 
     private List<Booking> bookings;
 
-    Room(){
+    public Room(){
         this.roomNumber = -1;
         this.bookings = new ArrayList<>();
     }
 
-    public Room(int roomNumber, int quality, THEME theme, boolean smoking, int numBeds, BED_TYPE bedType, double dailyPrice) {
+    public Room(int roomNumber, int quality, Theme theme, boolean smoking, int numBeds, BedType bedType, double dailyPrice) {
         this.roomNumber = roomNumber;
         this.quality = quality;
         this.theme = theme;
@@ -61,11 +42,11 @@ public class Room {
     //    public boolean isAvailableOn(Date date){
 //        return this.bookings.stream().findAny();
 //    }
-    public BED_TYPE getBedType() {
+    public BedType getBedType() {
         return bedType;
     }
 
-    public void setBedType(BED_TYPE bedType) {
+    public void setBedType(BedType bedType) {
         this.bedType = bedType;
     }
 
@@ -84,7 +65,17 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
-    public Integer getQuality() {
+    /*
+    public QualityDescription getQuality() {
+        return quality;
+    }
+
+    public void setQuality(QualityDescription quality) {
+        this.quality = quality;
+    }
+    */
+
+    public int getQuality() {
         return quality;
     }
 
@@ -92,11 +83,11 @@ public class Room {
         this.quality = quality;
     }
 
-    public THEME getTheme() {
+    public Theme getTheme() {
         return theme;
     }
 
-    public void setTheme(THEME theme) {
+    public void setTheme(Theme theme) {
         this.theme = theme;
     }
 
