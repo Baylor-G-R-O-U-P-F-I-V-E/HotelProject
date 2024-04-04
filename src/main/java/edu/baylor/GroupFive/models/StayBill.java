@@ -88,6 +88,14 @@ public class StayBill {
         return bill;
     }
 
+    public List<Payment> getPayments() { return payments; }
+
+    public void setPayments(List<Payment> payments) { this.payments = payments; }
+
+    public List<Purchase> getPurchases() { return purchases; }
+
+    public void setPurchases(List<Purchase> purchases) { this.purchases = purchases; }
+
     public Room getRoom() { return room; }
 
     public void setRoom(Room room) { this.room = room; }

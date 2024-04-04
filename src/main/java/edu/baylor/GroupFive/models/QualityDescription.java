@@ -2,6 +2,7 @@ package edu.baylor.GroupFive.models;
 
 public class QualityDescription {
     private String description;
+
     private double pricePerDay;
 
     public QualityDescription() {
@@ -16,4 +17,7 @@ public class QualityDescription {
     public double getPricePerDay() { return pricePerDay; }
 
     public void setPricePerDay(double pricePerDay) { this.pricePerDay = pricePerDay; }
+
+    private float pricePerDay;
+
 }
