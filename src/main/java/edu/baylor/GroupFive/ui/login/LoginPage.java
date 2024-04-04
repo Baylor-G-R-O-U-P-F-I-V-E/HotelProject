@@ -18,8 +18,6 @@ public class LoginPage extends JFrame implements InputDelegate {
     private JPanel background;
     private JPanel surface;
     private String username;
-    @SuppressWarnings("unused")
-    private String password;
 
     public LoginPage() {
         super();
@@ -85,6 +83,19 @@ public class LoginPage extends JFrame implements InputDelegate {
             dispose();
 
             @SuppressWarnings("unused")
+            
+            /*
+            
+            Account user = AccountController.getAccount(username);
+            
+            if (user == null) {
+                System.out.println("Account not found");
+                return;
+            }
+            
+            Page page = new Page(user);
+
+            */
             Page page = new Page(username);
 
         } else {
@@ -94,10 +105,6 @@ public class LoginPage extends JFrame implements InputDelegate {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
 }

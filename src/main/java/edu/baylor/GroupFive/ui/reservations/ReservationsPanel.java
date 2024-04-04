@@ -3,6 +3,8 @@ package edu.baylor.GroupFive.ui.reservations;
 import javax.swing.*;
 import javax.swing.table.*;
 
+import edu.baylor.GroupFive.controllers.ReservationController;
+import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
@@ -12,7 +14,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
     private JTable table;
 
     // Define column names
-    private String[] columnNames = { "Reservation ID",
+    private String[] columnNames = {
             "Room ID",
             "Start Date",
             "End Date",
@@ -71,11 +73,12 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         viewReservation.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row != -1) {
-                String name = (String) table.getValueAt(row, 0);
+                String roomID = (String) table.getValueAt(row, 0);
                 String startDate = (String) table.getValueAt(row, 1);
                 String endDate = (String) table.getValueAt(row, 2);
-                String room = (String) table.getValueAt(row, 3);
-                JOptionPane.showMessageDialog(null, "Name: " + name + "\nStart Date: " + startDate + "\nEnd Date: " + endDate + "\nRoom: " + room);
+                String guestID = (String) table.getValueAt(row, 3);
+                String price = (String) table.getValueAt(row, 4);
+                JOptionPane.showMessageDialog(null, "Room ID: " + roomID + "\nStart Date: " + startDate + "\nEnd Date: " + endDate + "\nGuest ID: " + guestID + "\nPrice: " + price);
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
             }
@@ -85,6 +88,8 @@ public class ReservationsPanel extends JPanel implements PagePanel {
             int row = table.getSelectedRow();
             if (row != -1) {
                 String room = (String) table.getValueAt(row, 3);
+                //String roomID = (String) table.getValueAt(row, 3);
+                //Room room = RoomController.getRoom(roomID);
                 JOptionPane.showMessageDialog(null, "Room: " + room);
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a reservation to view.");

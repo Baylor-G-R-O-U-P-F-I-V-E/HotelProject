@@ -9,6 +9,7 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 lib/derby.jar
+/FinalProject/
 derby.log
 .project
 
@@ -18,6 +19,9 @@ derby.log
 .settings/
 
 *.out
+.dat
+.ctrl
+.lck
 .DS_Store
 .idea/
 .vscode

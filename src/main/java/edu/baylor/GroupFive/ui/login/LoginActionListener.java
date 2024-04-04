@@ -65,6 +65,27 @@ public class LoginActionListener implements ActionListener {
             return;
         }
 
+        /*
+
+        // Check if the name and password are correct via the Account Controller. 
+        // If the controller returns null for the username and password, the account
+        // info is incorrect
+
+        Account user = AccountController.validateLogin(name, password);
+        if (user == null) {
+            message = "Incorrect name or password";
+            try {
+                new BadInputDialog(message, title);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            return;
+        }
+
+        login.onPageSwitch("success");
+
+         */
+
         // Check if the name and password are correct
         if (!name.equals("admin") || !password.equals("admin")) {
             message = "Incorrect name or password";
@@ -75,17 +96,6 @@ public class LoginActionListener implements ActionListener {
             }
             return;
         }
-
-        // Account user = validateLogin(name, password);
-        // if (user == null) {
-        //     message = "Incorrect name or password";
-        //     try {
-        //         new BadInputDialog(message, title);
-        //     } catch (IOException e1) {
-        //         e1.printStackTrace();
-        //     }
-        //     return;
-        // }
 
         // Switch to the reserve room page
         loginPage.onPageSwitch("success");
