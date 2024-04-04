@@ -15,6 +15,6 @@ public class AccountController {
     }
 
     public static void register(String firstName, String lastName, String username, String password, String privilege) {
-        //AccountService.register(firstName, lastName, username, password, privilege);
+        AccountService.register(firstName, lastName, username, password, privilege);
     }
 }
