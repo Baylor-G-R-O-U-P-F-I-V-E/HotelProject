@@ -1,19 +1,24 @@
+package edu.baylor.GroupFive.models;
 
-/*
 public class Product {
-    int prodictID;
-    Inventory inventory;
-    ProductDescription description;
+    private int productID;
+    private Inventory inventory;
+    private ProductDescription description;
 
-    Inventory getInventory(){return this.inventory;}
-    void setInventory(Inventory val) {this.inventory = val;}
+    public Product() {
+        productID = -1;
+        inventory = null;
+        description = null;
+    }
 
-    int getID(){return this.productID;}
-    void setInventory(int val) {this.productID = val;}
+    public int getProductID() { return productID; }
 
-    Inventory getInventory(){return this.inventory;}
-    void setDescription(ProductDescription val) {this.description = val;}
+    public void setProductID(int productID) { this.productID = productID; }
 
+    public ProductDescription getDescription() { return description; }
+
+    public void setDescription(ProductDescription description) { this.description = description; }
+
+    public Inventory getInventory(){return this.inventory;}
+    public void setInventory(Inventory val) {this.inventory = val;}
 }
-
- */

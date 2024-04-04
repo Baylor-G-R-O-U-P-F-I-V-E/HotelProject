@@ -8,6 +8,10 @@ Created by:
 [Siri Kothapalli]()  
 [Icko Iben](https://github.com/ickoxii)  
 
+## Developer References
+
+1. [`HotelProjectException`](./EXCEPTIONS_README.md)
+
 ## Contents
 
 1. [Cloning This Repository Locally](./Installation.md)

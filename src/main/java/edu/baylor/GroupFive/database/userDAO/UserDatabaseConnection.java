@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDatabaseConnection {
+
     private Connection getConnection(){
         Connection connection = null;
         try {
@@ -23,6 +24,7 @@ public class UserDatabaseConnection {
         }
         return connection;
     }
+
     public User getUser(String username){
         Connection connection =  getConnection();
         if(connection == null){
@@ -84,7 +86,7 @@ public class UserDatabaseConnection {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
-        }finally {
+        } finally {
             if (statement != null) {
                 try {
                     statement.close();

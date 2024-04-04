@@ -37,4 +37,13 @@ public class User {
     public String getUsername() {
         return userName;
     }
+
+    public boolean verify(String password) {
+        return passwordHash.equals(password);
+    }
+
+    public void changePassword(String newPasswordHash) {
+        passwordHash = newPasswordHash;
+    }
+
 }
