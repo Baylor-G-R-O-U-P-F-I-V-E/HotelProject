@@ -14,11 +14,11 @@ import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
 public class CreateAccountActionListener implements ActionListener {
-    private InputDelegate landingPage;
+    private LandingPage landingPage;
     private JTextField first, last, username, password;
     private static String title = "Login Error";
 
-    public CreateAccountActionListener(InputDelegate landingPage, JTextField first, JTextField last, JTextField username, JTextField password) {
+    public CreateAccountActionListener(LandingPage landingPage, JTextField first, JTextField last, JTextField username, JTextField password) {
         this.landingPage = landingPage;
         this.first = first;
         this.last = last;
@@ -117,6 +117,7 @@ public class CreateAccountActionListener implements ActionListener {
         // Create a new user and add to database
         User user = new User(firstName, lastName, userName, guestPassword, "guest");
         if(udao.addUser(user)) {
+            landingPage.setUsername(userName);
             landingPage.onPageSwitch("success");
         } else {
             try {
