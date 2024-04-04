@@ -20,7 +20,7 @@ public class AccountController {
         //AccountService.register(firstName, lastName, username, password, privilege);
     }
 
-    public static void checkAccountExists(String username) {
+    public static boolean checkAccountExists(String username) {
         return AccountService.checkAccountExists(username);
     }
 
