@@ -52,10 +52,10 @@ public class RoomDatabaseConnection {
             while(rs.next()){
                 Room out = new Room(rs.getInt("roomNumber"),
                         rs.getInt("quality"),
-                        Room.THEME.ThemeB,
+                        Room.THEME.fromString(rs.getString("THEME")),
                         rs.getBoolean("smoking"),
                         rs.getInt("numbeds"),
-                        Room.BED_TYPE.QUEEN,
+                        Room.BED_TYPE.fromString(rs.getString("BEDTYPE")),
                         rs.getDouble("dailyPrice")
                         );
                 output.add(out);
@@ -104,8 +104,8 @@ public class RoomDatabaseConnection {
         // startDate endDate price guestID roomID
         String sqlInsert = "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (" +
                 newRoom.getRoomNumber().toString() + "," + newRoom.getQuality().toString() +
-                ",'ThemeNotIntegrated'," + newRoom.getSmoking().toString() + "," +
-                "'NOTDONE'" + "," +
+                ",'" + newRoom.getTheme().toString() + "'," + newRoom.getSmoking().toString() + ",'" +
+                newRoom.getBedType().toString() + "'," +
                 newRoom.getNumBeds().toString()  + "," +
                 newRoom.getDailyPrice().toString() + ")";
         try {
@@ -161,10 +161,10 @@ public class RoomDatabaseConnection {
             while(rs.next()){
                 Room out = new Room(rs.getInt("roomNumber"),
                         rs.getInt("quality"),
-                        Room.THEME.ThemeA,
+                        Room.THEME.fromString(rs.getString("THEME")),
                         rs.getBoolean("smoking"),
                         rs.getInt("numbeds"),
-                        Room.BED_TYPE.KING,
+                        Room.BED_TYPE.fromString(rs.getString("BEDTYPE")),
                         rs.getDouble("dailyPrice")
                 );
                 return out;
