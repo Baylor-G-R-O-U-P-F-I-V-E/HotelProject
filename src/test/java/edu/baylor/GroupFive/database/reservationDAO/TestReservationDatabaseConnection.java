@@ -44,9 +44,6 @@ public class TestReservationDatabaseConnection {
         } catch (ParseException e) {
             System.out.println("exception in checkifavailable test code");
             throw new RuntimeException(e);
-        } catch (SQLException e) {
-            System.out.println("ERROR in check availability");
-            throw new RuntimeException(e);
         }
         assert(isAvailable == true);
     }
@@ -67,13 +64,10 @@ public class TestReservationDatabaseConnection {
             Date endDate = formatter.parse(edate);
             //System.out.println(startDate.getYear() + " " + endDate.getTime());
             ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
-            isAvailable = conn.checkIfAvailable("2",startDate,endDate);
+            isAvailable = conn.checkIfAvailable("102",startDate,endDate);
             System.out.println(isAvailable);
         } catch (ParseException e) {
             System.out.println("exception in checkifavailable test code");
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            System.out.println("ERROR in check availability");
             throw new RuntimeException(e);
         }
         assert(isAvailable == false);
@@ -84,7 +78,7 @@ public class TestReservationDatabaseConnection {
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         Reservation myRes;
         try {
-             myRes = conn.getInfo(1, new Date("07/20/2024"));
+             myRes = conn.getInfo(101, new Date("07/20/2024"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -99,7 +93,7 @@ public class TestReservationDatabaseConnection {
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         Reservation myRes;
         try {
-            myRes = conn.getInfo(2, new Date("01/01/2008"));
+            myRes = conn.getInfo(102, new Date("01/01/2008"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -118,7 +112,7 @@ public class TestReservationDatabaseConnection {
         Date end = new Date("1/15/2009");
 
 
-        Reservation newReservation = new Reservation(start,end,"3","2",12.34);
+        Reservation newReservation = new Reservation(start,end,"Axel112","102",12.34);
         Integer res = null;
         try {
             res = conn.addReservation(newReservation);
@@ -139,7 +133,7 @@ public class TestReservationDatabaseConnection {
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         Reservation r;
         try {
-            r = conn.getInfo(3,new Date("07/22/2024"));
+            r = conn.getInfo(103,new Date("07/22/2024"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -147,11 +141,9 @@ public class TestReservationDatabaseConnection {
         assert(r != null);
 
 
-        try {
-            conn.cancelReservation(3,new Date("07/22/2024"));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
+        conn.cancelReservation(3,new Date("07/22/2024"));
+
 
         r = null;
         try {

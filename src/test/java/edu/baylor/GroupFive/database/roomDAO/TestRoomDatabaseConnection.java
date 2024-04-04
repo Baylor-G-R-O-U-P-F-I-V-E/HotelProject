@@ -52,4 +52,29 @@ public class TestRoomDatabaseConnection {
         assert(pulledRoom == null);
     }
 
+
+    @Test
+    void modifyRoom(){
+        dbSetup db = new dbSetup();
+        Room myRoom = new Room(99,3, Room.THEME.ThemeA,true, 11, Room.BED_TYPE.KING, 90D);
+        RoomDatabaseConnection conn = new RoomDatabaseConnection();
+
+        Boolean added = conn.addRoom(myRoom);
+        if(!added){
+            System.out.println("Initial add failed");
+            assert false;
+        }
+
+        myRoom.setNumBeds(6);
+
+        Boolean isModified = conn.modifyRoom(myRoom);
+        if(!isModified){
+            System.out.println("Initial modify failed");
+            assert false;
+        }
+
+        Room modifiedRoom = conn.getRoom(99);
+        assert(modifiedRoom.getNumBeds().equals(6));
+    }
+
 }

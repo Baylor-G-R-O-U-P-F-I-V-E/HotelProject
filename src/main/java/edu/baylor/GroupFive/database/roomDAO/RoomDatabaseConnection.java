@@ -198,6 +198,53 @@ public class RoomDatabaseConnection {
 
 
 
+    public Boolean modifyRoom(Room updatedInfo){
+        Connection connection =  getConnection();
+        if(connection == null){
+            System.out.println("Connection Failed");
+            return null;
+        }
+
+
+
+        //just checking we already have the room in the db
+        Room exists = getRoom(updatedInfo.getRoomNumber());
+        if(exists == null){
+            return false;
+        }
+
+        Statement statement = null;
+        String sqlDelete = "DELETE FROM room WHERE roomNumber = " + updatedInfo.getRoomNumber();
+        try {
+            statement = connection.createStatement();
+            statement.execute(sqlDelete);
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        return  addRoom(updatedInfo);
+    }
+
+
+
 
 
 }
