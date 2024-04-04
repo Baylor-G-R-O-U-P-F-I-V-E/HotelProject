@@ -86,7 +86,7 @@ public class UserDatabaseConnection {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
-        }finally {
+        } finally {
             if (statement != null) {
                 try {
                     statement.close();

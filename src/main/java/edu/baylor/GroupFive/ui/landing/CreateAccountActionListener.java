@@ -7,7 +7,9 @@ import java.io.IOException;
 import javax.swing.JTextField;
 
 import edu.baylor.GroupFive.controllers.AccountController;
+import edu.baylor.GroupFive.database.userDAO.UserDatabaseConnection;
 import edu.baylor.GroupFive.models.User;
+import edu.baylor.GroupFive.models.Privilege;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
@@ -94,7 +96,17 @@ public class CreateAccountActionListener implements ActionListener {
             return;
         }
 
-        landingPage.onPageSwitch("success");
-        
+        // Create a new user and add to database
+        User user = new User(firstName, lastName, userName, guestPassword, "guest");
+        UserDatabaseConnection udao = new UserDatabaseConnection();
+        if(udao.addUser(user)) {
+            landingPage.onPageSwitch("success");
+        } else {
+            try {
+                new BadInputDialog(message, title);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
     }
 }
