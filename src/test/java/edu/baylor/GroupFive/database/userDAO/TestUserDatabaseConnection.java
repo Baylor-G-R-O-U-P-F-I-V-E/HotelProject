@@ -50,4 +50,20 @@ public class TestUserDatabaseConnection {
     }
 
 
+    @Test
+    void modifyUser(){
+        dbSetup db = new dbSetup();
+        User newUser = new User("ColeS", "Flenniken", "colef888", "cole123", "Clerk");
+        UserDatabaseConnection conn = new UserDatabaseConnection();
+        Boolean added = conn.addUser(newUser);
+        assert(added);
+
+        newUser.firstName= "Modified";
+
+        conn.modifyUser(newUser);
+
+        User h = conn.getUser("colef888");
+        assert(h.firstName.equals("Modified"));
+    }
+
 }
