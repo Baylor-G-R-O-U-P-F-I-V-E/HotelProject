@@ -9,7 +9,6 @@ import javax.swing.table.*;
 
 import edu.baylor.GroupFive.controllers.ReservationController;
 import edu.baylor.GroupFive.controllers.RoomController;
-import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;

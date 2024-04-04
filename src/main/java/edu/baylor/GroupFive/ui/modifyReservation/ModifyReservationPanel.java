@@ -4,13 +4,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -158,12 +154,11 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         buttonPanel.add(backButton);
     }
 
-    public void onClick(String username, String password) {
-        // TODO Auto-generated method stub
-    }
-
     @Override
     public void clear() {
-        // TODO Auto-generated method stub
+        roomID.setText("");
+        price.setText("");
+        startDate.setDate(new Date());
+        endDate.setDate(new Date());
     }
 }
