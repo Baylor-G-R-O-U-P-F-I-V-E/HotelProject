@@ -16,3 +16,10 @@ docker-build:
 docker-run:
 	docker run -it -e DISPLAY=$(shell ipconfig getifaddr en0):0 $(DOCKER_IMG) || (echo "Did you run \`xhost \$$(ipconfig getifaddr en0)\` in an xquartz session?" && exit 1)
 .PHONY: docker-run
+
+run-no-tests:
+	rm -r FinalProject
+	mvn clean install -DskipTests
+	mvn compile -DskipTests
+	make run
+.PHONY: run-no-tests
