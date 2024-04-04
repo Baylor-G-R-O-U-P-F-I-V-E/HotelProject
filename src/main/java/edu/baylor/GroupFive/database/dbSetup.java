@@ -47,7 +47,7 @@ public class dbSetup {
                             "startDate DATE," +
                             "endDate Date," +
                             "price DECIMAL(5,2)," +
-                            "guestusername VARCHAR(30)," +
+                            "guestusername VARCHAR(30)," + 
                             "roomNumber INTEGER," +
                             "CONSTRAINT FK_12 FOREIGN KEY (guestusername) REFERENCES users(username)," +
                             "CONSTRAINT FK_23 FOREIGN KEY (roomNumber) REFERENCES ROOM(roomNumber)," +
