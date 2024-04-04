@@ -52,10 +52,10 @@ public class RoomDatabaseConnection {
             while(rs.next()){
                 Room out = new Room(rs.getInt("roomNumber"),
                         rs.getInt("quality"),
-                        Room.THEME.fromString(rs.getString("THEME")),
+                        Room.THEME.fromString(rs.getString("theme")),
                         rs.getBoolean("smoking"),
                         rs.getInt("numbeds"),
-                        Room.BED_TYPE.fromString(rs.getString("BEDTYPE")),
+                        Room.BED_TYPE.fromString(rs.getString("bedtype")),
                         rs.getDouble("dailyPrice")
                         );
                 output.add(out);
