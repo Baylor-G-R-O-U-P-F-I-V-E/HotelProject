@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.ui.login;
+package edu.baylor.GroupFive.ui.landing;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
@@ -80,7 +80,13 @@ public class LandingPage extends JFrame implements InputDelegate {
             repaint();
 
         } else if (option.equals("createAccount")) {
-            // TODO: Switch to the create account panel
+            
+            //Replace surface panel with create account panel
+            remove(surface);
+            surface = new CreateAccountPanel(this);
+            add(surface);
+            revalidate();
+            repaint();
         
         } else if (option.equals("success")) {
             //User user = AccountController.getUser(username);
@@ -97,6 +103,15 @@ public class LandingPage extends JFrame implements InputDelegate {
             
             @SuppressWarnings("unused")
             Page page = new Page(user);
+
+        } else if (option.equals("cancel")) {
+            
+            //Replace surface panel with landing panel
+            remove(surface);
+            surface = new LandingPanel(this);
+            add(surface);
+            revalidate();
+            repaint();
 
         } else {
             System.out.println("Invalid option");
