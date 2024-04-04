@@ -107,6 +107,12 @@ public class DatePanel extends JPanel implements PagePanel {
         return (Date) model.getValue();
     }
 
+    public void setDate(Date date) {
+        cal.setTime(date);
+        model.setDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
+        model.setSelected(true);
+    }
+
     @Override
     public void clear() {
         //Clear all components

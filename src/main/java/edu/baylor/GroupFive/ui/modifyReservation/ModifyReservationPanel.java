@@ -18,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import edu.baylor.GroupFive.CoreUtils;
+import edu.baylor.GroupFive.controllers.ReservationController;
+import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.ui.utils.DatePanel;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
@@ -29,7 +31,8 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
     private JTextField roomID, price;
     private DatePanel startDate, endDate;
     private String originalRoom;
-    private Date originalStart;
+    private Date originalStartDate;
+    private Reservation reservation;
 
     public ModifyReservationPanel(Page delegate, String originalRoom, String originalStart) {
         super();
@@ -38,7 +41,7 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         SimpleDateFormat sdf = new SimpleDateFormat(CoreUtils.DATE_FORMAT);
 
         try {
-            this.originalStart = sdf.parse(originalStart);
+            this.originalStartDate = sdf.parse(originalStart);
         } catch (Exception e) {
             e.printStackTrace();
             delegate.onPageSwitch("home");
@@ -47,16 +50,18 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setOpaque(false);
 
-        // Add a vertical strut to modify vertical space at the top
-        add(Box.createVerticalStrut(500)); // Adjust the value as needed
+        reservation = ReservationController.getInfo(Integer.parseInt(originalRoom), originalStartDate);
 
         JPanel textPanel = new JPanel();
+        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
 
         addRoomPanel(textPanel);
         addPricePanel(textPanel);
 
         startDate = new DatePanel("Start Date:");
+        startDate.setDate(reservation.getStartDate());
         endDate = new DatePanel("End Date:", 1);
+        endDate.setDate(reservation.getEndDate());
 
         textPanel.add(startDate);
         textPanel.add(endDate);
@@ -89,6 +94,7 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         roomLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
         roomID = new JTextField();
+        roomID.setText(String.valueOf(reservation.getRoomNumber()));
         roomID.setBounds(400, 50, 200, 50);
         roomID.setFont(new Font("Arial", Font.PLAIN, 20));
         roomID.setPreferredSize(fieldSize);
@@ -108,6 +114,7 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         priceLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
         price = new JTextField();
+        price.setText(String.valueOf(reservation.getPrice()));
         price.setBounds(400, 50, 200, 50);
         price.setFont(new Font("Arial", Font.PLAIN, 20));
         price.setPreferredSize(fieldSize);
@@ -130,7 +137,7 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         modifyButton.setForeground(new Color(255, 255, 255));
 
         // Add an action listener to the button
-        modifyButton.addActionListener(new ModifyReservationActionListener(delegate, originalRoom, originalStart, roomID, price, startDate, endDate));
+        modifyButton.addActionListener(new ModifyReservationActionListener(delegate, originalRoom, originalStartDate, roomID, price, startDate, endDate));
 
         buttonPanel.add(modifyButton);
     }
