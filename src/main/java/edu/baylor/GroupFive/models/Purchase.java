@@ -1,19 +1,29 @@
 package edu.baylor.GroupFive.models;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Purchase {
-    public Purchase(){
-        this.id = -1;
-        this.date = null;
-        this.bill = null;
+    private Date date;
+    private float amount;
+    private List<Item> items;
+    private StayBill bill;
+    private long id;
+
+    public Purchase(
+            Date date_,
+            float amount_,
+            List<Item> items_,
+            StayBill bill_,
+            long id_
+            ){
+        this.date = date_;
+        this.amount = amount_;
+        this.items = items_;
+        this.bill = bill_;
+        this.id = id_;
     }
 
-    private StayBill bill;
-
-    private long id;
 
     public long getId() {
         return id;
@@ -47,7 +57,12 @@ public class Purchase {
         this.items = items;
     }
 
-    private Date date;
-    private float amount;
-    private List<Item> items;
+    public StayBill getBill() {
+        return bill;
+    }
+
+    public void setBill(StayBill bill_) {
+        bill = bill_;
+    }
+
 }

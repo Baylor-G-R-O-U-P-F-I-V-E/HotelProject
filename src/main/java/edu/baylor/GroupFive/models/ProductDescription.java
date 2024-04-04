@@ -5,10 +5,14 @@ public class ProductDescription {
     private String productName;
     private String productType;
 
-    public ProductDescription() {
-        price = -1;
-        productName = "";
-        productType = "";
+    public ProductDescription(
+            double price_,
+            String productName_,
+            String productType_
+            ) {
+        price = price_;
+        productName = productName_;
+        productType = productType_;
     }
 
     public double getPrice() { return price; }

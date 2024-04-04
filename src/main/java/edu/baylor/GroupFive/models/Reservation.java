@@ -10,7 +10,13 @@ public class Reservation {
     String roomNumber;
     Double price;
 
-    public Reservation(Date startDate, Date endDate, String guestUsername, String roomNumber, Double price){
+    public Reservation(
+            Date startDate,
+            Date endDate,
+            String guestUsername,
+            String roomNumber,
+            Double price
+            ){
         this.startDate = startDate;
         this.endDate = endDate;
         this.guestUsername = guestUsername;
@@ -33,8 +39,6 @@ public class Reservation {
     public Integer getRoomNumber(){
         return Integer.valueOf(roomNumber);
     }
-
-
 
     public Double getPrice(){
         return price;
