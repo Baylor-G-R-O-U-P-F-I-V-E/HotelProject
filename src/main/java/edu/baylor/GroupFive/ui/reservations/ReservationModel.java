@@ -34,7 +34,7 @@ public class ReservationModel extends HotelModel implements DataModel {
         for (Reservation reservation : reservations) {
             try {
                 // Add the row to the table
-                addRow(new Object[] {reservation.getRoomNumber(), formatDate(reservation.getStartDate()), formatDate(reservation.getEndDate()), reservation.getGuestUsername(), String.valueOf(reservation.getPrice())});
+                addRow(new Object[] {String.valueOf(reservation.getRoomNumber()), formatDate(reservation.getStartDate()), formatDate(reservation.getEndDate()), reservation.getGuestUsername(), String.valueOf(reservation.getPrice())});
                 // Print the row to the console
                 System.out.println("Added row to table: " + reservation.getRoomNumber() + ", " + reservation.getStartDate() + ", " + reservation.getEndDate() + ", " + reservation.getGuestUsername() + ", " + reservation.getPrice());
             } catch (Exception e) {
