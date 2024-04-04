@@ -33,4 +33,9 @@ public class AccountService {
         conn.addUser(user);
     }
 
+    public static boolean checkAccountExists(String username) {
+        UserDatabaseConnection conn = new UserDatabaseConnection();
+        return conn.getUser(username) != null;
+    }
+
 }
