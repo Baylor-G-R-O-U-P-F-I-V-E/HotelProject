@@ -147,7 +147,7 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         createButton.setForeground(new Color(255, 255, 255));
 
         // Add an action listener to the button
-        //createButton.addActionListener(new CreateAccountActionListener(delegate, firstName, lastName, username, password));
+        createButton.addActionListener(new CreateAccountActionListener(delegate, firstName, lastName, username, password));
 
         buttonPanel.add(createButton);
     }
