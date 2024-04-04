@@ -15,8 +15,8 @@ public class Dashboard extends JPanel {
 
         // Add buttons to the dashboard
         add(new HomeButton(page, "src/main/resources/button-icons/home-icon.png"));
-        add(new DashboardButton("src/main/resources/button-icons/reservations-icon.png"));
-        add(new DashboardButton("src/main/resources/button-icons/checkout-icon.png"));
+        //add(new DashboardButton("src/main/resources/button-icons/rooms-icon.png"));
+        //add(new DashboardButton("src/main/resources/button-icons/checkout-icon.png"));
         add(new AddReservationButton(page, "src/main/resources/button-icons/add-reservation-icon.png"));
 
 

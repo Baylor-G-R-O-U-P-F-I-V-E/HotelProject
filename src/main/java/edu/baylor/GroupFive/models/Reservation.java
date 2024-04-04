@@ -1,5 +1,6 @@
 package edu.baylor.GroupFive.models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reservation {
@@ -61,7 +62,8 @@ public class Reservation {
     }
 
     public String toString(){
-        String out = "Start Date: " + startDate + "\nEnd Date: " + endDate + "\nGuest Username: " + guestUsername + "\nRoom Number: " + roomNumber + "\nPrice: " + price;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        String out = "Guest Username: " + guestUsername + "\nStart Date: " + dateFormat.format(startDate) + "\nEnd Date: " + dateFormat.format(endDate) + "\nRoom Number: " + roomNumber + "\nPrice: " + price;
         return out;
     }
 
