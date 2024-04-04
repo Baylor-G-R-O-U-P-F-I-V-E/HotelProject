@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public class RoomController {
-    public Room getRoomInfo(Integer roomNumber){
+    public static Room getRoomInfo(Integer roomNumber){
         //WILL RETURN NULL IF NO ROOM EXISTS (I think) -Cole
         return RoomServices.getRoom(roomNumber);
     }
@@ -23,7 +23,7 @@ public class RoomController {
     }
 
 
-    public List<Room> getAvailableRooms(Date startDate, Date endDate){
+    public static List<Room> getAvailableRooms(Date startDate, Date endDate){
         return RoomServices.getAvailableRooms(startDate,endDate);
     }
 

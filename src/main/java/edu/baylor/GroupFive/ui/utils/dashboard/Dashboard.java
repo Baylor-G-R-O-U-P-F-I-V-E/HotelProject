@@ -1,5 +1,6 @@
 package edu.baylor.GroupFive.ui.utils.dashboard;
 
+import edu.baylor.GroupFive.models.Privilege;
 import edu.baylor.GroupFive.ui.utils.buttons.DashboardButton;
 import edu.baylor.GroupFive.ui.utils.buttons.pageButtons.AddReservationButton;
 import edu.baylor.GroupFive.ui.utils.buttons.pageButtons.HomeButton;
@@ -9,7 +10,7 @@ import javax.swing.*;
 
 public class Dashboard extends JPanel {
 
-    public Dashboard(InputDelegate page, String privilige) {
+    public Dashboard(InputDelegate page, Privilege privilige) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Add buttons to the dashboard

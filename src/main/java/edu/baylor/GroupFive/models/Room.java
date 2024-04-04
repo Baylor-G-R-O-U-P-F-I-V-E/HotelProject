@@ -120,4 +120,15 @@ public class Room {
     public int hashCode() {
         return Objects.hash(getRoomNumber(), getQuality(), getTheme(), getSmoking(), getBedType(), getNumBeds(), getDailyPrice(), getBookings());
     }
+
+    @Override
+    public String toString() {
+        return "Room Number: " + roomNumber +
+                "\nQuality: " + quality +
+                "\nTheme: " + theme +
+                "\nSmoking: " + smoking +
+                "\nBed Type: " + bedType +
+                "\nNumber of Beds: " + numBeds +
+                "\nDaily Price: " + dailyPrice;
+    }
 }

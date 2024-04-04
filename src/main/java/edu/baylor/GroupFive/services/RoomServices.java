@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public class RoomServices {
+
     public static List<Room> getRooms(){
         RoomDatabaseConnection roomConn = new RoomDatabaseConnection();
         return roomConn.getRooms();
