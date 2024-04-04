@@ -56,18 +56,18 @@ public class ReservationServices {
     }
 
 
-    public static Boolean modifyReservation(Reservation newInfo, Date oldStartDate){
+    public static Boolean modifyReservation(Reservation newInfo, String originalRoom, Date oldStartDate){
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         Reservation temp;
 
-        temp = conn.getInfo(newInfo.getRoomNumber(), oldStartDate);
+        temp = conn.getInfo(Integer.parseInt(originalRoom), oldStartDate);
 
 
         if(temp == null){
             return false;
         }
 
-        Boolean erased = conn.cancelReservation(newInfo.getRoomNumber(), oldStartDate);
+        Boolean erased = conn.cancelReservation(Integer.parseInt(originalRoom), oldStartDate);
         if(!erased){
             return false;
         }

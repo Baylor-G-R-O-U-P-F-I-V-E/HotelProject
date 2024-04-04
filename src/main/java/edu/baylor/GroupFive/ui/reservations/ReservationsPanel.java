@@ -1,11 +1,17 @@
 package edu.baylor.GroupFive.ui.reservations;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.swing.*;
 import javax.swing.table.*;
 
 import edu.baylor.GroupFive.controllers.ReservationController;
 import edu.baylor.GroupFive.controllers.RoomController;
+import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
+import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
@@ -13,6 +19,7 @@ import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 public class ReservationsPanel extends JPanel implements PagePanel {
     
     private JTable table;
+    private Page page;
 
     // Define column names
     private String[] columnNames = {
@@ -27,9 +34,10 @@ public class ReservationsPanel extends JPanel implements PagePanel {
             String.class, String.class, String.class, String.class, String.class, String.class
     };
 
-    public ReservationsPanel() {
+    public ReservationsPanel(Page page) {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.page = page;
 
         // Create a model of the data.
         DefaultTableModel model = new ReservationModel(columnNames, columnClass);
@@ -59,27 +67,33 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         JPanel buttonPanel = new JPanel();
 
         // Create buttons
-        JButton viewReservation = new JButton("View Selected Reservation");
+        JButton modifyReservation = new JButton("Modify Selected Reservation");
         JButton viewRoom = new JButton("View Selected Room");
+        JButton deleteReservation = new JButton("Delete Selected Reservation");
 
         // Add buttons to panel
-        addButtonListeners(viewReservation, viewRoom);
-        buttonPanel.add(viewReservation);
+        addButtonListeners(modifyReservation, viewRoom, deleteReservation);
+        buttonPanel.add(modifyReservation);
         buttonPanel.add(viewRoom);
+        buttonPanel.add(deleteReservation);
 
         add(buttonPanel);
     }
 
-    private void addButtonListeners(JButton viewReservation, JButton viewRoom) {
+    private void addButtonListeners(JButton viewReservation, JButton viewRoom, JButton deleteReservation) {
         viewReservation.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row != -1) {
-                String roomID = (String) table.getValueAt(row, 0);
-                String startDate = (String) table.getValueAt(row, 1);
-                String endDate = (String) table.getValueAt(row, 2);
-                String guestID = (String) table.getValueAt(row, 3);
-                String price = (String) table.getValueAt(row, 4);
-                JOptionPane.showMessageDialog(null, "Room ID: " + roomID + "\nStart Date: " + startDate + "\nEnd Date: " + endDate + "\nGuest ID: " + guestID + "\nPrice: " + price);
+                Integer roomColumnIndex = table.getColumnModel().getColumnIndex("Room ID");
+                String roomID = (String) table.getValueAt(row, roomColumnIndex);
+                Integer startDateColumnIndex = table.getColumnModel().getColumnIndex("Start Date");
+                String startDate = (String) table.getValueAt(row, startDateColumnIndex);
+
+                page.addInfo(roomID);
+                page.addInfo(startDate);
+
+                page.onPageSwitch("modifyReservation");
+
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
             }
@@ -88,11 +102,41 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         viewRoom.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row != -1) {
-                Integer roomNumber = Integer.parseInt((String) table.getValueAt(row, 3));
+                int roomColumnIndex = table.getColumnModel().getColumnIndex("Room ID");
+                Integer roomNumber = Integer.parseInt((String) table.getValueAt(row, roomColumnIndex));
                 Room room = RoomController.getRoomInfo(roomNumber);
                 JOptionPane.showMessageDialog(null, room.toString());
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
+            }
+        });
+
+        deleteReservation.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row != -1) {
+                Integer roomColumnIndex = table.getColumnModel().getColumnIndex("Room ID");
+                String roomID = (String) table.getValueAt(row, roomColumnIndex);
+                Integer startDateColumnIndex = table.getColumnModel().getColumnIndex("Start Date");
+                String startDate = (String) table.getValueAt(row, startDateColumnIndex);
+
+                // Parse the startDate from a string to a Date object
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date parsedDate = null;
+                try {
+                    parsedDate = dateFormat.parse(startDate);
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+
+                if (parsedDate == null) {
+                    JOptionPane.showMessageDialog(null, "Error parsing date.");
+                    return;
+                }
+
+                ReservationController.cancelReservation(Integer.parseInt(roomID), parsedDate);
+                ((DefaultTableModel)table.getModel()).removeRow(row);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select a reservation to delete.");
             }
         });
     }

@@ -17,7 +17,7 @@ public class LoginActionListener implements ActionListener {
     private JTextField passwordField;
     private static String title = "Login Error";
 
-    public LoginActionListener(InputDelegate loginPage, JTextField nameField, JTextField passwordField) {
+    public LoginActionListener(LandingPage loginPage, JTextField nameField, JTextField passwordField) {
         this.loginPage = loginPage;
         this.nameField = nameField;
         this.passwordField = passwordField;
@@ -86,6 +86,8 @@ public class LoginActionListener implements ActionListener {
         }
 
         // Switch to the success page
+        ((LandingPage) loginPage).setUsername(name);
+
         loginPage.onPageSwitch("success");
         
     }

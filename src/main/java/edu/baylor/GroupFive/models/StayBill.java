@@ -51,25 +51,25 @@ public class StayBill {
         }
     }
 
-    public Payment getLatestPayment() {
-        return payments.getLast();
-    }
-
-    public Payment getOldestPayment() {
-        return payments.getFirst();
-    }
-
-    public Payment getPayment(int pay) {
-        return payments.get(pay);
-    }
-
-    public Purchase getLatestPurchase() {
-        return purchases.getLast();
-    }
-
-    public Purchase getOldestPurchase() {
-        return purchases.getFirst();
-    }
+//    public Payment getLatestPayment() {
+//        return payments.getLast();
+//    }
+//
+//    public Payment getOldestPayment() {
+//        return payments.getFirst();
+//    }
+//
+//    public Payment getPayment(int pay) {
+//        return payments.get(pay);
+//    }
+//
+//    public Purchase getLatestPurchase() {
+//        return purchases.getLast();
+//    }
+//
+//    public Purchase getOldestPurchase() {
+//        return purchases.getFirst();
+//    }
 
     public Purchase getPurchase(int purchase) {
         return purchases.get(purchase);

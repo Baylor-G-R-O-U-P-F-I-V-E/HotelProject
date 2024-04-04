@@ -89,9 +89,7 @@ public class LandingPage extends JFrame implements InputDelegate {
             repaint();
         
         } else if (option.equals("success")) {
-            //User user = AccountController.getUser(username);
-            //Make a default user to test
-            User user = new User("John", "Doe", "johndoe", "password", "ADMIN");
+            User user = AccountController.getUser(username);
             
             if (user == null) {
                 //Display an error optionpane
