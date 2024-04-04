@@ -10,20 +10,20 @@
         }
       },
       "file": {
-        "name": "RollingFile",
-        "fileName": "logs/application.log",
-        "filePattern": "logs/%d{MM-dd-yy-HH-mm-ss}-%i.log",
-        "PatternLayout": {
-          "pattern": "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+        "name": "File",
+        "fileName": "logs/application.log-${date:yyyy-MM-dd_HH-mm-ss}.log",
+        "filePattern": "logs/application.log-%d{yyyy-MM-dd_HH-mm-ss}-%i.log",
+        "layout": {
+          "pattern": "%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
         },
-        "triggeringPolicy": {
-          "OnStartupTriggeringPolicy": {
+        "Policies": {
+          "TimeBasedTriggeringPolicy": {
+            "interval": "1",
+            "modulate": "true"
           }
         },
-        "strategy": {
-          "DefaultRolloverStrategy": {
-            "max": 10
-          }
+        "DefaultRolloverStrategy": {
+          "max": "20"
         }
       }
     },
@@ -35,7 +35,7 @@
             "ref": "Console"
           },
           {
-            "ref": "File"
+            "ref": "file"
           }
         ]
       }
