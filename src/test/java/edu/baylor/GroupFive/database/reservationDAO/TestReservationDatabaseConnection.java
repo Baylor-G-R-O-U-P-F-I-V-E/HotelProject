@@ -77,11 +77,9 @@ public class TestReservationDatabaseConnection {
         dbSetup db = new dbSetup();
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         Reservation myRes;
-        try {
+
              myRes = conn.getInfo(101, new Date("07/20/2024"));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
 
         System.out.println(myRes.toString());
         assert(myRes != null);
@@ -92,11 +90,9 @@ public class TestReservationDatabaseConnection {
         dbSetup db = new dbSetup();
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         Reservation myRes;
-        try {
+
             myRes = conn.getInfo(102, new Date("01/01/2008"));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
 
 
         assert(myRes == null);
@@ -113,14 +109,12 @@ public class TestReservationDatabaseConnection {
 
 
         Reservation newReservation = new Reservation(start,end,"Axel112","102",12.34);
-        Integer res = null;
-        try {
-            res = conn.addReservation(newReservation);
-            System.out.println(res + "--");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        assert(res != null);
+        Boolean res = null;
+
+        res = conn.addReservation(newReservation);
+        System.out.println(res + "--");
+
+        assert(res.equals(true));
 
 
 
@@ -132,11 +126,9 @@ public class TestReservationDatabaseConnection {
         dbSetup db = new dbSetup();
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         Reservation r;
-        try {
+
             r = conn.getInfo(103,new Date("07/22/2024"));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
         //just showing that the reservation starts in the db
         assert(r != null);
 
@@ -146,11 +138,9 @@ public class TestReservationDatabaseConnection {
 
 
         r = null;
-        try {
+
             r = conn.getInfo(3,new Date("07/22/2024"));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
         //showing that the reservation is no longer in the db
         assert(r == null);
 

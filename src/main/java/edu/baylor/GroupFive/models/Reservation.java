@@ -31,7 +31,7 @@ public class Reservation {
     }
 
     public Integer getRoomNumber(){
-        return roomNumber;
+        return Integer.valueOf(roomNumber);
     }
 
 
