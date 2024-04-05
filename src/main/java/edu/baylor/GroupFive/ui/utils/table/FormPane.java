@@ -25,7 +25,7 @@ public class FormPane extends JPanel implements PagePanel {
     GridBagConstraints gbc;
     private JTable table;
     private TableRowSorter<DefaultTableModel> sorter;
-    private int row = 0;
+    private int row = 1;
 
     public FormPane(JTable table, TableRowSorter<DefaultTableModel> sorter, String[] labels) {
         super();
@@ -37,6 +37,18 @@ public class FormPane extends JPanel implements PagePanel {
 
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Add a label title Filters:
+
+        JPanel panel = new JPanel();
+        JLabel title = new JLabel("Filters");
+
+        panel.add(title);
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        
+        add(panel, gbc);
 
         for (String label : labels) {
             addFormLabel(label + ":", row);
@@ -82,7 +94,8 @@ public class FormPane extends JPanel implements PagePanel {
         // Add label to the form
         gbc.gridx = 0;
         gbc.gridy = row;
-        gbc.weightx = 0;
+        gbc.weightx = 0.1;
+        gbc.anchor = GridBagConstraints.CENTER;
         JLabel label = new JLabel(text);
         add(label, gbc);
     }
