@@ -12,6 +12,8 @@ Modify Reservation
       already have, then the modify cannot go through because the room
       is already tied to the reservation we are trying to modify.
         * Fix: Don't require all cells to be filled
+* Modify reservation does not check that start/end dates are before today
+    * Fix: we should only allow people to make reservations for today
 
 
 Delete Reservation
@@ -33,3 +35,9 @@ Add Reservation
 
 * Reservations are presumably created for the person currently logged in
 * What if a client is logged-in? How do they create a reservation for a user?
+
+
+Log-in
+------
+
+* Log-in does not verify password is correct, only that username is correct
