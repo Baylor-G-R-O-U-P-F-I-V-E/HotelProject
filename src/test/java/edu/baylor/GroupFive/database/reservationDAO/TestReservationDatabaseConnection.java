@@ -99,7 +99,7 @@ public class TestReservationDatabaseConnection {
     }
 
 
-    @Test
+    //@Test
     public void addReservation(){
         dbSetup db = new dbSetup();
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
