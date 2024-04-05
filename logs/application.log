@@ -1,9 +1,0 @@
-01:15:37.023 [main] DEBUG edu.baylor.GroupFive.util.logging.G5Logger - Debug message
-01:15:37.026 [main] INFO  edu.baylor.GroupFive.util.logging.G5Logger - Info message
-01:15:37.026 [main] WARN  edu.baylor.GroupFive.util.logging.G5Logger - Warn message
-01:15:37.027 [main] ERROR edu.baylor.GroupFive.util.logging.G5Logger - Error message
-01:15:37.027 [main] FATAL edu.baylor.GroupFive.util.logging.G5Logger - Fatal message
-01:16:15.388 [main] INFO  edu.baylor.GroupFive.util.logging.G5Logger - Info message
-01:16:15.390 [main] WARN  edu.baylor.GroupFive.util.logging.G5Logger - Warn message
-01:16:15.390 [main] ERROR edu.baylor.GroupFive.util.logging.G5Logger - Error message
-01:16:15.402 [main] FATAL edu.baylor.GroupFive.util.logging.G5Logger - Fatal message
