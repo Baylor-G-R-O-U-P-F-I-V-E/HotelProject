@@ -3,7 +3,7 @@ package edu.baylor.GroupFive.ui.utils.buttons;
 import java.awt.Dimension;
 
 public class LandingButton extends PageButton {
-    Dimension buttonSize = new Dimension(300, 100);
+    Dimension buttonSize = new Dimension(400, 125);
 
     public LandingButton(String path) {
         super(path);
