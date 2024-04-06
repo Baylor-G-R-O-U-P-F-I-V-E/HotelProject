@@ -16,8 +16,8 @@ public class AccountController {
         return AccountService.getUser(username);
     }
 
-    public static void register(String firstName, String lastName, String username, String password, String privilege) {
-        AccountService.register(firstName, lastName, username, password, privilege);
+    public static boolean register(User user) {
+        return AccountService.register(user);
     }
 
     public static boolean checkAccountExists(String username) {

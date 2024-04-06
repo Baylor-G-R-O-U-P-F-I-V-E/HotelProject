@@ -11,11 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
-import java.awt.Insets;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Color;
 
 public class LoginPanel extends JPanel implements PagePanel {

@@ -111,4 +111,10 @@ public class AddReservationModel extends HotelModel implements DataModel {
         }
     }
 
+    /*
+    public String formatQuality(Quality quality) {
+
+    }
+    */
+
 }
