@@ -19,9 +19,9 @@ public class dbSetup {
             Statement statement = null;
             String rowID = null;
             // startDate endDate price guestID roomID
-//            String sqlDropReservation = "DROP TABLE RESERVATIONs";
-//            String sqlDropRoom = "DROP TABLE ROOM";
-//            String sqlDropUser = "DROP TABLE USERs";
+            // String sqlDropReservation = "DROP TABLE RESERVATIONs";
+            // String sqlDropRoom = "DROP TABLE ROOM";
+            // String sqlDropUser = "DROP TABLE USERs";
 
             //startDate endDate price guestID roomID
             String sqlCreateUser = "CREATE TABLE USERs(" +
@@ -41,6 +41,7 @@ public class dbSetup {
                     "numBeds INTEGER," +
                     "dailyPrice DECIMAL(5,2)," +
                     "CONSTRAINT PK_ROOM PRIMARY KEY(roomNumber))";
+
             String sqlCreateReservation =
                     "CREATE TABLE RESERVATIONs(" +
                             "startDate DATE," +

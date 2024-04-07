@@ -10,18 +10,22 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.crypto.BadPaddingException;
+
 import edu.baylor.GroupFive.models.Reservation;
+import edu.baylor.GroupFive.exceptions.BadConnectionException;
 
 public class ReservationDatabaseConnection {
 
     public ReservationDatabaseConnection(){}
+
     //works well enough
     private Connection getConnection(){
         Connection connection = null;
         try {
             connection = DriverManager.getConnection("jdbc:derby:FinalProject;", "", "");
             if(connection == null) {
-                System.out.println("Could not connect");
+                System.err.println("Could not connect");
                 return null;
             }
         } catch (SQLException e) {
@@ -30,12 +34,26 @@ public class ReservationDatabaseConnection {
         return connection;
     }
 
+     /**
+      * addReservation
+      *
+      * pre-conditions:
+      *     * reservation is initialized with the information of a Reservation to add
+      *
+      * post-condition:
+      *     * Reservation is added to database
+      *     * Throws BadConnectionException if connection cannot be established to database
+      *
+      * return:
+      *     * false if error occurs
+      * */
     //works well enough
-    public Boolean addReservation(Reservation reservation){
+    public Boolean addReservation(Reservation reservation) throws BadConnectionException {
         Connection connection = getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
-            return null;
+            System.err.println("Connection Failed");
+            // return null;
+            throw new BadConnectionException();
         }
         Statement statement = null;
 
@@ -47,7 +65,7 @@ public class ReservationDatabaseConnection {
             statement = connection.createStatement();
             statement.executeUpdate(sqlInsert);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return false;
         }finally {
             if (statement != null) {
@@ -70,11 +88,12 @@ public class ReservationDatabaseConnection {
 
 
     //works well enough
-    public List<Reservation> getReservations(){
+    public List<Reservation> getReservations() throws BadConnectionException {
         Connection connection =  getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
-            return null;
+            System.err.println("Connection Failed");
+            // return null;
+            throw new BadConnectionException();
         }
 
         Statement statement = null;
@@ -95,7 +114,7 @@ public class ReservationDatabaseConnection {
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return null;
         }finally {
             if (statement != null) {
@@ -115,12 +134,14 @@ public class ReservationDatabaseConnection {
         }
         return output;
     }
+
     //works well enough
-    public Boolean cancelReservation(Integer roomNumber, Date startDate) {
+    public Boolean cancelReservation(Integer roomNumber, Date startDate) throws BadConnectionException {
         Connection connection = getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
-            return null;
+            System.err.println("Connection Failed");
+            // return null;
+            throw new BadConnectionException();
         }
 
         Statement statement = null;
@@ -131,7 +152,7 @@ public class ReservationDatabaseConnection {
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return false;
         }finally {
             if (statement != null) {
@@ -153,12 +174,14 @@ public class ReservationDatabaseConnection {
 
 
     }
+
     //works well enough
-    public Reservation getInfo(Integer roomNumber, Date startDate) {
+    public Reservation getInfo(Integer roomNumber, Date startDate) throws BadConnectionException {
         Connection connection = getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
-            return null;
+            System.err.println("Connection Failed");
+            // return null;
+            throw new BadConnectionException();
         }
 
         ResultSet rs;
@@ -181,7 +204,7 @@ public class ReservationDatabaseConnection {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return null;
         }finally {
             if (statement != null) {
@@ -200,23 +223,17 @@ public class ReservationDatabaseConnection {
             }
         }
 
-
-
-
         return null;
-
     }
 
 
-
-
-
-    public Boolean checkIfAvailable(String roomNumber, Date startDate, Date endDate) {
+    public Boolean checkIfAvailable(String roomNumber, Date startDate, Date endDate) throws BadConnectionException {
         //'20150131'
         Connection connection = getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
-            return null;
+            System.err.println("Connection Failed");
+            // return null;
+            throw new BadConnectionException();
         }
 
         ArrayList<ArrayList<Date>> mem;
@@ -235,8 +252,8 @@ public class ReservationDatabaseConnection {
             }
 
         } catch (SQLException e) {
-            System.out.println("RDC check if available failed");
-            System.out.println(e.getMessage());
+            System.err.println("RDC check if available failed");
+            System.err.println(e.getMessage());
             return null;
         }finally {
             if (statement != null) {
