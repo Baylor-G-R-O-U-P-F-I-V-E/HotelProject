@@ -46,7 +46,7 @@ public class Page extends JFrame implements InputDelegate {
         constraints.gridx = 1;
         constraints.weightx = 1;
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        currentPanel = new ReservationsPanel(this);
+        currentPanel = new ReserveRoomPanel(this);
         add(currentPanel, constraints);
     }
 
@@ -78,7 +78,7 @@ public class Page extends JFrame implements InputDelegate {
         remove(currentPanel);
         switch (option) {
             case "home":
-                currentPanel = new ReservationsPanel(this);
+                currentPanel = new ReserveRoomPanel(this);
                 break;
             case "logout":
                 dispose();
