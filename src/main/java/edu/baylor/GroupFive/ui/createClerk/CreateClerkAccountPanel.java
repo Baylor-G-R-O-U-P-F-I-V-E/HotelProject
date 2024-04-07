@@ -15,13 +15,11 @@ import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 public class CreateClerkAccountPanel extends JPanel implements PagePanel {
     private InputDelegate delegate;
     private JTextField firstName, lastName, username, password, email;
-    private User user;
     private Dimension fieldSize = new Dimension(200, 50);
 
-    CreateClerkAccountPanel(InputDelegate delegate, User user) {
+    public CreateClerkAccountPanel(InputDelegate delegate) {
         super();
         this.delegate = delegate;
-        this.user = user;
 
         setVisible(true);
         setOpaque(true);
@@ -39,8 +37,22 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
     }
 
     private void addUsernamePanel(JPanel textPanel) {
-        // TODO Auto-generated method stub
+        JPanel userPanel = new JPanel();
+        userPanel.setOpaque(true);
+        
+        JLabel userLabel = new JLabel("Last name:");
+        userLabel.setBounds(200, 50, 200, 50);
+        userLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
+        username = new JTextField();
+        username.setBounds(400, 50, 200, 50);
+        username.setFont(new Font("Arial", Font.PLAIN, 20));
+        username.setPreferredSize(fieldSize);
+
+        userPanel.add(userLabel);
+        userPanel.add(username);
+
+        textPanel.add(userPanel);
     }
 
     private void addEmailPanel(JPanel textPanel) {
@@ -62,7 +74,6 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
         firstLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
         firstName = new JTextField();
-        firstName.setText(user.firstName);
         firstName.setBounds(400, 50, 200, 50);
         firstName.setFont(new Font("Arial", Font.PLAIN, 20));
         firstName.setPreferredSize(fieldSize);
@@ -75,7 +86,6 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
         lastLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
         lastName = new JTextField();
-        lastName.setText(user.lastName);
         lastName.setBounds(400, 50, 200, 50);
         lastName.setFont(new Font("Arial", Font.PLAIN, 20));
         lastName.setPreferredSize(fieldSize);

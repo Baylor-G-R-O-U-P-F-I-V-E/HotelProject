@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.models.User;
+import edu.baylor.GroupFive.ui.createClerk.CreateClerkAccountPanel;
 import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.modifyReservation.ModifyReservationPanel;
 //import edu.baylor.GroupFive.model.Privilege;
@@ -79,17 +80,20 @@ public class Page extends JFrame implements InputDelegate {
             case "home":
                 currentPanel = new ReservationsPanel(this);
                 break;
+            case "logout":
+                dispose();
+                @SuppressWarnings("unused")
+                LandingPage page = new LandingPage();
+                break;
             case "reservation":
                 currentPanel = new ReserveRoomPanel(this);
                 break;
             case "modifyReservation":
                 currentPanel = new ModifyReservationPanel(this, info.get(0), info.get(1));
                 break;
-            case "logout":
-                dispose();
-                @SuppressWarnings("unused")
-                LandingPage page = new LandingPage();
-                break;
+            case "create-clerk":
+                currentPanel = new CreateClerkAccountPanel(this);
+            
                 /*
             case "view":
                 currentPanel = new ReserveRoomPanel();
