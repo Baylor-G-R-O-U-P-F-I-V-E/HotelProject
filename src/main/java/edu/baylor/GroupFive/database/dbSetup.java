@@ -1,27 +1,32 @@
 package edu.baylor.GroupFive.database;
 
+import edu.baylor.GroupFive.database.reservationDAO.ReservationDatabaseConnection;
 import edu.baylor.GroupFive.models.Room;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.List;
 
 public class dbSetup {
+    private static final Logger logger = LogManager.getLogger(dbSetup.class.getName());
+
     public dbSetup(){
-        System.out.println("Running");
+        logger.info("Running");
         Connection connection;
         try {
             connection = DriverManager.getConnection("jdbc:derby:FinalProject;create=true", "", "");
             if(connection == null) {
-                System.out.println("Could not connect");
+                logger.info("Could not connect");
                 return;
             }
             Statement statement = null;
             String rowID = null;
             // startDate endDate price guestID roomID
-            // String sqlDropReservation = "DROP TABLE RESERVATIONs";
-            // String sqlDropRoom = "DROP TABLE ROOM";
-            // String sqlDropUser = "DROP TABLE USERs";
+            String sqlDropReservation = "DROP TABLE RESERVATIONs";
+            String sqlDropRoom = "DROP TABLE ROOM";
+            String sqlDropUser = "DROP TABLE USERs";
 
             //startDate endDate price guestID roomID
             String sqlCreateUser = "CREATE TABLE USERs(" +
@@ -89,43 +94,43 @@ public class dbSetup {
 
             try {
                 statement = connection.createStatement();
-//                try{
-//                    statement.executeUpdate(sqlDropReservation);
-//                }catch(SQLException e){
-//                    System.out.println("DROP RESERVATION ERROR");
-//                    System.out.println(e.getMessage());
-//                }
-//                try{
-//                    statement.executeUpdate(sqlDropRoom);
-//                }catch(SQLException e){
-//                    System.out.println("DROP ROOM ERROR");
-//                    System.out.println(e.getMessage());
-//                }
-//                try{
-//                    statement.executeUpdate(sqlDropUser);
-//                }catch(SQLException e){
-//                    System.out.println("DROP USER ERROR");
-//                    System.out.println(e.getMessage());
-//                }
+                try{
+                    statement.executeUpdate(sqlDropReservation);
+                }catch(SQLException e){
+                    logger.info("DROP RESERVATION ERROR");
+                    logger.info(e.getMessage());
+                }
+                try{
+                    statement.executeUpdate(sqlDropRoom);
+                }catch(SQLException e){
+                    logger.info("DROP ROOM ERROR");
+                    logger.info(e.getMessage());
+                }
+                try{
+                    statement.executeUpdate(sqlDropUser);
+                }catch(SQLException e){
+                    logger.info("DROP USER ERROR");
+                    logger.info(e.getMessage());
+                }
 
 
                 try{
                     statement.executeUpdate(sqlCreateRoom);
                 }catch(SQLException e){
-                    System.out.println("CREATE ROOM ERROR");
-                    System.out.println(e.getMessage());
+                    logger.info("CREATE ROOM ERROR");
+                    logger.info(e.getMessage());
                 }
                 try{
                     statement.executeUpdate(sqlCreateUser);
                 }catch(SQLException e){
-                    System.out.println("CREATE USER ERROR");
-                    System.out.println(e.getMessage());
+                    logger.info("CREATE USER ERROR");
+                    logger.info(e.getMessage());
                 }
                 try{
                     statement.executeUpdate(sqlCreateReservation);
                 }catch(SQLException e){
-                    System.out.println("CREATE RESERVATION ERROR");
-                    System.out.println(e.getMessage());
+                    logger.info("CREATE RESERVATION ERROR");
+                    logger.info(e.getMessage());
                 }
 
                 int count = 0;
@@ -137,19 +142,19 @@ public class dbSetup {
                     }
 
                 }catch(SQLException e){
-                    System.out.println("INSERTION ERROR " + count);
-                    System.out.println(e.getMessage());
+                    logger.info("INSERTION ERROR " + count);
+                    logger.info(e.getMessage());
                 }
 
                 try{
 
                     ResultSet rs = statement.executeQuery(sqlQ);
                     while(rs.next()){
-                        System.out.println(rs.getDate("startDate") + " " + rs.getString("roomNumber") + " " + rs.getDouble("price"));
+                        logger.info(rs.getDate("startDate") + " " + rs.getString("roomNumber") + " " + rs.getDouble("price"));
                     }
                 }catch(SQLException e){
-                    System.out.println("SELECT ERROR");
-                    System.out.println(e.getMessage());
+                    logger.info("SELECT ERROR");
+                    logger.info(e.getMessage());
                 }
 
 
@@ -180,7 +185,7 @@ public class dbSetup {
 
 
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                logger.info(e.getMessage());
                 return;
             }finally {
                 if (statement != null) {
@@ -193,7 +198,7 @@ public class dbSetup {
 
 
         } catch (SQLException e) {
-            System.out.println("ERROR");
+            logger.info("ERROR");
             throw new RuntimeException(e);
         }
 
