@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.ui.landing;
+package edu.baylor.GroupFive.ui.landing.login;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 
 import edu.baylor.GroupFive.controllers.AccountController;
 import edu.baylor.GroupFive.models.User;
+import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 

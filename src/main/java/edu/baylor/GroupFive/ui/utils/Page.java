@@ -29,17 +29,16 @@ public class Page extends JFrame implements InputDelegate {
     
     public Page(User user) {
         super();
-        //Init new frame
-        createFrame();
-        this.user = user;
 
-        if (user == null) {
-            dashboard = new Dashboard(this, Privilege.ADMIN);
-        } else {
-            privilege = user.getPrivilege();
-            dashboard = new Dashboard(this, privilege);
-        }
-        //privilege = AccountController.getAccountPrivilege(user);
+        // Set the user and get their privilege
+        this.user = user;
+        privilege = user.getPrivilege();
+
+        // Create the frame
+        createFrame(privilege);
+
+        // Create the appropriate dashboard
+        dashboard = new Dashboard(this, privilege);
 
         addDashboard();
 
@@ -50,13 +49,20 @@ public class Page extends JFrame implements InputDelegate {
         add(currentPanel, constraints);
     }
 
-    public void createFrame() {
+    public void createFrame(Privilege privilege) {
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        getContentPane().setBackground(new Color(0xe6f7ff));
         setLayout(new GridBagLayout());
         setVisible(true);
+
+        if (privilege == Privilege.ADMIN) {
+            getContentPane().setBackground(new Color(0xFEE4F4));
+        } else if (privilege == Privilege.CLERK) {
+            getContentPane().setBackground(new Color(0xe6f7ff));
+        } else {
+            getContentPane().setBackground(new Color(0xE6F7FF));
+        }
     }
 
     public void addDashboard() {

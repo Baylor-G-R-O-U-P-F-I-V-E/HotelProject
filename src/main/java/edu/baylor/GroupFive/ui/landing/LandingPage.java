@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 
 import edu.baylor.GroupFive.controllers.AccountController;
 import edu.baylor.GroupFive.models.User;
+import edu.baylor.GroupFive.ui.landing.createAccount.CreateAccountPanel;
+import edu.baylor.GroupFive.ui.landing.login.LoginPanel;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
