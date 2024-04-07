@@ -56,8 +56,10 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
 
         startDate = new DatePanel("Start Date:");
         startDate.setDate(reservation.getStartDate());
+        startDate.setBackground(new Color(0xF9F7FA));
         endDate = new DatePanel("End Date:", 1);
         endDate.setDate(reservation.getEndDate());
+        endDate.setBackground(new Color(0xF9F7FA));
 
         textPanel.add(startDate);
         textPanel.add(endDate);
@@ -84,6 +86,7 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
     public void addRoomPanel(JPanel textPanel) {
         JPanel roomPanel = new JPanel();
         roomPanel.setOpaque(true);
+        roomPanel.setBackground(new Color(0xF9F7FA));
 
         JLabel roomLabel = new JLabel("Room Number:");
         roomLabel.setBounds(200, 50, 200, 50);
@@ -104,6 +107,7 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
     public void addPricePanel(JPanel textPanel) {
         JPanel pricePanel = new JPanel();
         pricePanel.setOpaque(true);
+        pricePanel.setBackground(new Color(0xF9F7FA));
 
         JLabel priceLabel = new JLabel("Price:");
         priceLabel.setBounds(200, 50, 200, 50);

@@ -8,21 +8,21 @@ import javax.swing.JTextField;
 import java.awt.Dimension;
 import java.awt.Font;
 
-import edu.baylor.GroupFive.models.User;
-import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
+import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
 public class CreateClerkAccountPanel extends JPanel implements PagePanel {
-    private InputDelegate delegate;
+    private Page page;
     private JTextField firstName, lastName, username, password, email;
     private Dimension fieldSize = new Dimension(200, 50);
 
-    public CreateClerkAccountPanel(InputDelegate delegate) {
+    public CreateClerkAccountPanel(Page page) {
         super();
-        this.delegate = delegate;
+        this.page = page;
 
         setVisible(true);
         setOpaque(true);
+        setBackground(page.getContentPane().getBackground());
 
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));

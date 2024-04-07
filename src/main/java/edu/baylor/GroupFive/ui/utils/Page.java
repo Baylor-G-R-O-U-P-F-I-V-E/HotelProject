@@ -1,7 +1,6 @@
 package edu.baylor.GroupFive.ui.utils;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.models.User;
@@ -22,7 +21,6 @@ public class Page extends JFrame implements InputDelegate {
 
     private Dashboard dashboard;
     private List<String> info = new ArrayList<>();
-    private GridBagConstraints constraints = new GridBagConstraints();
     private User user;
     //private String acctNum;
     private Privilege privilege;
