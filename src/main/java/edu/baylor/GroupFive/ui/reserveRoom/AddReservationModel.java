@@ -3,13 +3,11 @@ package edu.baylor.GroupFive.ui.reserveRoom;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.JTextField;
-
 import edu.baylor.GroupFive.controllers.ReservationController;
 import edu.baylor.GroupFive.controllers.RoomController;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.enums.BedType;
-import edu.baylor.GroupFive.models.enums.Quality;
+//import edu.baylor.GroupFive.models.enums.Quality;
 import edu.baylor.GroupFive.models.enums.Theme;
 import edu.baylor.GroupFive.ui.utils.interfaces.DataModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelModel;
