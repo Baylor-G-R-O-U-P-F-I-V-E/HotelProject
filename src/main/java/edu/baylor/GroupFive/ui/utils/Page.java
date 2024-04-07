@@ -1,6 +1,7 @@
 package edu.baylor.GroupFive.ui.utils;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.models.User;
@@ -41,20 +42,17 @@ public class Page extends JFrame implements InputDelegate {
         // Create the appropriate dashboard
         dashboard = new Dashboard(this, privilege);
 
-        addDashboard();
+        addDashboard(this);
 
-        constraints.gridx = 1;
-        constraints.weightx = 1;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
         currentPanel = new ReserveRoomPanel(this);
-        add(currentPanel, constraints);
+        add(currentPanel, BorderLayout.CENTER);
     }
 
     public void createFrame(Privilege privilege) {
-        setExtendedState(MAXIMIZED_BOTH);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(new GridBagLayout());
+        setLayout(new BorderLayout());
         setVisible(true);
 
         if (privilege == Privilege.ADMIN) {
@@ -66,11 +64,18 @@ public class Page extends JFrame implements InputDelegate {
         }
     }
 
-    public void addDashboard() {
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.anchor = GridBagConstraints.WEST;
-        add(dashboard, constraints);
+    public void addDashboard(Page page) {
+    
+        // Create a scroll pane for the dashboard
+        JScrollPane pane = new JScrollPane(dashboard);
+        pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+    
+        // Increase the sensitivity of the scrollbar
+        JScrollBar verticalScrollBar = pane.getVerticalScrollBar();
+        verticalScrollBar.setUnitIncrement(16); // Decrease this value to increase sensitivity
+    
+        add(pane, BorderLayout.WEST);
     }
 
     public void onPageSwitch(String option) {
@@ -85,8 +90,8 @@ public class Page extends JFrame implements InputDelegate {
                 @SuppressWarnings("unused")
                 LandingPage page = new LandingPage();
                 break;
-            case "reservation":
-                currentPanel = new ReserveRoomPanel(this);
+            case "reservations":
+                currentPanel = new ReservationsPanel(this);
                 break;
             case "modifyReservation":
                 currentPanel = new ModifyReservationPanel(this, info.get(0), info.get(1));
@@ -108,7 +113,7 @@ public class Page extends JFrame implements InputDelegate {
                 currentPanel = new ReserveRoomPanel();
                 break;  */
         }
-        add(currentPanel, constraints);
+        add(currentPanel, BorderLayout.CENTER);
         revalidate();
         repaint();
     }
