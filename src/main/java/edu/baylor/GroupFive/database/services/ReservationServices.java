@@ -1,11 +1,11 @@
-package edu.baylor.GroupFive.services;
+package edu.baylor.GroupFive.database.services;
 
-import edu.baylor.GroupFive.controllers.ReservationController;
+import edu.baylor.GroupFive.database.controllers.ReservationController;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
-import edu.baylor.GroupFive.database.reservationDAO.ReservationDatabaseConnection;
-import edu.baylor.GroupFive.database.roomDAO.RoomDatabaseConnection;
-import edu.baylor.GroupFive.exceptions.BadConnectionException;
+import edu.baylor.GroupFive.database.daos.ReservationDAO;
+import edu.baylor.GroupFive.database.daos.RoomDAO;
+import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,13 +16,13 @@ import java.util.List;
 public class ReservationServices {
 
     public static List<Reservation> getReservations() /* throws BadConnectionException */  {
-        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        ReservationDAO conn = new ReservationDAO();
         return conn.getReservations();
     }
     
     /*
     public static Reservation getReservation(String reservationID) throws SQLException{
-        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        ReservationDAO conn = new ReservationDAO();
         Reservation reservation = conn.getReservation(reservationID);
         return reservation;
     }
@@ -30,14 +30,14 @@ public class ReservationServices {
 
     public static Boolean addReservation(Date startDate, Date endDate, String roomID, String guestID) /* throws BadConnectionException */  {
 
-        RoomDatabaseConnection roomConn = new RoomDatabaseConnection();
+        RoomDAO roomConn = new RoomDAO();
         Room currRoom = roomConn.getRoom(Integer.parseInt(roomID));
         if(currRoom == null) return null;
             Double roomPrice = currRoom.getDailyPrice();
 
         Double stayPrice = roomPrice * ChronoUnit.DAYS.between(startDate.toInstant(),endDate.toInstant());
 
-        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        ReservationDAO conn = new ReservationDAO();
         //-1 is a tempID as id will be assigned in addReservation
         Reservation newReservation = new Reservation(startDate,endDate,guestID,roomID, stayPrice);
         Boolean isAvailable = conn.checkIfAvailable(roomID,startDate,endDate);
@@ -58,7 +58,7 @@ public class ReservationServices {
 
 
     public static Boolean modifyReservation(Reservation newInfo, String originalRoom, Date oldStartDate) /* throws BadConnectionException */  {
-        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        ReservationDAO conn = new ReservationDAO();
         Reservation temp;
 
         temp = conn.getInfo(Integer.parseInt(originalRoom), oldStartDate);
@@ -78,17 +78,17 @@ public class ReservationServices {
     }
 
     public static Boolean cancelReservation(Integer roomNumber, Date startDate) /* throws BadConnectionException */  {
-        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        ReservationDAO conn = new ReservationDAO();
         return conn.cancelReservation(roomNumber,startDate);
     }
 
     public static Reservation getInfo(Integer roomNumber, Date startDate) /* throws BadConnectionException */  {
-        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        ReservationDAO conn = new ReservationDAO();
         return conn.getInfo(roomNumber,startDate);
     }
 
     public static Boolean checkIfAvailable(Integer roomNumber, Date startDate, Date endDate) /* throws BadConnectionException */ {
-        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        ReservationDAO conn = new ReservationDAO();
         return conn.checkIfAvailable(roomNumber.toString(),startDate,endDate);
     }
 

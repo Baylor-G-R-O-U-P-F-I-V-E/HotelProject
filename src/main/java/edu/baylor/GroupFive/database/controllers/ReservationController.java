@@ -1,12 +1,12 @@
-package edu.baylor.GroupFive.controllers;
+package edu.baylor.GroupFive.database.controllers;
 
 import edu.baylor.GroupFive.models.Account;
 import edu.baylor.GroupFive.models.QualityDescription;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.User;
-import edu.baylor.GroupFive.services.ReservationServices;
-import edu.baylor.GroupFive.services.RoomServices;
+import edu.baylor.GroupFive.database.services.ReservationServices;
+import edu.baylor.GroupFive.database.services.RoomServices;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;

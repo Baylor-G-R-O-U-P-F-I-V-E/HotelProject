@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.database.reservationDAO;
+package edu.baylor.GroupFive.database.daos;
 
 import java.io.*;
 import java.nio.file.FileSystemNotFoundException;
@@ -13,16 +13,16 @@ import java.util.Date;
 import javax.crypto.BadPaddingException;
 
 import edu.baylor.GroupFive.models.Reservation;
-import edu.baylor.GroupFive.exceptions.BadConnectionException;
-import edu.baylor.GroupFive.controllers.ReservationController;
+import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
+import edu.baylor.GroupFive.database.controllers.ReservationController;
 import edu.baylor.GroupFive.models.Reservation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ReservationDatabaseConnection {
-    private static final Logger logger = LogManager.getLogger(ReservationDatabaseConnection.class.getName());
+public class ReservationDAO {
+    private static final Logger logger = LogManager.getLogger(ReservationDAO.class.getName());
 
-    public ReservationDatabaseConnection(){}
+    public ReservationDAO(){}
 
     //works well enough
     private Connection getConnection(){

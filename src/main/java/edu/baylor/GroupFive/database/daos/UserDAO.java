@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.database.userDAO;
+package edu.baylor.GroupFive.database.daos;
 
 import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.models.Reservation;
@@ -11,9 +11,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDatabaseConnection {
+public class UserDAO {
 
-    public UserDatabaseConnection() {}
+    public UserDAO() {}
 
     private Connection getConnection(){
         Connection connection = null;

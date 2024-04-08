@@ -13,8 +13,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import edu.baylor.GroupFive.controllers.ReservationController;
-import edu.baylor.GroupFive.controllers.RoomController;
+import edu.baylor.GroupFive.database.controllers.ReservationController;
+import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.utils.DatePanel;

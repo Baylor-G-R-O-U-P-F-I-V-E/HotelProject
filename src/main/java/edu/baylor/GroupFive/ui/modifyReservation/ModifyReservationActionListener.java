@@ -10,14 +10,14 @@ import java.time.ZonedDateTime;
 
 import javax.swing.JTextField;
 
-import edu.baylor.GroupFive.controllers.ReservationController;
+import edu.baylor.GroupFive.database.controllers.ReservationController;
 import edu.baylor.GroupFive.models.Reservation;
-import edu.baylor.GroupFive.database.reservationDAO.ReservationDatabaseConnection;
+import edu.baylor.GroupFive.database.daos.ReservationDAO;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.DatePanel;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
-import edu.baylor.GroupFive.exceptions.BadConnectionException;
+import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
 
 public class ModifyReservationActionListener implements ActionListener {
     private InputDelegate page;
@@ -66,7 +66,7 @@ public class ModifyReservationActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // Establish connection to database
-        ReservationDatabaseConnection rdao = new ReservationDatabaseConnection();
+        ReservationDAO rdao = new ReservationDAO();
 
         // Create a default message
         String message = "Changes successful!";

@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.database.roomDAO;
+package edu.baylor.GroupFive.database.daos;
 
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
@@ -16,9 +16,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class RoomDatabaseConnection {
+public class RoomDAO {
 
-    public RoomDatabaseConnection(){}
+    public RoomDAO(){}
 
     private Connection getConnection(){
         Connection connection = null;

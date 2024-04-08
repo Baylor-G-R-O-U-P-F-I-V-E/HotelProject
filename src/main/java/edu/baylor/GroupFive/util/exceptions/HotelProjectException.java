@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.exceptions;
+package edu.baylor.GroupFive.util.exceptions;
 
 import java.lang.Exception;
 

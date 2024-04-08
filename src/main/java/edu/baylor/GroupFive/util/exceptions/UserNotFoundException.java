@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.exceptions;
+package edu.baylor.GroupFive.util.exceptions;
 
 public class UserNotFoundException extends HotelProjectException {
     public UserNotFoundException() {

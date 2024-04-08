@@ -1,6 +1,6 @@
 package edu.baylor.GroupFive.database;
 
-import edu.baylor.GroupFive.database.reservationDAO.ReservationDatabaseConnection;
+import edu.baylor.GroupFive.database.daos.ReservationDAO;
 import edu.baylor.GroupFive.models.Room;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

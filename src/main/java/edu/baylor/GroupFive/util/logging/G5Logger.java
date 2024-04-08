@@ -1,6 +1,6 @@
 package edu.baylor.GroupFive.util.logging;
 
-import edu.baylor.GroupFive.controllers.ReservationController;
+import edu.baylor.GroupFive.database.controllers.ReservationController;
 import org.apache.logging.log4j.*;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Filter;

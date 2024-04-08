@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.controllers;
+package edu.baylor.GroupFive.database.controllers;
 
 import edu.baylor.GroupFive.models.Purchase;
 import edu.baylor.GroupFive.models.StayBill;

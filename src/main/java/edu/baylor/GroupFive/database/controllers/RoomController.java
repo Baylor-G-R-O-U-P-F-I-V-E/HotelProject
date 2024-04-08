@@ -1,7 +1,7 @@
-package edu.baylor.GroupFive.controllers;
+package edu.baylor.GroupFive.database.controllers;
 
 import edu.baylor.GroupFive.models.Room;
-import edu.baylor.GroupFive.services.RoomServices;
+import edu.baylor.GroupFive.database.services.RoomServices;
 
 import java.util.Date;
 import java.util.List;
