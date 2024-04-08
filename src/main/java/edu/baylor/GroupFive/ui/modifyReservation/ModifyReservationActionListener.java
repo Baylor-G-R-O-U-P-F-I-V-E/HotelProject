@@ -17,6 +17,7 @@ import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.DatePanel;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
+import edu.baylor.GroupFive.exceptions.BadConnectionException;
 
 public class ModifyReservationActionListener implements ActionListener {
     private InputDelegate page;
@@ -134,13 +135,18 @@ public class ModifyReservationActionListener implements ActionListener {
         }
 
         // Check if reservation is available
-        if (!rdao.checkIfAvailable(room, start, end)) {
-            message = """
-                        Oopsie! The reservation is unavailable
+        // try {
+            if (!rdao.checkIfAvailable(room, start, end)) {
+                message = """
+                    Oopsie! The reservation is unavailable
                     """;
-            makeBadInputDialog(message);
-            return;
-        }
+                makeBadInputDialog(message);
+                return;
+            }
+        // } catch (BadConnectionException ex) {
+        //     makeBadInputDialog(BAD_CONNECTION_MSG);
+        //     return;
+        // }
 
         page.onPageSwitch("home");
         

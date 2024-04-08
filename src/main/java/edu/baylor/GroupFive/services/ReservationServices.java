@@ -5,6 +5,7 @@ import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.database.reservationDAO.ReservationDatabaseConnection;
 import edu.baylor.GroupFive.database.roomDAO.RoomDatabaseConnection;
+import edu.baylor.GroupFive.exceptions.BadConnectionException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class ReservationServices {
 
-    public static List<Reservation> getReservations(){
+    public static List<Reservation> getReservations() /* throws BadConnectionException */  {
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         return conn.getReservations();
     }
@@ -27,7 +28,7 @@ public class ReservationServices {
     }
     */
 
-    public static Boolean addReservation(Date startDate, Date endDate, String roomID, String guestID){
+    public static Boolean addReservation(Date startDate, Date endDate, String roomID, String guestID) /* throws BadConnectionException */  {
 
         RoomDatabaseConnection roomConn = new RoomDatabaseConnection();
         Room currRoom = roomConn.getRoom(Integer.parseInt(roomID));
@@ -56,7 +57,7 @@ public class ReservationServices {
     }
 
 
-    public static Boolean modifyReservation(Reservation newInfo, String originalRoom, Date oldStartDate){
+    public static Boolean modifyReservation(Reservation newInfo, String originalRoom, Date oldStartDate) /* throws BadConnectionException */  {
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         Reservation temp;
 
@@ -76,17 +77,17 @@ public class ReservationServices {
 
     }
 
-    public static Boolean cancelReservation(Integer roomNumber, Date startDate){
+    public static Boolean cancelReservation(Integer roomNumber, Date startDate) /* throws BadConnectionException */  {
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         return conn.cancelReservation(roomNumber,startDate);
     }
 
-    public static Reservation getInfo(Integer roomNumber, Date startDate){
+    public static Reservation getInfo(Integer roomNumber, Date startDate) /* throws BadConnectionException */  {
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         return conn.getInfo(roomNumber,startDate);
     }
 
-    public static Boolean checkIfAvailable(Integer roomNumber, Date startDate, Date endDate){
+    public static Boolean checkIfAvailable(Integer roomNumber, Date startDate, Date endDate) /* throws BadConnectionException */ {
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         return conn.checkIfAvailable(roomNumber.toString(),startDate,endDate);
     }

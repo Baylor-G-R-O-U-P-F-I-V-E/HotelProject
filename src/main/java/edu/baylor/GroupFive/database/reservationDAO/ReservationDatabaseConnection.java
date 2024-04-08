@@ -53,12 +53,12 @@ public class ReservationDatabaseConnection {
       *     * false if error occurs
       * */
     //works well enough
-    public Boolean addReservation(Reservation reservation) throws BadConnectionException {
+    public Boolean addReservation(Reservation reservation) {
         Connection connection = getConnection();
         if(connection == null){
             logger.info("Connection Failed");
-            throw new BadConnectionException();
-            // return null;
+            // throw new BadConnectionException();
+            return null;
         }
         Statement statement = null;
 
@@ -93,12 +93,12 @@ public class ReservationDatabaseConnection {
 
 
     //works well enough
-    public List<Reservation> getReservations() throws BadConnectionException {
+    public List<Reservation> getReservations() /* throws BadConnectionException */ {
         Connection connection =  getConnection();
         if(connection == null){
             logger.info("Connection Failed");
-            throw new BadConnectionException();
-            // return null;
+            // throw new BadConnectionException();
+            return null;
         }
 
         Statement statement = null;
@@ -141,12 +141,12 @@ public class ReservationDatabaseConnection {
     }
 
     //works well enough
-    public Boolean cancelReservation(Integer roomNumber, Date startDate) throws BadConnectionException {
+    public Boolean cancelReservation(Integer roomNumber, Date startDate) /* throws BadConnectionException */ {
         Connection connection = getConnection();
         if(connection == null){
             logger.info("Connection Failed");
-            throw new BadConnectionException();
-            // return null;
+            // throw new BadConnectionException();
+            return null;
         }
 
         Statement statement = null;
@@ -181,12 +181,12 @@ public class ReservationDatabaseConnection {
     }
 
     //works well enough
-    public Reservation getInfo(Integer roomNumber, Date startDate) throws BadConnectionException {
+    public Reservation getInfo(Integer roomNumber, Date startDate) /* throws BadConnectionException */ {
         Connection connection = getConnection();
         if(connection == null){
             logger.info("Connection Failed");
-            throw new BadConnectionException();
-            // return null;
+            // throw new BadConnectionException();
+            return null;
         }
 
         ResultSet rs;
@@ -232,13 +232,13 @@ public class ReservationDatabaseConnection {
     }
 
 
-    public Boolean checkIfAvailable(String roomNumber, Date startDate, Date endDate) throws BadConnectionException {
+    public Boolean checkIfAvailable(String roomNumber, Date startDate, Date endDate) /* throws BadConnectionException */ {
         //'20150131'
         Connection connection = getConnection();
         if(connection == null){
             logger.info("Connection Failed");
-            throw new BadConnectionException();
-            // return null;
+            // throw new BadConnectionException();
+            return null;
         }
 
         ArrayList<ArrayList<Date>> mem;
