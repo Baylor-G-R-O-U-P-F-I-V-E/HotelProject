@@ -6,6 +6,12 @@ import edu.baylor.GroupFive.services.RoomServices;
 import java.util.Date;
 import java.util.List;
 
+ /**
+  * Was supposed to handle room operations
+  *
+  * @deprecated use {@link #PageButton()} instead.
+  * */
+@Deprecated
 public class RoomController {
     public static Room getRoomInfo(Integer roomNumber){
         //WILL RETURN NULL IF NO ROOM EXISTS (I think) -Cole

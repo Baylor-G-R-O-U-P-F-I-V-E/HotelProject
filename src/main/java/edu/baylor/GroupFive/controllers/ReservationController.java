@@ -18,10 +18,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+ /**
+  * Was supposed to handle Reservations
+  *
+  * @deprecated use 
+  *     {@link #ModifyReservationActionListener()} 
+  *     {@link #AddReservationButton()}
+  * instead.
+  * */
+@Deprecated
 public class ReservationController {
     private static final Logger logger = LogManager.getLogger(ReservationController.class.getName());
     private static final Marker RESERVATIONS = MarkerManager.getMarker("RESERVATIONS");
-    public static boolean bookRoom(User account, Date startDate, Date endDate, Room room){
+    public static boolean bookRoom(User account, Date startDate, Date endDate, Room room) {
         logger.info(RESERVATIONS, "Attempting to book room #"+room.getRoomNumber()+" for user "+account.getUsername()+"...");
         String guestID = account.getUsername();
         Boolean added = ReservationServices.addReservation(startDate, endDate, String.valueOf(room.getRoomNumber()), guestID);
