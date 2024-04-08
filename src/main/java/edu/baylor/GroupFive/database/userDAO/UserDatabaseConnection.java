@@ -83,7 +83,7 @@ public class UserDatabaseConnection {
         // "INSERT INTO USERs(firstName, lastNAME) VALUES('Kevin','James', 'KevDog', 'password')",
         // startDate endDate price guestID roomID
         String sqlInsert = "INSERT INTO USERS(firstName, lastName, username, password, privilege) VALUES ('" +
-                 user.firstName + "','" + user.lastName + "','" + user.userName + "','" + user.passwordHash + "','" + user.getPrivilege().toString() + "')" ;
+                 user.getFirstName() + "','" + user.getLastName() + "','" + user.getUsername() + "','" + user.getPasswordHash() + "','" + user.getPrivilege().toString() + "')" ;
         try {
             statement = connection.createStatement();
             statement.executeUpdate(sqlInsert);

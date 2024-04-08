@@ -20,6 +20,24 @@ public class User {
         this.privilege = Privilege.fromString(privilege);
     }
 
+    // >>>> Getters >>>>
+    public int getId() { return id; }
+    public String getFirstName() { return firstName; }
+    public String getLastName() { return lastName; }
+    public String getUsername() { return userName; }
+    public String getPasswordHash() { return passwordHash; }
+    public Privilege getPrivilege() { return privilege; }
+    // <<<< Getters <<<<
+
+    // >>>> Setters >>>>
+    public void setId(int id_) { id = id_; }
+    public void setFirstName(String firstName_) { firstName = firstName_; }
+    public void setLastName(String lastName_) { lastName = lastName_; }
+    public void setUsername(String userName_) { userName = userName_; }
+    public void setPasswordHash(String passwordHash_) { passwordHash = passwordHash_; }
+    public void setPrivilege(Privilege privilege_) { privilege = privilege_; }
+    // <<<< Setters <<<<
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -31,14 +49,6 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName, userName, passwordHash);
-    }
-
-    public Privilege getPrivilege() {
-        return privilege;
-    }
-
-    public String getUsername() {
-        return userName;
     }
 
     public boolean verify(String password) {
