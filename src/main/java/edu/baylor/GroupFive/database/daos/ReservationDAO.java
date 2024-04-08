@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.database.reservationDAO;
+package edu.baylor.GroupFive.database.daos;
 
 import java.io.*;
 import java.nio.file.FileSystemNotFoundException;
@@ -10,18 +10,27 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.crypto.BadPaddingException;
+
 import edu.baylor.GroupFive.models.Reservation;
+import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
+import edu.baylor.GroupFive.database.controllers.ReservationController;
+import edu.baylor.GroupFive.models.Reservation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class ReservationDatabaseConnection {
+public class ReservationDAO {
+    private static final Logger logger = LogManager.getLogger(ReservationDAO.class.getName());
 
-    public ReservationDatabaseConnection(){}
+    public ReservationDAO(){}
+
     //works well enough
     private Connection getConnection(){
         Connection connection = null;
         try {
             connection = DriverManager.getConnection("jdbc:derby:FinalProject;", "", "");
             if(connection == null) {
-                System.out.println("Could not connect");
+                logger.info("Could not connect");
                 return null;
             }
         } catch (SQLException e) {
@@ -30,11 +39,25 @@ public class ReservationDatabaseConnection {
         return connection;
     }
 
+     /**
+      * addReservation
+      *
+      * pre-conditions:
+      *     * reservation is initialized with the information of a Reservation to add
+      *
+      * post-condition:
+      *     * Reservation is added to database
+      *     * Throws BadConnectionException if connection cannot be established to database
+      *
+      * return:
+      *     * false if error occurs
+      * */
     //works well enough
-    public Boolean addReservation(Reservation reservation){
+    public Boolean addReservation(Reservation reservation) {
         Connection connection = getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
+            logger.info("Connection Failed");
+            // throw new BadConnectionException();
             return null;
         }
         Statement statement = null;
@@ -47,7 +70,7 @@ public class ReservationDatabaseConnection {
             statement = connection.createStatement();
             statement.executeUpdate(sqlInsert);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.info(e.getMessage());
             return false;
         }finally {
             if (statement != null) {
@@ -70,10 +93,11 @@ public class ReservationDatabaseConnection {
 
 
     //works well enough
-    public List<Reservation> getReservations(){
+    public List<Reservation> getReservations() /* throws BadConnectionException */ {
         Connection connection =  getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
+            logger.info("Connection Failed");
+            // throw new BadConnectionException();
             return null;
         }
 
@@ -95,7 +119,7 @@ public class ReservationDatabaseConnection {
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.info(e.getMessage());
             return null;
         }finally {
             if (statement != null) {
@@ -115,11 +139,13 @@ public class ReservationDatabaseConnection {
         }
         return output;
     }
+
     //works well enough
-    public Boolean cancelReservation(Integer roomNumber, Date startDate) {
+    public Boolean cancelReservation(Integer roomNumber, Date startDate) /* throws BadConnectionException */ {
         Connection connection = getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
+            logger.info("Connection Failed");
+            // throw new BadConnectionException();
             return null;
         }
 
@@ -131,7 +157,7 @@ public class ReservationDatabaseConnection {
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.info(e.getMessage());
             return false;
         }finally {
             if (statement != null) {
@@ -153,11 +179,13 @@ public class ReservationDatabaseConnection {
 
 
     }
+
     //works well enough
-    public Reservation getInfo(Integer roomNumber, Date startDate) {
+    public Reservation getInfo(Integer roomNumber, Date startDate) /* throws BadConnectionException */ {
         Connection connection = getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
+            logger.info("Connection Failed");
+            // throw new BadConnectionException();
             return null;
         }
 
@@ -181,7 +209,7 @@ public class ReservationDatabaseConnection {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.info(e.getMessage());
             return null;
         }finally {
             if (statement != null) {
@@ -200,22 +228,16 @@ public class ReservationDatabaseConnection {
             }
         }
 
-
-
-
         return null;
-
     }
 
 
-
-
-
-    public Boolean checkIfAvailable(String roomNumber, Date startDate, Date endDate) {
+    public Boolean checkIfAvailable(String roomNumber, Date startDate, Date endDate) /* throws BadConnectionException */ {
         //'20150131'
         Connection connection = getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
+            logger.info("Connection Failed");
+            // throw new BadConnectionException();
             return null;
         }
 
@@ -235,8 +257,8 @@ public class ReservationDatabaseConnection {
             }
 
         } catch (SQLException e) {
-            System.out.println("RDC check if available failed");
-            System.out.println(e.getMessage());
+            logger.info("RDC check if available failed");
+            logger.info(e.getMessage());
             return null;
         }finally {
             if (statement != null) {
@@ -255,41 +277,30 @@ public class ReservationDatabaseConnection {
             }
         }
 
-
         for(ArrayList<Date> r : mem){
-            System.out.println(r.get(0) + " " + r.get(1) + " : " + startDate + " " + endDate);
+            logger.info(r.get(0) + " " + r.get(1) + " : " + startDate + " " + endDate);
 
             if((startDate.after(r.get(0)) || startDate.equals(r.get(0))) && startDate.before(r.get(1))){
-                System.out.println("3");
+                logger.info("3");
                 return false;
             }
             if(endDate.after(r.get(0)) && (endDate.equals(r.get(1)) || endDate.before(r.get(1)))){
-                System.out.println("2");
+                logger.info("2");
                 return false;
             }
 
             if((startDate.before(r.get(0)) || startDate.equals(r.get(0))) &&
                 (endDate.equals(r.get(1)) || endDate.after(r.get(1)))){
-                System.out.println("1");
+                logger.info("1");
                 return false;
             }
         }
         return true;
     }
 
-
     private static String formatDate(Date myDate) {
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         return dateFormat.format(myDate.getTime());
     }
-
-
-
-
-
-
-
-
-
 
 }

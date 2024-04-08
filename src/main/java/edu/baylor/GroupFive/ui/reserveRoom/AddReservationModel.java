@@ -3,8 +3,8 @@ package edu.baylor.GroupFive.ui.reserveRoom;
 import java.util.Date;
 import java.util.List;
 
-import edu.baylor.GroupFive.controllers.ReservationController;
-import edu.baylor.GroupFive.controllers.RoomController;
+import edu.baylor.GroupFive.database.controllers.ReservationController;
+import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.enums.BedType;
 //import edu.baylor.GroupFive.models.enums.Quality;

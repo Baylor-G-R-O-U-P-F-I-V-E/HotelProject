@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import edu.baylor.GroupFive.controllers.AccountController;
+import edu.baylor.GroupFive.database.controllers.AccountController;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.landing.createAccount.CreateAccountPanel;
 import edu.baylor.GroupFive.ui.landing.login.LoginPanel;

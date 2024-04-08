@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.swing.JTextField;
 
-import edu.baylor.GroupFive.controllers.AccountController;
+import edu.baylor.GroupFive.database.controllers.AccountController;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;

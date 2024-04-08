@@ -5,11 +5,12 @@ import edu.baylor.GroupFive.models.enums.Privilege;
 import java.util.Objects;
 
 public class User {
-    public String firstName;
-    public String lastName;
-    public String userName;
-    public String passwordHash;
-    public Privilege privilege;
+    private int id; // TODO: implement userID
+    private String firstName;
+    private String lastName;
+    private String userName;
+    private String passwordHash;
+    private Privilege privilege;
 
     public User(String firstName, String lastName, String userName, String passwordHash, String privilege){
         this.firstName = firstName;
@@ -18,6 +19,24 @@ public class User {
         this.passwordHash = passwordHash;
         this.privilege = Privilege.fromString(privilege);
     }
+
+    // >>>> Getters >>>>
+    public int getId() { return id; }
+    public String getFirstName() { return firstName; }
+    public String getLastName() { return lastName; }
+    public String getUsername() { return userName; }
+    public String getPasswordHash() { return passwordHash; }
+    public Privilege getPrivilege() { return privilege; }
+    // <<<< Getters <<<<
+
+    // >>>> Setters >>>>
+    public void setId(int id_) { id = id_; }
+    public void setFirstName(String firstName_) { firstName = firstName_; }
+    public void setLastName(String lastName_) { lastName = lastName_; }
+    public void setUsername(String userName_) { userName = userName_; }
+    public void setPasswordHash(String passwordHash_) { passwordHash = passwordHash_; }
+    public void setPrivilege(Privilege privilege_) { privilege = privilege_; }
+    // <<<< Setters <<<<
 
     @Override
     public boolean equals(Object o) {
@@ -30,14 +49,6 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName, userName, passwordHash);
-    }
-
-    public Privilege getPrivilege() {
-        return privilege;
-    }
-
-    public String getUsername() {
-        return userName;
     }
 
     public boolean verify(String password) {

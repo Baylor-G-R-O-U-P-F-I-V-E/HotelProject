@@ -1,7 +1,7 @@
-package edu.baylor.GroupFive.services;
+package edu.baylor.GroupFive.database.services;
 
-import edu.baylor.GroupFive.database.roomDAO.RoomDatabaseConnection;
-import edu.baylor.GroupFive.database.reservationDAO.ReservationDatabaseConnection;
+import edu.baylor.GroupFive.database.daos.RoomDAO;
+import edu.baylor.GroupFive.database.daos.ReservationDAO;
 import edu.baylor.GroupFive.models.Room;
 
 import java.util.ArrayList;
@@ -11,29 +11,29 @@ import java.util.List;
 public class RoomServices {
 
     public static List<Room> getRooms(){
-        RoomDatabaseConnection roomConn = new RoomDatabaseConnection();
+        RoomDAO roomConn = new RoomDAO();
         return roomConn.getRooms();
     };
 
     public static Room getRoom(Integer roomNum){
-        RoomDatabaseConnection conn = new RoomDatabaseConnection();
+        RoomDAO conn = new RoomDAO();
         return conn.getRoom(roomNum);
     }
 
     public static Boolean modifyRoom(Room updatedInfo){
-        RoomDatabaseConnection conn = new RoomDatabaseConnection();
+        RoomDAO conn = new RoomDAO();
         return conn.modifyRoom(updatedInfo);
     }
 
     public static Boolean addRoom(Room newRoom){
-        RoomDatabaseConnection conn = new RoomDatabaseConnection();
+        RoomDAO conn = new RoomDAO();
         return conn.addRoom(newRoom);
     }
 
 
     public static List<Room> getAvailableRooms(Date startDate, Date endDate){
         List<Room> allRooms = getRooms();
-        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        ReservationDAO conn = new ReservationDAO();
         List<Room> availableRooms = new ArrayList<>();
 
         for(Room r : allRooms){

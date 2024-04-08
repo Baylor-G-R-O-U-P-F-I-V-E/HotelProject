@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.database.userDAO;
+package edu.baylor.GroupFive.database.daos;
 
 import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.models.Reservation;
@@ -11,14 +11,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDatabaseConnection {
+public class UserDAO {
+
+    public UserDAO() {}
 
     private Connection getConnection(){
         Connection connection = null;
         try {
             connection = DriverManager.getConnection("jdbc:derby:FinalProject;", "", "");
             if(connection == null) {
-                System.out.println("Could not connect");
+                System.err.println("Could not connect");
                 return null;
             }
         } catch (SQLException e) {
@@ -30,7 +32,7 @@ public class UserDatabaseConnection {
     public User getUser(String username){
         Connection connection =  getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
+            System.err.println("Connection Failed");
             return null;
         }
 
@@ -48,7 +50,7 @@ public class UserDatabaseConnection {
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return null;
         }finally {
             if (statement != null) {
@@ -74,19 +76,19 @@ public class UserDatabaseConnection {
     public Boolean addUser(User user){
         Connection connection = getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
+            System.err.println("Connection Failed");
             return null;
         }
         Statement statement = null;
         // "INSERT INTO USERs(firstName, lastNAME) VALUES('Kevin','James', 'KevDog', 'password')",
         // startDate endDate price guestID roomID
         String sqlInsert = "INSERT INTO USERS(firstName, lastName, username, password, privilege) VALUES ('" +
-                 user.firstName + "','" + user.lastName + "','" + user.userName + "','" + user.passwordHash + "','" + user.getPrivilege().toString() + "')" ;
+                 user.getFirstName() + "','" + user.getLastName() + "','" + user.getUsername() + "','" + user.getPasswordHash() + "','" + user.getPrivilege().toString() + "')" ;
         try {
             statement = connection.createStatement();
             statement.executeUpdate(sqlInsert);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return false;
         } finally {
             if (statement != null) {
@@ -114,7 +116,7 @@ public class UserDatabaseConnection {
     public Boolean modifyUser(User newUser){
         Connection connection =  getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
+            System.err.println("Connection Failed");
             return null;
         }
 
@@ -134,7 +136,7 @@ public class UserDatabaseConnection {
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return false;
         }finally {
             if (statement != null) {

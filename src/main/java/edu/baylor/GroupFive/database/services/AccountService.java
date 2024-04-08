@@ -1,19 +1,19 @@
-package edu.baylor.GroupFive.services;
+package edu.baylor.GroupFive.database.services;
 
-import edu.baylor.GroupFive.database.userDAO.UserDatabaseConnection;
+import edu.baylor.GroupFive.database.daos.UserDAO;
 import edu.baylor.GroupFive.models.User;
-import edu.baylor.GroupFive.exceptions.UserNotFoundException;
-import edu.baylor.GroupFive.exceptions.InvalidCredentialsException;
+import edu.baylor.GroupFive.util.exceptions.UserNotFoundException;
+import edu.baylor.GroupFive.util.exceptions.InvalidCredentialsException;
 
 public class AccountService {
     
     public static User getUser(String username) {
-        UserDatabaseConnection conn = new UserDatabaseConnection();
+        UserDAO conn = new UserDAO();
         return conn.getUser(username);
     }
 
     public static void changePassword(String username, String oldPassword, String newPassword) throws UserNotFoundException, InvalidCredentialsException {
-        UserDatabaseConnection conn = new UserDatabaseConnection();
+        UserDAO conn = new UserDAO();
         User user = conn.getUser(username);
 
         if(user == null) {
@@ -28,12 +28,12 @@ public class AccountService {
     }
     
     public static boolean register(User user){
-        UserDatabaseConnection conn = new UserDatabaseConnection();
+        UserDAO conn = new UserDAO();
         return conn.addUser(user);
     }
 
     public static boolean checkAccountExists(String username) {
-        UserDatabaseConnection conn = new UserDatabaseConnection();
+        UserDAO conn = new UserDAO();
         return conn.getUser(username) != null;
     }
 
