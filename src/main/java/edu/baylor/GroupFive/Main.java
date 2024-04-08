@@ -3,8 +3,9 @@ package edu.baylor.GroupFive;
 import javax.swing.SwingUtilities;
 
 import edu.baylor.GroupFive.ui.landing.LandingPage;
-import edu.baylor.GroupFive.ui.utils.Page;
+//import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
+//import edu.baylor.GroupFive.controllers.AccountController;
 import edu.baylor.GroupFive.database.dbSetup;
 import edu.baylor.GroupFive.util.logging.G5Logger;
 import org.apache.logging.log4j.LogManager;
@@ -19,6 +20,7 @@ public class Main {
         G5Logger.initLogging(args);
         Logger logger = LogManager.getLogger(Main.class);
         logger.info("Logging initiated. Invoking dbSetup...");
+        @SuppressWarnings("unused")
         dbSetup db = new dbSetup();
 
         logger.info("dbSetup finished. Queuing initial window/page load with swing...");
@@ -27,7 +29,8 @@ public class Main {
                 logger.info("Loading landing page...");
                 @SuppressWarnings("unused")
                 InputDelegate landing = new LandingPage();
-                //InputDelegate landing = new Page(null); // Will be changed to LoginPage
+                // Uncomment the following line to skip login page with Ants account
+                //InputDelegate landing = new Page(AccountController.getUser("Ant"));
             }
         });
     }

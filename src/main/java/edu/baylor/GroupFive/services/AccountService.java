@@ -27,10 +27,9 @@ public class AccountService {
         user.changePassword(newPassword);
     }
     
-    public static void register(String firstName, String lastName, String username, String password, String privilege){
+    public static boolean register(User user){
         UserDatabaseConnection conn = new UserDatabaseConnection();
-        User user = new User(firstName, lastName, username, password, privilege);
-        conn.addUser(user);
+        return conn.addUser(user);
     }
 
     public static boolean checkAccountExists(String username) {

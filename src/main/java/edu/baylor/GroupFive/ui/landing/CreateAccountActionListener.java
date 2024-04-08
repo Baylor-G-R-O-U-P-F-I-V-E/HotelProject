@@ -7,11 +7,8 @@ import java.io.IOException;
 import javax.swing.JTextField;
 
 import edu.baylor.GroupFive.controllers.AccountController;
-import edu.baylor.GroupFive.database.userDAO.UserDatabaseConnection;
 import edu.baylor.GroupFive.models.User;
-import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;
-import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
 public class CreateAccountActionListener implements ActionListener {
     private LandingPage landingPage;
@@ -28,7 +25,6 @@ public class CreateAccountActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        UserDatabaseConnection udao = new UserDatabaseConnection();
 
         // Create a default message
         String message = "Account created!";
@@ -84,7 +80,7 @@ public class CreateAccountActionListener implements ActionListener {
             }
 
             // If the username is already taken, show an error message
-            if (udao.getUser(userName) != null) {
+            if (AccountController.getUser(userName) != null) {
                 System.err.println("Username already taken");
                 message = """
                     Username already taken.
@@ -116,7 +112,7 @@ public class CreateAccountActionListener implements ActionListener {
 
         // Create a new user and add to database
         User user = new User(firstName, lastName, userName, guestPassword, "guest");
-        if(udao.addUser(user)) {
+        if(AccountController.register(user)) { 
             landingPage.setUsername(userName);
             landingPage.onPageSwitch("success");
         } else {
