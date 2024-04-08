@@ -27,6 +27,19 @@ public class ModifyReservationActionListener implements ActionListener {
     private Date originalStart;
     private static String title = "Login Error";
 
+    private static final String SUCCESS_MSG = """
+        Changes made!
+        """;
+
+    private static final String BAD_CONNECTION_MSG = """
+        Oopsie! We could not establish a connection to the database!
+        """;
+
+     /**
+      * makeBadInputDialog
+      *
+      * Attempts to create a JDialog panel containing our error message
+      * */
     private void makeBadInputDialog(String msg) {
         try {
             new BadInputDialog(msg, title);
@@ -45,6 +58,11 @@ public class ModifyReservationActionListener implements ActionListener {
         this.originalStart = originalStart;
     }
 
+     /**
+      * ModifyReservationActionListener::actionPerformed
+      *
+      * Error checks values within cells and attempts to change reservation
+      * */
     @Override
     public void actionPerformed(ActionEvent e) {
         // Establish connection to database
