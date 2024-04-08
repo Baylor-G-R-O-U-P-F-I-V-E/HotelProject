@@ -54,11 +54,9 @@ public class ModifyReservationActionListener implements ActionListener {
         String message = "Changes successful!";
 
         // Get the room
-
         String room = roomField.getText();
 
         // If the room is empty, show an error message
-
         if (room.isEmpty()) {
             message = """
                         Oopsie! You forgot to enter the room number.
@@ -68,11 +66,9 @@ public class ModifyReservationActionListener implements ActionListener {
         }
 
         // Get the price
-
         String price = priceField.getText();
 
         // If the price is empty, show an error message
-
         if (price.isEmpty()) {
             message = """
                         Oopsie! You forgot to enter the price.
@@ -82,15 +78,12 @@ public class ModifyReservationActionListener implements ActionListener {
         }
 
         // Get the dates
-
         Date start = startDate.getDate();
         Date end = endDate.getDate();
-
-        // Check if start date is before today
-
         Date today = Date.from(ZonedDateTime.now(ZoneId.of("America/Chicago")).toInstant());
         System.out.println(today.toString());
 
+        // Check if start date is before today
         if (start.before(today)) {
             message = """
                         Oopsie! The start date must be after today!
@@ -100,7 +93,6 @@ public class ModifyReservationActionListener implements ActionListener {
         }
 
         // Check if start is after end
-
         if (start.after(end)) {
             message = """
                         Oopsie! The end date must be after the start date.
@@ -110,22 +102,18 @@ public class ModifyReservationActionListener implements ActionListener {
         }
 
         // Get the reservation
-
         Reservation reservation = ReservationController.getInfo(Integer.parseInt(originalRoom), originalStart);
 
         // Update the reservation
-
         reservation.setRoomID(room);
         reservation.setPrice(Double.parseDouble(price));
         reservation.setStartDate(start);
         reservation.setEndDate(end);
 
         // Update the reservation in the database
-
         boolean result = ReservationController.modifyReservation(reservation, originalRoom, originalStart);
 
         // If the update failed, show an error message
-
         if (!result) {
             message = """
                         Oopsie! The reservation could not be updated.

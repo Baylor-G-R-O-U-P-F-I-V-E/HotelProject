@@ -277,7 +277,6 @@ public class ReservationDatabaseConnection {
             }
         }
 
-
         for(ArrayList<Date> r : mem){
             logger.info(r.get(0) + " " + r.get(1) + " : " + startDate + " " + endDate);
 
@@ -299,19 +298,9 @@ public class ReservationDatabaseConnection {
         return true;
     }
 
-
     private static String formatDate(Date myDate) {
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         return dateFormat.format(myDate.getTime());
     }
-
-
-
-
-
-
-
-
-
 
 }
