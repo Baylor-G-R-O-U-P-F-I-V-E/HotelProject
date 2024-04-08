@@ -1,12 +1,16 @@
-package edu.baylor.GroupFive.controllers;
+package edu.baylor.GroupFive.database.controllers;
 
 import edu.baylor.GroupFive.models.Account;
 import edu.baylor.GroupFive.models.QualityDescription;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.User;
-import edu.baylor.GroupFive.services.ReservationServices;
-import edu.baylor.GroupFive.services.RoomServices;
+import edu.baylor.GroupFive.database.services.ReservationServices;
+import edu.baylor.GroupFive.database.services.RoomServices;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 
 import java.sql.SQLException;
 import java.time.Duration;
@@ -14,14 +18,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+ /**
+  * Was supposed to handle Reservations
+  *
+  * @deprecated use 
+  *     {@link #ModifyReservationActionListener()} 
+  *     {@link #AddReservationButton()}
+  * instead.
+  * */
+@Deprecated
 public class ReservationController {
-
-    public static boolean bookRoom(User account, Date startDate, Date endDate, Room room){
+    private static final Logger logger = LogManager.getLogger(ReservationController.class.getName());
+    private static final Marker RESERVATIONS = MarkerManager.getMarker("RESERVATIONS");
+    public static boolean bookRoom(User account, Date startDate, Date endDate, Room room) {
+        logger.info(RESERVATIONS, "Attempting to book room #"+room.getRoomNumber()+" for user "+account.getUsername()+"...");
         String guestID = account.getUsername();
         Boolean added = ReservationServices.addReservation(startDate, endDate, String.valueOf(room.getRoomNumber()), guestID);
         if (Boolean.FALSE.equals(added)) {
+            logger.info(RESERVATIONS, "Failed to book "+account.getUsername()+"'s reservation for room #"+room.getRoomNumber());
             return false;
         }
+        logger.info(RESERVATIONS, "Successfully booked "+account.getUsername()+"'s reservation for room #"+room.getRoomNumber());
         return true;
     }
 

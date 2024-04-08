@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive;
+package edu.baylor.GroupFive.util;
 
 public class CoreUtils {
     

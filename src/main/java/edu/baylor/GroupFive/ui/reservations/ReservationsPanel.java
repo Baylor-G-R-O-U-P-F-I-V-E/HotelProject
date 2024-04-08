@@ -7,8 +7,8 @@ import java.util.Date;
 import javax.swing.*;
 import javax.swing.table.*;
 
-import edu.baylor.GroupFive.controllers.ReservationController;
-import edu.baylor.GroupFive.controllers.RoomController;
+import edu.baylor.GroupFive.database.controllers.ReservationController;
+import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;

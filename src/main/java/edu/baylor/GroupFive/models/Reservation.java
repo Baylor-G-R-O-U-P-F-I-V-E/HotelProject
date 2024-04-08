@@ -5,11 +5,12 @@ import java.util.Date;
 
 public class Reservation {
 
-    Date startDate;
-    Date endDate;
-    String guestUsername;
-    String roomNumber;
-    Double price;
+    private int id; // TODO implement reservation id
+    private Date startDate;
+    private Date endDate;
+    private String guestUsername;
+    private String roomNumber;
+    private Double price;
 
     public Reservation(
             Date startDate,

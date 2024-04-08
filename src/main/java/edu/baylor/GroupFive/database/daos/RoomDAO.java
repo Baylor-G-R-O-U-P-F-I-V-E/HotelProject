@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.database.roomDAO;
+package edu.baylor.GroupFive.database.daos;
 
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
@@ -16,15 +16,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class RoomDatabaseConnection {
+public class RoomDAO {
 
-    public RoomDatabaseConnection(){}
+    public RoomDAO(){}
+
     private Connection getConnection(){
         Connection connection = null;
         try {
             connection = DriverManager.getConnection("jdbc:derby:FinalProject;", "", "");
             if(connection == null) {
-                System.out.println("Could not connect");
+                System.err.println("Could not connect");
                 return null;
             }
         } catch (SQLException e) {
@@ -37,7 +38,7 @@ public class RoomDatabaseConnection {
 
         Connection connection =  getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
+            System.err.println("Connection Failed");
             return null;
         }
 
@@ -67,7 +68,7 @@ public class RoomDatabaseConnection {
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return null;
         }finally {
             if (statement != null) {
@@ -99,7 +100,7 @@ public class RoomDatabaseConnection {
     public Boolean addRoom(Room newRoom){
         Connection connection = getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
+            System.err.println("Connection Failed");
             return null;
         }
         Statement statement = null;
@@ -116,7 +117,7 @@ public class RoomDatabaseConnection {
             statement = connection.createStatement();
             statement.executeUpdate(sqlInsert);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return false;
         }finally {
             if (statement != null) {
@@ -149,7 +150,7 @@ public class RoomDatabaseConnection {
     public Room getRoom(Integer roomNumber){
         Connection connection =  getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
+            System.err.println("Connection Failed");
             return null;
         }
 
@@ -177,7 +178,7 @@ public class RoomDatabaseConnection {
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return null;
         }finally {
             if (statement != null) {
@@ -205,7 +206,7 @@ public class RoomDatabaseConnection {
     public Boolean modifyRoom(Room updatedInfo){
         Connection connection =  getConnection();
         if(connection == null){
-            System.out.println("Connection Failed");
+            System.err.println("Connection Failed");
             return null;
         }
 
@@ -225,7 +226,7 @@ public class RoomDatabaseConnection {
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return false;
         }finally {
             if (statement != null) {

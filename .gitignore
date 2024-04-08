@@ -13,6 +13,8 @@ lib/derby.jar
 derby.log
 .project
 
+logs/
+
 .classpath
 .classpath.classpath
 .project
@@ -26,4 +28,4 @@ derby.log
 .idea/
 .vscode
 /FinalProject
-
+.factorypath

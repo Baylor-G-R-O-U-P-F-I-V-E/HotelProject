@@ -1,11 +1,17 @@
-package edu.baylor.GroupFive.controllers;
+package edu.baylor.GroupFive.database.controllers;
 
 import edu.baylor.GroupFive.models.Room;
-import edu.baylor.GroupFive.services.RoomServices;
+import edu.baylor.GroupFive.database.services.RoomServices;
 
 import java.util.Date;
 import java.util.List;
 
+ /**
+  * Was supposed to handle room operations
+  *
+  * @deprecated use {@link #PageButton()} instead.
+  * */
+@Deprecated
 public class RoomController {
     public static Room getRoomInfo(Integer roomNumber){
         //WILL RETURN NULL IF NO ROOM EXISTS (I think) -Cole
