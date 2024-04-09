@@ -16,25 +16,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class RoomDAO {
+public class RoomDAO extends BaseDAO{
 
     public RoomDAO(){}
 
-    private Connection getConnection(){
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection("jdbc:derby:FinalProject;", "", "");
-            if(connection == null) {
-                System.err.println("Could not connect");
-                return null;
-            }
-        } catch (SQLException e) {
-            return null;
-        }
-        return connection;
-    }
 
-    public List<Room> getRooms(){
+
+    public static List<Room> getRooms(){
 
         Connection connection =  getConnection();
         if(connection == null){
@@ -71,20 +59,8 @@ public class RoomDAO {
             System.err.println(e.getMessage());
             return null;
         }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            closeConnection(connection);
+            closeStatement(statement);
         }
 
 
@@ -97,7 +73,7 @@ public class RoomDAO {
      * 
      * 
      */
-    public Boolean addRoom(Room newRoom){
+    public static Boolean addRoom(Room newRoom){
         Connection connection = getConnection();
         if(connection == null){
             System.err.println("Connection Failed");
@@ -120,20 +96,8 @@ public class RoomDAO {
             System.err.println(e.getMessage());
             return false;
         }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            closeConnection(connection);
+            closeStatement(statement);
         }
 
 
@@ -147,7 +111,7 @@ public class RoomDAO {
      * 
      
      */
-    public Room getRoom(Integer roomNumber){
+    public static Room getRoom(Integer roomNumber){
         Connection connection =  getConnection();
         if(connection == null){
             System.err.println("Connection Failed");
@@ -181,20 +145,8 @@ public class RoomDAO {
             System.err.println(e.getMessage());
             return null;
         }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            closeConnection(connection);
+            closeStatement(statement);
         }
 
 
@@ -203,7 +155,7 @@ public class RoomDAO {
 
 
 
-    public Boolean modifyRoom(Room updatedInfo){
+    public static Boolean modifyRoom(Room updatedInfo){
         Connection connection =  getConnection();
         if(connection == null){
             System.err.println("Connection Failed");
@@ -224,25 +176,12 @@ public class RoomDAO {
             statement = connection.createStatement();
             statement.execute(sqlDelete);
 
-
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
         }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            closeConnection(connection);
+            closeStatement(statement);
         }
 
         return  addRoom(updatedInfo);

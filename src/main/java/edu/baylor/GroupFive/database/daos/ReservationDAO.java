@@ -19,25 +19,13 @@ import edu.baylor.GroupFive.models.Reservation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ReservationDAO {
+public class ReservationDAO extends BaseDAO{
     private static final Logger logger = LogManager.getLogger(ReservationDAO.class.getName());
 
     public ReservationDAO(){}
 
     //works well enough
-    private Connection getConnection(){
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection("jdbc:derby:FinalProject;", "", "");
-            if(connection == null) {
-                logger.info("Could not connect");
-                return null;
-            }
-        } catch (SQLException e) {
-            return null;
-        }
-        return connection;
-    }
+
 
      /**
       * addReservation
@@ -53,7 +41,7 @@ public class ReservationDAO {
       *     * false if error occurs
       * */
     //works well enough
-    public Boolean addReservation(Reservation reservation) {
+    public static Boolean addReservation(Reservation reservation) {
         Connection connection = getConnection();
         if(connection == null){
             logger.info("Connection Failed");
@@ -73,27 +61,15 @@ public class ReservationDAO {
             logger.info(e.getMessage());
             return false;
         }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            closeConnection(connection);
+            closeStatement(statement);
         }
         return true;
     }
 
 
     //works well enough
-    public List<Reservation> getReservations() /* throws BadConnectionException */ {
+    public static  List<Reservation> getReservations() /* throws BadConnectionException */ {
         Connection connection =  getConnection();
         if(connection == null){
             logger.info("Connection Failed");
@@ -122,26 +98,14 @@ public class ReservationDAO {
             logger.info(e.getMessage());
             return null;
         }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            closeStatement(statement);
+            closeConnection(connection);
         }
         return output;
     }
 
     //works well enough
-    public Boolean cancelReservation(Integer roomNumber, Date startDate) /* throws BadConnectionException */ {
+    public static Boolean cancelReservation(Integer roomNumber, Date startDate) /* throws BadConnectionException */ {
         Connection connection = getConnection();
         if(connection == null){
             logger.info("Connection Failed");
@@ -160,20 +124,8 @@ public class ReservationDAO {
             logger.info(e.getMessage());
             return false;
         }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            closeStatement(statement);
+            closeConnection(connection);
         }
         return true;
 
@@ -181,7 +133,7 @@ public class ReservationDAO {
     }
 
     //works well enough
-    public Reservation getInfo(Integer roomNumber, Date startDate) /* throws BadConnectionException */ {
+    public static Reservation getInfo(Integer roomNumber, Date startDate) /* throws BadConnectionException */ {
         Connection connection = getConnection();
         if(connection == null){
             logger.info("Connection Failed");
@@ -212,27 +164,15 @@ public class ReservationDAO {
             logger.info(e.getMessage());
             return null;
         }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            closeStatement(statement);
+            closeConnection(connection);
         }
 
         return null;
     }
 
 
-    public Boolean checkIfAvailable(String roomNumber, Date startDate, Date endDate) /* throws BadConnectionException */ {
+    public static Boolean checkIfAvailable(String roomNumber, Date startDate, Date endDate) /* throws BadConnectionException */ {
         //'20150131'
         Connection connection = getConnection();
         if(connection == null){
@@ -261,46 +201,38 @@ public class ReservationDAO {
             logger.info(e.getMessage());
             return null;
         }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            closeStatement(statement);
+            closeConnection(connection);
         }
 
         for(ArrayList<Date> r : mem){
-            logger.info(r.get(0) + " " + r.get(1) + " : " + startDate + " " + endDate);
-
-            if((startDate.after(r.get(0)) || startDate.equals(r.get(0))) && startDate.before(r.get(1))){
-                logger.info("3");
-                return false;
-            }
-            if(endDate.after(r.get(0)) && (endDate.equals(r.get(1)) || endDate.before(r.get(1)))){
-                logger.info("2");
-                return false;
-            }
-
-            if((startDate.before(r.get(0)) || startDate.equals(r.get(0))) &&
-                (endDate.equals(r.get(1)) || endDate.after(r.get(1)))){
-                logger.info("1");
+            if(isOverlapping(startDate,endDate,r.get(0),r.get(1))){
                 return false;
             }
         }
         return true;
     }
 
-    private static String formatDate(Date myDate) {
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        return dateFormat.format(myDate.getTime());
+    private static Boolean isOverlapping(Date startOne, Date endOne, Date startTwo, Date endTwo){
+        //r is two
+        logger.info(startTwo + " " + endTwo + " : " + startOne + " " + endOne);
+
+        if((startOne.after(startTwo) || startOne.equals(startTwo)) && startOne.before(endTwo)){
+            logger.info("3");
+            return true;
+        }
+        if(endOne.after(startTwo) && (endOne.equals(endTwo) || endOne.before(endTwo))){
+            logger.info("2");
+            return true;
+        }
+
+        if((startOne.before(startTwo) || startOne.equals(startTwo)) &&
+                (endOne.equals(endTwo) || endOne.after(endTwo))){
+            logger.info("1");
+            return true;
+        }
+        return false;
     }
+
 
 }
