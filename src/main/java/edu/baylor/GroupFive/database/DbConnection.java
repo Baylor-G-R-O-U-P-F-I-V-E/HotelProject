@@ -15,12 +15,16 @@ import java.sql.DriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+ /**
+  * DbConnection
+  *
+  * DbConnection establishes a connection to our database. This object has
+  * a private constructor, meaning this class is not meant to be instantiated.
+  * This class only contains static methods related to database connectivity
+  * */
 public class DbConnection {
     private static final Logger logger = LogManager.getLogger(DbConnection.class.getName());
     private static String dbhost = "jdbc:derby:FinalProject;";
-    // private static String url;
-    // private static String user;
-    // private static String password;
 
     private DbConnection() {}
 
@@ -28,13 +32,25 @@ public class DbConnection {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(dbhost, "", "");
-            if(connection == null) {
-                logger.info("Could not connect");
-                return null;
-            }
+             /**
+              * DriverManager.getConnection should not be returning null [1].
+              * If it returns null, there is something wrong with how we
+              * are trying to establish the connection (i hope)
+              * */
+            assert(connection != null);
         } catch (SQLException e) {
-            return null;
+             /**
+              * Normal behavior for DriverManager.getConnection failure
+              * is to throw a SQLException [2]
+              * */
+            logger.info("Could not establish database connection");
+            throw new BadConnectionException();
         }
         return connection;
     }
 }
+
+/**
+ * [1]: https://stackoverflow.com/questions/26024939/drivermanager-getconnection-returns-null
+ * [2]: https://docs.oracle.com/javase/8/docs/api/java/sql/DriverManager.html#getConnection-java.lang.String-
+ * */
