@@ -5,14 +5,15 @@ import edu.baylor.GroupFive.models.enums.Privilege;
 import java.util.Objects;
 
 public class User {
-    private int id; // TODO: implement userID
+    private int id;
     private String firstName;
     private String lastName;
     private String userName;
     private String passwordHash;
     private Privilege privilege;
 
-    public User(String firstName, String lastName, String userName, String passwordHash, String privilege){
+    public User(int id, String firstName, String lastName, String userName, String passwordHash, String privilege){
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
