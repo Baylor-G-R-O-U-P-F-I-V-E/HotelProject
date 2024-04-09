@@ -173,6 +173,8 @@ public class ReservationServices implements ReservationDao {
         return result;
     }
 
+    // FIXME DO NOT ACTUALLY DELETE FROM DB, 
+    // TODO status for reservations
     public Integer delete(Reservation reservation) throws SQLException {
         // Establish database connection
         Connection connection;

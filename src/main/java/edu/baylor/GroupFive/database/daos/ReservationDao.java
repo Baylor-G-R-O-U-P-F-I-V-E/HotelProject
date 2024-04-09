@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Date;
 
 public interface ReservationDao extends Dao<Reservation> {
+    // TODO cancelReservation
     public Reservation getInfo(Integer roomNumber, Date startDate) throws SQLException;
     public Boolean checkIfAvailable(String roomNumber, Date startDate, Date endDate) throws SQLException;
 }

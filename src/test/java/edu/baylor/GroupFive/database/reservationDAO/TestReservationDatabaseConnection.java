@@ -108,6 +108,7 @@ public class TestReservationDatabaseConnection {
         Date end = new Date("1/15/2009");
 
 
+        // TODO reservation now requires an id
         Reservation newReservation = new Reservation(start,end,"Axel112","102",12.34);
         Boolean res = null;
 

@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Reservation {
 
-    private int id; // TODO implement reservation id
+    private int id;
     private Date startDate;
     private Date endDate;
     private String guestUsername;
@@ -13,17 +13,23 @@ public class Reservation {
     private Double price;
 
     public Reservation(
-            Date startDate,
-            Date endDate,
-            String guestUsername,
-            String roomNumber,
-            Double price
+            int id_,
+            Date startDate_,
+            Date endDate_,
+            String guestUsername_,
+            String roomNumber_,
+            Double price_
             ){
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.guestUsername = guestUsername;
-        this.roomNumber = roomNumber;
-        this.price = price;
+        id = id_;
+        startDate = startDate_;
+        endDate = endDate_;
+        guestUsername = guestUsername_;
+        roomNumber = roomNumber_;
+        price = price_;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Date getStartDate(){
@@ -46,27 +52,31 @@ public class Reservation {
         return price;
     }
 
-    public void setStartDate(Date startDate){
-        this.startDate = startDate;
+    public void setId(int id_) {
+        id = id_;
     }
 
-    public void setEndDate(Date endDate){
-        this.endDate = endDate;
+    public void setStartDate(Date startDate_) {
+        startDate = startDate_;
     }
 
-    public void setGuestID(String guestUsername){
-        this.guestUsername = guestUsername;
+    public void setEndDate(Date endDate_) {
+        endDate = endDate_;
     }
 
-    public void setRoomID(String roomNumber){
-        this.roomNumber = roomNumber;
+    public void setGuestID(String guestUsername_) {
+        guestUsername = guestUsername_;
     }
 
-    public void setPrice(Double price){
-        this.price = price;
+    public void setRoomID(String roomNumber_) {
+        roomNumber = roomNumber_;
     }
 
-    public String toString(){
+    public void setPrice(Double price_) {
+        price = price_;
+    }
+
+    public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         String out = "Guest Username: " + guestUsername + "\nStart Date: " + dateFormat.format(startDate) + "\nEnd Date: " + dateFormat.format(endDate) + "\nRoom Number: " + roomNumber + "\nPrice: " + price;
         return out;

@@ -34,23 +34,29 @@ public class ReservationController {
     }
 
     public static Boolean modifyReservation(Reservation newInfo, String originalRoom, Date oldStart){
-        return ReservationServices.modifyReservation(newInfo,originalRoom, oldStart);
+        ReservationServices rs = new ReservationServices();
+        try {
+            int result = rs.update(newInfo);
+            logger.info(result + " lines updated");
+        } catch (SQLException ex) {
+        }
+        return true;
     }
 
 
-    public static Boolean cancelReservation(Integer roomNumber, Date startDate){
+    public static Boolean cancelReservation(Integer roomNumber, Date startDate) {
         return ReservationServices.cancelReservation(roomNumber,startDate);
     }
 
-    public static Reservation getInfo(Integer roomNumber, Date startDate){
+    public static Reservation getInfo(Integer roomNumber, Date startDate) {
         return ReservationServices.getInfo(roomNumber,startDate);
     }
 
-    public static Boolean checkIfAvailable(Integer roomNumber, Date startDate, Date endDate){
+    public static Boolean checkIfAvailable(Integer roomNumber, Date startDate, Date endDate) {
         return ReservationServices.checkIfAvailable(roomNumber, startDate, endDate);
     }
 
-    public static List<Room> getAllRooms(){
+    public static List<Room> getAllRooms() {
         return RoomServices.getRooms();
     }
     /*
