@@ -20,6 +20,10 @@ package:
 	mvn package
 .PHONY: package
 
+pkg-no-tests:
+	mvn package -Dmaven.test.skip
+.PHONY: pkg-no-test
+
 update:
 	mvn dependency:copy-dependencies
 .PHONY: update
