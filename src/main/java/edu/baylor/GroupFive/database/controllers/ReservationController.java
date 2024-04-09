@@ -18,15 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
- /**
-  * Was supposed to handle Reservations
-  *
-  * @deprecated use 
-  *     {@link #ModifyReservationActionListener()} 
-  *     {@link #AddReservationButton()}
-  * instead.
-  * */
-@Deprecated
 public class ReservationController {
     private static final Logger logger = LogManager.getLogger(ReservationController.class.getName());
     private static final Marker RESERVATIONS = MarkerManager.getMarker("RESERVATIONS");
