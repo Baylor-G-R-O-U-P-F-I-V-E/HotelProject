@@ -54,7 +54,7 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         // add a button panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setOpaque(false);
-        //addCreateButton(buttonPanel);
+        addModifyButton(buttonPanel);
 
         add(buttonPanel);
 
@@ -118,26 +118,19 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         textPanel.add(namePanel);
     }
 
-    /*
+    private void addModifyButton(JPanel buttonPanel) {
+        // Modify the Modify button
+        JButton ModifyButton = new JButton("Modify Account");
+        ModifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        ModifyButton.setPreferredSize(new Dimension(200, 50));
+        ModifyButton.setFont(new Font("Arial", Font.PLAIN, 22));
+        ModifyButton.setOpaque(true);
+        ModifyButton.setBorderPainted(false);
+        ModifyButton.setBackground(new Color(0, 0, 153));
+        ModifyButton.setForeground(new Color(255, 255, 255));
 
-    Use this template to make edit button and change password button
-
-    private void addCreateButton(JPanel buttonPanel) {
-        // Create the create button
-        JButton createButton = new JButton("Create Account");
-        createButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        createButton.setPreferredSize(new Dimension(200, 50));
-        createButton.setFont(new Font("Arial", Font.PLAIN, 22));
-        createButton.setOpaque(true);
-        createButton.setBorderPainted(false);
-        createButton.setBackground(new Color(0, 0, 153));
-        createButton.setForeground(new Color(255, 255, 255));
-        createButton.addActionListener(new CreateClerkAccountListener(page, firstName, lastName, username, password, email));
-
-        buttonPanel.add(createButton);
+        buttonPanel.add(ModifyButton);
     }
-
-    */
 
     @Override
     public void clear() {
