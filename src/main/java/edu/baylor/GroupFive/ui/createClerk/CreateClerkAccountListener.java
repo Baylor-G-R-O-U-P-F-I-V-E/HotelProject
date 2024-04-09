@@ -14,15 +14,14 @@ import edu.baylor.GroupFive.ui.utils.Page;
 
 public class CreateClerkAccountListener implements ActionListener {
     
-    private JTextField firstName, lastName, username, password, email;
+    private JTextField firstName, lastName, username, password;
 
-    public CreateClerkAccountListener(Page page, JTextField firstName, JTextField lastName, JTextField username, JTextField password, JTextField email) {
+    public CreateClerkAccountListener(Page page, JTextField firstName, JTextField lastName, JTextField username, JTextField password) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
-        this.email = email;
     }
 
     public void clearFields() {
@@ -30,7 +29,6 @@ public class CreateClerkAccountListener implements ActionListener {
         lastName.setText("");
         username.setText("");
         password.setText("");
-        email.setText("");
     }
     
     @Override
@@ -41,10 +39,9 @@ public class CreateClerkAccountListener implements ActionListener {
         String lastName = this.lastName.getText();
         String username = this.username.getText();
         String password = this.password.getText();
-        String email = this.email.getText();
         
         // Check if the fields are empty
-        if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || password.isEmpty() || email.isEmpty()) {
+        if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || password.isEmpty()) {
             
             // Display an error message
             String message = "Please fill out all fields";

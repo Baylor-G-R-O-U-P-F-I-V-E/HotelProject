@@ -6,12 +6,6 @@ import edu.baylor.GroupFive.database.services.RoomServices;
 import java.util.Date;
 import java.util.List;
 
- /**
-  * Was supposed to handle room operations
-  *
-  * @deprecated use {@link #PageButton()} instead.
-  * */
-@Deprecated
 public class RoomController {
     public static Room getRoomInfo(Integer roomNumber){
         //WILL RETURN NULL IF NO ROOM EXISTS (I think) -Cole
@@ -27,7 +21,6 @@ public class RoomController {
         //true if room is added
         return RoomServices.addRoom(newRoom);
     }
-
 
     public static List<Room> getAvailableRooms(Date startDate, Date endDate){
         return RoomServices.getAvailableRooms(startDate,endDate);

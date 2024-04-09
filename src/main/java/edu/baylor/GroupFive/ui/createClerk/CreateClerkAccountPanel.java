@@ -17,7 +17,7 @@ import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
 public class CreateClerkAccountPanel extends JPanel implements PagePanel {
     private Page page;
-    private JTextField firstName, lastName, username, password, email;
+    private JTextField firstName, lastName, username, password;
     private Dimension fieldSize = new Dimension(200, 50);
 
     public CreateClerkAccountPanel(Page page) {
@@ -30,14 +30,13 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
         setBackground(page.getContentPane().getBackground());
 
         JLabel titleLabel = new JLabel("Create Clerk Account");
-    titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the title label
-    titleLabel.setFont(new Font("Arial", Font.BOLD, 24)); // Set a larger, bold font
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the title label
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24)); // Set a larger, bold font
 
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
 
         addNamePanel(textPanel);
-        addEmailPanel(textPanel);
         addUsernamePanel(textPanel);
         addPasswordPanel(textPanel);
         
@@ -75,27 +74,6 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
         userPanel.add(username);
 
         textPanel.add(userPanel);
-    }
-
-    private void addEmailPanel(JPanel textPanel) {
-        
-        JPanel emailPanel = new JPanel();
-        emailPanel.setOpaque(true);
-
-        JLabel emailLabel = new JLabel("Email:");
-        emailLabel.setBounds(200, 50, 200, 50);
-        emailLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        email = new JTextField();
-        email.setBounds(400, 50, 200, 50);
-        email.setFont(new Font("Arial", Font.PLAIN, 20));
-        email.setPreferredSize(fieldSize);
-
-        emailPanel.add(emailLabel);
-        emailPanel.add(email);
-
-        textPanel.add(emailPanel);
-
     }
 
     private void addPasswordPanel(JPanel textPanel) {
@@ -159,7 +137,7 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
         createButton.setBorderPainted(false);
         createButton.setBackground(new Color(0, 0, 153));
         createButton.setForeground(new Color(255, 255, 255));
-        createButton.addActionListener(new CreateClerkAccountListener(page, firstName, lastName, username, password, email));
+        createButton.addActionListener(new CreateClerkAccountListener(page, firstName, lastName, username, password));
 
         buttonPanel.add(createButton);
     }
@@ -170,7 +148,6 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
         lastName.setText("");
         username.setText("");
         password.setText("");
-        email.setText("");
     }
 
 }

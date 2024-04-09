@@ -40,7 +40,6 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
 
         addFirstNamePanel(textPanel);
         addLastNamePanel(textPanel);
-        addEmailPanel(textPanel);
         addUsernamePanel(textPanel);
         
         add(Box.createVerticalGlue());
@@ -73,23 +72,6 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         userPanel.add(userLabel);
 
         textPanel.add(userPanel);
-    }
-
-    // Change this to include email when it gets added to the user model
-
-    private void addEmailPanel(JPanel textPanel) {
-        
-        JPanel emailPanel = new JPanel();
-        emailPanel.setOpaque(true);
-
-        JLabel emailLabel = new JLabel("Email:");
-        emailLabel.setBounds(200, 50, 200, 50);
-        emailLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        emailPanel.add(emailLabel);
-
-        textPanel.add(emailPanel);
-
     }
 
     private void addFirstNamePanel(JPanel textPanel) {
