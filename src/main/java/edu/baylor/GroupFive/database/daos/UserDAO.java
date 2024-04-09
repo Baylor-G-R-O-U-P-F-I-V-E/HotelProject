@@ -1,5 +1,6 @@
 package edu.baylor.GroupFive.database.daos;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
@@ -11,25 +12,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO {
+public class UserDAO extends BaseDAO {
 
     public UserDAO() {}
 
-    private Connection getConnection(){
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection("jdbc:derby:FinalProject;", "", "");
-            if(connection == null) {
-                System.err.println("Could not connect");
-                return null;
-            }
-        } catch (SQLException e) {
-            return null;
-        }
-        return connection;
-    }
 
-    public User getUser(String username){
+
+    public static User getUser(String username){
         Connection connection =  getConnection();
         if(connection == null){
             System.err.println("Connection Failed");
@@ -53,27 +42,15 @@ public class UserDAO {
             System.err.println(e.getMessage());
             return null;
         }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            closeConnection(connection);
+            closeStatement(statement);
         }
 
         return null;
 
     }
 
-    public Boolean addUser(User user){
+    public static Boolean addUser(User user){
         Connection connection = getConnection();
         if(connection == null){
             System.err.println("Connection Failed");
@@ -91,20 +68,8 @@ public class UserDAO {
             System.err.println(e.getMessage());
             return false;
         } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            closeConnection(connection);
+            closeStatement(statement);
         }
 
 
@@ -113,7 +78,7 @@ public class UserDAO {
 
 
 
-    public Boolean modifyUser(User newUser){
+    public static Boolean modifyUser(User newUser){
         Connection connection =  getConnection();
         if(connection == null){
             System.err.println("Connection Failed");
@@ -139,20 +104,8 @@ public class UserDAO {
             System.err.println(e.getMessage());
             return false;
         }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            closeConnection(connection);
+            closeStatement(statement);
         }
 
         return  addUser(newUser);

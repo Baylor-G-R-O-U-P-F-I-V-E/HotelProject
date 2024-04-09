@@ -1,4 +1,5 @@
 package edu.baylor.GroupFive.database.reservationDAO;
+import edu.baylor.GroupFive.database.daos.ReservationDAO;
 import edu.baylor.GroupFive.database.dbSetup;
 import edu.baylor.GroupFive.models.Reservation;
 import org.junit.Test;
@@ -14,19 +15,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class TestReservationDatabaseConnection {
+public class TestReservationDAO {
 
-    ReservationDatabaseConnection conn;
+    ReservationDAO conn;
 
-
-
-
+    //this doesnt actually work right for some reason
     @BeforeEach
     void init(){
         dbSetup db = new dbSetup();
 
     }
-
 
     @Test
     public void checkAvailable1(){
@@ -39,7 +37,7 @@ public class TestReservationDatabaseConnection {
         try {
             Date startDate = formatter.parse(sdate);
             Date endDate = formatter.parse(edate);
-            ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+            ReservationDAO conn = new ReservationDAO();
             isAvailable = conn.checkIfAvailable("2",startDate,endDate);
         } catch (ParseException e) {
             System.out.println("exception in checkifavailable test code");
@@ -63,7 +61,7 @@ public class TestReservationDatabaseConnection {
             Date startDate = formatter.parse(sdate);
             Date endDate = formatter.parse(edate);
             //System.out.println(startDate.getYear() + " " + endDate.getTime());
-            ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+            ReservationDAO conn = new ReservationDAO();
             isAvailable = conn.checkIfAvailable("102",startDate,endDate);
             System.out.println(isAvailable);
         } catch (ParseException e) {
@@ -75,7 +73,7 @@ public class TestReservationDatabaseConnection {
     @Test
     public void selectExisting(){
         dbSetup db = new dbSetup();
-        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        ReservationDAO conn = new ReservationDAO();
         Reservation myRes;
 
              myRes = conn.getInfo(101, new Date("07/20/2024"));
@@ -88,7 +86,7 @@ public class TestReservationDatabaseConnection {
     @Test
     public void selectNonExisting(){
         dbSetup db = new dbSetup();
-        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        ReservationDAO conn = new ReservationDAO();
         Reservation myRes;
 
             myRes = conn.getInfo(102, new Date("01/01/2008"));
@@ -102,7 +100,7 @@ public class TestReservationDatabaseConnection {
     //@Test
     public void addReservation(){
         dbSetup db = new dbSetup();
-        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        ReservationDAO conn = new ReservationDAO();
 
         Date start = new Date("1/12/2009");
         Date end = new Date("1/15/2009");
@@ -124,7 +122,7 @@ public class TestReservationDatabaseConnection {
     @Test
     public void cancelReservation(){
         dbSetup db = new dbSetup();
-        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        ReservationDAO conn = new ReservationDAO();
         Reservation r;
 
             r = conn.getInfo(103,new Date("07/22/2024"));
@@ -149,7 +147,7 @@ public class TestReservationDatabaseConnection {
     @Test
     public void getAllReservations(){
         dbSetup db = new dbSetup();
-        ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
+        ReservationDAO conn = new ReservationDAO();
 
         List<Reservation> r = conn.getReservations();
         for(Reservation a : r){
