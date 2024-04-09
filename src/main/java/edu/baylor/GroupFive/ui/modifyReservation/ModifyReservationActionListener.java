@@ -66,7 +66,7 @@ public class ModifyReservationActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // Establish connection to database
-        ReservationDAO rdao = new ReservationDAO();
+        ReservationDAO reservationDAO = new ReservationDAO();
 
         // Create a default message
         String message = "Changes successful!";
@@ -141,16 +141,12 @@ public class ModifyReservationActionListener implements ActionListener {
         }
 
         // Check if reservation is available
-        // try {
-            if (!rdao.checkIfAvailable(room, start, end)) {
-                message = """
-                    Oopsie! The reservation is unavailable
-                    """;
-                makeBadInputDialog(message);
-                return;
-            }
-        // } catch (BadConnectionException ex) {
-        //     makeBadInputDialog(BAD_CONNECTION_MSG);
+        // TODO check implementation
+        // if (!reservationDAO.checkIfAvailable(room, start, end)) {
+        //     message = """
+        //         Oopsie! The reservation is unavailable
+        //         """;
+        //     makeBadInputDialog(message);
         //     return;
         // }
 

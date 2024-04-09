@@ -1,3 +1,7 @@
+ /**
+  * Authors: Icko, Cole
+  * */
+
 package edu.baylor.GroupFive.database.daos;
 
 import java.io.*;
@@ -16,6 +20,7 @@ import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
 import edu.baylor.GroupFive.database.controllers.ReservationController;
 import edu.baylor.GroupFive.models.Reservation;
+import edu.baylor.GroupFive.database.DbConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,19 +30,19 @@ public class ReservationDAO {
     public ReservationDAO(){}
 
     //works well enough
-    private Connection getConnection(){
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection("jdbc:derby:FinalProject;", "", "");
-            if(connection == null) {
-                logger.info("Could not connect");
-                return null;
-            }
-        } catch (SQLException e) {
-            return null;
-        }
-        return connection;
-    }
+    // public Connection getConnection(){
+    //     Connection connection = null;
+    //     try {
+    //         connection = DriverManager.getConnection("jdbc:derby:FinalProject;", "", "");
+    //         if(connection == null) {
+    //             logger.info("Could not connect");
+    //             return null;
+    //         }
+    //     } catch (SQLException e) {
+    //         return null;
+    //     }
+    //     return connection;
+    // }
 
      /**
       * addReservation
@@ -54,13 +59,15 @@ public class ReservationDAO {
       * */
     //works well enough
     public Boolean addReservation(Reservation reservation) {
-        Connection connection = getConnection();
-        if(connection == null){
-            logger.info("Connection Failed");
-            // throw new BadConnectionException();
+        Connection connection;
+        Statement statement = null;
+        
+        try {
+            connection = DbConnection.getConnection();
+        } catch (BadConnectionException ex) {
+            logger.info("DbConnection failed");
             return null;
         }
-        Statement statement = null;
 
         // startDate endDate price guestUsername roomNumber
 
@@ -94,12 +101,14 @@ public class ReservationDAO {
 
     //works well enough
     public List<Reservation> getReservations() /* throws BadConnectionException */ {
-        Connection connection =  getConnection();
-        if(connection == null){
-            logger.info("Connection Failed");
-            // throw new BadConnectionException();
+        Connection connection;
+        try {
+            connection =  DbConnection.getConnection();
+        } catch (BadConnectionException ex) {
+            logger.info("DbConnection failed");
             return null;
         }
+        
 
         Statement statement = null;
         String sqlQuery = "SELECT * FROM Reservations";
@@ -140,12 +149,35 @@ public class ReservationDAO {
         return output;
     }
 
+    // TODO: implement
+    public Boolean update(Reservation oldReservation, Reservation newReservation) {
+        Connection connection;
+        try {
+            connection =  DbConnection.getConnection();
+        } catch (BadConnectionException ex) {
+            logger.info("DbConnection failed");
+            return null;
+        }
+
+        Statement statement = null;
+        // String sqlUpdate = 
+        return false;
+    }
+
     //works well enough
-    public Boolean cancelReservation(Integer roomNumber, Date startDate) /* throws BadConnectionException */ {
-        Connection connection = getConnection();
-        if(connection == null){
-            logger.info("Connection Failed");
-            // throw new BadConnectionException();
+     /**
+      * TODO
+      * changed from receiving roomnumber and startdate to receiving a Reservation
+      * check where this fucks up calls
+      * */
+    public Boolean cancelReservation(Integer roomNumber, Date startDate/*Reservation reservation*/) /* throws BadConnectionException */ {
+        // Integer roomNumber = reservation.getRoomNumber();
+        // Date startDate = reservation.getStartDate();
+        Connection connection;
+        try {
+            connection =  DbConnection.getConnection();
+        } catch (BadConnectionException ex) {
+            logger.info("DbConnection failed");
             return null;
         }
 
@@ -176,16 +208,26 @@ public class ReservationDAO {
             }
         }
         return true;
-
-
     }
 
     //works well enough
-    public Reservation getInfo(Integer roomNumber, Date startDate) /* throws BadConnectionException */ {
-        Connection connection = getConnection();
-        if(connection == null){
-            logger.info("Connection Failed");
-            // throw new BadConnectionException();
+     /**
+      * TODO
+      * changed from receiving roomnumber and startdate to receiving a Reservation
+      * check where this fucks up calls
+      *
+      * Note: Was there a certain reason why we were taking in a room number and
+      * start date instead of a reservation object?
+      * */
+    // TODO Take reservation
+    public Reservation getInfo(Integer roomNumber, Date startDate/*Reservation reservation*/) /* throws BadConnectionException */ {
+        // Integer roomNumber = reservation.getRoomNumber();
+        // Date startDate = reservation.getStartDate();
+        Connection connection;
+        try {
+            connection =  DbConnection.getConnection();
+        } catch (BadConnectionException ex) {
+            logger.info("DbConnection failed");
             return null;
         }
 
@@ -231,13 +273,14 @@ public class ReservationDAO {
         return null;
     }
 
-
+    
     public Boolean checkIfAvailable(String roomNumber, Date startDate, Date endDate) /* throws BadConnectionException */ {
         //'20150131'
-        Connection connection = getConnection();
-        if(connection == null){
-            logger.info("Connection Failed");
-            // throw new BadConnectionException();
+        Connection connection;
+        try {
+            connection =  DbConnection.getConnection();
+        } catch (BadConnectionException ex) {
+            logger.info("DbConnection failed");
             return null;
         }
 
