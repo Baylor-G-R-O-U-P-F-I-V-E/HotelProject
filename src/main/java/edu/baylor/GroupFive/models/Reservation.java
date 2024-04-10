@@ -9,7 +9,8 @@ import java.util.Date;
 
 public class Reservation {
 
-    private int     id;
+    private int     dbId;
+
     private Date    startDate;
     private Date    endDate;
     private String  guestUsername;
@@ -31,9 +32,9 @@ public class Reservation {
       *     or {@link #Reservation(Reservation)}
       * */
     @Deprecated
-    public Reservation(int id_, Date startDate_, Date endDate_,
+    public Reservation(int dbId_, Date startDate_, Date endDate_,
                        String guestUsername_, String roomNumber_, Double price_) {
-        id = id_;
+        dbId = dbId_;
         startDate = startDate_;
         endDate = endDate_;
         guestUsername = guestUsername_;
@@ -45,7 +46,7 @@ public class Reservation {
 
     public Reservation(int id_, Date startDate_, Date endDate_,
                        String guestUsername_, int roomNumber_, Double price_) {
-        id = id_;
+        dbId = id_;
         startDate = startDate_;
         endDate = endDate_;
         guestUsername = guestUsername_;
@@ -59,7 +60,7 @@ public class Reservation {
     public Reservation(int id_, Date startDate_, Date endDate_,
                        String guestUsername_, int roomNumber_, Double price_,
                        boolean active_, boolean checkedIn_) {
-        id = id_;
+        dbId = id_;
         startDate = startDate_;
         endDate = endDate_;
         guestUsername = guestUsername_;
@@ -70,7 +71,7 @@ public class Reservation {
     }
 
     public Reservation(Reservation reservation) {
-        id = reservation.getId();
+        dbId = reservation.getDbId();
         startDate = reservation.getStartDate();
         endDate = reservation.getEndDate();
         guestUsername = reservation.getGuestUsername();
@@ -82,7 +83,7 @@ public class Reservation {
     // <<<< Constructors <<<<
 
     // >>>> Getters >>>>
-    public int getId() { return id; }
+    public int getDbId() { return dbId; }
     public Date getStartDate(){ return startDate; }
     public Date getEndDate(){ return endDate; }
     public String getGuestUsername(){ return guestUsername; }
@@ -93,7 +94,7 @@ public class Reservation {
     // <<<< Getters <<<<
 
     // >>>> Setters >>>>
-    public void setId(int id_) { id = id_; }
+    public void setDbId(int id_) { dbId = id_; }
     public void setStartDate(Date startDate_) { startDate = startDate_; }
     public void setEndDate(Date endDate_) { endDate = endDate_; }
     public void setGuestID(String guestUsername_) { guestUsername = guestUsername_; }

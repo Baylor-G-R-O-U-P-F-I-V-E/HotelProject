@@ -40,7 +40,7 @@ public class RoomServices {
 
         for(Room r : allRooms){
             try {
-                if(conn.checkIfAvailable(r.getRoomNumber().toString(),startDate,endDate)){
+                if(conn.checkIfAvailable(r.getRoomNumber(),startDate,endDate)){
                     availableRooms.add(r);
                 }
             } catch (SQLException ex) {
