@@ -66,12 +66,12 @@ public class Room {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Room room = (Room) o;
-        return Objects.equals(getRoomNumber(), room.getRoomNumber()) && Objects.equals(getQuality(), room.getQuality()) && getTheme() == room.getTheme() && Objects.equals(getSmoking(), room.getSmoking()) && getBedType() == room.getBedType() && Objects.equals(getNumBeds(), room.getNumBeds()) && Objects.equals(getDailyPrice(), room.getDailyPrice()) && Objects.equals(getBookings(), room.getBookings());
+        return Objects.equals(getRoomNumber(), room.getRoomNumber()) && Objects.equals(getQuality(), room.getQuality()) && getTheme() == room.getTheme() && Objects.equals(isSmoking(), room.isSmoking()) && getBedType() == room.getBedType() && Objects.equals(getNumBeds(), room.getNumBeds()) && Objects.equals(getDailyPrice(), room.getDailyPrice()) && Objects.equals(getBookings(), room.getBookings());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getRoomNumber(), getQuality(), getTheme(), getSmoking(), getBedType(), getNumBeds(), getDailyPrice(), getBookings());
+        return Objects.hash(getRoomNumber(), getQuality(), getTheme(), isSmoking(), getBedType(), getNumBeds(), getDailyPrice(), getBookings());
     }
 
     @Override
