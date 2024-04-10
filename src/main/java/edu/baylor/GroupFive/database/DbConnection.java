@@ -28,21 +28,19 @@ public class DbConnection {
 
     private DbConnection() {}
 
+     /**
+      * [1]: DriverManager.getConnection should not be returning null.
+      *      If it returns null, there is something wrong with how we
+      *      are trying to establish the connection (i hope)
+      * [2]: Normal behavior for DriverManager.getConnection failure
+      *      is to throw a SQLException
+      * */
     public static Connection getConnection() throws BadConnectionException {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(dbhost, "", "");
-             /**
-              * DriverManager.getConnection should not be returning null [1].
-              * If it returns null, there is something wrong with how we
-              * are trying to establish the connection (i hope)
-              * */
-            assert(connection != null);
-        } catch (SQLException e) {
-             /**
-              * Normal behavior for DriverManager.getConnection failure
-              * is to throw a SQLException [2]
-              * */
+            assert(connection != null);             // [1]
+        } catch (SQLException e) {                  // [2]
             logger.info("Could not establish database connection");
             throw new BadConnectionException();
         }
