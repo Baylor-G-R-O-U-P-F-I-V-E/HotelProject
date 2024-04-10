@@ -51,7 +51,7 @@ public class DbSetup {
             String sqlCreateReservation =
                     "CREATE TABLE RESERVATIONs(" +
                             "startDate DATE," +
-                            "endDate Date," +
+                            "endDate DATE," +
                             "price DECIMAL(5,2)," +
                             "guestusername VARCHAR(30)," + 
                             "roomNumber INTEGER," +
