@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -58,7 +58,6 @@ public class ReservationServices implements ReservationDao {
         }
 
         // Close resources
-        // TODO statement and connection should never be null, right?
         statement.close();
         connection.close();
 
@@ -262,9 +261,10 @@ public class ReservationServices implements ReservationDao {
         return null;
     }
 
-    // TODO should roomNumber be changed from String to Integer??
-    public Boolean checkIfAvailable(String roomNumber, Date startDate, Date endDate) throws SQLException {
+    // TODO need to test this
+    public Boolean checkIfAvailable(Reservation reservation) throws SQLException {
         //'20150131'
+        // Establish database connection
         Connection connection;
         try {
             connection =  DbConnection.getConnection();
@@ -273,65 +273,84 @@ public class ReservationServices implements ReservationDao {
             return null;
         }
 
-        ArrayList<ArrayList<Date>> mem;
-        ResultSet rs = null;
-        java.sql.Statement statement = null;
-        String sqlQuery = "SELECT * FROM reservations WHERE roomNumber=" + roomNumber;
-        try {
-            statement = connection.createStatement();
-            rs = statement.executeQuery(sqlQuery);
-            mem = new ArrayList<>();
-            while(rs.next()){
-                ArrayList<Date> temp = new ArrayList<>();
-                temp.add(rs.getDate("startDate"));
-                temp.add(rs.getDate("endDate"));
-                mem.add(temp);
-            }
+        // Build query
+        String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = ? AND startDate = ?";
+        PreparedStatement statement = connection.prepareStatement(sqlQuery);
+        statement.setInt(1, reservation.getRoomNumber());
+        statement.setDate(2, CoreUtils.getSqlDate(reservation.getStartDate()));
 
-        } catch (SQLException e) {
-            logger.info("RDC check if available failed");
-            logger.info(e.getMessage());
-            return null;
-        }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
+        // Execute query
+        ResultSet rs = statement.executeQuery();
 
-        for(ArrayList<Date> r : mem){
-            logger.info(r.get(0) + " " + r.get(1) + " : " + startDate + " " + endDate);
-
-            if((startDate.after(r.get(0)) || startDate.equals(r.get(0))) && startDate.before(r.get(1))){
-                logger.info("3");
-                return false;
-            }
-            if(endDate.after(r.get(0)) && (endDate.equals(r.get(1)) || endDate.before(r.get(1)))){
-                logger.info("2");
-                return false;
-            }
-
-            if((startDate.before(r.get(0)) || startDate.equals(r.get(0))) &&
-                (endDate.equals(r.get(1)) || endDate.after(r.get(1)))){
-                logger.info("1");
+        // Check violations
+        while (rs.next()) {
+            Date endDate = rs.getDate("endDate");
+            if (endDate.compareTo(reservation.getEndDate()) != 0) {
                 return false;
             }
         }
+
+        // Close connections
+        statement.close();
+        connection.close();
+
         return true;
+
+        // ArrayList<ArrayList<Date>> mem;
+        // try {
+        //     statement = connection.createStatement();
+        //     rs = statement.executeQuery(sqlQuery);
+        //     mem = new ArrayList<>();
+        //     while(rs.next()){
+        //         ArrayList<Date> temp = new ArrayList<>();
+        //         temp.add(rs.getDate("startDate"));
+        //         temp.add(rs.getDate("endDate"));
+        //         mem.add(temp);
+        //     }
+
+        // } catch (SQLException e) {
+        //     logger.info("RDC check if available failed");
+        //     logger.info(e.getMessage());
+        //     return null;
+        // }finally {
+        //     if (statement != null) {
+        //         try {
+        //             statement.close();
+        //         } catch (SQLException e) {
+        //             throw new RuntimeException(e);
+        //         }
+        //     }
+        //     if (connection != null) {
+        //         try {
+        //             connection.close();
+        //         } catch (SQLException e) {
+        //             throw new RuntimeException(e);
+        //         }
+        //     }
+        // }
+
+        // for(ArrayList<Date> r : mem){
+        //     logger.info(r.get(0) + " " + r.get(1) + " : " + startDate + " " + endDate);
+
+        //     if((startDate.after(r.get(0)) || startDate.equals(r.get(0))) && startDate.before(r.get(1))){
+        //         logger.info("3");
+        //         return false;
+        //     }
+        //     if(endDate.after(r.get(0)) && (endDate.equals(r.get(1)) || endDate.before(r.get(1)))){
+        //         logger.info("2");
+        //         return false;
+        //     }
+
+        //     if((startDate.before(r.get(0)) || startDate.equals(r.get(0))) &&
+        //         (endDate.equals(r.get(1)) || endDate.after(r.get(1)))){
+        //         logger.info("1");
+        //         return false;
+        //     }
+        // }
     }
 
     private static String formatDate(Date myDate) {
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat dateFormat = new SimpleDateFormat(CoreUtils.DATE_FORMAT); // before: "MM/dd/yyyy"
         return dateFormat.format(myDate.getTime());
     }
 

@@ -32,6 +32,9 @@ public interface Dao<T> {
 
     public Integer update(T t) throws SQLException;
 
+     /**
+      * We should not actually be deleting anything from the database except for drastic reasons
+      * */
     public Integer delete(T t) throws SQLException;
 
 }
