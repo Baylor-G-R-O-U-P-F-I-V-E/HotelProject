@@ -27,6 +27,12 @@ public class ReservationServices implements ReservationDao {
 
     public ReservationServices(){}
 
+     /**
+      * get
+      *
+      * Singular find. Searches for a reservation based on their database id.
+      * Throws SQLException if an error occurs communicating with the database.
+      * */
     public Reservation get(int id) throws SQLException {
         Reservation out = null; // Result of our query
 
@@ -208,16 +214,9 @@ public class ReservationServices implements ReservationDao {
         return result;
     }
 
-    //works well enough
-     /**
-      * TODO
-      * changed from receiving roomnumber and startdate to receiving a Reservation
-      * check where this fucks up calls
-      *
-      * Note: Was there a certain reason why we were taking in a room number and
-      * start date instead of a reservation object?
-      * */
-    public Reservation getInfo(Integer roomNumber, Date startDate) throws SQLException {
+    public Boolean checkIfAvailable(int roomNumber, Date startDate, Date endDate) throws SQLException {
+        //'20150131'
+        // Establish database connection
         Connection connection;
         try {
             connection =  DbConnection.getConnection();
@@ -226,48 +225,27 @@ public class ReservationServices implements ReservationDao {
             return null;
         }
 
-        ResultSet rs;
-        ResultSet id;
-        java.sql.Statement statement= null;
+        // Build query
+        String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = ? AND startDate = ?";
+        PreparedStatement statement = connection.prepareStatement(sqlQuery);
+        statement.setInt(1, roomNumber);
+        statement.setDate(2, CoreUtils.getSqlDate(startDate));
 
-        String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = " + roomNumber + " AND startDate = '" + formatDate(startDate) + "'";
-        try {
-            statement = connection.createStatement();
+        // Execute query
+        ResultSet rs = statement.executeQuery();
 
-            rs = statement.executeQuery(sqlQuery);
-            while(rs.next()){
-                Reservation out = new Reservation(
-                        rs.getInt("id"),
-                        rs.getDate("startDate"),
-                        rs.getDate("endDate"),
-                        rs.getString("guestUsername"),
-                        rs.getString("roomNumber"),
-                        rs.getDouble("price"));
-
-                return out;
-            }
-
-        } catch (SQLException e) {
-            logger.info(e.getMessage());
-            return null;
-        }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+        // Check violations
+        while (rs.next()) {
+            if (rs.getBoolean("active") == true && !isOverlap(startDate, endDate, rs.getDate("startDate"), rs.getDate("endDate"))) {
+                return false;
             }
         }
 
-        return null;
+        // Close connections
+        statement.close();
+        connection.close();
+
+        return true;
     }
 
     // TODO need to test this
@@ -293,8 +271,11 @@ public class ReservationServices implements ReservationDao {
 
         // Check violations
         while (rs.next()) {
-            Date endDate = rs.getDate("endDate");
-            if (endDate.compareTo(reservation.getEndDate()) != 0) {
+            // Date endDate = rs.getDate("endDate");
+            // if (endDate.compareTo(reservation.getEndDate()) != 0 || rs.getBoolean("active") == true) {
+                // return false;
+            // }
+            if (rs.getBoolean("active") == true && !isOverlap(reservation.getStartDate(), reservation.getEndDate(), rs.getDate("startDate"), rs.getDate("endDate"))) {
                 return false;
             }
         }
@@ -361,6 +342,20 @@ public class ReservationServices implements ReservationDao {
     private static String formatDate(Date myDate) {
         DateFormat dateFormat = new SimpleDateFormat(CoreUtils.DATE_FORMAT); // before: "MM/dd/yyyy"
         return dateFormat.format(myDate.getTime());
+    }
+
+    private static boolean isOverlap(Date start1, Date end1, Date start2, Date end2) {
+        return !start1.after(end2) && !end1.before(start2);
+    }
+
+    // TODO stolen from Cole... what does this do?
+    private boolean isRoomBookedOn(int roomNumber, Date startDate, Date endDate) throws SQLException {
+        List<Reservation> reservations = getAll();
+        List<Reservation> roomReservations = reservations.stream()
+            .filter(rsv -> rsv.getRoomNumber() == roomNumber)
+            .toList();
+        return roomReservations.stream().anyMatch(rsv ->
+            isOverlap(startDate, endDate, rsv.getStartDate(), rsv.getEndDate()));
     }
 
 }
