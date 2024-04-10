@@ -12,6 +12,19 @@ public class User {
     private String passwordHash;
     private Privilege privilege;
 
+     /**
+      * @deprecated please specify an id. use {@link #User(int, String, String, String, String, String)}
+      * */
+    @Deprecated
+    public User(String firstName, String lastName, String userName, String passwordHash, String privilege){
+        this.id = -1;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.passwordHash = passwordHash;
+        this.privilege = Privilege.fromString(privilege);
+    }
+
     public User(int id, String firstName, String lastName, String userName, String passwordHash, String privilege){
         this.id = id;
         this.firstName = firstName;
