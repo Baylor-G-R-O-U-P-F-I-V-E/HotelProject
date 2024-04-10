@@ -81,15 +81,15 @@ public class dbSetup {
                     "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (107,1, 'NatureRetreat',false,'DOUBLE',2,94.22)" ,
                     "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (108,1, 'NatureRetreat',false,'QUEEN',2,92.22)" ,
                     "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (109,1, 'VintageCharm',true,'KING',2,98.22)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('12/17/2024','12/19/2024',97.99,'Axel112',102, true, false, 1)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/12/2024','07/22/2024',95.99,'LarryTheLobster',103, true, false, 2)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/20/2024','07/23/2024',96.99,'BigA',101, true, false, 3)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/20/2024','07/23/2024',97.99,'Jman',104, false, false, 4)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/11/2024','07/13/2024',88.99,'T-Lee',105, true, false, 5)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/09/2024','07/12/2024',97.99,'andyEv',101, true, false, 6)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/10/2024','07/17/2024',88.99,'KevDog',102, true, false, 7)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/22/2024','07/25/2024',97.99,'Bongo',103, false, false, 8)" ,
-                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/14/2024','07/19/2024',97.99,'Ant',104, false, false, 9)");
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('12/17/2024','12/19/2024',97.99,'Axel112',102, 1, 0, 1)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/12/2024','07/22/2024',95.99,'LarryTheLobster',103, 1, 0, 2)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/20/2024','07/23/2024',96.99,'BigA',101, 1, 0, 3)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/20/2024','07/23/2024',97.99,'Jman',104, 0, 0, 4)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/11/2024','07/13/2024',88.99,'T-Lee',105, 1, 0, 5)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/09/2024','07/12/2024',97.99,'andyEv',101, 1, 0, 6)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/10/2024','07/17/2024',88.99,'KevDog',102, 1, 0, 7)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/22/2024','07/25/2024',97.99,'Bongo',103, 0, 0, 8)" ,
+                    "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id) VALUES ('07/14/2024','07/19/2024',97.99,'Ant',104, 0, 0, 9)");
 
 
             //mm/dd/yyyy
