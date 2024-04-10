@@ -132,6 +132,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
                     return;
                 }
 
+                // FIXME cancelReservation now takes in a Reservation object
                 ReservationController.cancelReservation(Integer.parseInt(roomID), parsedDate);
                 ((DefaultTableModel)table.getModel()).removeRow(row);
             } else {
