@@ -21,7 +21,23 @@ import java.util.List;
 public class ReservationController {
     private static final Logger logger = LogManager.getLogger(ReservationController.class.getName());
     private static final Marker RESERVATIONS = MarkerManager.getMarker("RESERVATIONS");
-    public static boolean bookRoom(User account, Date startDate, Date endDate, Room room) {
+
+    // get
+    // getAll
+    // save
+    // insert
+    // update
+    // delete (cancel)
+
+     /**
+      * bookRoom
+      *
+      * pre-conditions
+      * */
+    public static Boolean bookRoom(User account, Date startDate, Date endDate, Room room) {
+        ReservationServices rs = new ReservationServices();
+        Reservation reservation = new Reservation(-1, startDate, endDate, account.getUsername(), room.getRoomNumber(), room.getDailyPrice());
+
         logger.info(RESERVATIONS, "Attempting to book room #"+room.getRoomNumber()+" for user "+account.getUsername()+"...");
         String guestID = account.getUsername();
         Boolean added = ReservationServices.addReservation(startDate, endDate, String.valueOf(room.getRoomNumber()), guestID);
@@ -33,7 +49,7 @@ public class ReservationController {
         return true;
     }
 
-    public static Boolean modifyReservation(Reservation newInfo, String originalRoom, Date oldStart){
+    public static Boolean modifyReservation(Reservation newInfo, String originalRoom, Date oldStart) {
         ReservationServices rs = new ReservationServices();
         try {
             int result = rs.update(newInfo);
@@ -89,6 +105,7 @@ public class ReservationController {
     private static boolean isOverlap(Date start1, Date end1, Date start2, Date end2) {
         return !start1.after(end2) && !end1.before(start2);
     }
+
     public static boolean isRoomBookedOn(int roomNumber, Date startDate, Date endDate){
         List<Reservation> reservations = getAllReservations();
         List<Reservation> roomReservations = reservations.stream()
