@@ -15,15 +15,16 @@ public class ProductDescription {
         productType = productType_;
     }
 
+    // >>>> Getters >>>>
     public double getPrice() { return price; }
-
-    public void setPrice(double price) { this.price = price; }
-
     public String getProductName() { return productName; }
-
-    public void setProductName(String productName) { this.productName = productName; }
-
     public String getProductType() { return productType; }
+    // <<<< Getters <<<<
 
+    // >>>> Setters >>>>
+    public void setPrice(double price) { this.price = price; }
+    public void setProductName(String productName) { this.productName = productName; }
     public void setProductType(String productType) { this.productType = productType; }
+    // <<<< Setters <<<<
+
 }

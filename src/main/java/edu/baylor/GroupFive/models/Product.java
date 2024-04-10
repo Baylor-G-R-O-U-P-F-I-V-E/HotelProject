@@ -15,14 +15,16 @@ public class Product {
         description = description_;
     }
 
+    // >>>> Getters >>>>
     public int getProductID() { return productID; }
-
-    public void setProductID(int productID) { this.productID = productID; }
-
     public ProductDescription getDescription() { return description; }
-
-    public void setDescription(ProductDescription description) { this.description = description; }
-
     public Inventory getInventory(){return this.inventory;}
+    // <<<< Getters <<<<
+
+    // >>>> Setters >>>>
+    public void setProductID(int productID) { this.productID = productID; }
+    public void setDescription(ProductDescription description) { this.description = description; }
     public void setInventory(Inventory val) {this.inventory = val;}
+    // <<<< Setters <<<<
+
 }

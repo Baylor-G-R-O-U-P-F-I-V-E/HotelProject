@@ -39,88 +39,27 @@ public class Room {
         this.dailyPrice = dailyPrice;
     }
 
-    //    public boolean isAvailableOn(Date date){
-//        return this.bookings.stream().findAny();
-//    }
-    public BedType getBedType() {
-        return bedType;
-    }
+    // >>>> Getters >>>>
+    public BedType getBedType() { return bedType; }
+    public Integer getNumBeds() { return numBeds; }
+    public Integer getRoomNumber() { return roomNumber; }
+    public int getQuality() { return quality; }
+    public Theme getTheme() { return theme; }
+    public Boolean isSmoking() { return smoking; }
+    public Double getDailyPrice() { return dailyPrice; }
+    public List<Booking> getBookings() { return bookings; }
+    // <<<< Getters <<<<
 
-    public void setBedType(BedType bedType) {
-        this.bedType = bedType;
-    }
-
-    public Integer getNumBeds() {
-        return numBeds;
-    }
-
-    public void setNumBeds(int numBeds) {
-        this.numBeds = numBeds;
-    }
-    public Integer getRoomNumber() {
-        return roomNumber;
-    }
-
-    public void setRoomNumber(int roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-
-    /*
-    public QualityDescription getQuality() {
-        return quality;
-    }
-
-    public void setQuality(QualityDescription quality) {
-        this.quality = quality;
-    }
-    */
-
-    public int getQuality() {
-        return quality;
-    }
-
-    public void setQuality(int quality) {
-        this.quality = quality;
-    }
-
-    public Theme getTheme() {
-        return theme;
-    }
-
-    public void setTheme(Theme theme) {
-        this.theme = theme;
-    }
-
-    public Boolean isSmoking() {
-        return smoking;
-    }
-
-    public void setSmoking(boolean smoking) {
-        this.smoking = smoking;
-    }
-
-    public Double getDailyPrice() {
-        return dailyPrice;
-    }
-
-    public void setDailyPrice(double dailyPrice) {
-        this.dailyPrice = dailyPrice;
-    }
-
-    public void setSmoking(Boolean canSmoke){
-        smoking = canSmoke;
-    }
-
-    public Boolean getSmoking(){
-        return smoking;
-    }
-    public List<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<Booking> reservations) {
-        this.bookings = reservations;
-    }
+    // >>>> Setters >>>>
+    public void setBedType(BedType bedType) { this.bedType = bedType; }
+    public void setNumBeds(int numBeds) { this.numBeds = numBeds; }
+    public void setRoomNumber(int roomNumber) { this.roomNumber = roomNumber; }
+    public void setQuality(int quality) { this.quality = quality; }
+    public void setTheme(Theme theme) { this.theme = theme; }
+    public void setSmoking(boolean smoking) { this.smoking = smoking; }
+    public void setDailyPrice(double dailyPrice) { this.dailyPrice = dailyPrice; }
+    public void setBookings(List<Booking> reservations) { this.bookings = reservations; }
+    // <<<< Setters <<<<
 
     @Override
     public boolean equals(Object o) {
@@ -145,4 +84,5 @@ public class Room {
                 "\nNumber of Beds: " + numBeds +
                 "\nDaily Price: " + dailyPrice;
     }
+
 }

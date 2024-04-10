@@ -12,43 +12,25 @@ public class BillingInfo {
             String name_,
             int creditCardNumber_,
             Date expDate_,
-            int securityCode_
-            ) {
+            int securityCode_) {
         name = name_;
         creditCardNumber = creditCardNumber_;
         expDate = expDate_;
         securityCode = securityCode_;
     }
 
-    public String getName() {
-        return name;
-    }
+    // >>>> Getters >>>>
+    public String getName() { return name; }
+    public int getCreditCardNumber() { return creditCardNumber; }
+    public Date getExpDate() { return expDate; }
+    public int getSecurityCode() { return securityCode; }
+    // <<<< Getters <<<<
 
-    public void setName(String name_) {
-        name = name_;
-    }
+    // >>>> Setters >>>>
+    public void setName(String name_) { name = name_; }
+    public void setCreditCardNumber(int creditCardNumber) { this.creditCardNumber = creditCardNumber; }
+    public void setExpDate(Date expDate) { this.expDate = expDate; }
+    public void setSecurityCode(int securityCode) { this.securityCode = securityCode; }
+    // <<<< Setters <<<<
 
-    public int getCreditCardNumber() {
-        return creditCardNumber;
-    }
-
-    public void setCreditCardNumber(int creditCardNumber) {
-        this.creditCardNumber = creditCardNumber;
-    }
-
-    public Date getExpDate() {
-        return expDate;
-    }
-
-    public void setExpDate(Date expDate) {
-        this.expDate = expDate;
-    }
-
-    public int getSecurityCode() {
-        return securityCode;
-    }
-
-    public void setSecurityCode(int securityCode) {
-        this.securityCode = securityCode;
-    }
 }

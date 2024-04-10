@@ -18,12 +18,10 @@ public class StayBill {
         booking = null;
     }
 
-    public StayBill(
-            List<Payment> payments_,
-            List<Purchase> purchases_,
-            Room room_,
-            Booking booking_
-            ) {
+    public StayBill(List<Payment> payments_,
+                    List<Purchase> purchases_,
+                    Room room_,
+                    Booking booking_) {
         room = room_;
         booking = booking_;
         // purchases = new ArrayList<>();

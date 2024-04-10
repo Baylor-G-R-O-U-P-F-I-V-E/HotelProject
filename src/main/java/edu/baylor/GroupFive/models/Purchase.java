@@ -10,13 +10,11 @@ public class Purchase {
     private StayBill bill;
     private long id;
 
-    public Purchase(
-            Date date_,
-            float amount_,
-            List<Item> items_,
-            StayBill bill_,
-            long id_
-            ){
+    public Purchase(Date date_,
+                    float amount_,
+                    List<Item> items_,
+                    StayBill bill_,
+                    long id_) {
         this.date = date_;
         this.amount = amount_;
         this.items = items_;
@@ -24,45 +22,20 @@ public class Purchase {
         this.id = id_;
     }
 
+    // >>>> Getters >>>>
+    public long getId() { return id; }
+    public Date getDate() { return date; }
+    public float getAmount() { return amount; }
+    public List<Item> getItems() { return items; }
+    public StayBill getBill() { return bill; }
+    // <<<< Getters <<<<
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(float amount) {
-        this.amount = amount;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
-    public StayBill getBill() {
-        return bill;
-    }
-
-    public void setBill(StayBill bill_) {
-        bill = bill_;
-    }
+    // >>>> Setters >>>>
+    public void setId(long id) { this.id = id; }
+    public void setDate(Date date) { this.date = date; }
+    public void setAmount(float amount) { this.amount = amount; }
+    public void setItems(List<Item> items) { this.items = items; }
+    public void setBill(StayBill bill_) { bill = bill_; }
+    // <<<< Setters <<<<
 
 }
