@@ -13,5 +13,14 @@ public class CoreUtils {
     public static java.sql.Date getSqlDate(java.util.Date date) {
         return new java.sql.Date(date.getTime());
     }
-    
+
+    public static String stackTraceToString(Throwable ex) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n" + ex.getMessage() + "\n");
+        for(StackTraceElement element : ex.getStackTrace()) {
+            builder.append("    " + element.toString() + "\n");
+        }
+        return builder.toString();
+    }
+
 }

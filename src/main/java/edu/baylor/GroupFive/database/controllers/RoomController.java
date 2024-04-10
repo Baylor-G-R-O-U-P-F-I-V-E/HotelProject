@@ -7,6 +7,10 @@ import java.util.Date;
 import java.util.List;
 
 public class RoomController {
+    public static List<Room> getAllRooms() {
+        return RoomServices.getRooms();
+    }
+
     public static Room getRoomInfo(Integer roomNumber){
         //WILL RETURN NULL IF NO ROOM EXISTS (I think) -Cole
         return RoomServices.getRoom(roomNumber);

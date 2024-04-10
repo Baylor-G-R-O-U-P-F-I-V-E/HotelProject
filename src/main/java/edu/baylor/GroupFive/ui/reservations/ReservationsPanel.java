@@ -10,6 +10,7 @@ import javax.swing.table.*;
 import edu.baylor.GroupFive.database.controllers.ReservationController;
 import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.models.Room;
+import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
@@ -86,7 +87,9 @@ public class ReservationsPanel extends JPanel implements PagePanel {
                 Integer roomColumnIndex = table.getColumnModel().getColumnIndex("Room ID");
                 String roomID = (String) table.getValueAt(row, roomColumnIndex);
                 Integer startDateColumnIndex = table.getColumnModel().getColumnIndex("Start Date");
+                Integer endDateColumnIndex = table.getColumnModel().getColumnIndex("End Date");
                 String startDate = (String) table.getValueAt(row, startDateColumnIndex);
+                String endDate = (String) table.getValueAt(row, endDateColumnIndex);
 
                 page.addInfo(roomID);
                 page.addInfo(startDate);
@@ -116,24 +119,29 @@ public class ReservationsPanel extends JPanel implements PagePanel {
                 Integer roomColumnIndex = table.getColumnModel().getColumnIndex("Room ID");
                 String roomID = (String) table.getValueAt(row, roomColumnIndex);
                 Integer startDateColumnIndex = table.getColumnModel().getColumnIndex("Start Date");
+                Integer endDateColumnIndex = table.getColumnModel().getColumnIndex("End Date");
                 String startDate = (String) table.getValueAt(row, startDateColumnIndex);
+                String endDate = (String) table.getValueAt(row, endDateColumnIndex);
 
                 // Parse the startDate from a string to a Date object
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                Date parsedDate = null;
+                Date parsedStartDate = null;
+                Date parsedEndDate = null;
                 try {
-                    parsedDate = dateFormat.parse(startDate);
+                    parsedStartDate = dateFormat.parse(startDate);
+                    parsedEndDate = dateFormat.parse(startDate);
                 } catch (ParseException ex) {
                     ex.printStackTrace();
                 }
 
-                if (parsedDate == null) {
+                if (parsedStartDate == null || parsedEndDate == null) {
                     JOptionPane.showMessageDialog(null, "Error parsing date.");
                     return;
                 }
 
                 // FIXME cancelReservation now takes in a Reservation object
-                ReservationController.cancelReservation(Integer.parseInt(roomID), parsedDate);
+                // ReservationController.cancelReservation(Integer.parseInt(roomID), parsedStartDate);
+                ReservationController.cancelReservation(new Reservation(-1, parsedStartDate, parsedEndDate, "BigErnesto", 110, 420.69));
                 ((DefaultTableModel)table.getModel()).removeRow(row);
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a reservation to delete.");

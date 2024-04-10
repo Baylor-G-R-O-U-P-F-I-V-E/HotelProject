@@ -117,7 +117,7 @@ public class ModifyReservationActionListener implements ActionListener {
         }
 
         // Get the reservation
-        Reservation reservation = ReservationController.getInfo(Integer.parseInt(originalRoom), originalStart);
+        Reservation reservation = ReservationController.getReservation(Integer.parseInt(originalRoom), originalStart);
 
         // Update the reservation
         reservation.setRoomID(room);
@@ -126,7 +126,8 @@ public class ModifyReservationActionListener implements ActionListener {
         reservation.setEndDate(end);
 
         // Update the reservation in the database
-        boolean result = ReservationController.modifyReservation(reservation, originalRoom, originalStart);
+        // boolean result = ReservationController.modifyReservation(reservation, originalRoom, originalStart);
+        boolean result = ReservationController.modifyReservation(reservation); // changed here
 
         // If the update failed, show an error message
         if (!result) {

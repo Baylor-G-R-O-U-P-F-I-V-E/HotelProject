@@ -72,6 +72,46 @@ public class ReservationServices implements ReservationDao {
         return out;
     }
 
+    public Reservation get(int roomNumber, Date startDate) throws SQLException {
+        Reservation out = null; // Result of our query
+
+        // Establish database connection
+        Connection connection = null;
+        try {
+            connection =  DbConnection.getConnection();
+        } catch (BadConnectionException ex) {
+            logger.info("DbConnection failed");
+            return null;
+        }
+
+        // Build query
+        String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = ? AND startDate = ?";
+        PreparedStatement statement = connection.prepareStatement(sqlQuery); // [1]
+        statement.setInt(1, roomNumber);
+        statement.setDate(2, CoreUtils.getSqlDate(startDate));
+
+        // Execute query
+        ResultSet rs = statement.executeQuery();
+        if (rs.next()) {
+            out = new Reservation(
+                    rs.getInt("id"),
+                    rs.getDate("startDate"),
+                    rs.getDate("endDate"),
+                    rs.getString("guestUsername"),
+                    rs.getInt("roomNumber"),
+                    rs.getDouble("price"),
+                    rs.getBoolean("active"),
+                    rs.getBoolean("checkedIn")
+                    );
+        }
+
+        // Close resources
+        statement.close();
+        connection.close();
+
+        return out;
+    }
+
     public List<Reservation> getAll() throws SQLException {
         List<Reservation> out = null; // Result of our query
 
