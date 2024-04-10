@@ -11,6 +11,8 @@ import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,6 +47,38 @@ public class DbConnection {
             throw new BadConnectionException();
         }
         return connection;
+    }
+
+    public static void closeStatement(PreparedStatement statement){
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                logger.info("Error closing statement");
+            }
+        }
+
+    }
+
+    public static void closeStatement(Statement statement){
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                logger.info("Error closing statement");
+            }
+        }
+
+    }
+
+    public static void closeConnection(Connection connection){
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                logger.info("Error closing connection");
+            }
+        }
     }
 }
 

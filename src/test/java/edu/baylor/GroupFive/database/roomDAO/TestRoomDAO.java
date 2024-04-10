@@ -1,5 +1,6 @@
 package edu.baylor.GroupFive.database.roomDAO;
 import edu.baylor.GroupFive.database.DbSetup;
+import edu.baylor.GroupFive.database.daos.RoomDAO;
 
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.enums.Theme;
@@ -9,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class TestRoomDatabaseConnection {
+public class TestRoomDAO {
 
     @BeforeEach
     void init(){
@@ -21,7 +22,7 @@ public class TestRoomDatabaseConnection {
     void addARoom(){
         DbSetup db = new DbSetup();
         Room newRoom = new Room(995, 1, Theme.UrbanElegance, true, 5, BedType.KING, 12.34);
-        RoomDatabaseConnection conn = new RoomDatabaseConnection();
+        RoomDAO conn = new RoomDAO();
         Boolean added = conn.addRoom(newRoom);
         assert(added.equals(true));
 
@@ -31,7 +32,7 @@ public class TestRoomDatabaseConnection {
     void addAndGetRoom(){
         DbSetup db = new DbSetup();
         Room newRoom = new Room(995, 1, Theme.NatureRetreat, true, 5, BedType.KING, 12.34);
-        RoomDatabaseConnection conn = new RoomDatabaseConnection();
+        RoomDAO conn = new RoomDAO();
         Boolean added = conn.addRoom(newRoom);
         Room pulledRoom = conn.getRoom(995);
         System.out.println(pulledRoom.getDailyPrice());
@@ -41,7 +42,7 @@ public class TestRoomDatabaseConnection {
     @Test
     void getSetupRoom(){
         DbSetup db = new DbSetup();
-        RoomDatabaseConnection conn = new RoomDatabaseConnection();
+        RoomDAO conn = new RoomDAO();
         Room pulledRoom = conn.getRoom(109);
         assert(pulledRoom != null);
     }
@@ -49,7 +50,7 @@ public class TestRoomDatabaseConnection {
     @Test
     void getNonexistingRoom(){
         DbSetup db = new DbSetup();
-        RoomDatabaseConnection conn = new RoomDatabaseConnection();
+        RoomDAO conn = new RoomDAO();
         Room pulledRoom = conn.getRoom(1709);
         assert(pulledRoom == null);
     }
@@ -59,7 +60,7 @@ public class TestRoomDatabaseConnection {
     void modifyRoom(){
         DbSetup db = new DbSetup();
         Room myRoom = new Room(99,3, Theme.VintageCharm,true, 11, BedType.KING, 90D);
-        RoomDatabaseConnection conn = new RoomDatabaseConnection();
+        RoomDAO conn = new RoomDAO();
 
         Boolean added = conn.addRoom(myRoom);
         if(!added){
