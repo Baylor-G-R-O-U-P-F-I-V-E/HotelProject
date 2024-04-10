@@ -240,9 +240,11 @@ public class ReservationServices implements ReservationDao {
         }
 
         // Build query
-        String sqlDelete = "DELETE FROM reservations WHERE id = ?";
+        // String sqlDelete = "DELETE FROM reservations WHERE id = ?";
+        String sqlDelete = "UPDATE Reservations set active = ? WHERE id = ?";
         PreparedStatement statement = connection.prepareStatement(sqlDelete);
-        statement.setInt(1, reservation.getDbId());
+        statement.setBoolean(1, false);
+        statement.setInt(2, reservation.getDbId());
 
         // Execute query
         int result = statement.executeUpdate();
