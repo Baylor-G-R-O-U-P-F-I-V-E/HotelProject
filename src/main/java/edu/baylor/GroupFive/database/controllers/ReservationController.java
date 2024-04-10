@@ -57,7 +57,7 @@ public class ReservationController {
 
     public static boolean saveReservation(Reservation reservation) {
         ReservationServices rs = new ReservationServices();
-        logger.info("Attempting to save reservation with id " + reservation.getId());
+        logger.info("Attempting to save reservation with id " + reservation.getDbId());
 
         try {
             int result = rs.save(reservation);
@@ -67,7 +67,7 @@ public class ReservationController {
             }
             return true;
         } catch (SQLException ex) {
-            logger.log(Level.WARN, "SQLException saving reservation with id " + reservation.getId());
+            logger.log(Level.WARN, "SQLException saving reservation with id " + reservation.getDbId());
         }
 
         return false;
@@ -75,7 +75,7 @@ public class ReservationController {
 
     public static boolean createReservation(Reservation reservation) {
         ReservationServices rs = new ReservationServices();
-        logger.info("Attempting to create reservation with id " + reservation.getId());
+        logger.info("Attempting to create reservation with id " + reservation.getDbId());
 
         try {
             int result = rs.insert(reservation);
@@ -85,7 +85,7 @@ public class ReservationController {
             }
             return true;
         } catch (SQLException ex) {
-            logger.log(Level.WARN, "SQLException creating reservation with id " + reservation.getId());
+            logger.log(Level.WARN, "SQLException creating reservation with id " + reservation.getDbId());
         }
 
         return false;
@@ -93,7 +93,7 @@ public class ReservationController {
 
     public static boolean modifyReservation(Reservation reservation) {
         ReservationServices rs = new ReservationServices();
-        logger.info("Attempting to modify reservation with id " + reservation.getId());
+        logger.info("Attempting to modify reservation with id " + reservation.getDbId());
 
         try {
             int result = rs.insert(reservation);
@@ -103,7 +103,7 @@ public class ReservationController {
             }
             return true;
         } catch (SQLException ex) {
-            logger.log(Level.WARN, "SQLException modifying reservation with id " + reservation.getId());
+            logger.log(Level.WARN, "SQLException modifying reservation with id " + reservation.getDbId());
         }
 
         return false;
@@ -111,7 +111,7 @@ public class ReservationController {
 
     public static boolean cancelReservation(Reservation reservation) {
         ReservationServices rs = new ReservationServices();
-        logger.info("Attempting to cancel reservation with id " + reservation.getId());
+        logger.info("Attempting to cancel reservation with id " + reservation.getDbId());
 
         try {
             int result = rs.insert(reservation);
@@ -121,7 +121,7 @@ public class ReservationController {
             }
             return true;
         } catch (SQLException ex) {
-            logger.log(Level.WARN, "SQLException cancelling reservation with id " + reservation.getId());
+            logger.log(Level.WARN, "SQLException cancelling reservation with id " + reservation.getDbId());
         }
 
         return false;
