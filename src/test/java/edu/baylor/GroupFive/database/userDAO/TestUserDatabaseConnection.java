@@ -1,6 +1,5 @@
 package edu.baylor.GroupFive.database.userDAO;
-import  edu.baylor.GroupFive.database.dbSetup;
-import edu.baylor.GroupFive.models.enums.Privilege;
+import edu.baylor.GroupFive.database.DbSetup;
 import edu.baylor.GroupFive.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestUserDatabaseConnection {
     @BeforeEach
     void init() {
-        dbSetup setup = new dbSetup();
+        DbSetup setup = new DbSetup();
     }
 
 
     @Test
     void addAUser() {
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         UserDatabaseConnection conn = new UserDatabaseConnection();
         User newUser = new User("Cole", "Flenniken", "colef8", "cole123", "Admin");
 
@@ -25,7 +24,7 @@ public class TestUserDatabaseConnection {
 
     @Test
     void addThenGetUser(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         UserDatabaseConnection conn = new UserDatabaseConnection();
         User newUser = new User("Cole", "Flenniken", "colef8", "cole123", "Clerk");
         conn.addUser(newUser);
@@ -35,7 +34,7 @@ public class TestUserDatabaseConnection {
 
     @Test
     void findExistingUserFromSetup(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         UserDatabaseConnection conn = new UserDatabaseConnection();
         User cole = conn.getUser("Axel112");
         assert(cole != null);
@@ -43,7 +42,7 @@ public class TestUserDatabaseConnection {
 
     @Test
     void findNonExistingUser(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         UserDatabaseConnection conn = new UserDatabaseConnection();
         User cole = conn.getUser("Axel113");
         assert(null == cole);
@@ -52,7 +51,7 @@ public class TestUserDatabaseConnection {
 
     @Test
     void modifyUser(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         User newUser = new User("ColeS", "Flenniken", "colef888", "cole123", "Clerk");
         UserDatabaseConnection conn = new UserDatabaseConnection();
         Boolean added = conn.addUser(newUser);

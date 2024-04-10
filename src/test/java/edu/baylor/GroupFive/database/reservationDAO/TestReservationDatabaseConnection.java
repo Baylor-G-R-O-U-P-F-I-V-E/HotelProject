@@ -1,13 +1,9 @@
 package edu.baylor.GroupFive.database.reservationDAO;
-import edu.baylor.GroupFive.database.dbSetup;
+import edu.baylor.GroupFive.database.DbSetup;
 import edu.baylor.GroupFive.models.Reservation;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
 
-import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,14 +19,14 @@ public class TestReservationDatabaseConnection {
 
     @BeforeEach
     void init(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
 
     }
 
 
     @Test
     public void checkAvailable1(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
         String sdate = "01/01/2200";
@@ -53,7 +49,7 @@ public class TestReservationDatabaseConnection {
 
     @Test
     public void checkAvailable2(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
         String sdate = "15/12/2024";
@@ -74,7 +70,7 @@ public class TestReservationDatabaseConnection {
     }
     @Test
     public void selectExisting(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         Reservation myRes;
 
@@ -87,7 +83,7 @@ public class TestReservationDatabaseConnection {
 
     @Test
     public void selectNonExisting(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         Reservation myRes;
 
@@ -101,7 +97,7 @@ public class TestReservationDatabaseConnection {
 
     //@Test
     public void addReservation(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
 
         Date start = new Date("1/12/2009");
@@ -124,7 +120,7 @@ public class TestReservationDatabaseConnection {
 
     @Test
     public void cancelReservation(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
         Reservation r;
 
@@ -149,7 +145,7 @@ public class TestReservationDatabaseConnection {
     }
     @Test
     public void getAllReservations(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         ReservationDatabaseConnection conn = new ReservationDatabaseConnection();
 
         List<Reservation> r = conn.getReservations();

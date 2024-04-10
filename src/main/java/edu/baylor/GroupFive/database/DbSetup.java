@@ -10,10 +10,10 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.List;
 
-public class dbSetup {
-    private static final Logger logger = LogManager.getLogger(dbSetup.class.getName());
+public class DbSetup {
+    private static final Logger logger = LogManager.getLogger(DbSetup.class.getName());
 
-    public dbSetup(){
+    public DbSetup(){
         logger.info("Running");
         Connection connection;
         try {
