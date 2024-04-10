@@ -1,5 +1,7 @@
 package edu.baylor.GroupFive.database.controllers;
 
+import edu.baylor.GroupFive.models.User;
+import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.database.services.ReservationServices;
 import org.apache.logging.log4j.LogManager;
@@ -16,12 +18,46 @@ public class ReservationController {
     private static final Logger logger = LogManager.getLogger(ReservationController.class.getName());
     private static final Marker RESERVATIONS = MarkerManager.getMarker("RESERVATIONS");
 
-    // getAllReservations
-    // getReservation
-    // saveReservation
-    // createReservation
-    // modifyReservation
-    // cancelReservation
+     /**
+      * @deprecated use {@link #cancelReservation(Reservation)} instead
+      * */
+    // @Deprecated
+    // public static void cancelReservation(int x, Date y) {
+    //     return;
+    // }
+
+     /**
+      * @deprecated let me know if you actually needed this function
+      * */
+    // @Deprecated
+    // public static Reservation getInfo(int x, java.util.Date y) {
+    //     return null;
+    // }
+
+     /**
+      * @deprecated use {@link #modifyReservation(Reservation)}
+      * or {@link #saveReservation(Reservation)} instead
+      * */
+    // @Deprecated
+    // public static boolean modifyReservation(Reservation x, String y, Date z) {
+    //     return false;
+    // }
+
+     /**
+      * @deprecated use {@link #createReservation(Reservation)} instead
+      * */
+    // @Deprecated
+    // public static boolean bookRoom(User u, Date s, Date e, Room r) {
+    //     return false;
+    // }
+
+     /**
+      * @deprecated -- why are you asking the ReservationService about rooms?
+      * */
+    // @Deprecated
+    // public static List<Room> getAllRooms() {
+    //     return null;
+    // }
 
     private ReservationController() {}
 
@@ -139,6 +175,5 @@ public class ReservationController {
         return roomReservations.stream().anyMatch(rsv ->
             isOverlap(startDate, endDate, rsv.getStartDate(), rsv.getEndDate()));
     }
-
 
 }
