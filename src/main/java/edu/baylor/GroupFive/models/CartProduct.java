@@ -8,7 +8,11 @@ public class CartProduct {
         quantity = quantity_;
     }
 
+    // >>>> Getters >>>>
     public int getQuantity() { return quantity; }
+    // <<<< Getters <<<<
 
+    // >>>> Setters >>>>
     public void setQuantity(int quantity) { this.quantity = quantity; }
+    // <<<< Setters <<<<
 }

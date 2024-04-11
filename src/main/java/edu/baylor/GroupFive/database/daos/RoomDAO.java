@@ -85,7 +85,7 @@ public class RoomDAO extends BaseDAO{
         String sqlInsert = "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (" +
                 newRoom.getRoomNumber().toString() + "," + newRoom.getQuality() +
                 // newRoom.getRoomNumber().toString() + "," + newRoom.getQuality().toString() +
-                ",'" + newRoom.getTheme().toString() + "'," + newRoom.getSmoking().toString() + ",'" +
+                ",'" + newRoom.getTheme().toString() + "'," + newRoom.isSmoking().toString() + ",'" +
                 newRoom.getBedType().toString() + "'," +
                 newRoom.getNumBeds().toString()  + "," +
                 newRoom.getDailyPrice().toString() + ")";

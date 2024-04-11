@@ -6,17 +6,6 @@ import edu.baylor.GroupFive.database.services.LoginService;
 
 // Assume a User is logged in when calling these functions
 // i.e. Don't need to read pswd
- /**
-  * Was supposed to log in users into their account
-  *
-  * @deprecated use
-  *     {@link #CreateAccountActionListener()}
-  *     {@link #CreateAccountButton()}
-  *     {@link #LoginButton()}
-  *     {@link #LogoutButton()}
-  * instead.
-  * */
-@Deprecated
 public class AccountController {
 
     public static User login(String username, String password) {
