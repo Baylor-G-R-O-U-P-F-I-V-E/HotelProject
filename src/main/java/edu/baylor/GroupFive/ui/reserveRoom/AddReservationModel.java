@@ -27,7 +27,7 @@ public class AddReservationModel extends HotelModel implements DataModel {
 
      public void getData() throws RuntimeException {
         // Fetch room data from the database
-        List<Room> rooms = ReservationController.getAllRooms();
+        List<Room> rooms = RoomController.getAllRooms();
         
         // Check if data was fetched successfully
         if (rooms == null) {

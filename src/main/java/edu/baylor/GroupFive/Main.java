@@ -5,8 +5,8 @@ import javax.swing.SwingUtilities;
 import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
-import edu.baylor.GroupFive.database.dbSetup;
-import edu.baylor.GroupFive.database.controllers.AccountController;
+//import edu.baylor.GroupFive.controllers.AccountController;
+import edu.baylor.GroupFive.database.DbSetup;
 import edu.baylor.GroupFive.util.logging.G5Logger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +21,7 @@ public class Main {
         Logger logger = LogManager.getLogger(Main.class);
         logger.info("Logging initiated. Invoking dbSetup...");
         @SuppressWarnings("unused")
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
 
         logger.info("dbSetup finished. Queuing initial window/page load with swing...");
         SwingUtilities.invokeLater(new Runnable() {

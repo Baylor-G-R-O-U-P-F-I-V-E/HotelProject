@@ -1,5 +1,5 @@
 package edu.baylor.GroupFive.database.userDAO;
-import  edu.baylor.GroupFive.database.dbSetup;
+import edu.baylor.GroupFive.database.DbSetup;
 import edu.baylor.GroupFive.database.daos.UserDAO;
 import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.models.User;
@@ -8,15 +8,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestUserDatabaseConnection {
+public class TestUserDAO {
     @BeforeEach
     void init() {
-        dbSetup setup = new dbSetup();
+        DbSetup setup = new DbSetup();
     }
+
 
     @Test
     void addAUser() {
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         UserDAO conn = new UserDAO();
         User newUser = new User("Cole", "Flenniken", "colef8", "cole123", "Admin");
 
@@ -25,7 +26,7 @@ public class TestUserDatabaseConnection {
 
     @Test
     void addThenGetUser(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         UserDAO conn = new UserDAO();
         User newUser = new User("Cole", "Flenniken", "colef8", "cole123", "Clerk");
         conn.addUser(newUser);
@@ -35,7 +36,7 @@ public class TestUserDatabaseConnection {
 
     @Test
     void findExistingUserFromSetup(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         UserDAO conn = new UserDAO();
         User cole = conn.getUser("Axel112");
         assert(cole != null);
@@ -43,7 +44,7 @@ public class TestUserDatabaseConnection {
 
     @Test
     void findNonExistingUser(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         UserDAO conn = new UserDAO();
         User cole = conn.getUser("Axel113");
         assert(null == cole);
@@ -52,7 +53,7 @@ public class TestUserDatabaseConnection {
 
     @Test
     void modifyUser(){
-        dbSetup db = new dbSetup();
+        DbSetup db = new DbSetup();
         User newUser = new User("ColeS", "Flenniken", "colef888", "cole123", "Clerk");
         UserDAO conn = new UserDAO();
         Boolean added = conn.addUser(newUser);

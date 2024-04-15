@@ -46,7 +46,7 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setOpaque(false);
 
-        reservation = ReservationController.getInfo(Integer.parseInt(originalRoom), originalStartDate);
+        reservation = ReservationController.getReservation(Integer.parseInt(originalRoom), originalStartDate);
 
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));

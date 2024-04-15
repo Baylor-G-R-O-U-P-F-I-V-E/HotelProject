@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Date;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
@@ -12,12 +11,10 @@ import javax.swing.JTextField;
 
 import edu.baylor.GroupFive.database.controllers.ReservationController;
 import edu.baylor.GroupFive.models.Reservation;
-import edu.baylor.GroupFive.database.daos.ReservationDAO;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.DatePanel;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
-import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
 
 public class ModifyReservationActionListener implements ActionListener {
     private InputDelegate page;
@@ -66,7 +63,7 @@ public class ModifyReservationActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // Establish connection to database
-        ReservationDAO rdao = new ReservationDAO();
+        // ReservationDAOImpl reservationDAOImpl = new ReservationDAOImpl(); // FIXME changed
 
         // Create a default message
         String message = "Changes successful!";
@@ -120,7 +117,7 @@ public class ModifyReservationActionListener implements ActionListener {
         }
 
         // Get the reservation
-        Reservation reservation = ReservationController.getInfo(Integer.parseInt(originalRoom), originalStart);
+        Reservation reservation = ReservationController.getReservation(Integer.parseInt(originalRoom), originalStart);
 
         // Update the reservation
         reservation.setRoomID(room);
@@ -129,7 +126,8 @@ public class ModifyReservationActionListener implements ActionListener {
         reservation.setEndDate(end);
 
         // Update the reservation in the database
-        boolean result = ReservationController.modifyReservation(reservation, originalRoom, originalStart);
+        // boolean result = ReservationController.modifyReservation(reservation, originalRoom, originalStart);
+        boolean result = ReservationController.modifyReservation(reservation); // changed here
 
         // If the update failed, show an error message
         if (!result) {
@@ -141,16 +139,12 @@ public class ModifyReservationActionListener implements ActionListener {
         }
 
         // Check if reservation is available
-        // try {
-            if (!rdao.checkIfAvailable(room, start, end)) {
-                message = """
-                    Oopsie! The reservation is unavailable
-                    """;
-                makeBadInputDialog(message);
-                return;
-            }
-        // } catch (BadConnectionException ex) {
-        //     makeBadInputDialog(BAD_CONNECTION_MSG);
+        // TODO check implementation
+        // if (!reservationDAO.checkIfAvailable(room, start, end)) {
+        //     message = """
+        //         Oopsie! The reservation is unavailable
+        //         """;
+        //     makeBadInputDialog(message);
         //     return;
         // }
 

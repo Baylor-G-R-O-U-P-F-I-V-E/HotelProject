@@ -4,6 +4,8 @@ import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.database.services.AccountService;
 import edu.baylor.GroupFive.database.services.LoginService;
 
+// Assume a User is logged in when calling these functions
+// i.e. Don't need to read pswd
 public class AccountController {
 
     public static User login(String username, String password) {

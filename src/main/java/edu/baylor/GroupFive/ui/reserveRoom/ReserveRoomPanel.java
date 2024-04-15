@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.database.controllers.ReservationController;
 import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.models.Room;
@@ -186,7 +187,9 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
             Room roomObj = RoomController.getRoomInfo(Integer.parseInt(room));
 
             // Reserve the room using a reservation controller
-            boolean result = ReservationController.bookRoom(user, startDate, endDate, roomObj);
+            // boolean result = ReservationController.bookRoom(user, startDate, endDate, roomObj);
+            // TODO should this be the total price or daily price?
+            boolean result = ReservationController.createReservation(new Reservation(-1, startDate, endDate, user.getUsername(), roomObj.getRoomNumber(), roomObj.getDailyPrice()));
 
             if (!result) {
                 JOptionPane.showMessageDialog(null, "Room could not be reserved for the selected dates.");
