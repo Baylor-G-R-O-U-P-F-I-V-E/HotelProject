@@ -1,5 +1,6 @@
 package edu.baylor.GroupFive.ui.accountSettings;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -20,6 +21,7 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
 
     private Page page;
     private User user;
+    private JTextField firstNameField, lastNameField, usernameField;
 
     public AccountSettingsPanel(Page page, User user) {
         super();
@@ -64,12 +66,21 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     private void addUsernamePanel(JPanel textPanel) {
         JPanel userPanel = new JPanel();
         userPanel.setOpaque(true);
-        
-        JLabel userLabel = new JLabel("Username: " + user.getUsername());
+
+        usernameField = new JTextField(user.getUsername());
+        usernameField.setEditable(false);
+
+        // Style text field
+        usernameField.setFont(new Font("Arial", Font.PLAIN, 20));
+        usernameField.setOpaque(false);
+        usernameField.setBorder(null);
+
+        JLabel userLabel = new JLabel("Username: ");
         userLabel.setBounds(200, 50, 200, 50);
         userLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
         userPanel.add(userLabel);
+        userPanel.add(usernameField);
 
         textPanel.add(userPanel);
     }
@@ -78,11 +89,19 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         JPanel namePanel = new JPanel();
         namePanel.setOpaque(true);
 
-        JLabel firstLabel = new JLabel("First name: " + user.getFirstName());
+        firstNameField = new JTextField(user.getFirstName());
+        firstNameField.setEditable(false);
+
+        firstNameField.setFont(new Font("Arial", Font.PLAIN, 20));
+        firstNameField.setOpaque(false);
+        firstNameField.setBorder(null);
+
+        JLabel firstLabel = new JLabel("First name: ");
         firstLabel.setBounds(200, 50, 200, 50);
         firstLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
         namePanel.add(firstLabel);
+        namePanel.add(firstNameField);
 
         textPanel.add(namePanel);
     }
@@ -91,11 +110,19 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         JPanel namePanel = new JPanel();
         namePanel.setOpaque(true);
 
-        JLabel lastLabel = new JLabel("Last name: " + user.getLastName());
+        lastNameField = new JTextField(user.getLastName());
+        lastNameField.setEditable(false);
+
+        lastNameField.setFont(new Font("Arial", Font.PLAIN, 20));
+        lastNameField.setOpaque(false);
+        lastNameField.setBorder(null);
+
+        JLabel lastLabel = new JLabel("Last name: ");
         lastLabel.setBounds(200, 50, 200, 50);
         lastLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
         namePanel.add(lastLabel);
+        namePanel.add(lastNameField);
 
         textPanel.add(namePanel);
     }
@@ -111,11 +138,99 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         ModifyButton.setBackground(new Color(0, 0, 153));
         ModifyButton.setForeground(new Color(255, 255, 255));
 
+        ModifyButton.addActionListener(e -> {
+            makeEditable();
+        });
+
         buttonPanel.add(ModifyButton);
+    }
+
+    private void makeEditable() {
+
+        // Set textfields to editable
+        firstNameField.setEditable(true);
+        lastNameField.setEditable(true);
+        usernameField.setEditable(true);
+
+        // Make them opaque with borders
+        firstNameField.setOpaque(true);
+        firstNameField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        lastNameField.setOpaque(true);
+        lastNameField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        usernameField.setOpaque(true);
+        usernameField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        // Set focus to first name field
+        firstNameField.requestFocus();
+
+        // Remove modify button
+        this.remove(this.getComponentCount() - 1);
+
+        // Add save and cancel buttons
+        addSaveButton(this);
+        addBackButton(this);
+    }
+
+    private void addBackButton(JPanel panel) {
+        JButton backButton = new JButton("Cancel");
+        backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backButton.setPreferredSize(new Dimension(200, 50));
+        backButton.setFont(new Font("Arial", Font.PLAIN, 22));
+        backButton.setOpaque(true);
+        backButton.setBorderPainted(false);
+        backButton.setBackground(new Color(0, 0, 153));
+        backButton.setForeground(new Color(255, 255, 255));
+
+        backButton.addActionListener(e -> {
+            clear();
+        });
+
+        panel.add(backButton);
+    }
+
+    private void addSaveButton(JPanel panel) {
+        JButton saveButton = new JButton("Save Changes");
+        saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        saveButton.setPreferredSize(new Dimension(200, 50));
+        saveButton.setFont(new Font("Arial", Font.PLAIN, 22));
+        saveButton.setOpaque(true);
+        saveButton.setBorderPainted(false);
+        saveButton.setBackground(new Color(0, 0, 153));
+        saveButton.setForeground(new Color(255, 255, 255));
+
+        saveButton.addActionListener(e -> {
+            // Save the changes
+            user.setFirstName(firstNameField.getText());
+            user.setLastName(lastNameField.getText());
+            user.setUsername(usernameField.getText());
+
+            // Set textfields back to original values
+            firstNameField.setText(user.getFirstName());
+            lastNameField.setText(user.getLastName());
+            usernameField.setText(user.getUsername());
+
+            // Set textfields to uneditable
+            firstNameField.setEditable(false);
+            lastNameField.setEditable(false);
+            usernameField.setEditable(false);
+        });
+
+        panel.add(saveButton);
     }
 
     @Override
     public void clear() {
-        // Nothing to clear
+
+        // Set textfields back to original values
+        firstNameField.setText(user.getFirstName());
+        lastNameField.setText(user.getLastName());
+        usernameField.setText(user.getUsername());
+
+        // Set textfields to uneditable
+        firstNameField.setEditable(false);
+        lastNameField.setEditable(false);
+        usernameField.setEditable(false);
+
+
     }
 }
