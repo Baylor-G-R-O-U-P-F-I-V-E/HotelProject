@@ -6,6 +6,7 @@ import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.accountSettings.AccountSettingsPanel;
 import edu.baylor.GroupFive.ui.createClerk.CreateClerkAccountPanel;
+import edu.baylor.GroupFive.ui.homePanel.HomePanel;
 import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.modifyReservation.ModifyReservationPanel;
 //import edu.baylor.GroupFive.model.Privilege;
@@ -43,7 +44,8 @@ public class Page extends JFrame implements InputDelegate {
 
         addDashboard(this);
 
-        currentPanel = new ReserveRoomPanel(this);
+        onPageSwitch("home");
+
         add(currentPanel, BorderLayout.CENTER);
     }
 
@@ -78,14 +80,17 @@ public class Page extends JFrame implements InputDelegate {
     }
 
     public void onPageSwitch(String option) {
-        //todo: add logic for switching pages on dashboard button press
-        remove(currentPanel);
+        
+        if (currentPanel != null) {
+            remove(currentPanel);
+        }
+
         switch (option) {
             case "account-settings":
                 currentPanel = new AccountSettingsPanel(this, user);
                 break;
             case "home":
-                currentPanel = new ReserveRoomPanel(this);
+                currentPanel = new HomePanel(this, user);
                 break;
             case "logout":
                 dispose();
@@ -100,6 +105,9 @@ public class Page extends JFrame implements InputDelegate {
                 break;
             case "create-clerk":
                 currentPanel = new CreateClerkAccountPanel(this);
+                break;
+            case "find-rooms":
+                currentPanel = new ReserveRoomPanel(this);
                 break;
                 /*
             case "view":

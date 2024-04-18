@@ -15,6 +15,7 @@ public class Dashboard extends JPanel {
         add(new DashboardButton(page, "src/main/resources/button-icons/logout-icon.png", "logout"));
         add(new DashboardButton(page, "src/main/resources/button-icons/account-settings-icon.png", "account-settings"));
         add(new DashboardButton(page, "src/main/resources/button-icons/home-icon.png", "home"));
+        add(new DashboardButton(page, "src/main/resources/button-icons/find-rooms-icon.png", "find-rooms"));
         if (privilige == Privilege.ADMIN) {
             add(new DashboardButton(page, "src/main/resources/button-icons/create-clerk-icon.png", "create-clerk"));
         }
