@@ -199,10 +199,10 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         saveButton.setForeground(new Color(255, 255, 255));
 
         saveButton.addActionListener(e -> {
+            
             // Save the changes
-            user.setFirstName(firstNameField.getText());
-            user.setLastName(lastNameField.getText());
-            user.setUsername(usernameField.getText());
+            User newUser = new User(firstNameField.getText(), lastNameField.getText(), usernameField.getText(), user.getPasswordHash(), user.getPrivilege().toString());
+
 
             // Set textfields back to original values
             firstNameField.setText(user.getFirstName());
