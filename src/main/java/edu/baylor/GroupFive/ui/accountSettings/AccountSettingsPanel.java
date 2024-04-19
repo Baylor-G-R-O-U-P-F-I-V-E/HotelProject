@@ -5,6 +5,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -13,6 +14,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
+import edu.baylor.GroupFive.database.controllers.AccountController;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
@@ -224,17 +226,18 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         saveButton.addActionListener(e -> {
             
             // Save the changes
-            User newUser = new User(firstNameField.getText(), lastNameField.getText(), usernameField.getText(), user.getPasswordHash(), user.getPrivilege().toString());
+            User newUser = new User(user.getId(), firstNameField.getText(), lastNameField.getText(), usernameField.getText(), user.getPasswordHash(), user.getPrivilege().toString());
 
-            // Set textfields back to original values
-            firstNameField.setText(user.getFirstName());
-            lastNameField.setText(user.getLastName());
-            usernameField.setText(user.getUsername());
+            //AccountController.modifyAccount(newUser);
+            
+            // Temporary fix
+            user = newUser;
 
-            // Set textfields to uneditable
-            firstNameField.setEditable(false);
-            lastNameField.setEditable(false);
-            usernameField.setEditable(false);
+            // Pop up a message saying the changes have been saved
+            JOptionPane.showMessageDialog(null, "Changes have been saved!");
+
+            // Reset the panel
+            clear();
         });
 
         // Add the save button to the panel
