@@ -22,6 +22,7 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     private Page page;
     private User user;
     private JTextField firstNameField, lastNameField, usernameField;
+    private JPanel buttonPanel, textPanel;
 
     public AccountSettingsPanel(Page page, User user) {
         super();
@@ -37,7 +38,7 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
 
-        JPanel textPanel = new JPanel();
+        textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
 
         addFirstNamePanel(textPanel);
@@ -53,7 +54,7 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         add(textPanel);
 
         // add a button panel
-        JPanel buttonPanel = new JPanel();
+        buttonPanel = new JPanel();
         buttonPanel.setOpaque(false);
         addModifyButton(buttonPanel);
 
@@ -86,23 +87,30 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     }
 
     private void addFirstNamePanel(JPanel textPanel) {
+
+        // Create a panel for the first name
         JPanel namePanel = new JPanel();
         namePanel.setOpaque(true);
 
+        // Create a text field for the first name
         firstNameField = new JTextField(user.getFirstName());
         firstNameField.setEditable(false);
 
+        // Style the text field
         firstNameField.setFont(new Font("Arial", Font.PLAIN, 20));
         firstNameField.setOpaque(false);
         firstNameField.setBorder(null);
 
+        // Create a label for the first name
         JLabel firstLabel = new JLabel("First name: ");
         firstLabel.setBounds(200, 50, 200, 50);
         firstLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
+        // Add the label and text field to the panel
         namePanel.add(firstLabel);
         namePanel.add(firstNameField);
 
+        // Add the panel to the text panel
         textPanel.add(namePanel);
     }
 
@@ -160,18 +168,29 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         usernameField.setOpaque(true);
         usernameField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
+        // Increase the size of the textfields
+        firstNameField.setPreferredSize(new Dimension(200, 50));
+        lastNameField.setPreferredSize(new Dimension(200, 50));
+        usernameField.setPreferredSize(new Dimension(200, 50));
+
         // Set focus to first name field
         firstNameField.requestFocus();
 
         // Remove modify button
-        this.remove(this.getComponentCount() - 1);
+        buttonPanel.removeAll();
 
         // Add save and cancel buttons
-        addSaveButton(this);
-        addBackButton(this);
+        addSaveButton(buttonPanel);
+        addBackButton(buttonPanel);
+
+        // Refresh the button panel
+        buttonPanel.revalidate();
+        buttonPanel.repaint();
     }
 
     private void addBackButton(JPanel panel) {
+
+        // Create and style the back button
         JButton backButton = new JButton("Cancel");
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         backButton.setPreferredSize(new Dimension(200, 50));
@@ -181,14 +200,18 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         backButton.setBackground(new Color(0, 0, 153));
         backButton.setForeground(new Color(255, 255, 255));
 
+        // Add action listener to reset the panel
         backButton.addActionListener(e -> {
             clear();
         });
 
+        // Add the back button to the panel
         panel.add(backButton);
     }
 
     private void addSaveButton(JPanel panel) {
+
+        // Create and style the save button
         JButton saveButton = new JButton("Save Changes");
         saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         saveButton.setPreferredSize(new Dimension(200, 50));
@@ -203,7 +226,6 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
             // Save the changes
             User newUser = new User(firstNameField.getText(), lastNameField.getText(), usernameField.getText(), user.getPasswordHash(), user.getPrivilege().toString());
 
-
             // Set textfields back to original values
             firstNameField.setText(user.getFirstName());
             lastNameField.setText(user.getLastName());
@@ -215,6 +237,7 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
             usernameField.setEditable(false);
         });
 
+        // Add the save button to the panel
         panel.add(saveButton);
     }
 
@@ -231,6 +254,33 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         lastNameField.setEditable(false);
         usernameField.setEditable(false);
 
+        // Set textfields to unopaque
+        firstNameField.setOpaque(false);
+        lastNameField.setOpaque(false);
+        usernameField.setOpaque(false);
 
+        // Set textfields to unbordered
+        firstNameField.setBorder(null);
+        lastNameField.setBorder(null);
+        usernameField.setBorder(null);
+
+        // Reset the size of the textfields
+        firstNameField.setPreferredSize(null);
+        lastNameField.setPreferredSize(null);
+        usernameField.setPreferredSize(null);
+
+        // Remove all buttons
+        buttonPanel.removeAll();
+
+        // Add back the modify button
+        addModifyButton(buttonPanel);
+
+        // Refresh text fields
+        textPanel.revalidate();
+        textPanel.repaint();
+
+        // Refresh buttons
+        buttonPanel.revalidate();
+        buttonPanel.repaint();
     }
 }
