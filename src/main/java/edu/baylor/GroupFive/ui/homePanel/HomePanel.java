@@ -12,9 +12,11 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Panel;
 
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.utils.Page;
+import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 import edu.baylor.GroupFive.ui.reservations.ReservationModel;
@@ -99,15 +101,7 @@ public class HomePanel extends JPanel implements PagePanel {
     public void addShopButton(JPanel buttonPanel) {
         
         // Add a button to the panel
-        JButton shopButton = new JButton("Shop");
-
-        // Style the button
-        shopButton.setPreferredSize(new Dimension(200, 50));
-        shopButton.setFont(new Font("Arial", Font.PLAIN, 22));
-        shopButton.setOpaque(true);
-        shopButton.setBorderPainted(false);
-        shopButton.setBackground(new Color(0, 0, 153));
-        shopButton.setForeground(new Color(255, 255, 255));
+        PanelButton shopButton = new PanelButton("Shop");
 
         shopButton.addActionListener(e -> page.onPageSwitch("shop"));
 
@@ -117,15 +111,7 @@ public class HomePanel extends JPanel implements PagePanel {
     public void addFindRoomsButton(JPanel buttonPanel) {
         
         // Add a button to the panel
-        JButton findRoomsButton = new JButton("Find Rooms");
-
-        // Style the button
-        findRoomsButton.setPreferredSize(new Dimension(200, 50));
-        findRoomsButton.setFont(new Font("Arial", Font.PLAIN, 22));
-        findRoomsButton.setOpaque(true);
-        findRoomsButton.setBorderPainted(false);
-        findRoomsButton.setBackground(new Color(0, 0, 153));
-        findRoomsButton.setForeground(new Color(255, 255, 255));
+        PanelButton findRoomsButton = new PanelButton("Find Rooms");
 
         findRoomsButton.addActionListener(e -> page.onPageSwitch("find-rooms"));
 
