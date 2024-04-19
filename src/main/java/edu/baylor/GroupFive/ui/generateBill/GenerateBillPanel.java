@@ -10,8 +10,9 @@ import javax.swing.JTable;
 
 import edu.baylor.GroupFive.ui.reservations.ReservationModel;
 import edu.baylor.GroupFive.ui.utils.Page;
-
+import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
+import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 
 import javax.swing.table.DefaultTableModel;
@@ -69,32 +70,34 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
         // Add the title
         JLabel titleLabel = new JLabel("Current Guests");
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
         add(titleLabel);
 
         // Add some glue
         add(Box.createVerticalGlue());
 
         // Add the scroll pane to this panel.
-        
         add(scrollPane);
+
+        // Add the form pane
+        FormPane formPane = new FormPane(table, ((HotelTable) table).getSorter(), columnNames);
+        add(formPane);
 
         // Add the button panel
         buttonPanel = new JPanel();
         addGenerateSelectedGuestBillButton(buttonPanel);
         add(buttonPanel);
 
+        // Add some more glue
+        add(Box.createVerticalGlue());
+
     }
 
     public void addGenerateSelectedGuestBillButton(JPanel panel) {
-        JButton generateButton = new JButton("Generate Selected Guests Bill");
-        generateButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        generateButton.setPreferredSize(new Dimension(350, 50));
-        generateButton.setFont(new Font("Arial", Font.PLAIN, 22));
-        generateButton.setOpaque(true);
-        generateButton.setBorderPainted(false);
-        generateButton.setBackground(new Color(0, 0, 153));
-        generateButton.setForeground(new Color(255, 255, 255));
+        PanelButton generateButton = new PanelButton("Generate Bill for Selected Guest");
+        
+        // Needs to be a little bigger to accoomodate the text
+        generateButton.setPreferredSize(new Dimension(400, 50));
 
         panel.add(generateButton);
     }

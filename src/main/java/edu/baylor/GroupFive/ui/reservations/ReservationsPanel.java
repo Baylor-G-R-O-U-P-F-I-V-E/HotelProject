@@ -16,6 +16,8 @@ import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 
+import java.awt.*;
+
 public class ReservationsPanel extends JPanel implements PagePanel {
     
     private JTable table;
@@ -47,6 +49,18 @@ public class ReservationsPanel extends JPanel implements PagePanel {
 
         // Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table);
+
+        // Add some glue
+        add(Box.createVerticalGlue());
+
+        // Add a title
+        JLabel title = new JLabel("Reservations");
+        title.setFont(new java.awt.Font("Arial", Font.BOLD, 36));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(title);
+
+        // Add some glue
+        add(Box.createVerticalGlue());
 
         // Add the scroll pane to this panel.
         add(scrollPane);
