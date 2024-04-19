@@ -18,6 +18,7 @@ import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.Component;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -99,7 +100,24 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
         // Needs to be a little bigger to accoomodate the text
         generateButton.setPreferredSize(new Dimension(400, 50));
 
+        generateButton.addActionListener(e -> {
+            // Destroy the current panel
+            page.remove(page.currentPanel);
+            page.currentPanel = new GuestBillPanel(page, getSelectedGuest());
+            page.add(page.currentPanel, BorderLayout.CENTER);
+            page.refresh();
+        });
+
         panel.add(generateButton);
+    }
+
+    public String getSelectedGuest() {
+        // Get the selected row
+        int row = table.getSelectedRow();
+        if (row == -1) {
+            return null;
+        }
+        return (String) table.getValueAt(row, 4);
     }
 
     @Override

@@ -128,8 +128,7 @@ public class Page extends JFrame implements InputDelegate {
                 break;  */
         }
         add(currentPanel, BorderLayout.CENTER);
-        revalidate();
-        repaint();
+        refresh();
     }
 
     public User getUser() {
@@ -144,5 +143,9 @@ public class Page extends JFrame implements InputDelegate {
         return info;
     }
 
+    public void refresh() {
+        revalidate();
+        repaint();
+    }
 
 }
