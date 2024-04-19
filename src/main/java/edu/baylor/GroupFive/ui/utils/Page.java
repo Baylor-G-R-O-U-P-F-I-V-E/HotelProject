@@ -6,6 +6,7 @@ import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.accountSettings.AccountSettingsPanel;
 import edu.baylor.GroupFive.ui.createClerk.CreateClerkAccountPanel;
+import edu.baylor.GroupFive.ui.generateBill.GenerateBillPanel;
 import edu.baylor.GroupFive.ui.homePanel.HomePanel;
 import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.modifyReservation.ModifyReservationPanel;
@@ -108,6 +109,9 @@ public class Page extends JFrame implements InputDelegate {
                 break;
             case "find-rooms":
                 currentPanel = new ReserveRoomPanel(this);
+                break;
+            case "generate-bill":
+                currentPanel = new GenerateBillPanel(this);
                 break;
                 /*
             case "view":

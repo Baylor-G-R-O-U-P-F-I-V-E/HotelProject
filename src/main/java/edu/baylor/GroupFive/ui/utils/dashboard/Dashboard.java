@@ -23,6 +23,6 @@ public class Dashboard extends JPanel {
             add(new DashboardButton(page, "src/main/resources/button-icons/reservations-icon.png", "reservations"));
         }
         
-        add(new DashboardButton(page, "src/main/resources/button-icons/checkout-icon.png", "checkout"));
+        add(new DashboardButton(page, "src/main/resources/button-icons/generate-bill-icon.png", "generate-bill"));
     }
 }
