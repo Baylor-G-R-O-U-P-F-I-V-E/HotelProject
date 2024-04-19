@@ -4,6 +4,9 @@ import javax.swing.*;
 
 import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.models.User;
+import edu.baylor.GroupFive.ui.accountSettings.AccountSettingsPanel;
+import edu.baylor.GroupFive.ui.createClerk.CreateClerkAccountPanel;
+import edu.baylor.GroupFive.ui.homePanel.HomePanel;
 import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.modifyReservation.ModifyReservationPanel;
 //import edu.baylor.GroupFive.model.Privilege;
@@ -20,7 +23,6 @@ public class Page extends JFrame implements InputDelegate {
 
     private Dashboard dashboard;
     private List<String> info = new ArrayList<>();
-    private GridBagConstraints constraints = new GridBagConstraints();
     private User user;
     //private String acctNum;
     private Privilege privilege;
@@ -29,60 +31,83 @@ public class Page extends JFrame implements InputDelegate {
     
     public Page(User user) {
         super();
-        //Init new frame
-        createFrame();
+
+        // Set the user and get their privilege
         this.user = user;
+        privilege = user.getPrivilege();
 
-        if (user == null) {
-            dashboard = new Dashboard(this, Privilege.ADMIN);
-        } else {
-            privilege = user.getPrivilege();
-            dashboard = new Dashboard(this, privilege);
-        }
-        //privilege = AccountController.getAccountPrivilege(user);
+        // Create the frame
+        createFrame(privilege);
 
-        addDashboard();
+        // Create the appropriate dashboard
+        dashboard = new Dashboard(this, privilege);
 
-        constraints.gridx = 1;
-        constraints.weightx = 1;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        currentPanel = new ReservationsPanel(this);
-        add(currentPanel, constraints);
+        addDashboard(this);
+
+        onPageSwitch("home");
+
+        add(currentPanel, BorderLayout.CENTER);
     }
 
-    public void createFrame() {
-        setExtendedState(MAXIMIZED_BOTH);
+    public void createFrame(Privilege privilege) {
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        getContentPane().setBackground(new Color(0xe6f7ff));
-        setLayout(new GridBagLayout());
+        setLayout(new BorderLayout());
         setVisible(true);
+
+        if (privilege == Privilege.ADMIN) {
+            getContentPane().setBackground(new Color(0xFEE4F4));
+        } else if (privilege == Privilege.CLERK) {
+            getContentPane().setBackground(new Color(0xe6f7ff));
+        } else {
+            getContentPane().setBackground(new Color(0xE6F7FF));
+        }
     }
 
-    public void addDashboard() {
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.anchor = GridBagConstraints.WEST;
-        add(dashboard, constraints);
+    public void addDashboard(Page page) {
+    
+        // Create a scroll pane for the dashboard
+        JScrollPane pane = new JScrollPane(dashboard);
+        pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+    
+        // Increase the sensitivity of the scrollbar
+        JScrollBar verticalScrollBar = pane.getVerticalScrollBar();
+        verticalScrollBar.setUnitIncrement(16); // Decrease this value to increase sensitivity
+    
+        add(pane, BorderLayout.WEST);
     }
 
     public void onPageSwitch(String option) {
-        //todo: add logic for switching pages on dashboard button press
-        remove(currentPanel);
+        
+        if (currentPanel != null) {
+            remove(currentPanel);
+        }
+
         switch (option) {
+            case "account-settings":
+                currentPanel = new AccountSettingsPanel(this, user);
+                break;
             case "home":
-                currentPanel = new ReservationsPanel(this);
-                break;
-            case "reservation":
-                currentPanel = new ReserveRoomPanel(this);
-                break;
-            case "modifyReservation":
-                currentPanel = new ModifyReservationPanel(this, info.get(0), info.get(1));
+                currentPanel = new HomePanel(this, user);
                 break;
             case "logout":
                 dispose();
                 @SuppressWarnings("unused")
                 LandingPage page = new LandingPage();
+                break;
+            case "reservations":
+                currentPanel = new ReservationsPanel(this);
+                break;
+            case "modifyReservation":
+                currentPanel = new ModifyReservationPanel(this, info.get(0), info.get(1));
+                break;
+            case "create-clerk":
+                currentPanel = new CreateClerkAccountPanel(this);
+                break;
+            case "find-rooms":
+                currentPanel = new ReserveRoomPanel(this);
                 break;
                 /*
             case "view":
@@ -98,7 +123,7 @@ public class Page extends JFrame implements InputDelegate {
                 currentPanel = new ReserveRoomPanel();
                 break;  */
         }
-        add(currentPanel, constraints);
+        add(currentPanel, BorderLayout.CENTER);
         revalidate();
         repaint();
     }

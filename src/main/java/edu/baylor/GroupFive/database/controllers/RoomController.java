@@ -26,7 +26,6 @@ public class RoomController {
         return RoomServices.addRoom(newRoom);
     }
 
-
     public static List<Room> getAvailableRooms(Date startDate, Date endDate){
         return RoomServices.getAvailableRooms(startDate,endDate);
     }
