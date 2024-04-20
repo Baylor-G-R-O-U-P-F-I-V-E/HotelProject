@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,39 +13,17 @@ import java.util.Date;
 public abstract class BaseDAO {
 
     private static final Logger logger = LogManager.getLogger(BaseDAO.class.getName());
+    
     protected static Connection getConnection(){
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection("jdbc:derby:FinalProject;", "", "");
-            if(connection == null) {
-                logger.info("Could not connect");
-                return null;
-            }
+        
+        try (Connection connection = DriverManager.getConnection("jdbc:derby:FinalProject;", "", "")) {
+            return connection;
+
         } catch (SQLException e) {
+            logger.info("Could not connect");
             return null;
         }
-        return connection;
-    }
-
-    protected static void closeStatement(Statement statement){
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                logger.info("Error closing statement");
-            }
-        }
-
-    }
-
-    protected static void closeConnection(Connection connection){
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                logger.info("Error closing connection");
-            }
-        }
+        
     }
 
     protected static String formatDate(Date myDate) {
