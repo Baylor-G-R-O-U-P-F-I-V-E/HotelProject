@@ -6,6 +6,6 @@ import edu.baylor.GroupFive.models.User;
 public class LoginService {
     public static User login(String username, String password) {
         UserDAO conn = new UserDAO();
-        return conn.getUser(username);
+        return conn.getByUsername(username);
     }
 }

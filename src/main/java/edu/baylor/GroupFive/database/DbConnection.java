@@ -8,14 +8,14 @@ package edu.baylor.GroupFive.database;
 
 import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
  /**
   * DbConnection

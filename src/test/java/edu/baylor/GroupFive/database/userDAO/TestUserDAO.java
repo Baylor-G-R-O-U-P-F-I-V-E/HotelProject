@@ -21,7 +21,7 @@ public class TestUserDAO {
         UserDAO conn = new UserDAO();
         User newUser = new User("Cole", "Flenniken", "colef8", "cole123", "Admin");
 
-        assertEquals(conn.addUser(newUser), true);
+        assert(conn.save(newUser) == 1);
     }
 
     @Test
@@ -29,8 +29,8 @@ public class TestUserDAO {
         DbSetup db = new DbSetup();
         UserDAO conn = new UserDAO();
         User newUser = new User("Cole", "Flenniken", "colef8", "cole123", "Clerk");
-        conn.addUser(newUser);
-        User cole = conn.getUser("colef8");
+        conn.save(newUser);
+        User cole = conn.getByUsername("colef8");
         assertEquals(cole,newUser);
     }
 
@@ -38,7 +38,7 @@ public class TestUserDAO {
     void findExistingUserFromSetup(){
         DbSetup db = new DbSetup();
         UserDAO conn = new UserDAO();
-        User cole = conn.getUser("Axel112");
+        User cole = conn.getByUsername("Axel112");
         assert(cole != null);
     }
 
@@ -46,7 +46,7 @@ public class TestUserDAO {
     void findNonExistingUser(){
         DbSetup db = new DbSetup();
         UserDAO conn = new UserDAO();
-        User cole = conn.getUser("Axel113");
+        User cole = conn.getByUsername("Axel113");
         assert(null == cole);
     }
 
@@ -56,14 +56,14 @@ public class TestUserDAO {
         DbSetup db = new DbSetup();
         User newUser = new User("ColeS", "Flenniken", "colef888", "cole123", "Clerk");
         UserDAO conn = new UserDAO();
-        Boolean added = conn.addUser(newUser);
-        assert(added);
+        Integer added = conn.save(newUser);
+        assert(added == 1);
 
         newUser.setFirstName("Modified");
 
-        conn.modifyUser(newUser);
+        conn.update(newUser);
 
-        User h = conn.getUser("colef888");
+        User h = conn.getByUsername("colef888");
         assert(h.getFirstName().equals("Modified"));
     }
 
