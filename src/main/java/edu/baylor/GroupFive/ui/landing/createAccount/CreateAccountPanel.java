@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.ui.landing;
+package edu.baylor.GroupFive.ui.landing.createAccount;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
 public class CreateAccountPanel extends JPanel implements PagePanel {

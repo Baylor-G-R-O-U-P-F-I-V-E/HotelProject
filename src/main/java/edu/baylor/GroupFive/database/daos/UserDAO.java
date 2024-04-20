@@ -1,114 +1,153 @@
 package edu.baylor.GroupFive.database.daos;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
-import edu.baylor.GroupFive.models.enums.Privilege;
-import edu.baylor.GroupFive.models.Reservation;
-import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.User;
-import edu.baylor.GroupFive.models.enums.BedType;
-import edu.baylor.GroupFive.models.enums.Theme;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO extends BaseDAO {
+public class UserDAO extends BaseDAO<User> {
 
     public UserDAO() {}
 
+    public List<User> getAll() {
 
+        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 
-    public static User getUser(String username){
-        Connection connection =  getConnection();
-        if(connection == null){
-            System.err.println("Connection Failed");
-            return null;
-        }
+            String sqlQuery = "SELECT * FROM users";
+            ResultSet rs = statement.executeQuery(sqlQuery);
+            List<User> output = new ArrayList<>();
 
-        Statement statement = null;
-        String sqlQuery = "SELECT * FROM users WHERE username = '" + username + "'";
-        ResultSet rs = null;
-        List<Reservation> output = new ArrayList<>();
-        try {
-            statement = connection.createStatement();
-            rs = statement.executeQuery(sqlQuery);
-            while(rs.next()){
-                User out = new User(rs.getString("firstname"),rs.getString("lastname"),rs.getString("username"),rs.getString("password"), rs.getString("privilege"));
-                return out;
+            while (rs.next()) {
+                User out = new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("username"), rs.getString("password"), rs.getString("privilege"));
+                output.add(out);
             }
 
+            return output;
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return null;
-        }finally {
-            closeConnection(connection);
-            closeStatement(statement);
         }
-
-        return null;
 
     }
 
-    public static Boolean addUser(User user){
-        Connection connection = getConnection();
-        if(connection == null){
-            System.err.println("Connection Failed");
+    public User getByUsername(String username) {
+
+        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+
+            String sqlQuery = "SELECT * FROM users WHERE username = '" + username + "'";
+            ResultSet rs = statement.executeQuery(sqlQuery);
+            List<User> output = new ArrayList<>();
+
+            while (rs.next()) {
+                User out = new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("username"), rs.getString("password"), rs.getString("privilege"));
+                output.add(out);
+            }
+
+            return output.get(0);
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
             return null;
         }
-        Statement statement = null;
-        // "INSERT INTO USERs(firstName, lastNAME) VALUES('Kevin','James', 'KevDog', 'password')",
-        // startDate endDate price guestID roomID
-        String sqlInsert = "INSERT INTO USERS(firstName, lastName, username, password, privilege) VALUES ('" +
-                 user.getFirstName() + "','" + user.getLastName() + "','" + user.getUsername() + "','" + user.getPasswordHash() + "','" + user.getPrivilege().toString() + "')" ;
-        try {
-            statement = connection.createStatement();
+
+    }
+
+    /*
+     * 
+     * 
+     * USE THIS AT SOME POINT PLEASE PRETTY PLEASE WITH A CHERRY ON TOP
+     * 
+     */
+
+    public User get(int id) {
+
+        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+
+            String sqlQuery = "SELECT * FROM users WHERE id = " + id;
+            ResultSet rs = statement.executeQuery(sqlQuery);
+            List<User> output = new ArrayList<>();
+
+            while (rs.next()) {
+                User out = new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("username"), rs.getString("password"), rs.getString("privilege"));
+                output.add(out);
+            }
+
+            return output.get(0);
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
+
+    }
+
+    public Integer save(User user){
+
+        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+
+            User exists = getByUsername(user.getUsername());
+
+            if (exists == null){
+                return insert(user);
+            } else {
+                return update(user);
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public Integer insert(User user){
+
+        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+
+            String sqlInsert = "INSERT INTO users(firstName, lastName, username, password, privilege) VALUES ('" +
+                    user.getFirstName() + "','" + user.getLastName() + "','" + user.getUsername() + "','" + user.getPasswordHash() + "','" + user.getPrivilege().toString() + "')" ;
             statement.executeUpdate(sqlInsert);
+
+            return 1;
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-            return false;
-        } finally {
-            closeConnection(connection);
-            closeStatement(statement);
+            return 0;
         }
 
-
-        return true;
     }
 
+    public Integer update(User user){
 
+        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
 
-    public static Boolean modifyUser(User newUser){
-        Connection connection =  getConnection();
-        if(connection == null){
-            System.err.println("Connection Failed");
-            return null;
-        }
+            String sqlUpdate = "UPDATE users SET firstName = '" + user.getFirstName() + "', lastName = '" + user.getLastName() + "', password = '" + user.getPasswordHash() + "', privilege = '" + user.getPrivilege().toString() + "' WHERE username = '" + user.getUsername() + "'";
+            statement.executeUpdate(sqlUpdate);
 
-
-
-        //just checking we already have the room in the db
-        User exists = getUser(newUser.getUsername());
-        if(exists == null){
-            return false;
-        }
-
-        Statement statement = null;
-        String sqlDelete = "DELETE FROM USERS WHERE username = '" + newUser.getUsername() + "'";
-        try {
-            statement = connection.createStatement();
-            statement.execute(sqlDelete);
-
+            return 1;
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-            return false;
-        }finally {
-            closeConnection(connection);
-            closeStatement(statement);
+            return 0;
         }
 
-        return  addUser(newUser);
+    }
+
+    public Integer delete(User user){
+
+        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+
+            String sqlDelete = "DELETE FROM users WHERE username = '" + user.getUsername() + "'";
+            statement.executeUpdate(sqlDelete);
+
+            return 1;
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return 0;
+        }
+
     }
 
 }

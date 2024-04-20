@@ -70,12 +70,12 @@ public class TestReservationServices {
         assert(isAvailable == false);
     }
     @Test
-    public void selectExisting(){
+    public void selectExisting() throws SQLException{
         DbSetup db = new DbSetup();
         ReservationServices conn = new ReservationServices();
         Reservation myRes;
 
-             myRes = conn.getInfo(101, new Date("07/20/2024"));
+             myRes = conn.get(101, new Date("07/20/2024"));
 
 
         System.out.println(myRes.toString());
@@ -83,12 +83,12 @@ public class TestReservationServices {
     }
 
     @Test
-    public void selectNonExisting(){
+    public void selectNonExisting() throws SQLException{
         DbSetup db = new DbSetup();
         ReservationServices conn = new ReservationServices();
         Reservation myRes;
 
-            myRes = conn.getInfo(102, new Date("01/01/2008"));
+            myRes = conn.get(102, new Date("01/01/2008"));
 
 
 
@@ -124,28 +124,24 @@ public class TestReservationServices {
     }
 
     @Test
-    public void cancelReservation(){
+    public void cancelReservation() throws SQLException{
         DbSetup db = new DbSetup();
         ReservationServices conn = new ReservationServices();
         Reservation r;
 
-        r = conn.getInfo(103,new Date("07/22/2024"));
+        r = conn.get(103,new Date("07/22/2024"));
 
         //just showing that the reservation starts in the db
         assert(r != null);
 
-
-
-        conn.cancelReservation(3,new Date("07/22/2024"));
-
+        conn.delete(r);
 
         r = null;
 
-            r = conn.getInfo(3,new Date("07/22/2024"));
+            r = conn.get(3,new Date("07/22/2024"));
 
         //showing that the reservation is no longer in the db
         assert(r == null);
-
 
     }
     @Test
