@@ -26,6 +26,10 @@ public abstract class BaseDAO {
         
     }
 
+    /**
+     * 
+     * @deprecated Use {@link CoreUtils#formatDate(Date)} instead
+     */
     protected static String formatDate(Date myDate) {
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         return dateFormat.format(myDate.getTime());
