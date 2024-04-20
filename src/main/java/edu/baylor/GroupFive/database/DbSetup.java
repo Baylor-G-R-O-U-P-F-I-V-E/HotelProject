@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.ArrayList;
 
 public class DbSetup {
 
@@ -163,5 +164,20 @@ public class DbSetup {
             "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id, active, checkedIn) VALUES ('07/10/2024','07/17/2024',88.99,'KevDog',102, 7, true, true)",
             "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id, active, checkedIn) VALUES ('07/22/2024','07/25/2024',97.99,'Bongo',103, 8, true, false)",
             "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id, active, checkedIn) VALUES ('07/14/2024','07/19/2024',97.99,'Ant',104, 9, true, true)");
+
+    private static final List<String[]> users = new ArrayList<>();
+
+    static {
+        users.add(new String[] { "Joe", "Smith", "Bongo", "p1234", "admin" });
+        users.add(new String[] { "Kevin", "James", "KevDog", "1234", "clerk" });
+        users.add(new String[] { "Axel", "Washington", "Axel112", "1234", "clerk" });
+        users.add(new String[] { "Andrew", "Wiles", "BigA", "1234", "clerk" });
+        users.add(new String[] { "Larry", "AB", "LarryTheLobster", "1234", "guest" });
+        users.add(new String[] { "Josh", "Smith", "Jman", "1234", "guest" });
+        users.add(new String[] { "Tyler", "Lee", "T-Lee", "1234", "guest" });
+        users.add(new String[] { "Antoine", "Wu", "Ant", "1234", "guest" });
+        users.add(new String[] { "Everett", "Anderson", "andyEv", "1234", "guest" });
+        users.add(new String[] { "Icko", "Iben", "ickoxii", "sicem", "guest" });
+    }
 
 }
