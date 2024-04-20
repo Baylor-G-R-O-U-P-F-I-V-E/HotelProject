@@ -37,4 +37,9 @@ public class AccountService {
         return conn.getByUsername(username) != null;
     }
 
+    public static Boolean modifyAccount(User user) {
+        UserDAO conn = new UserDAO();
+        return conn.update(user) == 1 ? true : false;
+    }
+
 }

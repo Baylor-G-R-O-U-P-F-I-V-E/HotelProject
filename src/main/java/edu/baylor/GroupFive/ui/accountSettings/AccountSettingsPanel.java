@@ -14,14 +14,17 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Panel;
+import java.util.logging.Logger;
 
 import edu.baylor.GroupFive.database.controllers.AccountController;
+import edu.baylor.GroupFive.models.Account;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
 public class AccountSettingsPanel extends JPanel implements PagePanel {
+    private static final Logger LOGGER = Logger.getLogger(AccountSettingsPanel.class.getName());
 
     private Page page;
     private User user;
@@ -208,15 +211,26 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         saveButton.addActionListener(e -> {
             
             // Save the changes
-            User newUser = new User(user.getId(), firstNameField.getText(), lastNameField.getText(), usernameField.getText(), user.getPasswordHash(), user.getPrivilege().toString());
+            User newUser = new User(firstNameField.getText(), lastNameField.getText(), usernameField.getText(), user.getPasswordHash(), user.getPrivilege().toString());
+            newUser.setId(user.getId());
 
-            //AccountController.modifyAccount(newUser);
-            
-            // Temporary fix
-            user = newUser;
+            Boolean success = AccountController.modifyAccount(newUser);
 
-            // Pop up a message saying the changes have been saved
-            JOptionPane.showMessageDialog(null, "Changes have been saved!");
+            if (!success) {
+                // Pop up a message saying the changes could not be saved
+                JOptionPane.showMessageDialog(null, "Changes could not be saved. Please try again.");
+                return;
+            } else {
+                user = AccountController.getUser(newUser.getUsername());
+                if (user == null) {
+                    JOptionPane.showMessageDialog(null, "Changes could not be saved. Please try again.");
+                    LOGGER.severe("User not found in database");
+                    user = page.getUser();
+                    return;
+                }
+                page.setUser(user);
+                JOptionPane.showMessageDialog(null, "Changes have been saved!");
+            }       
 
             // Reset the panel
             clear();
