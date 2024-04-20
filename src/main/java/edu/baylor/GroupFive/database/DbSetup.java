@@ -25,11 +25,6 @@ public class DbSetup {
         try (Connection connection = DriverManager.getConnection(url, user, password);
                 Statement statement = connection.createStatement()) {
 
-            String rowID = null;
-
-            // mm/dd/yyyy
-            String sqlQ = "SELECT * FROM  RESERVATIONs";
-
             try {
                 // Try to select from the "USERs" table
                 statement.executeQuery("SELECT * FROM USERs");
@@ -54,7 +49,21 @@ public class DbSetup {
                 statement.executeUpdate(sqlCreateReservation);
             }
 
+        } catch (SQLException e) {
+            logger.info("ERROR");
+            logger.info(e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void dbInit() {
+
+        try (Connection connection = DriverManager.getConnection(url, user, password); Statement statement = connection.createStatement()) {
+            
             logger.info("Initializing database tables");
+
+            String sqlQ = "SELECT * FROM  RESERVATIONs";
 
             // Inserts all records, avoiding duplicates
             for (String r : sqlInserts) {

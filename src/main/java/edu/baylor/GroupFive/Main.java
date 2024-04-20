@@ -23,15 +23,16 @@ public class Main {
         logger.info("Logging initiated. Invoking dbSetup...");
         @SuppressWarnings("unused")
         DbSetup db = new DbSetup();
+        DbSetup.dbInit();
 
         logger.info("dbSetup finished. Queuing initial window/page load with swing...");
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 logger.info("Loading landing page...");
                 @SuppressWarnings("unused")
-                //InputDelegate landing = new LandingPage();
+                InputDelegate landing = new LandingPage();
                 // Uncomment the following line to skip login page with Admin
-                InputDelegate landing = new Page(AccountController.getUser("Bongo"));
+                //InputDelegate landing = new Page(AccountController.getUser("Bongo"));
 
                 // Uncomment this one for clerk
                 //InputDelegate landing = new Page(AccountController.getUser("KevDog"));
