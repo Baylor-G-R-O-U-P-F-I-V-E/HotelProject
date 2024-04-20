@@ -15,18 +15,6 @@ public abstract class BaseDAO<T> {
 
     private static final Logger logger = LogManager.getLogger(BaseDAO.class.getName());
 
-    protected static Connection getConnection() {
-
-        try (Connection connection = DriverManager.getConnection("jdbc:derby:FinalProject;", "", "")) {
-            return connection;
-
-        } catch (SQLException e) {
-            logger.info("Could not connect");
-            return null;
-        }
-
-    }
-
     /**
      * 
      * @deprecated Use {@link CoreUtils#formatDate(Date)} instead

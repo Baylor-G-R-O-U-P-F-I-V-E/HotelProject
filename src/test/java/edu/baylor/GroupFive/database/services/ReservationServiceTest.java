@@ -1,6 +1,5 @@
-package edu.baylor.GroupFive.database.reservationDAO;
+package edu.baylor.GroupFive.database.services;
 
-import edu.baylor.GroupFive.database.services.ReservationServices;
 import edu.baylor.GroupFive.database.DbSetup;
 import edu.baylor.GroupFive.models.Reservation;
 import org.junit.Test;
@@ -14,7 +13,7 @@ import java.util.Locale;
 
 import java.sql.SQLException;
 
-public class TestReservationServices {
+public class ReservationServiceTest {
 
     ReservationServices conn;
 
@@ -117,9 +116,6 @@ public class TestReservationServices {
         System.out.println(res + "--");
 
         assert(res.equals(1));
-
-
-
 
     }
 

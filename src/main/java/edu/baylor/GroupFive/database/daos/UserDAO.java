@@ -1,6 +1,8 @@
 package edu.baylor.GroupFive.database.daos;
 
+import edu.baylor.GroupFive.database.DbConnection;
 import edu.baylor.GroupFive.models.User;
+import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ public class UserDAO extends BaseDAO<User> {
 
     public List<User> getAll() {
 
-        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
             String sqlQuery = "SELECT * FROM users";
             ResultSet rs = statement.executeQuery(sqlQuery);
@@ -25,7 +27,7 @@ public class UserDAO extends BaseDAO<User> {
 
             return output;
 
-        } catch (SQLException e) {
+        } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return null;
         }
@@ -34,7 +36,7 @@ public class UserDAO extends BaseDAO<User> {
 
     public User getByUsername(String username) {
 
-        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
             String sqlQuery = "SELECT * FROM users WHERE username = '" + username + "'";
             ResultSet rs = statement.executeQuery(sqlQuery);
@@ -45,9 +47,13 @@ public class UserDAO extends BaseDAO<User> {
                 output.add(out);
             }
 
-            return output.get(0);
+            if (!output.isEmpty()) {
+                return output.get(0);
+            } else {
+                return null;
+            }
 
-        } catch (SQLException e) {
+        } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return null;
         }
@@ -63,7 +69,7 @@ public class UserDAO extends BaseDAO<User> {
 
     public User get(int id) {
 
-        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
             String sqlQuery = "SELECT * FROM users WHERE id = " + id;
             ResultSet rs = statement.executeQuery(sqlQuery);
@@ -76,7 +82,7 @@ public class UserDAO extends BaseDAO<User> {
 
             return output.get(0);
 
-        } catch (SQLException e) {
+        } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return null;
         }
@@ -85,7 +91,7 @@ public class UserDAO extends BaseDAO<User> {
 
     public Integer save(User user){
 
-        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
             User exists = getByUsername(user.getUsername());
 
@@ -95,7 +101,7 @@ public class UserDAO extends BaseDAO<User> {
                 return update(user);
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return null;
         }
@@ -103,7 +109,7 @@ public class UserDAO extends BaseDAO<User> {
 
     public Integer insert(User user){
 
-        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
             String sqlInsert = "INSERT INTO users(firstName, lastName, username, password, privilege) VALUES ('" +
                     user.getFirstName() + "','" + user.getLastName() + "','" + user.getUsername() + "','" + user.getPasswordHash() + "','" + user.getPrivilege().toString() + "')" ;
@@ -114,13 +120,15 @@ public class UserDAO extends BaseDAO<User> {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return 0;
+        } catch (BadConnectionException e) {
+            throw new RuntimeException(e);
         }
 
     }
 
     public Integer update(User user){
 
-        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
             String sqlUpdate = "UPDATE users SET firstName = '" + user.getFirstName() + "', lastName = '" + user.getLastName() + "', password = '" + user.getPasswordHash() + "', privilege = '" + user.getPrivilege().toString() + "' WHERE username = '" + user.getUsername() + "'";
             statement.executeUpdate(sqlUpdate);
@@ -130,13 +138,15 @@ public class UserDAO extends BaseDAO<User> {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return 0;
+        } catch (BadConnectionException e) {
+            throw new RuntimeException(e);
         }
 
     }
 
     public Integer delete(User user){
 
-        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
             String sqlDelete = "DELETE FROM users WHERE username = '" + user.getUsername() + "'";
             statement.executeUpdate(sqlDelete);
@@ -146,6 +156,8 @@ public class UserDAO extends BaseDAO<User> {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return 0;
+        } catch (BadConnectionException e) {
+            throw new RuntimeException(e);
         }
 
     }

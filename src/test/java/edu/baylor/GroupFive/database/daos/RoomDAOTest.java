@@ -1,6 +1,5 @@
-package edu.baylor.GroupFive.database.roomDAO;
+package edu.baylor.GroupFive.database.daos;
 import edu.baylor.GroupFive.database.DbSetup;
-import edu.baylor.GroupFive.database.daos.RoomDAO;
 
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.enums.Theme;
@@ -8,7 +7,7 @@ import edu.baylor.GroupFive.models.enums.BedType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class TestRoomDAO {
+public class RoomDAOTest {
 
     @BeforeEach
     void init(){
