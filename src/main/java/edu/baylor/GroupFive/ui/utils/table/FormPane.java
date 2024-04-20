@@ -1,5 +1,6 @@
 package edu.baylor.GroupFive.ui.utils.table;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class FormPane extends JPanel implements PagePanel {
         this.sorter = sorter;
 
         setLayout(new GridBagLayout());
+        setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
         gbc = new GridBagConstraints();
 
         gbc = new GridBagConstraints();

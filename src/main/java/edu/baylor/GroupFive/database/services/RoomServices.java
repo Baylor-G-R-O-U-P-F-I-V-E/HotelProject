@@ -14,22 +14,22 @@ public class RoomServices {
 
     public static List<Room> getRooms(){
         RoomDAO roomConn = new RoomDAO();
-        return roomConn.getRooms();
+        return roomConn.getAll();
     };
 
     public static Room getRoom(Integer roomNum){
         RoomDAO conn = new RoomDAO();
-        return conn.getRoom(roomNum);
+        return conn.get(roomNum);
     }
 
     public static Boolean modifyRoom(Room updatedInfo){
         RoomDAO conn = new RoomDAO();
-        return conn.modifyRoom(updatedInfo);
+        return conn.update(updatedInfo) == 1 ? true : false;
     }
 
     public static Boolean addRoom(Room newRoom){
         RoomDAO conn = new RoomDAO();
-        return conn.addRoom(newRoom);
+        return conn.insert(newRoom) == 1 ? true : false;
     }
 
 

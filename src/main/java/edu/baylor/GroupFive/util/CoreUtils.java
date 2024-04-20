@@ -4,12 +4,15 @@ import edu.baylor.GroupFive.util.exceptions.SkillIssueException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CoreUtils {
     
     private CoreUtils() {}
 
-    public static final String DATE_FORMAT = "dd/MM/yyyy";
+    public static final String DATE_FORMAT = "MM/dd/yyyy";
 
      /**
       * Converts a `java.sql.Date` into a `java.util.Date`.
@@ -66,6 +69,11 @@ public class CoreUtils {
         }
 
         return stringBuilder.toString();
+    }
+
+    public static String formatDate(Date myDate) {
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        return dateFormat.format(myDate.getTime());
     }
 
 }

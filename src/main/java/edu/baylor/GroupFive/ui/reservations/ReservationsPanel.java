@@ -12,9 +12,12 @@ import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.ui.utils.Page;
+import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
+
+import java.awt.*;
 
 public class ReservationsPanel extends JPanel implements PagePanel {
     
@@ -48,6 +51,18 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         // Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table);
 
+        // Add some glue
+        add(Box.createVerticalGlue());
+
+        // Add a title
+        JLabel title = new JLabel("Reservations");
+        title.setFont(new java.awt.Font("Arial", Font.BOLD, 36));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(title);
+
+        // Add some glue
+        add(Box.createVerticalGlue());
+
         // Add the scroll pane to this panel.
         add(scrollPane);
 
@@ -67,9 +82,9 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         JPanel buttonPanel = new JPanel();
 
         // Create buttons
-        JButton modifyReservation = new JButton("Modify Selected Reservation");
-        JButton viewRoom = new JButton("View Selected Room");
-        JButton deleteReservation = new JButton("Delete Selected Reservation");
+        PanelButton modifyReservation = new PanelButton("Modify Selected Reservation");
+        PanelButton viewRoom = new PanelButton("View Selected Room");
+        PanelButton deleteReservation = new PanelButton("Delete Selected Reservation");
 
         // Add buttons to panel
         addButtonListeners(modifyReservation, viewRoom, deleteReservation);

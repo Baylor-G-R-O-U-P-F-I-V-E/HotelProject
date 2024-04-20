@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.ui.landing;
+package edu.baylor.GroupFive.ui.landing.login;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
 import java.awt.Font;

@@ -1,12 +1,15 @@
 package edu.baylor.GroupFive.ui.reserveRoom;
 
+import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,6 +23,7 @@ import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.utils.DatePanel;
 import edu.baylor.GroupFive.ui.utils.Page;
+import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
@@ -59,6 +63,20 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
         // Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table);
 
+        // Create a title
+        JLabel title = new JLabel("Available Rooms");
+        title.setFont(new java.awt.Font("Arial", Font.BOLD, 36));
+        title.setAlignmentX(CENTER_ALIGNMENT);
+
+        // Add some glue
+        add(Box.createVerticalGlue());
+
+        // Add the title
+        add(title);
+
+        // Add some glue
+        add(Box.createVerticalGlue());
+
         // Add the scroll pane to this panel.
         add(scrollPane);
 
@@ -78,9 +96,9 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
         JPanel buttonPanel = new JPanel();
 
         // Create buttons
-        JButton reserveRoom = new JButton("Reserve Selected Room");
-        JButton viewRoom = new JButton("View Selected Room");
-        JButton adjustDates = new JButton("Adjust Dates");
+        PanelButton reserveRoom = new PanelButton("Reserve Room");
+        PanelButton viewRoom = new PanelButton("View Room");
+        PanelButton adjustDates = new PanelButton("Adjust Dates");
 
         // Add buttons to panel
         addButtonListeners(reserveRoom, viewRoom, adjustDates);

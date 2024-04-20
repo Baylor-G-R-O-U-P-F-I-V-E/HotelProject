@@ -1,194 +1,151 @@
 package edu.baylor.GroupFive.database.daos;
 
-import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.enums.BedType;
 import edu.baylor.GroupFive.models.enums.Theme;
-import edu.baylor.GroupFive.models.enums.Quality;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.net.URL;
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class RoomDAO extends BaseDAO{
+public class RoomDAO extends BaseDAO<Room>{
 
     public RoomDAO(){}
 
+    public List<Room> getAll() {
 
+        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+            
+            String sqlQuery = "SELECT * FROM Room";
+            ResultSet rs = statement.executeQuery(sqlQuery);
+            List<Room> output = new ArrayList<>();
 
-    public static List<Room> getRooms(){
-
-        Connection connection =  getConnection();
-        if(connection == null){
-            System.err.println("Connection Failed");
-            return null;
-        }
-
-        Statement statement = null;
-        String sqlQuery = "SELECT * FROM Room";
-        ResultSet rs = null;
-        List<Room> output = new ArrayList<>();
-        try {
-            statement = connection.createStatement();
-            rs = statement.executeQuery(sqlQuery);
-            //"INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (101,'High', 'Jungle',1,3,98.22)" ,
-            //Room(int roomNumber, int quality, THEME theme, boolean smoking, int numBeds, BED_TYPE bedType, double dailyPrice) {
-            while(rs.next()){
+            while (rs.next()) {
                 Room out = new Room(rs.getInt("roomNumber"),
                         rs.getInt("quality"),
-                        // Room.THEME.fromString(rs.getString("theme")),
                         Theme.fromString(rs.getString("theme")),
                         rs.getBoolean("smoking"),
                         rs.getInt("numbeds"),
                         BedType.fromString(rs.getString("bedtype")),
-                        // Room.BED_TYPE.fromString(rs.getString("bedtype")),
                         rs.getDouble("dailyPrice")
-                        );
+                );
+
                 output.add(out);
 
             }
 
+            return output;
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return null;
-        }finally {
-            closeConnection(connection);
-            closeStatement(statement);
         }
 
-
-        return output;
     }
 
+    public Integer save(Room room){
 
-    /*
-     *
-     * 
-     * 
-     */
-    public static Boolean addRoom(Room newRoom){
-        Connection connection = getConnection();
-        if(connection == null){
-            System.err.println("Connection Failed");
+        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+            
+            Room exists = get(room.getRoomNumber());
+            
+            if (exists == null){
+                return insert(room);
+            } else {
+                return update(room);
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
             return null;
         }
-        Statement statement = null;
-        String rowID = null;
-        // startDate endDate price guestID roomID
-        String sqlInsert = "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (" +
+
+    }
+
+    public Integer insert(Room newRoom){
+
+        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+            
+            String sqlInsert = "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (" +
                 newRoom.getRoomNumber().toString() + "," + newRoom.getQuality() +
-                // newRoom.getRoomNumber().toString() + "," + newRoom.getQuality().toString() +
                 ",'" + newRoom.getTheme().toString() + "'," + newRoom.isSmoking().toString() + ",'" +
                 newRoom.getBedType().toString() + "'," +
                 newRoom.getNumBeds().toString()  + "," +
                 newRoom.getDailyPrice().toString() + ")";
-        try {
-            statement = connection.createStatement();
             statement.executeUpdate(sqlInsert);
+
+            return 1;
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-            return false;
-        }finally {
-            closeConnection(connection);
-            closeStatement(statement);
+            return 0;
         }
-
-
-        return true;
+       
     }
 
-    /*
-     * CHECK THIS METHOD
-     * i added it just to make vscode happy - Brendon
-     * 
-     * 
-     
-     */
-    public static Room getRoom(Integer roomNumber){
-        Connection connection =  getConnection();
-        if(connection == null){
-            System.err.println("Connection Failed");
-            return null;
-        }
+    public Room get(int roomNumber){
 
-        Statement statement = null;
-        String sqlQuery = "SELECT * FROM Room WHERE roomNumber = " + roomNumber.toString();
-        ResultSet rs = null;
+        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+            
+            String sqlQuery = "SELECT * FROM Room WHERE roomNumber = " + String.valueOf(roomNumber);
+            ResultSet rs = statement.executeQuery(sqlQuery);
 
-        try {
-            statement = connection.createStatement();
-            rs = statement.executeQuery(sqlQuery);
-            //"INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (101,'High', 'Jungle',1,3,98.22)" ,
-            //Room(int roomNumber, int quality, THEME theme, boolean smoking, int numBeds, BED_TYPE bedType, double dailyPrice) {
-            while(rs.next()){
+            while (rs.next()) {
                 Room out = new Room(rs.getInt("roomNumber"),
                         rs.getInt("quality"),
-                        Theme.fromString(rs.getString("THEME")),
+                        Theme.fromString(rs.getString("theme")),
                         rs.getBoolean("smoking"),
                         rs.getInt("numbeds"),
-                        BedType.fromString(rs.getString("BEDTYPE")),
+                        BedType.fromString(rs.getString("bedtype")),
                         rs.getDouble("dailyPrice")
                 );
-                return out;
 
+                return out;
             }
 
+            return null;
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return null;
-        }finally {
-            closeConnection(connection);
-            closeStatement(statement);
         }
 
-
-        return null;
     }
 
 
 
-    public static Boolean modifyRoom(Room updatedInfo){
-        Connection connection =  getConnection();
-        if(connection == null){
-            System.err.println("Connection Failed");
-            return null;
+    public Integer update(Room updatedInfo){
+
+        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+            
+            String sqlUpdate = "UPDATE ROOM SET quality = " + updatedInfo.getQuality() +
+                ", theme = '" + updatedInfo.getTheme().toString() + "', smoking = " + updatedInfo.isSmoking().toString() +
+                ", bedType = '" + updatedInfo.getBedType().toString() + "', numbeds = " + updatedInfo.getNumBeds().toString() +
+                ", dailyPrice = " + updatedInfo.getDailyPrice().toString() + " WHERE roomNumber = " + updatedInfo.getRoomNumber().toString();
+            statement.executeUpdate(sqlUpdate);
+
+            return 1;
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return 0;
         }
 
+    }
 
+    public Integer delete(Room room){
 
-        //just checking we already have the room in the db
-        Room exists = getRoom(updatedInfo.getRoomNumber());
-        if(exists == null){
-            return false;
-        }
-
-        Statement statement = null;
-        String sqlDelete = "DELETE FROM room WHERE roomNumber = " + updatedInfo.getRoomNumber();
-        try {
-            statement = connection.createStatement();
+        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+            
+            String sqlDelete = "DELETE FROM room WHERE roomNumber = " + room.getRoomNumber();
             statement.execute(sqlDelete);
 
+            return 1;
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-            return false;
-        }finally {
-            closeConnection(connection);
-            closeStatement(statement);
+            return 0;
         }
 
-        return  addRoom(updatedInfo);
     }
-
-
-
-
 
 }
