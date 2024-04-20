@@ -16,8 +16,6 @@ public class UserDAO extends BaseDAO {
 
     public UserDAO() {}
 
-
-
     public static User getUser(String username){
         Connection connection =  getConnection();
         if(connection == null){
