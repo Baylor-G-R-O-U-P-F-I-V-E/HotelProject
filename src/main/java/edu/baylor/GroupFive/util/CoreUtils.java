@@ -1,15 +1,32 @@
 package edu.baylor.GroupFive.util;
 
+import edu.baylor.GroupFive.util.exceptions.SkillIssueException;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class CoreUtils {
     
     private CoreUtils() {}
 
     public static final String DATE_FORMAT = "dd/MM/yyyy";
 
+     /**
+      * Converts a `java.sql.Date` into a `java.util.Date`.
+      *
+      * @author Icko
+      * @return Returns a `java.sql.Date` object
+      * */
     public static java.util.Date getUtilDate(java.sql.Date date) {
         return new java.util.Date(date.getTime());
     }
 
+     /**
+      * Converts a `java.util.Date` into a `java.sql.Date`.
+      *
+      * @author Icko
+      * @return Returns a `java.util.Date` object
+      * */
     public static java.sql.Date getSqlDate(java.util.Date date) {
         return new java.sql.Date(date.getTime());
     }
@@ -21,6 +38,34 @@ public class CoreUtils {
             builder.append("    " + element.toString() + "\n");
         }
         return builder.toString();
+    }
+
+     /**
+      * Takes in a clear-test password and hashes it.
+      *
+      * @author Icko
+      * @author ChatGPT
+      * @return Returns the hash of a password
+      * */
+    public static String hashPassword(String password) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        try {
+            // Get an instance of MessageDigest with SHA-256 algorithm
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+
+            // Perform the hashing
+            byte[] hashedBytes = digest.digest(password.getBytes());
+
+            // Convert the hashed bytes to a hexadecimal string
+            for (byte b : hashedBytes) {
+                stringBuilder.append(String.format("%02x", b));
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            System.err.println("Check algorithm");
+        }
+
+        return stringBuilder.toString();
     }
 
 }
