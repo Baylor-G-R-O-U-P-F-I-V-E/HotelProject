@@ -165,6 +165,10 @@ public class DbSetup {
             "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id, active, checkedIn) VALUES ('07/22/2024','07/25/2024',97.99,'Bongo',103, 8, true, false)",
             "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id, active, checkedIn) VALUES ('07/14/2024','07/19/2024',97.99,'Ant',104, 9, true, true)");
 
+    private static final String BASE_USER_INSERT_QUERY = "INSERT INTO USERS(firstName, lastName, userName, password, privilege) VALUES ( ?, ?, ?, ?, ? )";
+    private static final String BASE_ROOM_INSERT_QUERY = "INSERT INTO ROOM(roomNumber, quality, theme, smoking, bedType, numBeds, dailyPrice) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
+    private static final String BASE_RESERVATION_INSERT_QUERY = "INSERT INTO RESERVATIONS(startDate, endDate, price, guestUsername, roomNumber, id, active, checkedIn) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
+
     private static final List<String[]> users = new ArrayList<>();
 
     static {
@@ -178,6 +182,10 @@ public class DbSetup {
         users.add(new String[] { "Antoine", "Wu", "Ant", "1234", "guest" });
         users.add(new String[] { "Everett", "Anderson", "andyEv", "1234", "guest" });
         users.add(new String[] { "Icko", "Iben", "ickoxii", "sicem", "guest" });
+    }
+
+    private class QueryParamsBuilder {
+        
     }
 
 }
