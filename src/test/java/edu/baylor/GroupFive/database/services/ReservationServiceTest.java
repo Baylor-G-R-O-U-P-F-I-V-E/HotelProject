@@ -21,7 +21,6 @@ public class ReservationServiceTest {
     @BeforeEach
     void init(){
         DbSetup db = new DbSetup();
-        DbSetup.dbInit();
     }
 
     @Test
