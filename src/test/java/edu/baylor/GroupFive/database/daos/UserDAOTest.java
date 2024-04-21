@@ -13,7 +13,7 @@ public class UserDAOTest {
     @BeforeEach
     void init() {
         DbSetup setup = new DbSetup();
-        DbSetup.dbInit();
+    
     }
 
 

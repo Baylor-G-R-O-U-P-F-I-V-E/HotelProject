@@ -7,6 +7,7 @@
 package edu.baylor.GroupFive.database;
 
 import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
+import edu.baylor.GroupFive.util.logging.G5Logger;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,7 +44,7 @@ public class DbConnection {
             connection = DriverManager.getConnection(dbhost, "", "");
             assert(connection != null);             // [1]
         } catch (SQLException e) {                  // [2]
-            logger.info("Could not establish database connection");
+            G5Logger.logger.error("Could not establish database connection");
             throw new BadConnectionException();
         }
         return connection;
@@ -54,7 +55,7 @@ public class DbConnection {
             try {
                 statement.close();
             } catch (SQLException e) {
-                logger.info("Error closing statement");
+                G5Logger.logger.error("Error closing statement");
             }
         }
 
@@ -65,7 +66,7 @@ public class DbConnection {
             try {
                 statement.close();
             } catch (SQLException e) {
-                logger.info("Error closing statement");
+                G5Logger.logger.error("Error closing statement");
             }
         }
 
@@ -76,7 +77,7 @@ public class DbConnection {
             try {
                 connection.close();
             } catch (SQLException e) {
-                logger.info("Error closing connection");
+                G5Logger.logger.error("Error closing connection");
             }
         }
     }
