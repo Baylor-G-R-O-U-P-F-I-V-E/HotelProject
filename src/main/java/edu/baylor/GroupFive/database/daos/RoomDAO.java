@@ -41,8 +41,6 @@ public class RoomDAO extends BaseDAO<Room>{
         } catch (SQLException | BadConnectionException e) {
             G5Logger.logger.error(e.getMessage());;
             return null;
-        } catch (BadConnectionException e) {
-            throw new RuntimeException(e);
         }
 
     }
@@ -149,8 +147,6 @@ public class RoomDAO extends BaseDAO<Room>{
         } catch (SQLException | BadConnectionException e) {
             G5Logger.logger.error(e.getMessage());
             return 0;
-        } catch (BadConnectionException e) {
-            throw new RuntimeException(e);
         }
 
     }

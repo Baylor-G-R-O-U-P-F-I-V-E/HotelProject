@@ -129,8 +129,6 @@ public class UserDAO extends BaseDAO<User> {
         } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return 0;
-        } catch (BadConnectionException e) {
-            throw new RuntimeException(e);
         }
 
     }
@@ -147,8 +145,6 @@ public class UserDAO extends BaseDAO<User> {
         } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return 0;
-        } catch (BadConnectionException e) {
-            throw new RuntimeException(e);
         }
 
     }
@@ -165,8 +161,6 @@ public class UserDAO extends BaseDAO<User> {
         } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return 0;
-        } catch (BadConnectionException e) {
-            throw new RuntimeException(e);
         }
 
     }
