@@ -41,7 +41,16 @@ public class UserDAO extends BaseDAO<User> {
             List<User> output = new ArrayList<>();
 
             while (rs.next()) {
-                User out = new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("username"), rs.getString("password"), rs.getString("privilege"));
+                int id = rs.getInt("id");
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+                String userName = rs.getString("userName");
+                String pswdHash = rs.getString("password");
+                String privilege = rs.getString("privilege");
+                User out = new User(firstName, lastName, userName, pswdHash, privilege);
+                // User out = new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("username"), rs.getString("password"), rs.getString("privilege"));
+                // FIXME dbg
+                System.out.println("User got: " + userName + " [pswd]=" + pswdHash);
                 output.add(out);
             }
 

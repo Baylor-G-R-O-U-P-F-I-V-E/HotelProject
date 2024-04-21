@@ -1,8 +1,11 @@
 package edu.baylor.GroupFive.database;
 
+import edu.baylor.GroupFive.util.CoreUtils;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -12,6 +15,8 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.ArrayList;
+
+import java.text.ParseException;
 
 public class DbSetup {
 
@@ -23,6 +28,8 @@ public class DbSetup {
 
         logger.info("Running");
 
+        dbTearDown();
+
         try (Connection connection = DriverManager.getConnection(url, user, password);
                 Statement statement = connection.createStatement()) {
 
@@ -31,7 +38,7 @@ public class DbSetup {
                 statement.executeQuery("SELECT * FROM USERs");
             } catch (SQLException e) {
                 // The "USERs" table does not exist, so create it
-                statement.executeUpdate(sqlCreateUser);
+                statement.executeUpdate(sqlCreateUserTable);
             }
         
             try {
@@ -39,7 +46,7 @@ public class DbSetup {
                 statement.executeQuery("SELECT * FROM ROOM");
             } catch (SQLException e) {
                 // The "ROOM" table does not exist, so create it
-                statement.executeUpdate(sqlCreateRoom);
+                statement.executeUpdate(sqlCreateRoomTable);
             }
         
             try {
@@ -47,7 +54,7 @@ public class DbSetup {
                 statement.executeQuery("SELECT * FROM RESERVATIONs");
             } catch (SQLException e) {
                 // The "RESERVATION" table does not exist, so create it
-                statement.executeUpdate(sqlCreateReservation);
+                statement.executeUpdate(sqlCreateReservationTable);
             }
 
         } catch (SQLException e) {
@@ -56,37 +63,70 @@ public class DbSetup {
             throw new RuntimeException(e);
         }
 
+        dbInit();
+
     }
 
-    public static void dbInit() {
+    private static void dbTearDown() {
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+                Statement statement = connection.createStatement()) {
+            statement.executeUpdate(sqlDropReservationTable);
+            statement.executeUpdate(sqlDropRoomTable);
+            statement.executeUpdate(sqlDropUserTable);
+        } catch (SQLException e) {
+            logger.warn("SQLException in dbTearDown");
+            e.printStackTrace();
+        }
+    }
+
+    private static void dbInit() {
 
         try (Connection connection = DriverManager.getConnection(url, user, password); Statement statement = connection.createStatement()) {
             
             logger.info("Initializing database tables");
-
-            String sqlQ = "SELECT * FROM  RESERVATIONs";
+            PreparedStatement ps;
 
             // Inserts all records, avoiding duplicates
-            for (String r : sqlInserts) {
-                
-                try {
-                    statement.executeUpdate(r);
-                } catch (SQLException e) {
+            ps = connection.prepareStatement(BASE_USER_INSERT_QUERY);
+            initializeUsers(ps);
+            ps = connection.prepareStatement(BASE_ROOM_INSERT_QUERY);
+            initializeRooms(ps);
+            ps = connection.prepareStatement(BASE_RESERVATION_INSERT_QUERY);
+            initializeReservations(ps);
+            
+//             int count = 0;
+//             try{
+// 
+//                 logger.info("Initializing database tables");
+//                 for(String r : sqlInserts){
+//                     count++;
+//                     statement.executeUpdate(r);
+//                 }
+// 
+//             }catch(SQLException e){
+//                 logger.info("INSERTION ERROR " + count);
+//                 logger.info(e.getMessage());
+//             }
 
-                    if (e instanceof SQLIntegrityConstraintViolationException) {
-                        logger.warn("Attempted to insert a duplicate key, skipping this record.");
-                        
-                    } else {
-                        throw e;
-                    }
-
-                }
-
+            String sqlQ = "SELECT * FROM  RESERVATIONs";
+            ResultSet rs = statement.executeQuery(sqlQ);
+            logger.info("Current reservations in database...");
+            while (rs.next()) {
+                logger.info(CoreUtils.getUtilDate(rs.getDate("startDate")) + " " + rs.getString("roomNumber") + " " + rs.getDouble("price"));
             }
 
-            ResultSet rs = statement.executeQuery(sqlQ);
+            sqlQ = "SELECT * FROM USERS";
+            rs = statement.executeQuery(sqlQ);
+            logger.info("Current users in database...");
             while (rs.next()) {
-                logger.info(rs.getDate("startDate") + " " + rs.getString("roomNumber") + " " + rs.getDouble("price"));
+                logger.info(rs.getString("username") + " " + rs.getString("password"));
+            }
+
+            sqlQ = "SELECT * FROM ROOM";
+            rs = statement.executeQuery(sqlQ);
+            logger.info("Current rooms in database...");
+            while (rs.next()) {
+                logger.info(rs.getInt("roomNumber") + " " + rs.getString("theme"));
             }
 
         } catch (SQLException e) {
@@ -100,19 +140,18 @@ public class DbSetup {
     private static final String url = "jdbc:derby:FinalProject;create=true";
     private static final String user = "";
     private static final String password = "";
-    private static final String sqlDropReservation = "DROP TABLE RESERVATIONs";
-    private static final String sqlDropRoom = "DROP TABLE ROOM";
-    private static final String sqlDropUser = "DROP TABLE USERs";
-
-    private static final String sqlCreateUser = "CREATE TABLE USERs(" +
+    private static final String sqlDropReservationTable = "DROP TABLE RESERVATIONs";
+    private static final String sqlDropRoomTable = "DROP TABLE ROOM";
+    private static final String sqlDropUserTable = "DROP TABLE USERs";
+    private static final String sqlCreateUserTable = "CREATE TABLE USERs(" +
             "firstName VARCHAR(30)," +
             "lastName VARCHAR(30)," +
             "username VARCHAR(30) NOT NULL ," +
-            "password VARCHAR(30)," +
+            "password VARCHAR(256)," +
             "privilege VARCHAR(20)," +
             "CONSTRAINT PK_USER PRIMARY KEY(username))";
 
-    private static final String sqlCreateRoom = "CREATE TABLE ROOM(" +
+    private static final String sqlCreateRoomTable = "CREATE TABLE ROOM(" +
             "roomNumber INTEGER NOT NULL , " +
             "quality INTEGER," +
             "theme VARCHAR(50)," +
@@ -122,7 +161,7 @@ public class DbSetup {
             "dailyPrice DECIMAL(5,2)," +
             "CONSTRAINT PK_ROOM PRIMARY KEY(roomNumber))";
 
-    private static final String sqlCreateReservation = "CREATE TABLE RESERVATIONs(" +
+    private static final String sqlCreateReservationTable = "CREATE TABLE RESERVATIONs(" +
             "startDate DATE," +
             "endDate Date," +
             "price DECIMAL(5,2)," +
@@ -136,6 +175,132 @@ public class DbSetup {
             "CONSTRAINT PK_RES3 PRIMARY KEY(roomNumber, startDate)" +
             ")";
 
+
+    private static final String BASE_USER_INSERT_QUERY = "INSERT INTO USERS(firstName, lastName, userName, password, privilege) VALUES ( ?, ?, ?, ?, ? )";
+    private static final String BASE_ROOM_INSERT_QUERY = "INSERT INTO ROOM(roomNumber, quality, theme, smoking, bedType, numBeds, dailyPrice) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
+    private static final String BASE_RESERVATION_INSERT_QUERY = "INSERT INTO RESERVATIONS(startDate, endDate, price, guestUsername, roomNumber, id, active, checkedIn) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
+
+    private static final List<Object[]> userInits = new ArrayList<>();
+    private static final List<Object[]> roomInits = new ArrayList<>();
+    private static final List<Object[]> reservationInits = new ArrayList<>();
+
+    static {
+        userInits.add(new Object[] { "Joe",     "Smith",        "Bongo",            "p1234",    "admin" });
+        userInits.add(new Object[] { "Kevin",   "James",        "KevDog",           "1234",     "clerk" });
+        userInits.add(new Object[] { "Axel",    "Washington",   "Axel112",          "1234",     "clerk" });
+        userInits.add(new Object[] { "Andrew",  "Wiles",        "BigA",             "1234",     "clerk" });
+        userInits.add(new Object[] { "Larry",   "AB",           "LarryTheLobster",  "1234",     "guest" });
+        userInits.add(new Object[] { "Josh",    "Smith",        "Jman",             "1234",     "guest" });
+        userInits.add(new Object[] { "Tyler",   "Lee",          "T-Lee",            "1234",     "guest" });
+        userInits.add(new Object[] { "Antoine", "Wu",           "Ant",              "1234",     "guest" });
+        userInits.add(new Object[] { "Everett", "Anderson",     "andyEv",           "1234",     "guest" });
+        userInits.add(new Object[] { "Icko",    "Iben",         "ickoxii",          "sicem",    "guest" });
+
+        roomInits.add(new Object[] { 101, 1, "VintageCharm",    true,     "KING",     2,    98.22 });
+        roomInits.add(new Object[] { 102, 1, "NatureRetreat",   false,    "KING",     2,    97.22 });
+        roomInits.add(new Object[] { 103, 1, "UrbanElegance",   true,     "SINGLE",   2,    77.22 });
+        roomInits.add(new Object[] { 104, 1, "UrbanElegance",   true,     "SINGLE",   2,    89.22 });
+        roomInits.add(new Object[] { 105, 1, "VintageCharm",    false,    "QUEEN",    2,    99.22 });
+        roomInits.add(new Object[] { 106, 1, "NatureRetreat",   true,     "SINGLE",   2,    101.22 });
+        roomInits.add(new Object[] { 107, 1, "NatureRetreat",   false,    "DOUBLE",   2,    94.22 });
+        roomInits.add(new Object[] { 108, 1, "NatureRetreat",   false,    "QUEEN",    2,    92.22 });
+        roomInits.add(new Object[] { 109, 1, "VintageCharm",    true,     "KING",     2,    98.22 });
+
+        reservationInits.add(new Object[] { "12/17/2024",   "12/19/2024",   97.99,  "Axel112",            102, 1, true,     false });
+        reservationInits.add(new Object[] { "07/12/2024",   "07/22/2024",   95.99,  "LarryTheLobster",    103, 2, true,     false });
+        reservationInits.add(new Object[] { "07/20/2024",   "07/23/2024",   96.99,  "BigA",               101, 3, true,     false });
+        reservationInits.add(new Object[] { "07/20/2024",   "07/23/2024",   97.99,  "Jman",               104, 4, true,     true });
+        reservationInits.add(new Object[] { "07/11/2024",   "07/13/2024",   88.99,  "T-Lee",              105, 5, false,    false });
+        reservationInits.add(new Object[] { "07/09/2024",   "07/12/2024",   97.99,  "andyEv",             101, 6, false,    false });
+        reservationInits.add(new Object[] { "07/10/2024",   "07/17/2024",   88.99,  "KevDog",             102, 7, true,     true });
+        reservationInits.add(new Object[] { "07/22/2024",   "07/25/2024",   97.99,  "Bongo",              103, 8, true,     false });
+        reservationInits.add(new Object[] { "07/14/2024",   "07/19/2024",   97.99,  "Ant",                104, 9, true,     true });
+    }
+
+     /**
+      * Initializes Users table in our database
+      *
+      * @author Icko
+      * */
+    private static void initializeUsers(PreparedStatement statement) throws SQLException {
+        for (Object[] user : userInits) {
+            statement.setString(1, (String) user[0]);
+            statement.setString(2, (String) user[1]);
+            statement.setString(3, (String) user[2]);
+            statement.setString(4, CoreUtils.hashPassword((String) user[3]));
+            statement.setString(5, (String) user[4]);
+            try {
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                if (e instanceof SQLIntegrityConstraintViolationException) {
+                    logger.warn("Attempted to insert a duplicate key, skipping this record.");
+                } else {
+                    throw e;
+                }
+            }
+        }
+    }
+
+     /**
+      * Initializes Rooms table in our database
+      *
+      * @author Icko
+      * */
+    private static void initializeRooms(PreparedStatement statement) throws SQLException {
+        for (Object[] room : roomInits) {
+            statement.setInt(1, (int) room[0]);
+            statement.setInt(2, (int) room[1]);
+            statement.setString(3, (String) room[2]);
+            statement.setBoolean(4, (boolean) room[3]);
+            statement.setString(5, (String) room[4]);
+            statement.setInt(6, (int) room[5]);
+            statement.setDouble(7, (double) room[6]);
+            try {
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                if (e instanceof SQLIntegrityConstraintViolationException) {
+                    logger.warn("Attempted to insert a duplicate key, skipping this record.");
+                } else {
+                    throw e;
+                }
+            }
+        }
+    }
+
+     /**
+      * Initializes Reservations table in our database
+      *
+      * @author Icko
+      * */
+    private static void initializeReservations(PreparedStatement statement) throws SQLException {
+        for (Object[] reservation : reservationInits) {
+            try {
+                statement.setDate(1, CoreUtils.getSqlDate((String) reservation[0]));            
+                statement.setDate(2, CoreUtils.getSqlDate((String) reservation[1]));
+            } catch (ParseException e ) {
+                logger.warn("Error parsing dates in initializeReservations");
+            }
+            statement.setDouble(3, (double) reservation[2]);
+            statement.setString(4, (String) reservation[3]);
+            statement.setInt(5, (int) reservation[4]);
+            statement.setInt(6, (int) reservation[5]);
+            statement.setBoolean(7, (boolean) reservation[6]);
+            statement.setBoolean(8, (boolean) reservation[7]);
+
+            try {
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                if (e instanceof SQLIntegrityConstraintViolationException) {
+                    logger.warn("Attempted to insert a duplicate key, skipping this record.");
+                } else {
+                    throw e;
+                }
+            }
+        }
+    }
+
+}
+/*
     private static final List<String> sqlInserts = List.of(
             "INSERT INTO USERs(firstName, lastNAME, username,password,privilege) VALUES('Joe','Smith','Bongo','p1234', 'admin')",
             "INSERT INTO USERs(firstName, lastNAME, username,password, privilege) VALUES('Kevin','James', 'KevDog', 'password', 'clerk')",
@@ -164,28 +329,4 @@ public class DbSetup {
             "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id, active, checkedIn) VALUES ('07/10/2024','07/17/2024',88.99,'KevDog',102, 7, true, true)",
             "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id, active, checkedIn) VALUES ('07/22/2024','07/25/2024',97.99,'Bongo',103, 8, true, false)",
             "INSERT INTO RESERVATIONs( startDate, endDate, price, guestusername, roomNumber, id, active, checkedIn) VALUES ('07/14/2024','07/19/2024',97.99,'Ant',104, 9, true, true)");
-
-    private static final String BASE_USER_INSERT_QUERY = "INSERT INTO USERS(firstName, lastName, userName, password, privilege) VALUES ( ?, ?, ?, ?, ? )";
-    private static final String BASE_ROOM_INSERT_QUERY = "INSERT INTO ROOM(roomNumber, quality, theme, smoking, bedType, numBeds, dailyPrice) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
-    private static final String BASE_RESERVATION_INSERT_QUERY = "INSERT INTO RESERVATIONS(startDate, endDate, price, guestUsername, roomNumber, id, active, checkedIn) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
-
-    private static final List<String[]> users = new ArrayList<>();
-
-    static {
-        users.add(new String[] { "Joe", "Smith", "Bongo", "p1234", "admin" });
-        users.add(new String[] { "Kevin", "James", "KevDog", "1234", "clerk" });
-        users.add(new String[] { "Axel", "Washington", "Axel112", "1234", "clerk" });
-        users.add(new String[] { "Andrew", "Wiles", "BigA", "1234", "clerk" });
-        users.add(new String[] { "Larry", "AB", "LarryTheLobster", "1234", "guest" });
-        users.add(new String[] { "Josh", "Smith", "Jman", "1234", "guest" });
-        users.add(new String[] { "Tyler", "Lee", "T-Lee", "1234", "guest" });
-        users.add(new String[] { "Antoine", "Wu", "Ant", "1234", "guest" });
-        users.add(new String[] { "Everett", "Anderson", "andyEv", "1234", "guest" });
-        users.add(new String[] { "Icko", "Iben", "ickoxii", "sicem", "guest" });
-    }
-
-    private class QueryParamsBuilder {
-        
-    }
-
-}
+*/

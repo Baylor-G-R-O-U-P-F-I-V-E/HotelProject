@@ -6,7 +6,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.text.ParseException;
 
 public class CoreUtils {
     
@@ -71,9 +71,15 @@ public class CoreUtils {
         return stringBuilder.toString();
     }
 
-    public static String formatDate(Date myDate) {
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    public static String formatDate(java.util.Date myDate) {
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         return dateFormat.format(myDate.getTime());
+    }
+
+    public static java.sql.Date getSqlDate(String dateStr) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+        java.util.Date date = sdf.parse(dateStr);
+        return getSqlDate(date);
     }
 
 }

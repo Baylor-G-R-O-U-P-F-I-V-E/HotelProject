@@ -1,5 +1,7 @@
 package edu.baylor.GroupFive.database.controllers;
 
+import edu.baylor.GroupFive.util.exceptions.InvalidCredentialsException;
+
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.database.services.AccountService;
 import edu.baylor.GroupFive.database.services.LoginService;
@@ -8,7 +10,7 @@ import edu.baylor.GroupFive.database.services.LoginService;
 // i.e. Don't need to read pswd
 public class AccountController {
 
-    public static User login(String username, String password) {
+    public static User login(String username, String password) throws InvalidCredentialsException {
         return LoginService.login(username, password);
     }
 
