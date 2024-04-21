@@ -25,7 +25,7 @@ public class LoginPanel extends JPanel implements PagePanel {
     private JTextField passwordField;
     private LandingPage delegate;
     public String username;
-    public String password;
+    public String passwordHash;
 
     public LoginPanel(LandingPage delegate) {
         super();
@@ -147,7 +147,7 @@ public class LoginPanel extends JPanel implements PagePanel {
     }
 
     public String getPassword() {
-        return password;
+        return passwordHash;
     }
 
     @Override

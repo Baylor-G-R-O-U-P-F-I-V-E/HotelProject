@@ -6,11 +6,13 @@ import java.io.IOException;
 
 import javax.swing.JTextField;
 
+import edu.baylor.GroupFive.util.exceptions.InvalidCredentialsException;
 import edu.baylor.GroupFive.database.controllers.AccountController;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
+import edu.baylor.GroupFive.util.CoreUtils;
 
 public class LoginActionListener implements ActionListener {
     private InputDelegate loginPage;
@@ -52,10 +54,10 @@ public class LoginActionListener implements ActionListener {
         }
 
         // Get the password
-        String password = passwordField.getText();
+        String passwordHash = CoreUtils.hashPassword(passwordField.getText());
         
         // If the password is empty, show an error message
-        if (password.isEmpty()) {
+        if (passwordHash.isEmpty()) {
             message = """
                     
                             Well, well, well... look who's trying to
@@ -73,10 +75,10 @@ public class LoginActionListener implements ActionListener {
         }
 
         // Attempt to login
-        User user = AccountController.login(name, password);
-        
-        // If the user is null, the login failed
-        if (user == null) {
+        User user = null;
+        try {
+            user = AccountController.login(name, passwordHash);
+        } catch (InvalidCredentialsException ex) {
             message = "Incorrect name or password";
             try {
                 new BadInputDialog(message, title);
@@ -84,6 +86,10 @@ public class LoginActionListener implements ActionListener {
                 e1.printStackTrace();
             }
             return;
+        }
+        
+        // If the user is null, the login failed
+        if (user == null) {
         }
 
         // Switch to the success page

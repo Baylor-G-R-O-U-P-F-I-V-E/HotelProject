@@ -18,6 +18,7 @@ import edu.baylor.GroupFive.database.controllers.ReservationController;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.ui.utils.DatePanel;
 import edu.baylor.GroupFive.ui.utils.Page;
+import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
 public class ModifyReservationPanel extends JPanel implements PagePanel {
@@ -127,14 +128,7 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
     }
 
     public void addModifyReservationButton(JPanel buttonPanel) {
-        JButton modifyButton = new JButton("Confirm");
-        modifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        modifyButton.setPreferredSize(new Dimension(200, 50));
-        modifyButton.setFont(new Font("Arial", Font.PLAIN, 22));
-        modifyButton.setOpaque(true);
-        modifyButton.setBorderPainted(false);
-        modifyButton.setBackground(new Color(0, 0, 153));
-        modifyButton.setForeground(new Color(255, 255, 255));
+        PanelButton modifyButton = new PanelButton("Confirm");
 
         // Add an action listener to the button
         modifyButton.addActionListener(new ModifyReservationActionListener(delegate, originalRoom, originalStartDate, roomID, price, startDate, endDate));
@@ -143,14 +137,7 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
     }
 
     public void addBackButton(JPanel buttonPanel) {
-        JButton backButton = new JButton("Back");
-        backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        backButton.setPreferredSize(new Dimension(200, 50));
-        backButton.setFont(new Font("Arial", Font.PLAIN, 22));
-        backButton.setOpaque(true);
-        backButton.setBorderPainted(false);
-        backButton.setBackground(new Color(0, 0, 153));
-        backButton.setForeground(new Color(255, 255, 255));
+        PanelButton backButton = new PanelButton("Back");
 
         // Add an action listener to the button
         backButton.addActionListener(e -> delegate.onPageSwitch("home"));

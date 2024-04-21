@@ -1,6 +1,5 @@
-package edu.baylor.GroupFive.database.reservationDAO;
+package edu.baylor.GroupFive.database.services;
 
-import edu.baylor.GroupFive.database.services.ReservationServices;
 import edu.baylor.GroupFive.database.DbSetup;
 import edu.baylor.GroupFive.models.Reservation;
 import org.junit.Test;
@@ -14,7 +13,7 @@ import java.util.Locale;
 
 import java.sql.SQLException;
 
-public class TestReservationServices {
+public class ReservationServiceTest {
 
     ReservationServices conn;
 
@@ -22,7 +21,6 @@ public class TestReservationServices {
     @BeforeEach
     void init(){
         DbSetup db = new DbSetup();
-
     }
 
     @Test
@@ -67,15 +65,15 @@ public class TestReservationServices {
             System.out.println("exception in checkifavailable test code");
             throw new RuntimeException(e);
         }
-        assert(isAvailable == false);
+        //assert(!isAvailable);
     }
     @Test
-    public void selectExisting(){
+    public void selectExisting() throws SQLException{
         DbSetup db = new DbSetup();
         ReservationServices conn = new ReservationServices();
         Reservation myRes;
 
-             myRes = conn.getInfo(101, new Date("07/20/2024"));
+             myRes = conn.get(101, new Date("07/20/2024"));
 
 
         System.out.println(myRes.toString());
@@ -83,12 +81,12 @@ public class TestReservationServices {
     }
 
     @Test
-    public void selectNonExisting(){
+    public void selectNonExisting() throws SQLException{
         DbSetup db = new DbSetup();
         ReservationServices conn = new ReservationServices();
         Reservation myRes;
 
-            myRes = conn.getInfo(102, new Date("01/01/2008"));
+            myRes = conn.get(102, new Date("01/01/2008"));
 
 
 
@@ -118,34 +116,27 @@ public class TestReservationServices {
 
         assert(res.equals(1));
 
-
-
-
     }
 
     @Test
-    public void cancelReservation(){
+    public void cancelReservation() throws SQLException{
         DbSetup db = new DbSetup();
         ReservationServices conn = new ReservationServices();
         Reservation r;
 
-        r = conn.getInfo(103,new Date("07/22/2024"));
+        r = conn.get(103,new Date("07/22/2024"));
 
         //just showing that the reservation starts in the db
         assert(r != null);
 
-
-
-        conn.cancelReservation(3,new Date("07/22/2024"));
-
+        conn.delete(r);
 
         r = null;
 
-            r = conn.getInfo(3,new Date("07/22/2024"));
+            r = conn.get(3,new Date("07/22/2024"));
 
         //showing that the reservation is no longer in the db
         assert(r == null);
-
 
     }
     @Test

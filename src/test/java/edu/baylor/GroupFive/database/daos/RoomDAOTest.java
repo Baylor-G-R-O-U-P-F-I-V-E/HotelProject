@@ -1,6 +1,5 @@
-package edu.baylor.GroupFive.database.roomDAO;
+package edu.baylor.GroupFive.database.daos;
 import edu.baylor.GroupFive.database.DbSetup;
-import edu.baylor.GroupFive.database.daos.RoomDAO;
 
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.enums.Theme;
@@ -8,24 +7,20 @@ import edu.baylor.GroupFive.models.enums.BedType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.assertEquals;
-
-public class TestRoomDAO {
+public class RoomDAOTest {
 
     @BeforeEach
     void init(){
         DbSetup db = new DbSetup();
     }
 
-
     @Test
     void addARoom(){
         DbSetup db = new DbSetup();
         Room newRoom = new Room(995, 1, Theme.UrbanElegance, true, 5, BedType.KING, 12.34);
         RoomDAO conn = new RoomDAO();
-        Boolean added = conn.addRoom(newRoom);
-        assert(added.equals(true));
-
+        Integer added = conn.save(newRoom);
+        assert(added.equals(1));
     }
 
     @Test
@@ -33,8 +28,8 @@ public class TestRoomDAO {
         DbSetup db = new DbSetup();
         Room newRoom = new Room(995, 1, Theme.NatureRetreat, true, 5, BedType.KING, 12.34);
         RoomDAO conn = new RoomDAO();
-        Boolean added = conn.addRoom(newRoom);
-        Room pulledRoom = conn.getRoom(995);
+        Integer added = conn.save(newRoom);
+        Room pulledRoom = conn.get(995);
         System.out.println(pulledRoom.getDailyPrice());
         assert(pulledRoom.equals(newRoom));
     }
@@ -43,7 +38,7 @@ public class TestRoomDAO {
     void getSetupRoom(){
         DbSetup db = new DbSetup();
         RoomDAO conn = new RoomDAO();
-        Room pulledRoom = conn.getRoom(109);
+        Room pulledRoom = conn.get(109);
         assert(pulledRoom != null);
     }
 
@@ -51,7 +46,7 @@ public class TestRoomDAO {
     void getNonexistingRoom(){
         DbSetup db = new DbSetup();
         RoomDAO conn = new RoomDAO();
-        Room pulledRoom = conn.getRoom(1709);
+        Room pulledRoom = conn.get(1709);
         assert(pulledRoom == null);
     }
 
@@ -62,21 +57,21 @@ public class TestRoomDAO {
         Room myRoom = new Room(99,3, Theme.VintageCharm,true, 11, BedType.KING, 90D);
         RoomDAO conn = new RoomDAO();
 
-        Boolean added = conn.addRoom(myRoom);
-        if(!added){
+        Integer added = conn.save(myRoom);
+        if(added != 1){
             System.out.println("Initial add failed");
             assert false;
         }
 
         myRoom.setNumBeds(6);
 
-        Boolean isModified = conn.modifyRoom(myRoom);
-        if(!isModified){
+        Integer isModified = conn.update(myRoom);
+        if(isModified != 1){
             System.out.println("Initial modify failed");
             assert false;
         }
 
-        Room modifiedRoom = conn.getRoom(99);
+        Room modifiedRoom = conn.get(99);
         assert(modifiedRoom.getNumBeds().equals(6));
     }
 

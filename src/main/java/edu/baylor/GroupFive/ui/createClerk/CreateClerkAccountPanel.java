@@ -13,6 +13,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 import edu.baylor.GroupFive.ui.utils.Page;
+import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
 public class CreateClerkAccountPanel extends JPanel implements PagePanel {
@@ -31,7 +32,7 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
 
         JLabel titleLabel = new JLabel("Create Clerk Account");
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the title label
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24)); // Set a larger, bold font
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 36)); // Set a larger, bold font
 
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
@@ -43,6 +44,8 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
         add(Box.createVerticalGlue());
         
         add(titleLabel);
+
+        add(Box.createVerticalGlue());
 
         add(textPanel);
 
@@ -129,14 +132,7 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
 
     private void addCreateButton(JPanel buttonPanel) {
         // Create the create button
-        JButton createButton = new JButton("Create Account");
-        createButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        createButton.setPreferredSize(new Dimension(200, 50));
-        createButton.setFont(new Font("Arial", Font.PLAIN, 22));
-        createButton.setOpaque(true);
-        createButton.setBorderPainted(false);
-        createButton.setBackground(new Color(0, 0, 153));
-        createButton.setForeground(new Color(255, 255, 255));
+        PanelButton createButton = new PanelButton("Create Account");
         createButton.addActionListener(new CreateClerkAccountListener(page, firstName, lastName, username, password));
 
         buttonPanel.add(createButton);

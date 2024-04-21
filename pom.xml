@@ -7,11 +7,20 @@
     <artifactId>HotelProject</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <description><!-- OPTIONAL --></description>
+    <packaging>jar</packaging>
 
     <properties>
+        <java.version>17</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>20</maven.compiler.source>
         <maven.compiler.target>20</maven.compiler.target>
+		<junit.jupiter.version>5.1.0</junit.jupiter.version>
+		<junit.vintage.version>4.12.0</junit.vintage.version>
+		<junit.platform.version>1.1.0</junit.platform.version>
+		<junit.jupiter.version>5.1.0</junit.jupiter.version>
+		<junit.vintage.version>4.12.0</junit.vintage.version>
+		<junit.platform.version>1.1.0</junit.platform.version>
     </properties>
 
     <dependencies>
@@ -81,19 +90,19 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire-junit4</artifactId>
-                        <version>2.22.0</version>
-                    </dependency>
-                </dependencies>
+                <version>3.0.0-M5</version>
                 <configuration>
                     <includes>
-                        <include>**/*.java</include>
+                        <include>**/*Test.java</include>
                     </includes>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>5.8.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <!-- maven-shade-plugin can package the artifact in an uber-jar -->

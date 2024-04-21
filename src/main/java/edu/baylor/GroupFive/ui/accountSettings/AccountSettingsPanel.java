@@ -13,13 +13,18 @@ import java.awt.Component;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Panel;
+import java.util.logging.Logger;
 
 import edu.baylor.GroupFive.database.controllers.AccountController;
+import edu.baylor.GroupFive.models.Account;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.utils.Page;
+import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
 public class AccountSettingsPanel extends JPanel implements PagePanel {
+    private static final Logger LOGGER = Logger.getLogger(AccountSettingsPanel.class.getName());
 
     private Page page;
     private User user;
@@ -139,14 +144,8 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
 
     private void addModifyButton(JPanel buttonPanel) {
         // Modify the Modify button
-        JButton ModifyButton = new JButton("Modify Account");
-        ModifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        ModifyButton.setPreferredSize(new Dimension(200, 50));
-        ModifyButton.setFont(new Font("Arial", Font.PLAIN, 22));
-        ModifyButton.setOpaque(true);
-        ModifyButton.setBorderPainted(false);
-        ModifyButton.setBackground(new Color(0, 0, 153));
-        ModifyButton.setForeground(new Color(255, 255, 255));
+        PanelButton ModifyButton = new PanelButton("Modify Account Info", 300, 50);
+
 
         ModifyButton.addActionListener(e -> {
             makeEditable();
@@ -193,14 +192,7 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     private void addBackButton(JPanel panel) {
 
         // Create and style the back button
-        JButton backButton = new JButton("Cancel");
-        backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        backButton.setPreferredSize(new Dimension(200, 50));
-        backButton.setFont(new Font("Arial", Font.PLAIN, 22));
-        backButton.setOpaque(true);
-        backButton.setBorderPainted(false);
-        backButton.setBackground(new Color(0, 0, 153));
-        backButton.setForeground(new Color(255, 255, 255));
+        PanelButton backButton = new PanelButton("Back");
 
         // Add action listener to reset the panel
         backButton.addActionListener(e -> {
@@ -214,27 +206,31 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     private void addSaveButton(JPanel panel) {
 
         // Create and style the save button
-        JButton saveButton = new JButton("Save Changes");
-        saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        saveButton.setPreferredSize(new Dimension(200, 50));
-        saveButton.setFont(new Font("Arial", Font.PLAIN, 22));
-        saveButton.setOpaque(true);
-        saveButton.setBorderPainted(false);
-        saveButton.setBackground(new Color(0, 0, 153));
-        saveButton.setForeground(new Color(255, 255, 255));
+        PanelButton saveButton = new PanelButton("Save Changes");
 
         saveButton.addActionListener(e -> {
             
             // Save the changes
-            User newUser = new User(user.getId(), firstNameField.getText(), lastNameField.getText(), usernameField.getText(), user.getPasswordHash(), user.getPrivilege().toString());
+            User newUser = new User(firstNameField.getText(), lastNameField.getText(), usernameField.getText(), user.getPasswordHash(), user.getPrivilege().toString());
+            newUser.setId(user.getId());
 
-            //AccountController.modifyAccount(newUser);
-            
-            // Temporary fix
-            user = newUser;
+            Boolean success = AccountController.modifyAccount(newUser);
 
-            // Pop up a message saying the changes have been saved
-            JOptionPane.showMessageDialog(null, "Changes have been saved!");
+            if (!success) {
+                // Pop up a message saying the changes could not be saved
+                JOptionPane.showMessageDialog(null, "Changes could not be saved. Please try again.");
+                return;
+            } else {
+                user = AccountController.getUser(newUser.getUsername());
+                if (user == null) {
+                    JOptionPane.showMessageDialog(null, "Changes could not be saved. Please try again.");
+                    LOGGER.severe("User not found in database");
+                    user = page.getUser();
+                    return;
+                }
+                page.setUser(user);
+                JOptionPane.showMessageDialog(null, "Changes have been saved!");
+            }       
 
             // Reset the panel
             clear();
