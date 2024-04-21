@@ -1,6 +1,7 @@
 package edu.baylor.GroupFive.database.services;
 
 import edu.baylor.GroupFive.util.exceptions.InvalidCredentialsException;
+import edu.baylor.GroupFive.util.logging.G5Logger;
 import edu.baylor.GroupFive.database.daos.UserDAO;
 import edu.baylor.GroupFive.models.User;
 
@@ -23,7 +24,7 @@ public class LoginService {
         System.out.println("[pswd-compare]=" + password);
         if (dbUser == null || !dbUser.verify(password)) {
             // TODO implement logger
-            System.err.println("invalid credentials provided to LoginService");
+            G5Logger.logger.error("invalid credentials provided to LoginService");
             throw new InvalidCredentialsException();
         }
         return dbUser;

@@ -1,6 +1,8 @@
 package edu.baylor.GroupFive.database.daos;
 
+import edu.baylor.GroupFive.database.DbConnection;
 import edu.baylor.GroupFive.models.User;
+import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class UserDAO extends BaseDAO<User> {
 
             return output;
 
-        } catch (SQLException e) {
+        } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return null;
         }
@@ -41,7 +43,7 @@ public class UserDAO extends BaseDAO<User> {
             List<User> output = new ArrayList<>();
 
             while (rs.next()) {
-                int id = rs.getInt("id");
+                //int id = rs.getInt("id");
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
                 String userName = rs.getString("userName");
@@ -56,7 +58,7 @@ public class UserDAO extends BaseDAO<User> {
 
             return output.get(0);
 
-        } catch (SQLException e) {
+        } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return null;
         }
@@ -85,7 +87,7 @@ public class UserDAO extends BaseDAO<User> {
 
             return output.get(0);
 
-        } catch (SQLException e) {
+        } catch (SQLException| BadConnectionException e) {
             System.err.println(e.getMessage());
             return null;
         }
@@ -104,7 +106,7 @@ public class UserDAO extends BaseDAO<User> {
                 return update(user);
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return null;
         }
@@ -120,7 +122,7 @@ public class UserDAO extends BaseDAO<User> {
 
             return 1;
 
-        } catch (SQLException e) {
+        } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return 0;
         }
@@ -136,7 +138,7 @@ public class UserDAO extends BaseDAO<User> {
 
             return 1;
 
-        } catch (SQLException e) {
+        } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return 0;
         }
@@ -152,7 +154,7 @@ public class UserDAO extends BaseDAO<User> {
 
             return 1;
 
-        } catch (SQLException e) {
+        } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return 0;
         }
