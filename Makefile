@@ -16,13 +16,13 @@ help:
 		"
 .PHONY: help
 
-package:
+build:
 	mvn package
-.PHONY: package
+.PHONY: build
 
-pkg-no-tests:
-	mvn package -Dmaven.test.skip
-.PHONY: pkg-no-test
+build-no-tests:
+	mvn package -Dmaven.test.skip=true
+.PHONY: build-no-tests
 
 update:
 	mvn dependency:copy-dependencies
@@ -50,6 +50,6 @@ docker-run:
 	docker run -it -e DISPLAY=$(shell ipconfig getifaddr en0):0 $(DOCKER_IMG) || (echo "Did you run \`xhost \$$(ipconfig getifaddr en0)\` in an xquartz session?" && exit 1)
 .PHONY: docker-run
 
-clean:
+clean-db:
 	rm -r FinalProject
-.PHONY: clean
+.PHONY: clean-db

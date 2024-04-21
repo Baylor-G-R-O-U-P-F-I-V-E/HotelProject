@@ -52,7 +52,7 @@ public class User {
     }
 
     public boolean verify(String password) {
-        return passwordHash.equals(password);
+        return password.equals(passwordHash);
     }
 
     public void changePassword(String newPasswordHash) {

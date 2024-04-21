@@ -43,7 +43,16 @@ public class UserDAO extends BaseDAO<User> {
             List<User> output = new ArrayList<>();
 
             while (rs.next()) {
-                User out = new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("username"), rs.getString("password"), rs.getString("privilege"));
+                //int id = rs.getInt("id");
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+                String userName = rs.getString("userName");
+                String pswdHash = rs.getString("password");
+                String privilege = rs.getString("privilege");
+                User out = new User(firstName, lastName, userName, pswdHash, privilege);
+                // User out = new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("username"), rs.getString("password"), rs.getString("privilege"));
+                // FIXME dbg
+                System.out.println("User got: " + userName + " [pswd]=" + pswdHash);
                 output.add(out);
             }
 
@@ -82,7 +91,7 @@ public class UserDAO extends BaseDAO<User> {
 
             return output.get(0);
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException| BadConnectionException e) {
             System.err.println(e.getMessage());
             return null;
         }
@@ -117,7 +126,7 @@ public class UserDAO extends BaseDAO<User> {
 
             return 1;
 
-        } catch (SQLException e) {
+        } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return 0;
         } catch (BadConnectionException e) {
@@ -135,7 +144,7 @@ public class UserDAO extends BaseDAO<User> {
 
             return 1;
 
-        } catch (SQLException e) {
+        } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return 0;
         } catch (BadConnectionException e) {
@@ -153,7 +162,7 @@ public class UserDAO extends BaseDAO<User> {
 
             return 1;
 
-        } catch (SQLException e) {
+        } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return 0;
         } catch (BadConnectionException e) {

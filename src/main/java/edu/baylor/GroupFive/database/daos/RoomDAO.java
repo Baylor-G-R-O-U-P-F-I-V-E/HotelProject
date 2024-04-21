@@ -5,6 +5,7 @@ import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.enums.BedType;
 import edu.baylor.GroupFive.models.enums.Theme;
 import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
+import edu.baylor.GroupFive.util.logging.G5Logger;
 
 import java.sql.*;
 import java.util.*;
@@ -37,8 +38,8 @@ public class RoomDAO extends BaseDAO<Room>{
 
             return output;
 
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
+        } catch (SQLException | BadConnectionException e) {
+            G5Logger.logger.error(e.getMessage());;
             return null;
         } catch (BadConnectionException e) {
             throw new RuntimeException(e);
@@ -59,7 +60,7 @@ public class RoomDAO extends BaseDAO<Room>{
             }
 
         } catch (SQLException | BadConnectionException e) {
-            System.err.println(e.getMessage());
+            G5Logger.logger.error(e.getMessage());;
             return null;
         }
 
@@ -80,7 +81,7 @@ public class RoomDAO extends BaseDAO<Room>{
             return 1;
 
         } catch (SQLException | BadConnectionException e) {
-            System.err.println(e.getMessage());
+            G5Logger.logger.error(e.getMessage());;
             return 0;
         }
        
@@ -109,7 +110,7 @@ public class RoomDAO extends BaseDAO<Room>{
             return null;
 
         } catch (SQLException | BadConnectionException e) {
-            System.err.println(e.getMessage());
+            G5Logger.logger.error(e.getMessage());;
             return null;
         }
 
@@ -130,7 +131,7 @@ public class RoomDAO extends BaseDAO<Room>{
             return 1;
 
         } catch (SQLException | BadConnectionException e) {
-            System.err.println(e.getMessage());
+            G5Logger.logger.error(e.getMessage());;
             return 0;
         }
 
@@ -145,8 +146,8 @@ public class RoomDAO extends BaseDAO<Room>{
 
             return 1;
 
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
+        } catch (SQLException | BadConnectionException e) {
+            G5Logger.logger.error(e.getMessage());
             return 0;
         } catch (BadConnectionException e) {
             throw new RuntimeException(e);

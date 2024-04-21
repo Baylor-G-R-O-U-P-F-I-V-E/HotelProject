@@ -23,7 +23,6 @@ public class Main {
         logger.info("Logging initiated. Invoking dbSetup...");
         @SuppressWarnings("unused")
         DbSetup db = new DbSetup();
-        DbSetup.dbInit();
 
         logger.info("dbSetup finished. Queuing initial window/page load with swing...");
         SwingUtilities.invokeLater(new Runnable() {
