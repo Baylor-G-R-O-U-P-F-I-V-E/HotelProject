@@ -3,6 +3,7 @@ package edu.baylor.GroupFive.database.controllers;
 import java.util.List;
 
 import edu.baylor.GroupFive.database.services.TransactionService;
+import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Transaction;
 
 public class BillingController {
@@ -29,6 +30,10 @@ public class BillingController {
 
     public static List<Transaction> getUserTransactions(String username) {
         return TransactionService.getUserTransactions(username);
+    }
+
+    public static List<Reservation> getCurrentGuestTransactions() {
+        return TransactionService.getCurrentGuestTransactions();
     }
 
 }

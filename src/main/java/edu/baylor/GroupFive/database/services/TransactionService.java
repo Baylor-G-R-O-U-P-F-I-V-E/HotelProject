@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import edu.baylor.GroupFive.database.daos.TransactionDAO;
+import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Transaction;
 
 public class TransactionService {
@@ -21,6 +22,10 @@ public class TransactionService {
     public static List<Transaction> getUserTransactions(String username) {
         TransactionDAO transactionDAO = new TransactionDAO();
         return transactionDAO.getByUsername(username);
+    }
+
+    public static List<Reservation> getCurrentGuestTransactions() {
+        return ReservationServices.getCurrentGuestTransactions();
     }
 
     public static void addTransaction(String username, String description, float amount) {

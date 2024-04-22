@@ -3,6 +3,7 @@ package edu.baylor.GroupFive.ui.generateBill;
 import java.util.List;
 
 import edu.baylor.GroupFive.database.controllers.AccountController;
+import edu.baylor.GroupFive.database.controllers.BillingController;
 import edu.baylor.GroupFive.database.controllers.ReservationController;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.User;
@@ -27,7 +28,7 @@ public class GenerateBillModel extends HotelModel implements DataModel {
 
     public void getData() throws RuntimeException {
         // Fetch user data from the database
-        List<Reservation> reservations = ReservationController.getAllReservations();
+        List<Reservation> reservations = BillingController.getCurrentGuestTransactions();
         
         // Check if data was fetched successfully
         if (reservations == null) {
