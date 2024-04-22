@@ -57,6 +57,14 @@ public class DbSetup {
                 statement.executeUpdate(sqlCreateReservationTable);
             }
 
+            try {
+                // Try to select from the "TRANSACTIONS" table
+                statement.executeQuery("SELECT * FROM TRANSACTIONS");
+            } catch (SQLException e) {
+                // The "TRANSACTIONS" table does not exist, so create it
+                statement.executeUpdate(sqlCreateTransactionsTable);
+            }
+
         } catch (SQLException e) {
             logger.info("ERROR");
             logger.info(e.getMessage());
@@ -73,6 +81,7 @@ public class DbSetup {
             statement.executeUpdate(sqlDropReservationTable);
             statement.executeUpdate(sqlDropRoomTable);
             statement.executeUpdate(sqlDropUserTable);
+            statement.executeUpdate(sqlDropTransactionsTable);
         } catch (SQLException e) {
             logger.warn("SQLException in dbTearDown");
             e.printStackTrace();
@@ -93,6 +102,8 @@ public class DbSetup {
             initializeRooms(ps);
             ps = connection.prepareStatement(BASE_RESERVATION_INSERT_QUERY);
             initializeReservations(ps);
+            ps = connection.prepareStatement(BASE_TRANSACTION_INSERT_QUERY);
+            initializeTransactions(ps);
             
 //             int count = 0;
 //             try{
@@ -143,6 +154,7 @@ public class DbSetup {
     private static final String sqlDropReservationTable = "DROP TABLE RESERVATIONs";
     private static final String sqlDropRoomTable = "DROP TABLE ROOM";
     private static final String sqlDropUserTable = "DROP TABLE USERs";
+    private static final String sqlDropTransactionsTable = "DROP TABLE TRANSACTIONS";
     private static final String sqlCreateUserTable = "CREATE TABLE USERs(" +
             "firstName VARCHAR(30)," +
             "lastName VARCHAR(30)," +
@@ -174,15 +186,27 @@ public class DbSetup {
             "CONSTRAINT FK_23 FOREIGN KEY (roomNumber) REFERENCES ROOM(roomNumber)," +
             "CONSTRAINT PK_RES3 PRIMARY KEY(roomNumber, startDate)" +
             ")";
+    
+    private static final String sqlCreateTransactionsTable = "CREATE TABLE TRANSACTIONS(" +
+            "id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+            "amount DECIMAL(5,2)," +
+            "purchaseDate DATE," +
+            "description VARCHAR(100)," +
+            "username VARCHAR(30)," +
+            "CONSTRAINT FK_34 FOREIGN KEY (username) REFERENCES users(username)," +
+            "CONSTRAINT PK_TRANS PRIMARY KEY(id)" +
+            ")";
 
 
     private static final String BASE_USER_INSERT_QUERY = "INSERT INTO USERS(firstName, lastName, userName, password, privilege) VALUES ( ?, ?, ?, ?, ? )";
     private static final String BASE_ROOM_INSERT_QUERY = "INSERT INTO ROOM(roomNumber, quality, theme, smoking, bedType, numBeds, dailyPrice) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
     private static final String BASE_RESERVATION_INSERT_QUERY = "INSERT INTO RESERVATIONS(startDate, endDate, price, guestUsername, roomNumber, id, active, checkedIn) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
+    private static final String BASE_TRANSACTION_INSERT_QUERY = "INSERT INTO TRANSACTIONS(amount, purchaseDate, description, username) VALUES ( ?, ?, ?, ? )";
 
     private static final List<Object[]> userInits = new ArrayList<>();
     private static final List<Object[]> roomInits = new ArrayList<>();
     private static final List<Object[]> reservationInits = new ArrayList<>();
+    private static final List<Object[]> transactionInits = new ArrayList<>();
 
     static {
         userInits.add(new Object[] { "Joe",     "Smith",        "Bongo",            "p1234",    "admin" });
@@ -215,6 +239,17 @@ public class DbSetup {
         reservationInits.add(new Object[] { "07/10/2024",   "07/17/2024",   88.99,  "KevDog",             102, 7, true,     true });
         reservationInits.add(new Object[] { "07/22/2024",   "07/25/2024",   97.99,  "Bongo",              103, 8, true,     false });
         reservationInits.add(new Object[] { "07/14/2024",   "07/19/2024",   97.99,  "Ant",                104, 9, true,     true });
+
+        transactionInits.add(new Object[] { 3.79, "07/14/2024", "Yogurt", "Ant" });
+        transactionInits.add(new Object[] { 4.05, "07/14/2024", "Cereal", "Ant" });
+        transactionInits.add(new Object[] { 42.60, "07/15/2024", "Room service order", "Ant" });
+        transactionInits.add(new Object[] { 14.60, "07/17/2024", "Room service order", "Bongo" });
+        transactionInits.add(new Object[] { 4.50, "07/13/2024", "Large Soda", "Bongo" });
+        transactionInits.add(new Object[] { 3.00, "08/23/2024", "Candy Bar", "Ant" });
+        transactionInits.add(new Object[] { 97.99, "10/14/2024", "Room service order", "LarryTheLobster" });
+        transactionInits.add(new Object[] { 2.79, "10/16/2024", "Soap", "LarryTheLobster" });
+        transactionInits.add(new Object[] { 23.68, "06/14/2024", "Shop order", "Axel112" });
+        transactionInits.add(new Object[] { 15.00, "06/11/2024", "Shop order", "Axel112" });
     }
 
      /**
@@ -287,6 +322,28 @@ public class DbSetup {
             statement.setBoolean(7, (boolean) reservation[6]);
             statement.setBoolean(8, (boolean) reservation[7]);
 
+            try {
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                if (e instanceof SQLIntegrityConstraintViolationException) {
+                    logger.warn("Attempted to insert a duplicate key, skipping this record.");
+                } else {
+                    throw e;
+                }
+            }
+        }
+    }
+
+    private static void initializeTransactions(PreparedStatement statement) throws SQLException {
+        for (Object[] transaction : transactionInits) {
+            statement.setDouble(1, (double) transaction[0]);
+            try {
+                statement.setDate(2, CoreUtils.getSqlDate((String) transaction[1]));
+            } catch (ParseException e) {
+                logger.warn("Error parsing dates in initializeTransactions");
+            }
+            statement.setString(3, (String) transaction[2]);
+            statement.setString(4, (String) transaction[3]);
             try {
                 statement.executeUpdate();
             } catch (SQLException e) {
