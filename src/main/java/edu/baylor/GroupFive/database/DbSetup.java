@@ -119,7 +119,7 @@ public class DbSetup {
 //                 logger.info(e.getMessage());
 //             }
 
-            String sqlQ = "SELECT * FROM  RESERVATIONs";
+            String sqlQ = "SELECT * FROM RESERVATIONs";
             ResultSet rs = statement.executeQuery(sqlQ);
             logger.info("Current reservations in database...");
             while (rs.next()) {
