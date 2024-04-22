@@ -118,6 +118,28 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         return transactions;
     }
 
+    public List<Transaction> getByUsername(String username) {
+        String sql = "SELECT * FROM transactions WHERE username = ?";
+        List<Transaction> transactions = null;
+        
+        try (Connection connection = DbConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, username);
+            ResultSet result = statement.executeQuery();
+
+            transactions = new ArrayList<>();
+
+            while (result.next()) {
+                transactions.add(parseResultSet(result));
+            }
+
+        } catch (SQLException | BadConnectionException e) {
+            G5Logger.logger.error(e.getMessage());
+            return null;
+        }
+
+        return transactions;
+    }
+
     protected Transaction parseResultSet(ResultSet result) throws SQLException {
         return new Transaction(
             result.getString("username"),

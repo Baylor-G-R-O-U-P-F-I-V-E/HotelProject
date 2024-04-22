@@ -27,4 +27,8 @@ public class BillingController {
         return TransactionService.getTransactions();
     }
 
+    public static List<Transaction> getUserTransactions(String username) {
+        return TransactionService.getUserTransactions(username);
+    }
+
 }

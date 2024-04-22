@@ -18,6 +18,11 @@ public class TransactionService {
         return transactionDAO.getAll();
     }
 
+    public static List<Transaction> getUserTransactions(String username) {
+        TransactionDAO transactionDAO = new TransactionDAO();
+        return transactionDAO.getByUsername(username);
+    }
+
     public static void addTransaction(String username, String description, float amount) {
         Transaction transaction = new Transaction(username, description, new Date(), amount);
         TransactionDAO transactionDAO = new TransactionDAO();

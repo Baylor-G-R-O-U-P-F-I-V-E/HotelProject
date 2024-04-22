@@ -78,6 +78,50 @@ public class DbSetup {
     private static void dbTearDown() {
         try (Connection connection = DriverManager.getConnection(url, user, password);
                 Statement statement = connection.createStatement()) {
+            
+            logger.info("Tearing down database tables");
+
+            // Check if FK_34 constraint exists
+            DatabaseMetaData dbm = connection.getMetaData();
+            ResultSet rs = dbm.getImportedKeys(null, null, "TRANSACTIONS");
+            if (rs.next()) {
+                // Drop the FK_34 constraint
+                statement.executeUpdate("ALTER TABLE TRANSACTIONS DROP CONSTRAINT FK_34");
+            } else {
+                // FK_34 does not exist
+                logger.info("FK_34 does not exist");
+            }
+
+            // Check if FK_23 constraint exists
+            rs = dbm.getImportedKeys(null, null, "RESERVATIONs");
+            if (rs.next()) {
+                // Drop the FK_23 constraint
+                statement.executeUpdate("ALTER TABLE RESERVATIONs DROP CONSTRAINT FK_23");
+            } else {
+                // FK_23 does not exist
+                logger.info("FK_23 does not exist");
+            }
+
+            // Check if FK_12 constraint exists
+            rs = dbm.getImportedKeys(null, null, "RESERVATIONs");
+            if (rs.next()) {
+                // Drop the FK_12 constraint
+                statement.executeUpdate("ALTER TABLE RESERVATIONs DROP CONSTRAINT FK_12");
+            } else {
+                // FK_12 does not exist
+                logger.info("FK_12 does not exist");
+            }
+
+            // Check if PK_USER constraint exists
+            rs = dbm.getPrimaryKeys(null, null, "USERs");
+            if (rs.next()) {
+                // Drop the PK_USER constraint
+                statement.executeUpdate("ALTER TABLE USERs DROP CONSTRAINT PK_USER");
+            } else {
+                // PK_USER does not exist
+                logger.info("PK_USER does not exist");
+            }
+
             statement.executeUpdate(sqlDropReservationTable);
             statement.executeUpdate(sqlDropRoomTable);
             statement.executeUpdate(sqlDropUserTable);
@@ -138,6 +182,13 @@ public class DbSetup {
             logger.info("Current rooms in database...");
             while (rs.next()) {
                 logger.info(rs.getInt("roomNumber") + " " + rs.getString("theme"));
+            }
+
+            sqlQ = "SELECT * FROM TRANSACTIONS";
+            rs = statement.executeQuery(sqlQ);
+            logger.info("Current transactions in database...");
+            while (rs.next()) {
+                logger.info(rs.getInt("id") + " " + rs.getString("description") + " " + rs.getDouble("amount"));
             }
 
         } catch (SQLException e) {
