@@ -32,6 +32,12 @@ public class RoomServices {
         return conn.insert(newRoom) == 1 ? true : false;
     }
 
+    public static Boolean deleteRoom(Integer roomNum){
+        RoomDAO conn = new RoomDAO();
+        Room room = conn.get(roomNum);
+        return conn.delete(room) == 1 ? true : false;
+    }
+
 
     public static List<Room> getAvailableRooms(Date startDate, Date endDate){
         List<Room> allRooms = getRooms();

@@ -21,9 +21,14 @@ public class RoomController {
         return RoomServices.modifyRoom(updatedInfo);
     }
 
-    public Boolean addRoom(Room newRoom){
+    public static Boolean addRoom(Room newRoom){
         //true if room is added
         return RoomServices.addRoom(newRoom);
+    }
+
+    public static Boolean deleteRoom(Integer roomNumber){
+        //true if room is deleted
+        return RoomServices.deleteRoom(roomNumber);
     }
 
     public static List<Room> getAvailableRooms(Date startDate, Date endDate){

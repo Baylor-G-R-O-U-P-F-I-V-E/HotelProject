@@ -20,6 +20,7 @@ public class Dashboard extends JPanel {
             add(new DashboardButton(page, "src/main/resources/button-icons/create-clerk-icon.png", "create-clerk"));
         }
         if (privilige != Privilege.GUEST) {
+            add(new DashboardButton(page, "src/main/resources/button-icons/view-rooms-icon.png", "modify-rooms"));
             add(new DashboardButton(page, "src/main/resources/button-icons/reservations-icon.png", "reservations"));
             add(new DashboardButton(page, "src/main/resources/button-icons/generate-bill-icon.png", "generate-bill"));
         }

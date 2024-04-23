@@ -26,7 +26,7 @@ public class AddRoomDialog extends JDialog {
 
     private JTable table;
 
-    public AddRoomDialog(JTable owner, int row) {
+    public AddRoomDialog(JTable owner) {
         super(javax.swing.SwingUtilities.windowForComponent(owner));
         table = owner;
         createGUI();
