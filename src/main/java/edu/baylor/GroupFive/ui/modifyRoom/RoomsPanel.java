@@ -129,16 +129,21 @@ public class RoomsPanel extends JPanel implements PagePanel {
             // Get the room number from the selected row
             Integer roomColumnIndex = table.getColumnModel().getColumnIndex("Room Number");
             int roomNumber = (Integer) table.getValueAt(table.getSelectedRow(), roomColumnIndex);
+            
+            Room room = RoomController.getRoomInfo(roomNumber);
 
             // Check if room number exists in database
-            if (RoomController.getRoomInfo(roomNumber) == null) {
+            if (room == null) {
                 G5Logger.logger.error("Room number does not exist in database");
                 JOptionPane.showMessageDialog(this, "Room number does not exist in database.");
                 return;
             }
 
             // Add the edit room panel to the page
-            page.add(new EditRoomPanel(page, roomNumber));
+            page.remove(page.currentPanel);
+            page.currentPanel = new EditRoomPanel(page, room);
+            page.add(page.currentPanel);
+            page.refresh();
         });
 
         // Add the buttons to the button panel

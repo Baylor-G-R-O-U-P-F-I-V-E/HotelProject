@@ -31,6 +31,10 @@ public class RoomController {
         return RoomServices.deleteRoom(roomNumber);
     }
 
+    public static Boolean updateRoom(Room updatedRoom){
+        return RoomServices.modifyRoom(updatedRoom);
+    }
+
     public static List<Room> getAvailableRooms(Date startDate, Date endDate){
         return RoomServices.getAvailableRooms(startDate,endDate);
     }
