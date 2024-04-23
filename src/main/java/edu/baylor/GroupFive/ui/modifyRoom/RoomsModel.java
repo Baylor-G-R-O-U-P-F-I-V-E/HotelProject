@@ -23,6 +23,9 @@ public class RoomsModel extends HotelModel implements DataModel {
 
     public void getData() {
 
+        // Restart the table
+        setRowCount(0);
+
         List<Room> rooms = RoomController.getAllRooms();
 
         for (Room room : rooms) {

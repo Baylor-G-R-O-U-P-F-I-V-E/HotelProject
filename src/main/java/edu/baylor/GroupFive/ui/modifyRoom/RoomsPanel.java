@@ -101,7 +101,7 @@ public class RoomsPanel extends JPanel implements PagePanel {
                 return;
             }
             
-            int roomNumber = Integer.parseInt((String) table.getValueAt(row, 0));
+            int roomNumber = (Integer) table.getValueAt(row, 0);
             Integer choice = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete room " + roomNumber + "?", "Delete Room", JOptionPane.YES_NO_OPTION);
             
             if (choice != JOptionPane.YES_OPTION) {
@@ -119,20 +119,29 @@ public class RoomsPanel extends JPanel implements PagePanel {
 
         PanelButton editRoomButton = new PanelButton("Edit Room");
         editRoomButton.addActionListener(e -> {
-            int roomNumber = Integer.parseInt((String) table.getValueAt(table.getSelectedRow(), 0));
-
-            if (roomNumber == -1) {
-                G5Logger.logger.error("Room number is -1");
+            
+            // Ensure row is selected
+            if (table.getSelectedRow() == -1) {
+                JOptionPane.showMessageDialog(this, "Please select a row to edit.");
                 return;
-            } else if (RoomController.getRoomInfo(roomNumber) == null) {
+            }  
+
+            // Get the room number from the selected row
+            Integer roomColumnIndex = table.getColumnModel().getColumnIndex("Room Number");
+            int roomNumber = (Integer) table.getValueAt(table.getSelectedRow(), roomColumnIndex);
+
+            // Check if room number exists in database
+            if (RoomController.getRoomInfo(roomNumber) == null) {
                 G5Logger.logger.error("Room number does not exist in database");
                 JOptionPane.showMessageDialog(this, "Room number does not exist in database.");
                 return;
             }
 
+            // Add the edit room panel to the page
             page.add(new EditRoomPanel(page, roomNumber));
         });
 
+        // Add the buttons to the button panel
         buttonPanel.add(addRoomButton);
         buttonPanel.add(deleteRoomButton);
         buttonPanel.add(editRoomButton);
