@@ -68,9 +68,9 @@ public class AddRoomDialog extends JDialog {
 
         // Create textfields for each field
         JTextField roomNumber = new JTextField();
-        JComboBox<String> roomType = new JComboBox<>(new String[] { "Single", "Double", "Suite" });
+        JComboBox<String> roomType = new JComboBox<>(new String[] { "NatureRetreat", "UrbanElegance", "VintageCharm"});
         JComboBox<String> quality = new JComboBox<>(new String[] { "Low", "Medium", "High" });
-        JComboBox<String> bedType = new JComboBox<>(new String[] { "Single", "Double", "King" });
+        JComboBox<String> bedType = new JComboBox<>(new String[] { "Single", "Double", "Queen", "King" });
         JTextField bedCount = new JTextField();
         JComboBox<String> smokingBox = new JComboBox<>(new String[] { "true", "false" });
         JTextField price = new JTextField();
@@ -91,7 +91,7 @@ public class AddRoomDialog extends JDialog {
         textFields.add(price);
 
         // Make a new panel for each text field and label and add them
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 7; i++) {
             JPanel panel = new JPanel();
             panel.add(labels.get(i));
             panel.add(textFields.get(i));
@@ -107,6 +107,12 @@ public class AddRoomDialog extends JDialog {
                 // Check that all fields are filled
                 if (roomNumber.getText().isEmpty() || bedCount.getText().isEmpty() || price.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(table, "Please fill out all fields.");
+                    return;
+                }
+
+                // Check that room number isnt already in database
+                if (RoomController.getRoomInfo(Integer.parseInt(roomNumber.getText())) != null) {
+                    JOptionPane.showMessageDialog(table, "Room number already exists.");
                     return;
                 }
 

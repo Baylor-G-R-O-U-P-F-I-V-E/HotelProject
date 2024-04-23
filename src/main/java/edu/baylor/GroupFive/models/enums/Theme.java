@@ -20,6 +20,15 @@ public enum Theme {
     }
 
     public static String formatTheme(Theme theme) {
-        return theme.toString().replace(" ", "_");
+        switch (theme) {
+            case NatureRetreat:
+                return "Nature Retreat";
+            case UrbanElegance:
+                return "Urban Elegance";
+            case VintageCharm:
+                return "Vintage Charm";
+            default:
+                return "Unknown";
+        }
     }
 }

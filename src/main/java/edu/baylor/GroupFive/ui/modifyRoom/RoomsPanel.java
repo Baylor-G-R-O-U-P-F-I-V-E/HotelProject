@@ -88,7 +88,9 @@ public class RoomsPanel extends JPanel implements PagePanel {
 
         PanelButton addRoomButton = new PanelButton("Add Room");
         addRoomButton.addActionListener(e -> {
-            new AddRoomDialog(table);
+            // Show the dialog to add a room.
+            AddRoomDialog dialog = new AddRoomDialog(table);
+            dialog.setVisible(true);
         });
 
         PanelButton deleteRoomButton = new PanelButton("Delete Room");
