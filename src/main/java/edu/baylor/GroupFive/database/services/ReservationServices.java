@@ -18,6 +18,7 @@ import edu.baylor.GroupFive.util.CoreUtils;
 import edu.baylor.GroupFive.database.daos.ReservationDao;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
+import edu.baylor.GroupFive.util.logging.G5Logger;
 import edu.baylor.GroupFive.database.DbConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -379,6 +380,67 @@ public class ReservationServices implements ReservationDao {
         //         return false;
         //     }
         // }
+    }
+
+    public static List<Reservation> getCurrentGuestTransactions() {
+        String sql = "SELECT * FROM reservations JOIN transactions ON transactions.username = reservations.guestusername";
+        List<Reservation> currentGuests = null;
+        
+        try (Connection connection = DbConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet result = statement.executeQuery();
+
+            currentGuests = new ArrayList<>();
+
+            while (result.next()) {
+                currentGuests.add(new Reservation(
+                    result.getInt("id"),
+                    result.getDate("startDate"),
+                    result.getDate("endDate"),
+                    result.getString("guestUsername"),
+                    result.getInt("roomNumber"),
+                    result.getDouble("price"),
+                    result.getBoolean("active"),
+                    result.getBoolean("checkedIn")
+                ));
+            }
+
+        } catch (SQLException | BadConnectionException e) {
+            G5Logger.logger.error(e.getMessage());
+            return null;
+        }
+
+        return currentGuests;
+    }
+
+    public static List<Reservation> getReservationsByGuest(String username) {
+        String sql = "SELECT * FROM reservations WHERE guestUsername = ?";
+        List<Reservation> reservations = null;
+        
+        try (Connection connection = DbConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, username);
+            ResultSet result = statement.executeQuery();
+
+            reservations = new ArrayList<>();
+
+            while (result.next()) {
+                reservations.add(new Reservation(
+                    result.getInt("id"),
+                    result.getDate("startDate"),
+                    result.getDate("endDate"),
+                    result.getString("guestUsername"),
+                    result.getInt("roomNumber"),
+                    result.getDouble("price"),
+                    result.getBoolean("active"),
+                    result.getBoolean("checkedIn")
+                ));
+            }
+
+        } catch (SQLException | BadConnectionException e) {
+            G5Logger.logger.error(e.getMessage());
+            return null;
+        }
+
+        return reservations;
     }
 
     private static String formatDate(Date myDate) {

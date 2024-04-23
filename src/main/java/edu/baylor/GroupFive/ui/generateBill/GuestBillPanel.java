@@ -54,7 +54,7 @@ public class GuestBillPanel extends JPanel implements PagePanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Create a model of the data.
-        DefaultTableModel model = new GuestBillModel(columnNames, columnClass);
+        DefaultTableModel model = new GuestBillModel(columnNames, columnClass, username);
 
         // Create a table with a sorter.
         table = new HotelTable(model);

@@ -29,9 +29,9 @@ public class Main {
             public void run() {
                 logger.info("Loading landing page...");
                 @SuppressWarnings("unused")
-                InputDelegate landing = new LandingPage();
+                //InputDelegate landing = new LandingPage();
                 // Uncomment the following line to skip login page with Admin
-                //InputDelegate landing = new Page(AccountController.getUser("Bongo"));
+                InputDelegate landing = new Page(AccountController.getUser("Bongo"));
 
                 // Uncomment this one for clerk
                 //InputDelegate landing = new Page(AccountController.getUser("KevDog"));

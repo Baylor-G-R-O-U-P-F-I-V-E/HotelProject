@@ -52,6 +52,15 @@ public class ReservationController {
         return null;
     }
 
+    public static List<Reservation> getReservationsForUser(String username) {
+        logger.info("Getting reservations for user " + username);
+
+        List<Reservation> reservations = ReservationServices.getReservationsByGuest(username);
+        logger.info("Returning reservations for user " + username);
+        return reservations;
+
+    }
+
     public static Reservation getReservation(int id) {
         ReservationServices rs = new ReservationServices();
         logger.info("Getting reservation with id " + id);

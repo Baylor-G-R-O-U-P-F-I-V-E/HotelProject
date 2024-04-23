@@ -39,12 +39,11 @@ public class HomePanel extends JPanel implements PagePanel {
         "Room ID",
         "Start Date",
         "End Date",
-        "Guest ID",
         "Price"};
 
     // Define data types for the columns
     private final Class<?>[] columnClass = new Class[] {
-        String.class, String.class, String.class, String.class, String.class, String.class
+        String.class, String.class, String.class, String.class, String.class
     };
 
     public HomePanel(Page page_, User user_) {
@@ -70,7 +69,7 @@ public class HomePanel extends JPanel implements PagePanel {
         add(Box.createVerticalGlue());
 
         // Create a model of the data.
-        DefaultTableModel model = new ReservationModel(columnNames, columnClass);
+        DefaultTableModel model = new HomeModel(columnNames, columnClass, page.getUser());
 
         // Create a table with a sorter.
         reservationsTable = new HotelTable(model);

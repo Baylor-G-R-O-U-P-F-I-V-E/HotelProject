@@ -15,6 +15,7 @@ import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.Component;
@@ -117,7 +118,13 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
         if (row == -1) {
             return null;
         }
-        return (String) table.getValueAt(row, 4);
+
+        // Get the guest ID
+        int columnIndex = ((DefaultTableModel) table.getModel()).findColumn("Guest ID");
+
+        System.out.println("User ID: " + table.getValueAt(row, columnIndex));
+        
+        return (String) table.getValueAt(row, columnIndex);
     }
 
     @Override
