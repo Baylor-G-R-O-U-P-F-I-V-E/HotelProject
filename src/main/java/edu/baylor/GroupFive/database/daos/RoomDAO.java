@@ -3,6 +3,7 @@ package edu.baylor.GroupFive.database.daos;
 import edu.baylor.GroupFive.database.DbConnection;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.enums.BedType;
+import edu.baylor.GroupFive.models.enums.Quality;
 import edu.baylor.GroupFive.models.enums.Theme;
 import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
 import edu.baylor.GroupFive.util.logging.G5Logger;
@@ -24,7 +25,7 @@ public class RoomDAO extends BaseDAO<Room>{
 
             while (rs.next()) {
                 Room out = new Room(rs.getInt("roomNumber"),
-                        rs.getInt("quality"),
+                        Quality.fromString(rs.getString("quality")),
                         Theme.fromString(rs.getString("theme")),
                         rs.getBoolean("smoking"),
                         rs.getInt("numbeds"),
@@ -69,8 +70,8 @@ public class RoomDAO extends BaseDAO<Room>{
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
             
             String sqlInsert = "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (" +
-                newRoom.getRoomNumber().toString() + "," + newRoom.getQuality() +
-                ",'" + newRoom.getTheme().toString() + "'," + newRoom.isSmoking().toString() + ",'" +
+                newRoom.getRoomNumber().toString() + ",'" + Quality.formatQuality(newRoom.getQuality()) +
+                "','" + newRoom.getTheme().toString() + "'," + newRoom.isSmoking().toString() + ",'" +
                 newRoom.getBedType().toString() + "'," +
                 newRoom.getNumBeds().toString()  + "," +
                 newRoom.getDailyPrice().toString() + ")";
@@ -94,7 +95,7 @@ public class RoomDAO extends BaseDAO<Room>{
 
             while (rs.next()) {
                 Room out = new Room(rs.getInt("roomNumber"),
-                        rs.getInt("quality"),
+                        Quality.fromString(rs.getString("quality")),
                         Theme.fromString(rs.getString("theme")),
                         rs.getBoolean("smoking"),
                         rs.getInt("numbeds"),
@@ -120,7 +121,7 @@ public class RoomDAO extends BaseDAO<Room>{
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
             
-            String sqlUpdate = "UPDATE ROOM SET quality = " + updatedInfo.getQuality() +
+            String sqlUpdate = "UPDATE ROOM SET quality = " + Quality.formatQuality(updatedInfo.getQuality()) +
                 ", theme = '" + updatedInfo.getTheme().toString() + "', smoking = " + updatedInfo.isSmoking().toString() +
                 ", bedType = '" + updatedInfo.getBedType().toString() + "', numbeds = " + updatedInfo.getNumBeds().toString() +
                 ", dailyPrice = " + updatedInfo.getDailyPrice().toString() + " WHERE roomNumber = " + updatedInfo.getRoomNumber().toString();

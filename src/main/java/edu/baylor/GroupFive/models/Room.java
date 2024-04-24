@@ -12,10 +12,7 @@ import java.util.Objects;
 public class Room {
 
     private Integer roomNumber;
-    // TODO change int to enum maybe but also maybe not because
-    // that would really fuck up the database
-    // private QualityDescription quality;
-    private int quality;
+    private Quality quality;
     private Theme theme;
     private Boolean smoking;
     private BedType bedType;
@@ -29,7 +26,7 @@ public class Room {
         this.bookings = new ArrayList<>();
     }
 
-    public Room(int roomNumber, int quality, Theme theme, boolean smoking, int numBeds, BedType bedType, double dailyPrice) {
+    public Room(int roomNumber, Quality quality, Theme theme, boolean smoking, int numBeds, BedType bedType, double dailyPrice) {
         this.roomNumber = roomNumber;
         this.quality = quality;
         this.theme = theme;
@@ -43,7 +40,7 @@ public class Room {
     public BedType getBedType() { return bedType; }
     public Integer getNumBeds() { return numBeds; }
     public Integer getRoomNumber() { return roomNumber; }
-    public int getQuality() { return quality; }
+    public Quality getQuality() { return quality; }
     public Theme getTheme() { return theme; }
     public Boolean isSmoking() { return smoking; }
     public Double getDailyPrice() { return dailyPrice; }
@@ -54,7 +51,7 @@ public class Room {
     public void setBedType(BedType bedType) { this.bedType = bedType; }
     public void setNumBeds(int numBeds) { this.numBeds = numBeds; }
     public void setRoomNumber(int roomNumber) { this.roomNumber = roomNumber; }
-    public void setQuality(int quality) { this.quality = quality; }
+    public void setQuality(Quality quality) { this.quality = quality; }
     public void setTheme(Theme theme) { this.theme = theme; }
     public void setSmoking(boolean smoking) { this.smoking = smoking; }
     public void setDailyPrice(double dailyPrice) { this.dailyPrice = dailyPrice; }

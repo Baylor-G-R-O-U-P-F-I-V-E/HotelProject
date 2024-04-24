@@ -20,6 +20,7 @@ import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.models.enums.BedType;
+import edu.baylor.GroupFive.models.enums.Quality;
 import edu.baylor.GroupFive.models.enums.Theme;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
@@ -266,7 +267,7 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         // Get the values from the text fields
         int roomNumber = Integer.parseInt(numberField.getText());
         Theme theme = Theme.valueOf((String) roomTypeField.getSelectedItem());
-        int quality = Integer.parseInt(qualityField.getText());
+        Quality quality = Quality.fromString(qualityField.getText());
         BedType bedType = BedType.valueOf((String) bedTypeField.getSelectedItem());
         int numBeds = Integer.parseInt(bedCountField.getText());
         boolean smoking = Boolean.parseBoolean((String) smokingField.getSelectedItem());

@@ -21,6 +21,7 @@ import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.enums.Theme;
 import edu.baylor.GroupFive.models.enums.BedType;
+import edu.baylor.GroupFive.models.enums.Quality;
 
 public class AddRoomDialog extends JDialog {
 
@@ -69,7 +70,7 @@ public class AddRoomDialog extends JDialog {
         // Create textfields for each field
         JTextField roomNumber = new JTextField();
         JComboBox<String> roomType = new JComboBox<>(new String[] { "NatureRetreat", "UrbanElegance", "VintageCharm"});
-        JComboBox<String> quality = new JComboBox<>(new String[] { "Low", "Medium", "High" });
+        JComboBox<String> quality = new JComboBox<>(new String[] { "Economy", "Comfort", "Busniess", "Executive" });
         JComboBox<String> bedType = new JComboBox<>(new String[] { "Single", "Double", "Queen", "King" });
         JTextField bedCount = new JTextField();
         JComboBox<String> smokingBox = new JComboBox<>(new String[] { "true", "false" });
@@ -116,15 +117,12 @@ public class AddRoomDialog extends JDialog {
                     return;
                 }
 
-                // Add new row to table
-                Object[] row = new Object[] { roomNumber.getText(), roomType.getSelectedItem(), quality.getSelectedItem(),
-                        bedType.getSelectedItem(), bedCount.getText(), smokingBox.getSelectedItem(), price.getText() };
-                ((javax.swing.table.DefaultTableModel) table.getModel()).addRow(row);
+                System.out.println("Quality: " + Quality.fromString((String) quality.getSelectedItem()));
 
                 // Add room to database
-                Room room = new Room(Integer.parseInt(roomNumber.getText()), quality.getSelectedIndex(),
+                Room room = new Room(Integer.parseInt(roomNumber.getText()), Quality.fromString((String) quality.getSelectedItem()),
                         Theme.valueOf((String) roomType.getSelectedItem()), Boolean.parseBoolean((String) smokingBox.getSelectedItem()), Integer.parseInt(bedCount.getText()),
-                        BedType.valueOf((String) bedType.getSelectedItem()), Double.parseDouble(price.getText()));
+                        BedType.valueOf(((String) bedType.getSelectedItem()).toUpperCase()), Double.parseDouble(price.getText()));
                 
                 Boolean valid = RoomController.addRoom(room);
 
@@ -132,6 +130,11 @@ public class AddRoomDialog extends JDialog {
                     JOptionPane.showMessageDialog(table, "Failed to add room to database.");
                     return;
                 }
+
+                // Add new row to table
+                Object[] row = new Object[] { roomNumber.getText(), roomType.getSelectedItem(), quality.getSelectedItem(),
+                    bedType.getSelectedItem(), bedCount.getText(), smokingBox.getSelectedItem(), price.getText() };
+                    ((javax.swing.table.DefaultTableModel) table.getModel()).addRow(row);
                 
                 dispose();
                 JOptionPane.showMessageDialog(table, "Room added successfully.");
