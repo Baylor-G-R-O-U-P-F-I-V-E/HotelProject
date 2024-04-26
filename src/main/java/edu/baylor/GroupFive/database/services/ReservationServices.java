@@ -24,13 +24,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
  /**
-  *
+  * The ReservationServices class provides methods for managing reservations in the database.
+  * It implements the ReservationDao interface.
   */
  public class ReservationServices implements ReservationDao {
     private static final Logger logger = LogManager.getLogger(ReservationServices.class.getName());
 
      /**
-      *
+      * Constructs a new ReservationServices object.
       */
     public ReservationServices(){}
 
@@ -38,9 +39,9 @@ import org.apache.logging.log4j.Logger;
       * Singular find. Searches for a reservation based on their database id.
       * Throws SQLException if an error occurs communicating with the database.
       *
-      * @param id
-      * @return
-      * @throws SQLException
+      * @param id The database id of the reservation to retrieve.
+      * @return The Reservation object corresponding to the id.
+      * @throws SQLException If an error occurs during database communication.
       */
     public Reservation get(int id) throws SQLException {
         Reservation out = null; // Result of our query
@@ -81,13 +82,14 @@ import org.apache.logging.log4j.Logger;
         return out;
     }
 
-     /**
-      *
-      * @param roomNumber
-      * @param startDate
-      * @return
-      * @throws SQLException
-      */
+    /**
+     * Retrieves a reservation based on room number and start date.
+     *
+     * @param roomNumber The room number of the reservation.
+     * @param startDate The start date of the reservation.
+     * @return The Reservation object corresponding to the room number and start date.
+     * @throws SQLException If an error occurs during database communication.
+     */
     public Reservation get(int roomNumber, Date startDate) throws SQLException {
         Reservation out = null; // Result of our query
 
@@ -129,9 +131,10 @@ import org.apache.logging.log4j.Logger;
     }
 
      /**
+      * Retrieves all reservations from the database.
       *
-      * @return
-      * @throws SQLException
+      * @return A List containing all reservations
+      * @throws SQLException If an error occurs during database communication
       */
     public List<Reservation> getAll() throws SQLException {
         List<Reservation> out = null; // Result of our query
@@ -171,20 +174,23 @@ import org.apache.logging.log4j.Logger;
     }
 
      /**
-      * save
-      * TODO implement
+      * This method either inserts or updates behind-the-scenes depending
+      * on if the reservation already exists in our database.
       *
-      * This method either inserts or updates behind-the-scenes
+      * @param reservation Reservation to save in our database
+      * @return Number of rows affected by query
+      * @throws SQLException If error occurs during database communication
       * */
     public Integer save(Reservation reservation) throws SQLException {
         return -1;
     }
 
      /**
+      * Inserts a reservation into our database.
       *
-      * @param reservation
-      * @return
-      * @throws SQLException
+      * @param reservation Reservation to insert into the database.
+      * @return Number of rows affect by query
+      * @throws SQLException If error occurs during database communication
       */
     public Integer insert(Reservation reservation) throws SQLException {
         // Establish database connection
@@ -221,10 +227,11 @@ import org.apache.logging.log4j.Logger;
     }
 
      /**
+      * Updates a reservation in our database.
       *
-      * @param reservation
-      * @return
-      * @throws SQLException
+      * @param reservation Reservation with updated information
+      * @return Number of rows affected by query
+      * @throws SQLException If error occurs during database communication
       */
     public Integer update(Reservation reservation) throws SQLException {
         // Establish database connection
@@ -263,10 +270,13 @@ import org.apache.logging.log4j.Logger;
     // FIXME DO NOT ACTUALLY DELETE FROM DB, 
     // TODO status for reservations
      /**
+      * "Deletes" a reservation from our database. Nothing is actually removed
+      * from the database, but the reservations {@code active} status is set
+      * to false.
       *
-      * @param reservation
-      * @return
-      * @throws SQLException
+      * @param reservation Reservation to cancel
+      * @return Number of rows affected by query
+      * @throws SQLException If error occurs during database communication
       */
     public Integer delete(Reservation reservation) throws SQLException {
         // Establish database connection
@@ -296,12 +306,13 @@ import org.apache.logging.log4j.Logger;
     }
 
      /**
+      * Checks if a Room is available during a start and end date.
       *
-      * @param roomNumber
-      * @param startDate
-      * @param endDate
-      * @return
-      * @throws SQLException
+      * @param roomNumber Number of room
+      * @param startDate Start date of interval
+      * @param endDate End date of interval
+      * @return {@code true} if room is available. {@code false} otherwise.
+      * @throws SQLException If error occurs during database communication
       */
     public Boolean checkIfAvailable(int roomNumber, Date startDate, Date endDate) throws SQLException {
         //'20150131'
@@ -339,6 +350,8 @@ import org.apache.logging.log4j.Logger;
 
     // TODO need to test this
      /**
+      * Checks if a newly initialized reservation has any availability conflicts
+      * with reservations in our database
       *
       * @param reservation
       * @return
@@ -356,6 +369,7 @@ import org.apache.logging.log4j.Logger;
         }
 
         // Build query
+        // FIXME This logically seems incorrect -Icko
         String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = ? AND startDate = ?";
         PreparedStatement statement = connection.prepareStatement(sqlQuery);
         statement.setInt(1, reservation.getRoomNumber());
@@ -435,8 +449,9 @@ import org.apache.logging.log4j.Logger;
     }
 
      /**
+      * Returns all transactions of the guest currently logged into the system.
       *
-      * @return
+      * @return A List of transactions tied to the logged-in guest
       */
     public static List<Reservation> getCurrentGuestTransactions() {
         String sql = "SELECT * FROM reservations JOIN transactions ON transactions.username = reservations.guestusername";
@@ -469,9 +484,10 @@ import org.apache.logging.log4j.Logger;
     }
 
      /**
+      * Returns all reservations of the guest with a specific username.
       *
-      * @param username
-      * @return
+      * @param username Username of the guest.
+      * @return A List of all reservations for the guest with username {@code username}.
       */
     public static List<Reservation> getReservationsByGuest(String username) {
         String sql = "SELECT * FROM reservations WHERE guestUsername = ?";
@@ -505,34 +521,38 @@ import org.apache.logging.log4j.Logger;
     }
 
      /**
+      * Formats a Date object into a string.
       *
-      * @param myDate
-      * @return
+      * @param myDate Date object
+      * @return String representation of {@code myDate}
       */
     private static String formatDate(Date myDate) {
-        DateFormat dateFormat = new SimpleDateFormat(CoreUtils.DATE_FORMAT); // before: "MM/dd/yyyy"
+        DateFormat dateFormat = new SimpleDateFormat(CoreUtils.DATE_FORMAT);
         return dateFormat.format(myDate.getTime());
     }
 
      /**
+      * Checks if there is any overlapping conflict between two pairs of
+      * start and end dates.
       *
-      * @param start1
-      * @param end1
-      * @param start2
-      * @param end2
-      * @return
+      * @param start1 Start date of interval 1.
+      * @param end1 End date of interval 1.
+      * @param start2 Start date of interval 2.
+      * @param end2 End date of interval 2.
+      * @return {@code true} if overlap is present. {@code false} otherwise.
       */
     private static boolean isOverlap(Date start1, Date end1, Date start2, Date end2) {
         return !start1.after(end2) && !end1.before(start2);
     }
 
-     // TODO stolen from Cole... what does this do?
      /**
+      * Checks if a room if booked during time interval given a start and end date.
       *
-      * @param roomNumber
-      * @param startDate
-      * @param endDate
-      * @return
+      * @param roomNumber Room number.
+      * @param startDate Start date.
+      * @param endDate End date.
+      * @return {@code true} if room is booked between {@code startDate} and {@code endDate}.
+      *         {@code false} otherwise.
       * @throws SQLException
       */
     private boolean isRoomBookedOn(int roomNumber, Date startDate, Date endDate) throws SQLException {

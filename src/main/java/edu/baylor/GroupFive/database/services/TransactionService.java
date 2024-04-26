@@ -8,14 +8,20 @@ import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.Transaction;
 
 /**
- *
+ * The TransactionService class contains static methods related to managing
+ * transactions in our database.
  */
 public class TransactionService {
 
+    private TransactionService() {};
+
     /**
+     * Searches our database for a transaction with a given {@code id}. If the
+     * transaction exists in our database, it is returned. Otherwise a null
+     * object is returned.
      *
-     * @param id
-     * @return
+     * @param id Id of transaction.
+     * @return Transaction if it exists. {@code null} otherwise.
      */
     public static Transaction getTransaction(long id) {
         TransactionDAO transactionDAO = new TransactionDAO();
@@ -23,8 +29,9 @@ public class TransactionService {
     }
 
     /**
+     * Gets all transactions in our database.
      *
-     * @return
+     * @return A List containing all transactions in our database.
      */
     public static List<Transaction> getTransactions() {
         TransactionDAO transactionDAO = new TransactionDAO();
@@ -32,9 +39,10 @@ public class TransactionService {
     }
 
     /**
+     * Gets all transactions tied to a User with username {@code username}.
      *
-     * @param username
-     * @return
+     * @param username Username of user.
+     * @return A List containing all transactions tied to {@code username}.
      */
     public static List<Transaction> getUserTransactions(String username) {
         TransactionDAO transactionDAO = new TransactionDAO();
@@ -42,18 +50,21 @@ public class TransactionService {
     }
 
     /**
+     * Gets all transactions tied to the currently logged in user.
      *
-     * @return
+     * @return A List containing all transactions.
      */
     public static List<Reservation> getCurrentGuestTransactions() {
+        // FIXME return type, function call. -Icko
         return ReservationServices.getCurrentGuestTransactions();
     }
 
     /**
+     * Links a transaction to a user and adds it to our database.
      *
-     * @param username
-     * @param description
-     * @param amount
+     * @param username Username of the User
+     * @param description Transaction description
+     * @param amount Value of transaction
      */
     public static void addTransaction(String username, String description, float amount) {
         Transaction transaction = new Transaction(username, description, new Date(), amount);
@@ -62,8 +73,9 @@ public class TransactionService {
     }
 
     /**
+     * Updates a transaction in our database.
      *
-     * @param transaction
+     * @param transaction Transaction with updated information.
      */
     public static void updateTransaction(Transaction transaction) {
         TransactionDAO transactionDAO = new TransactionDAO();
@@ -71,8 +83,9 @@ public class TransactionService {
     }
 
     /**
+     * Deletes a transaction in our database.
      *
-     * @param transaction
+     * @param transaction Transaction to delete.
      */
     public static void deleteTransaction(Transaction transaction) {
         TransactionDAO transactionDAO = new TransactionDAO();
