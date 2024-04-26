@@ -1,16 +1,17 @@
 package edu.baylor.GroupFive.models.enums;
 
 /**
- *
+ * The Privilege enum represents the types of privilege levels available to users.
  */
 public enum Privilege {
     ADMIN, CLERK, GUEST;
-    //Turn string into enum
 
     /**
+     * Converts a string representation of a privilege level to the corresponding Privilege enum.
      *
-     * @param text
-     * @return
+     * @param text The string representation of the privilege level.
+     * @return The Privilege enum value corresponding to {@code text}, or {@code null} if no match
+     * @author Afraz
      */
     public static Privilege fromString(String text) {
         for (Privilege b : Privilege.values()) {

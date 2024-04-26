@@ -1,16 +1,20 @@
 package edu.baylor.GroupFive.models.enums;
 
 /**
+ * The DiscountType enum represents the available discount types.
  *
+ * @author Afraz
  */
 public enum DiscountType {
     NONE, AMOUNT, PERCENT;
     //Turn string into enum
 
     /**
+     * Converts a string representation of a discount type to the corresponding DiscountType enum.
      *
-     * @param text
-     * @return
+     * @param text The string representation of the discount type.
+     * @return The DiscountType enum value corresponding to {@code test}, or {@code null} if no match
+     * @author Afraz
      */
     public static Privilege fromString(String text) {
         for (Privilege b : Privilege.values()) {
