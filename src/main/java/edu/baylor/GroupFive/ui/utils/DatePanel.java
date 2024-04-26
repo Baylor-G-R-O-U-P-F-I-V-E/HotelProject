@@ -17,15 +17,27 @@ import org.jdatepicker.impl.UtilDateModel;
 
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
+/**
+ *
+ */
 public class DatePanel extends JPanel implements PagePanel {
     //Calendar to store the displayed date
     private Calendar cal;
     private UtilDateModel model;
 
+    /**
+     *
+     * @param title
+     */
     public DatePanel(String title) {
         this(title, 0);
     }
 
+    /**
+     *
+     * @param title
+     * @param daysAhead
+     */
     public DatePanel(String title, int daysAhead) {
 
         // Create the label for the start date
@@ -44,6 +56,10 @@ public class DatePanel extends JPanel implements PagePanel {
         addComponents(daysAhead);
     }
 
+    /**
+     *
+     * @return
+     */
     public AbstractFormatter getFormatter() {
         return new AbstractFormatter() {
             private String datePattern = "MM/dd/yyyy";
@@ -65,6 +81,11 @@ public class DatePanel extends JPanel implements PagePanel {
         };
     }
 
+    /**
+     *
+     * @param daysAhead
+     * @return
+     */
     public UtilDateModel createModel(int daysAhead) {
         //Create Model for the date picker
         model = new UtilDateModel();
@@ -79,6 +100,10 @@ public class DatePanel extends JPanel implements PagePanel {
         return model;
     }
 
+    /**
+     *
+     * @return
+     */
     public Properties getI18nStrings() {
         Properties i18nStrings = new Properties();
         i18nStrings.put("text.today", "Today");
@@ -87,6 +112,10 @@ public class DatePanel extends JPanel implements PagePanel {
         return i18nStrings;
     }
 
+    /**
+     *
+     * @param daysAhead
+     */
     private void addComponents(int daysAhead) {
 
         UtilDateModel model = createModel(daysAhead);
@@ -103,16 +132,27 @@ public class DatePanel extends JPanel implements PagePanel {
         
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getDate() {
         return (Date) model.getValue();
     }
 
+    /**
+     *
+     * @param date
+     */
     public void setDate(Date date) {
         cal.setTime(date);
         model.setDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
         model.setSelected(true);
     }
 
+    /**
+     *
+     */
     @Override
     public void clear() {
         //Clear all components

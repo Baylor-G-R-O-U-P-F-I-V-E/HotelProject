@@ -16,11 +16,18 @@ import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
+/**
+ *
+ */
 public class CreateClerkAccountPanel extends JPanel implements PagePanel {
     private Page page;
     private JTextField firstName, lastName, username, password;
     private Dimension fieldSize = new Dimension(200, 50);
 
+    /**
+     *
+     * @param page
+     */
     public CreateClerkAccountPanel(Page page) {
         super();
         this.page = page;
@@ -60,6 +67,10 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
 
     }
 
+    /**
+     *
+     * @param textPanel
+     */
     private void addUsernamePanel(JPanel textPanel) {
         JPanel userPanel = new JPanel();
         userPanel.setOpaque(true);
@@ -79,6 +90,10 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
         textPanel.add(userPanel);
     }
 
+    /**
+     *
+     * @param textPanel
+     */
     private void addPasswordPanel(JPanel textPanel) {
         JPanel passPanel = new JPanel();
         passPanel.setOpaque(true);
@@ -99,6 +114,10 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
 
     }
 
+    /**
+     *
+     * @param textPanel
+     */
     private void addNamePanel(JPanel textPanel) {
         JPanel namePanel = new JPanel();
         namePanel.setOpaque(true);
@@ -130,6 +149,10 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
         textPanel.add(namePanel);
     }
 
+    /**
+     *
+     * @param buttonPanel
+     */
     private void addCreateButton(JPanel buttonPanel) {
         // Create the create button
         PanelButton createButton = new PanelButton("Create Account");
@@ -138,6 +161,9 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
         buttonPanel.add(createButton);
     }
 
+    /**
+     *
+     */
     @Override
     public void clear() {
         firstName.setText("");

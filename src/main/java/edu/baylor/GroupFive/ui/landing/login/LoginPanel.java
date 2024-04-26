@@ -17,6 +17,9 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Color;
 
+/**
+ *
+ */
 public class LoginPanel extends JPanel implements PagePanel {
 
     private Dimension fieldSize = new Dimension(200, 50);
@@ -27,6 +30,10 @@ public class LoginPanel extends JPanel implements PagePanel {
     public String username;
     public String passwordHash;
 
+    /**
+     *
+     * @param delegate
+     */
     public LoginPanel(LandingPage delegate) {
         super();
         this.delegate = delegate;
@@ -58,6 +65,10 @@ public class LoginPanel extends JPanel implements PagePanel {
         setSize(400, 400);
     }
 
+    /**
+     *
+     * @param textPanel
+     */
     public void addNamePanel(JPanel textPanel) {
         // Create a new panel for the name
         JPanel namePanel = new JPanel();
@@ -79,6 +90,10 @@ public class LoginPanel extends JPanel implements PagePanel {
         textPanel.add(namePanel, gbc);
     }
 
+    /**
+     *
+     * @param textPanel
+     */
     public void addPasswordPanel(JPanel textPanel) {
         // Create a panel for the room number
         JPanel passwordPanel = new JPanel();
@@ -102,6 +117,10 @@ public class LoginPanel extends JPanel implements PagePanel {
         textPanel.add(passwordPanel, gbc);
     }
 
+    /**
+     *
+     * @param buttonPanel
+     */
     public void addLoginButton(JPanel buttonPanel) {
         JButton loginButton = new JButton("Login");
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -118,6 +137,10 @@ public class LoginPanel extends JPanel implements PagePanel {
         buttonPanel.add(loginButton);
     }
 
+    /**
+     *
+     * @param buttonPanel
+     */
     public void addBackButton(JPanel buttonPanel) {
         JButton backButton = new JButton("Back");
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -136,20 +159,36 @@ public class LoginPanel extends JPanel implements PagePanel {
         buttonPanel.add(backButton);
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     */
     public void onClick(String username, String password) {
         delegate.setUsername(username);
 
         delegate.onPageSwitch("success");
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return passwordHash;
     }
 
+    /**
+     *
+     */
     @Override
     public void clear() {
         // Clears textfields

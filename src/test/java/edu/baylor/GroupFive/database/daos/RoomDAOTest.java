@@ -7,13 +7,22 @@ import edu.baylor.GroupFive.models.enums.BedType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ *
+ */
 public class RoomDAOTest {
 
+    /**
+     *
+     */
     @BeforeEach
     void init(){
         DbSetup db = new DbSetup();
     }
 
+    /**
+     *
+     */
     @Test
     void addARoom(){
         DbSetup db = new DbSetup();
@@ -23,6 +32,9 @@ public class RoomDAOTest {
         assert(added.equals(1));
     }
 
+    /**
+     *
+     */
     @Test
     void addAndGetRoom(){
         DbSetup db = new DbSetup();
@@ -34,6 +46,9 @@ public class RoomDAOTest {
         assert(pulledRoom.equals(newRoom));
     }
 
+    /**
+     *
+     */
     @Test
     void getSetupRoom(){
         DbSetup db = new DbSetup();
@@ -42,6 +57,9 @@ public class RoomDAOTest {
         assert(pulledRoom != null);
     }
 
+    /**
+     *
+     */
     @Test
     void getNonexistingRoom(){
         DbSetup db = new DbSetup();
@@ -51,6 +69,9 @@ public class RoomDAOTest {
     }
 
 
+    /**
+     *
+     */
     @Test
     void modifyRoom(){
         DbSetup db = new DbSetup();

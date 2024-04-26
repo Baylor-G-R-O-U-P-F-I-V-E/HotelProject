@@ -16,6 +16,9 @@ import edu.baylor.GroupFive.ui.utils.DatePanel;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
+/**
+ *
+ */
 public class ModifyReservationActionListener implements ActionListener {
     private InputDelegate page;
     private JTextField roomField, priceField;
@@ -36,6 +39,8 @@ public class ModifyReservationActionListener implements ActionListener {
       * makeBadInputDialog
       *
       * Attempts to create a JDialog panel containing our error message
+      *
+      * @param msg
       * */
     private void makeBadInputDialog(String msg) {
         try {
@@ -45,6 +50,16 @@ public class ModifyReservationActionListener implements ActionListener {
         }
     }
 
+    /**
+     *
+     * @param loginPage
+     * @param originalRoom
+     * @param originalStart
+     * @param roomField
+     * @param priceField
+     * @param startDate
+     * @param endDate
+     */
     public ModifyReservationActionListener(Page loginPage, String originalRoom, Date originalStart, JTextField roomField, JTextField priceField, DatePanel startDate, DatePanel endDate) {
         this.page = loginPage;
         this.roomField = roomField;
@@ -59,6 +74,8 @@ public class ModifyReservationActionListener implements ActionListener {
       * ModifyReservationActionListener::actionPerformed
       *
       * Error checks values within cells and attempts to change reservation
+      *
+      * @param e
       * */
     @Override
     public void actionPerformed(ActionEvent e) {

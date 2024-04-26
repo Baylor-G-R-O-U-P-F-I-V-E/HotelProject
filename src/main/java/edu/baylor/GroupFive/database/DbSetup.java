@@ -18,12 +18,18 @@ import java.util.ArrayList;
 
 import java.text.ParseException;
 
+/**
+ *
+ */
 public class DbSetup {
 
     private static final Logger logger = LogManager.getLogger(DbSetup.class.getName());
 
     // ALL QUERIES MOVED TO BOTTOM OF CLASS - brendon
 
+    /**
+     *
+     */
     public DbSetup() {
 
         logger.info("Running");
@@ -75,6 +81,9 @@ public class DbSetup {
 
     }
 
+    /**
+     *
+     */
     private static void dbTearDown() {
         try (Connection connection = DriverManager.getConnection(url, user, password);
                 Statement statement = connection.createStatement()) {
@@ -132,6 +141,9 @@ public class DbSetup {
         }
     }
 
+    /**
+     *
+     */
     private static void dbInit() {
 
         try (Connection connection = DriverManager.getConnection(url, user, password); Statement statement = connection.createStatement()) {
@@ -259,6 +271,9 @@ public class DbSetup {
     private static final List<Object[]> reservationInits = new ArrayList<>();
     private static final List<Object[]> transactionInits = new ArrayList<>();
 
+    /**
+     *
+     */
     static {
         userInits.add(new Object[] { "Joe",     "Smith",        "Bongo",            "p1234",    "admin" });
         userInits.add(new Object[] { "Kevin",   "James",        "KevDog",           "1234",     "clerk" });
@@ -385,6 +400,11 @@ public class DbSetup {
         }
     }
 
+    /**
+     *
+     * @param statement
+     * @throws SQLException
+     */
     private static void initializeTransactions(PreparedStatement statement) throws SQLException {
         for (Object[] transaction : transactionInits) {
             statement.setDouble(1, (double) transaction[0]);

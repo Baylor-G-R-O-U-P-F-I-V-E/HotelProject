@@ -28,6 +28,9 @@ import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 
+/**
+ *
+ */
 public class ReserveRoomPanel extends JPanel implements PagePanel {
 
     private JTable table;
@@ -49,6 +52,10 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
             String.class
     };
 
+    /**
+     *
+     * @param page
+     */
     public ReserveRoomPanel(Page page) {
         super();
         this.delegate = page;
@@ -91,6 +98,9 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
 
     }
 
+    /**
+     *
+     */
     private void addButtonPanel() {
         // Create button panel
         JPanel buttonPanel = new JPanel();
@@ -109,6 +119,12 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
         add(buttonPanel);
     }
 
+    /**
+     *
+     * @param reserveRoom
+     * @param viewRoom
+     * @param adjustDates
+     */
     private void addButtonListeners(JButton reserveRoom, JButton viewRoom, JButton adjustDates) {
         reserveRoom.addActionListener(e -> {
             int row = table.getSelectedRow();
@@ -147,6 +163,10 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
         });
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Date> showDates() {
         DatePanel startDatePanel = new DatePanel("");
         int result = JOptionPane.showConfirmDialog(null, startDatePanel, "Select a start date",
@@ -179,6 +199,11 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
         return null;
     }
 
+    /**
+     *
+     * @param startDate
+     * @param endDate
+     */
     public void promptReservation(Date startDate, Date endDate) {
         SimpleDateFormat formatter = new SimpleDateFormat("EEE MM/dd/yyyy");
 
@@ -218,6 +243,11 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
         }
     }
 
+    /**
+     *
+     * @param startDate
+     * @param endDate
+     */
     public void filterRoomsByDate(Date startDate, Date endDate) {
         
         if (startDate == null || endDate == null) {
@@ -228,12 +258,19 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
         ((AddReservationModel) table.getModel()).filterRoomsByDate(startDate, endDate);
     }
 
+    /**
+     *
+     * @return
+     */
     public SimpleDateFormat getFormatter() {
         // Make a formatter for a date that looks like "Day of week MM/dd/yyyy"
 
         return new SimpleDateFormat("EEEE MM/dd/yyyy");
     }
 
+    /**
+     *
+     */
     @Override
     public void clear() {
         // Do nothing

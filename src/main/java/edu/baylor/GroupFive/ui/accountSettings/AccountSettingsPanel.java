@@ -23,6 +23,9 @@ import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
+/**
+ *
+ */
 public class AccountSettingsPanel extends JPanel implements PagePanel {
     private static final Logger LOGGER = Logger.getLogger(AccountSettingsPanel.class.getName());
 
@@ -31,6 +34,11 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     private JTextField firstNameField, lastNameField, usernameField;
     private JPanel buttonPanel, textPanel;
 
+    /**
+     *
+     * @param page
+     * @param user
+     */
     public AccountSettingsPanel(Page page, User user) {
         super();
         this.page = page;
@@ -71,6 +79,10 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
 
     }
 
+    /**
+     *
+     * @param textPanel
+     */
     private void addUsernamePanel(JPanel textPanel) {
         JPanel userPanel = new JPanel();
         userPanel.setOpaque(true);
@@ -93,6 +105,10 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         textPanel.add(userPanel);
     }
 
+    /**
+     *
+     * @param textPanel
+     */
     private void addFirstNamePanel(JPanel textPanel) {
 
         // Create a panel for the first name
@@ -121,6 +137,10 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         textPanel.add(namePanel);
     }
 
+    /**
+     *
+     * @param textPanel
+     */
     private void addLastNamePanel(JPanel textPanel) {
         JPanel namePanel = new JPanel();
         namePanel.setOpaque(true);
@@ -142,6 +162,10 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         textPanel.add(namePanel);
     }
 
+    /**
+     *
+     * @param buttonPanel
+     */
     private void addModifyButton(JPanel buttonPanel) {
         // Modify the Modify button
         PanelButton ModifyButton = new PanelButton("Modify Account Info", 300, 50);
@@ -154,6 +178,9 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         buttonPanel.add(ModifyButton);
     }
 
+    /**
+     *
+     */
     private void makeEditable() {
 
         // Set textfields to editable
@@ -189,6 +216,10 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         buttonPanel.repaint();
     }
 
+    /**
+     *
+     * @param panel
+     */
     private void addBackButton(JPanel panel) {
 
         // Create and style the back button
@@ -203,6 +234,10 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         panel.add(backButton);
     }
 
+    /**
+     *
+     * @param panel
+     */
     private void addSaveButton(JPanel panel) {
 
         // Create and style the save button
@@ -240,6 +275,9 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         panel.add(saveButton);
     }
 
+    /**
+     *
+     */
     @Override
     public void clear() {
 

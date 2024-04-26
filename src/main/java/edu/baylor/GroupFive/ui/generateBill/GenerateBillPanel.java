@@ -24,6 +24,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
+/**
+ *
+ */
 public class GenerateBillPanel extends JPanel implements PagePanel {
 
     /*
@@ -48,10 +51,17 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
             "Room Number"};
 
     // Define data types for the columns
+    /**
+     *
+     */
     final Class<?>[] columnClass = new Class[] {
             String.class, String.class, String.class, String.class, String.class, String.class
     };
-    
+
+    /**
+     *
+     * @param page
+     */
     public GenerateBillPanel(Page page) {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -95,6 +105,10 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
 
     }
 
+    /**
+     *
+     * @param panel
+     */
     public void addGenerateSelectedGuestBillButton(JPanel panel) {
         PanelButton generateButton = new PanelButton("Generate Bill for Selected Guest");
         
@@ -112,6 +126,10 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
         panel.add(generateButton);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSelectedGuest() {
         // Get the selected row
         int row = table.getSelectedRow();
@@ -133,3 +151,4 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
     }
 
 }
+

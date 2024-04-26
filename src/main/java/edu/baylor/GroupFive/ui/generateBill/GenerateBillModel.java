@@ -13,8 +13,16 @@ import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 import edu.baylor.GroupFive.util.CoreUtils;
 import edu.baylor.GroupFive.util.logging.G5Logger;
 
+/**
+ *
+ */
 public class GenerateBillModel extends HotelModel implements DataModel {
 
+    /**
+     *
+     * @param columnNames
+     * @param columnClass
+     */
     public GenerateBillModel(String[] columnNames, Class<?>[] columnClass) {
         super(columnNames, columnClass);
 
@@ -26,6 +34,10 @@ public class GenerateBillModel extends HotelModel implements DataModel {
 
     }
 
+    /**
+     *
+     * @throws RuntimeException
+     */
     public void getData() throws RuntimeException {
         // Fetch user data from the database
         List<Reservation> reservations = BillingController.getCurrentGuestTransactions();

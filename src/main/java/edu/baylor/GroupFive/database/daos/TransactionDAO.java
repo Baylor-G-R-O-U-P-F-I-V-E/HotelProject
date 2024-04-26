@@ -15,10 +15,21 @@ import edu.baylor.GroupFive.util.CoreUtils;
 import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
 import edu.baylor.GroupFive.util.logging.G5Logger;
 
+/**
+ *
+ */
 public class TransactionDAO extends BaseDAO<Transaction> {
 
+    /**
+     *
+     */
     public TransactionDAO() {}
 
+    /**
+     *
+     * @param transaction
+     * @return
+     */
     public Integer save(Transaction transaction) {
         if (transaction.getId() == 0) {
             return insert(transaction);
@@ -27,6 +38,11 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         }
     }
 
+    /**
+     * 
+     * @param transaction
+     * @return
+     */
     public Integer insert(Transaction transaction) {
         String sql = "INSERT INTO transactions (username, description, purchaseDate, amount) VALUES (?, ?, ?, ?)";
         
@@ -43,6 +59,11 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         }
     }
 
+    /**
+     *
+     * @param transaction
+     * @return
+     */
     public Integer update(Transaction transaction) {
         String sql = "UPDATE transactions SET username = ?, description = ?, purchaseDate = ?, amount = ? WHERE id = ?";
         
@@ -60,6 +81,11 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         }
     }
 
+    /**
+     *
+     * @param transaction
+     * @return
+     */
     public Integer delete(Transaction transaction) {
         String sql = "DELETE FROM transactions WHERE id = ?";
         
@@ -96,6 +122,10 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Transaction> getAll() {
         String sql = "SELECT * FROM transactions";
         List<Transaction> transactions = null;
@@ -118,6 +148,11 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         return transactions;
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     */
     public List<Transaction> getByUsername(String username) {
         String sql = "SELECT * FROM transactions WHERE username = ?";
         List<Transaction> transactions = null;
@@ -140,6 +175,12 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         return transactions;
     }
 
+    /**
+     *
+     * @param result
+     * @return
+     * @throws SQLException
+     */
     protected Transaction parseResultSet(ResultSet result) throws SQLException {
         return new Transaction(
             result.getString("username"),

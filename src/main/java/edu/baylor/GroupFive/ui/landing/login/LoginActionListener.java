@@ -14,18 +14,31 @@ import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 import edu.baylor.GroupFive.util.CoreUtils;
 
+/**
+ *
+ */
 public class LoginActionListener implements ActionListener {
     private InputDelegate loginPage;
     private JTextField nameField;
     private JTextField passwordField;
     private static String title = "Login Error";
 
+    /**
+     *
+     * @param loginPage
+     * @param nameField
+     * @param passwordField
+     */
     public LoginActionListener(LandingPage loginPage, JTextField nameField, JTextField passwordField) {
         this.loginPage = loginPage;
         this.nameField = nameField;
         this.passwordField = passwordField;
     }
 
+    /**
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         // Create a default message

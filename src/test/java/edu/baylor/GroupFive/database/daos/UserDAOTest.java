@@ -9,7 +9,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ *
+ */
 public class UserDAOTest {
+    /**
+     *
+     */
     @BeforeEach
     void init() {
         DbSetup setup = new DbSetup();
@@ -17,6 +23,9 @@ public class UserDAOTest {
     }
 
 
+    /**
+     *
+     */
     @Test
     void addAUser() {
         UserDAO conn = new UserDAO();
@@ -25,6 +34,9 @@ public class UserDAOTest {
         assert(conn.save(newUser) == 1);
     }
 
+    /**
+     *
+     */
     @Test
     void addThenGetUser(){
         UserDAO conn = new UserDAO();
@@ -34,6 +46,9 @@ public class UserDAOTest {
         assertEquals(cole,newUser);
     }
 
+    /**
+     *
+     */
     @Test
     void findExistingUserFromSetup(){
         UserDAO conn = new UserDAO();
@@ -41,6 +56,9 @@ public class UserDAOTest {
         assert(cole != null);
     }
 
+    /**
+     *
+     */
     @Test
     void findNonExistingUser(){
         UserDAO conn = new UserDAO();
@@ -49,6 +67,9 @@ public class UserDAOTest {
     }
 
 
+    /**
+     *
+     */
     @Test
     void modifyUser(){
         User newUser = new User("ColeS", "Flenniken", "colef888", "cole123", "Clerk");

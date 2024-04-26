@@ -19,6 +19,9 @@ import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 
 import java.awt.*;
 
+/**
+ *
+ */
 public class ReservationsPanel extends JPanel implements PagePanel {
     
     private JTable table;
@@ -37,6 +40,10 @@ public class ReservationsPanel extends JPanel implements PagePanel {
             String.class, String.class, String.class, String.class, String.class, String.class
     };
 
+    /**
+     *
+     * @param page
+     */
     public ReservationsPanel(Page page) {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -77,6 +84,9 @@ public class ReservationsPanel extends JPanel implements PagePanel {
 
     }
 
+    /**
+     *
+     */
     private void addButtonPanel() {
         // Create button panel
         JPanel buttonPanel = new JPanel();
@@ -95,6 +105,12 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         add(buttonPanel);
     }
 
+    /**
+     *
+     * @param viewReservation
+     * @param viewRoom
+     * @param deleteReservation
+     */
     private void addButtonListeners(JButton viewReservation, JButton viewRoom, JButton deleteReservation) {
         viewReservation.addActionListener(e -> {
             int row = table.getSelectedRow();
@@ -164,6 +180,9 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         });
     }
 
+    /**
+     *
+     */
     @Override
     public void clear() {
         // Do nothing

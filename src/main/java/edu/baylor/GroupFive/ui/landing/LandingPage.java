@@ -18,12 +18,18 @@ import edu.baylor.GroupFive.ui.landing.login.LoginPanel;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
+/**
+ *
+ */
 public class LandingPage extends JFrame implements InputDelegate {
 
     private JPanel background;
     private JPanel surface;
     private String username;
 
+    /**
+     *
+     */
     public LandingPage() {
         super();
 
@@ -40,6 +46,9 @@ public class LandingPage extends JFrame implements InputDelegate {
         add(surface);
     }
 
+    /**
+     *
+     */
     public void createFrame() {
         try {
             // Load the background image
@@ -69,6 +78,10 @@ public class LandingPage extends JFrame implements InputDelegate {
         setLocationRelativeTo(null);
     }
 
+    /**
+     *
+     * @param option
+     */
     public void onPageSwitch(String option) {
         
         // Switch to the login page
@@ -118,6 +131,10 @@ public class LandingPage extends JFrame implements InputDelegate {
         }
     }
 
+    /**
+     *
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }

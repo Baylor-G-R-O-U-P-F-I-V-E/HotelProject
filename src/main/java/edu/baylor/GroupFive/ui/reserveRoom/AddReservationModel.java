@@ -12,8 +12,16 @@ import edu.baylor.GroupFive.models.enums.Theme;
 import edu.baylor.GroupFive.ui.utils.interfaces.DataModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 
+/**
+ *
+ */
 public class AddReservationModel extends HotelModel implements DataModel {
 
+    /**
+     *
+     * @param columnNames
+     * @param columnClasses
+     */
     public AddReservationModel(String[] columnNames, Class<?>[] columnClasses) {
         super(columnNames, columnClasses);
 
@@ -25,6 +33,10 @@ public class AddReservationModel extends HotelModel implements DataModel {
 
     }
 
+    /**
+     *
+     * @throws RuntimeException
+     */
      public void getData() throws RuntimeException {
         // Fetch room data from the database
         List<Room> rooms = RoomController.getAllRooms();
@@ -48,6 +60,11 @@ public class AddReservationModel extends HotelModel implements DataModel {
         }
     }
 
+    /**
+     *
+     * @param startDate
+     * @param endDate
+     */
     public void filterRoomsByDate(Date startDate, Date endDate) {
         // Fetch room data from the database
         List<Room> rooms = RoomController.getAvailableRooms(startDate, endDate);
@@ -74,6 +91,9 @@ public class AddReservationModel extends HotelModel implements DataModel {
         }
     }
 
+    /**
+     *
+     */
     private void clearTable() {
         // Clear the table
         for (int i = getRowCount() - 1; i >= 0; i--) {
@@ -81,6 +101,11 @@ public class AddReservationModel extends HotelModel implements DataModel {
         }
     }
 
+    /**
+     *
+     * @param theme
+     * @return
+     */
     public String formatTheme(Theme theme) {
         switch (theme) {
             case VintageCharm:
@@ -94,6 +119,11 @@ public class AddReservationModel extends HotelModel implements DataModel {
         }
     }
 
+    /**
+     *
+     * @param bedtype
+     * @return
+     */
     public String formatBedSize(BedType bedtype) {
         switch (bedtype) {
             case KING:

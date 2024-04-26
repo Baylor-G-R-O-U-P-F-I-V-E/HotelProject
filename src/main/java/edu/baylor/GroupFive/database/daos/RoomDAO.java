@@ -10,10 +10,17 @@ import edu.baylor.GroupFive.util.logging.G5Logger;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * 
+ */
 public class RoomDAO extends BaseDAO<Room>{
 
     public RoomDAO(){}
 
+    /**
+     *
+     * @return
+     */
     public List<Room> getAll() {
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -45,6 +52,11 @@ public class RoomDAO extends BaseDAO<Room>{
 
     }
 
+    /**
+     *
+     * @param room
+     * @return
+     */
     public Integer save(Room room){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -64,6 +76,11 @@ public class RoomDAO extends BaseDAO<Room>{
 
     }
 
+    /**
+     *
+     * @param newRoom
+     * @return
+     */
     public Integer insert(Room newRoom){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -85,6 +102,11 @@ public class RoomDAO extends BaseDAO<Room>{
        
     }
 
+    /**
+     *
+     * @param roomNumber
+     * @return
+     */
     public Room get(int roomNumber){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -115,7 +137,11 @@ public class RoomDAO extends BaseDAO<Room>{
     }
 
 
-
+    /**
+     *
+     * @param updatedInfo
+     * @return
+     */
     public Integer update(Room updatedInfo){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -135,6 +161,11 @@ public class RoomDAO extends BaseDAO<Room>{
 
     }
 
+    /**
+     *
+     * @param room
+     * @return
+     */
     public Integer delete(Room room){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {

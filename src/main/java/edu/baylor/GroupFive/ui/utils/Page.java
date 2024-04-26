@@ -20,6 +20,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class Page extends JFrame implements InputDelegate {
 
     private Dashboard dashboard;
@@ -29,7 +32,11 @@ public class Page extends JFrame implements InputDelegate {
     private Privilege privilege;
     
     public JPanel currentPanel;
-    
+
+    /**
+     *
+     * @param user
+     */
     public Page(User user) {
         super();
 
@@ -50,6 +57,10 @@ public class Page extends JFrame implements InputDelegate {
         add(currentPanel, BorderLayout.CENTER);
     }
 
+    /**
+     *
+     * @param privilege
+     */
     public void createFrame(Privilege privilege) {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -66,6 +77,10 @@ public class Page extends JFrame implements InputDelegate {
         }
     }
 
+    /**
+     *
+     * @param page
+     */
     public void addDashboard(Page page) {
     
         // Create a scroll pane for the dashboard
@@ -80,6 +95,10 @@ public class Page extends JFrame implements InputDelegate {
         add(pane, BorderLayout.WEST);
     }
 
+    /**
+     *
+     * @param option
+     */
     public void onPageSwitch(String option) {
         
         if (currentPanel != null) {
@@ -131,22 +150,41 @@ public class Page extends JFrame implements InputDelegate {
         refresh();
     }
 
+    /**
+     *
+     * @param user
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
+    /**
+     *
+     * @return
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     *
+     * @param info
+     */
     public void addInfo(String info) {
         this.info.add(info);
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getInfo() {
         return info;
     }
 
+    /**
+     *
+     */
     public void refresh() {
         revalidate();
         repaint();

@@ -21,6 +21,9 @@ import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 import edu.baylor.GroupFive.ui.reservations.ReservationModel;
 
+/**
+ *
+ */
 public class HomePanel extends JPanel implements PagePanel {
 
     /*
@@ -46,6 +49,11 @@ public class HomePanel extends JPanel implements PagePanel {
         String.class, String.class, String.class, String.class, String.class
     };
 
+    /**
+     *
+     * @param page_
+     * @param user_
+     */
     public HomePanel(Page page_, User user_) {
         super();
 
@@ -97,6 +105,10 @@ public class HomePanel extends JPanel implements PagePanel {
         add(Box.createVerticalGlue());
     }
 
+    /**
+     *
+     * @param buttonPanel
+     */
     public void addShopButton(JPanel buttonPanel) {
         
         // Add a button to the panel
@@ -107,6 +119,10 @@ public class HomePanel extends JPanel implements PagePanel {
         buttonPanel.add(shopButton);
     }
 
+    /**
+     *
+     * @param buttonPanel
+     */
     public void addFindRoomsButton(JPanel buttonPanel) {
         
         // Add a button to the panel
@@ -117,11 +133,18 @@ public class HomePanel extends JPanel implements PagePanel {
         buttonPanel.add(findRoomsButton);
     }
 
+    /**
+     *
+     * @param table
+     */
     public void filterTable(JTable table) {
         // Filter the table for reservations that include the users username
 
     }
 
+    /**
+     *
+     */
     @Override
     public void clear() {
         // TODO Auto-generated method stub

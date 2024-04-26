@@ -4,6 +4,7 @@ import edu.baylor.GroupFive.database.DbSetup;
 import edu.baylor.GroupFive.models.Reservation;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,16 +14,25 @@ import java.util.Locale;
 
 import java.sql.SQLException;
 
+/**
+ *
+ */
 public class ReservationServiceTest {
 
     ReservationServices conn;
 
-    //this doesnt actually work right for some reason
+
+    /**
+     * this doesnt actually work right for some reason
+     */
     @BeforeEach
     void init(){
         DbSetup db = new DbSetup();
     }
 
+    /**
+     *
+     */
     @Test
     public void checkAvailable1(){
         DbSetup db = new DbSetup();
@@ -43,9 +53,9 @@ public class ReservationServiceTest {
         assert(isAvailable == true);
     }
 
-
-
-
+    /**
+     *
+     */
     @Test
     public void checkAvailable2(){
         DbSetup db = new DbSetup();
@@ -67,6 +77,11 @@ public class ReservationServiceTest {
         }
         //assert(!isAvailable);
     }
+
+    /**
+     *
+     * @throws SQLException
+     */
     @Test
     public void selectExisting() throws SQLException{
         DbSetup db = new DbSetup();
@@ -80,6 +95,10 @@ public class ReservationServiceTest {
         assert(myRes != null);
     }
 
+    /**
+     *
+     * @throws SQLException
+     */
     @Test
     public void selectNonExisting() throws SQLException{
         DbSetup db = new DbSetup();
@@ -94,7 +113,11 @@ public class ReservationServiceTest {
     }
 
 
-    //@Test
+    /**
+     *
+     */
+    @Test
+    @Disabled
     public void addReservation(){
         DbSetup db = new DbSetup();
         ReservationServices conn = new ReservationServices();
@@ -118,6 +141,10 @@ public class ReservationServiceTest {
 
     }
 
+    /**
+     *
+     * @throws SQLException
+     */
     @Test
     public void cancelReservation() throws SQLException{
         DbSetup db = new DbSetup();
@@ -139,6 +166,10 @@ public class ReservationServiceTest {
         assert(r == null);
 
     }
+
+    /**
+     *
+     */
     @Test
     public void getAllReservations(){
         DbSetup db = new DbSetup();

@@ -11,11 +11,22 @@ import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 
+/**
+ *
+ */
 public class CreateAccountActionListener implements ActionListener {
     private LandingPage landingPage;
     private JTextField first, last, username, password;
     private static String title = "Login Error";
 
+    /**
+     *
+     * @param landingPage
+     * @param first
+     * @param last
+     * @param username
+     * @param password
+     */
     public CreateAccountActionListener(LandingPage landingPage, JTextField first, JTextField last, JTextField username, JTextField password) {
         this.landingPage = landingPage;
         this.first = first;
@@ -24,6 +35,10 @@ public class CreateAccountActionListener implements ActionListener {
         this.password = password;
     }
 
+    /**
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 

@@ -10,29 +10,56 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ *
+ */
 public class RoomServices {
 
+    /**
+     *
+     * @return
+     */
     public static List<Room> getRooms(){
         RoomDAO roomConn = new RoomDAO();
         return roomConn.getAll();
     };
 
+    /**
+     *
+     * @param roomNum
+     * @return
+     */
     public static Room getRoom(Integer roomNum){
         RoomDAO conn = new RoomDAO();
         return conn.get(roomNum);
     }
 
+    /**
+     *
+     * @param updatedInfo
+     * @return
+     */
     public static Boolean modifyRoom(Room updatedInfo){
         RoomDAO conn = new RoomDAO();
         return conn.update(updatedInfo) == 1 ? true : false;
     }
 
+    /**
+     *
+     * @param newRoom
+     * @return
+     */
     public static Boolean addRoom(Room newRoom){
         RoomDAO conn = new RoomDAO();
         return conn.insert(newRoom) == 1 ? true : false;
     }
 
-
+    /**
+     *
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     public static List<Room> getAvailableRooms(Date startDate, Date endDate){
         List<Room> allRooms = getRooms();
         ReservationServices conn = new ReservationServices();

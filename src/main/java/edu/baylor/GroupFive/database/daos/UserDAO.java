@@ -8,10 +8,20 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class UserDAO extends BaseDAO<User> {
 
+    /**
+     *
+     */
     public UserDAO() {}
 
+    /**
+     *
+     * @return
+     */
     public List<User> getAll() {
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -34,6 +44,11 @@ public class UserDAO extends BaseDAO<User> {
 
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     */
     public User getByUsername(String username) {
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -69,13 +84,12 @@ public class UserDAO extends BaseDAO<User> {
 
     }
 
-    /*
-     * 
-     * 
+    /**
      * USE THIS AT SOME POINT PLEASE PRETTY PLEASE WITH A CHERRY ON TOP
-     * 
+     *
+     * @param id
+     * @return
      */
-
     public User get(int id) {
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -98,6 +112,11 @@ public class UserDAO extends BaseDAO<User> {
 
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     */
     public Integer save(User user){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -116,6 +135,11 @@ public class UserDAO extends BaseDAO<User> {
         }
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     */
     public Integer insert(User user){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -133,6 +157,11 @@ public class UserDAO extends BaseDAO<User> {
 
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     */
     public Integer update(User user){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -149,6 +178,11 @@ public class UserDAO extends BaseDAO<User> {
 
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     */
     public Integer delete(User user){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -166,4 +200,3 @@ public class UserDAO extends BaseDAO<User> {
     }
 
 }
-

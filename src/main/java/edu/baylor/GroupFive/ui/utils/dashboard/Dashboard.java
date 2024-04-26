@@ -6,8 +6,16 @@ import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
 import javax.swing.*;
 
+/**
+ *
+ */
 public class Dashboard extends JPanel {
 
+    /**
+     *
+     * @param page
+     * @param privilige
+     */
     public Dashboard(InputDelegate page, Privilege privilige) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

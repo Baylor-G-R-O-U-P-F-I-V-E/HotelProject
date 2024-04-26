@@ -11,10 +11,17 @@ import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import java.awt.Insets;
 
+/**
+ *
+ */
 public class LandingPanel extends JPanel implements PagePanel {
     private GridBagConstraints gbc;
     private InputDelegate delegate;
-    
+
+    /**
+     *
+     * @param delegate
+     */
     public LandingPanel(InputDelegate delegate) {
         super();
         this.delegate = delegate;
@@ -33,6 +40,9 @@ public class LandingPanel extends JPanel implements PagePanel {
         addCreateAccountButton();
     }
 
+    /**
+     *
+     */
     private void addLoginButton() {
         
         // Set the constraints for the login button
@@ -47,7 +57,11 @@ public class LandingPanel extends JPanel implements PagePanel {
         add(new LoginButton(delegate, "src/main/resources/button-icons/login-button-icon.png"), gbc);
     }
 
-    //Write method to create create account button
+
+    /**
+     * Write method to create create account button
+     *
+     */
     private void addCreateAccountButton() {
         // Set the constraints for the create account button
         gbc.gridx = 1;
@@ -61,6 +75,9 @@ public class LandingPanel extends JPanel implements PagePanel {
         add(new CreateAccountButton(delegate, "src/main/resources/button-icons/create-acct-button-icon.png"), gbc);
     }
 
+    /**
+     *
+     */
     @Override
     public void clear() {
         //Nothing to clear

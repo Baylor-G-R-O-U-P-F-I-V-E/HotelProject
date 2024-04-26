@@ -23,17 +23,25 @@ import edu.baylor.GroupFive.database.DbConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ReservationServices implements ReservationDao {
+ /**
+  *
+  */
+ public class ReservationServices implements ReservationDao {
     private static final Logger logger = LogManager.getLogger(ReservationServices.class.getName());
 
+     /**
+      *
+      */
     public ReservationServices(){}
 
      /**
-      * get
-      *
       * Singular find. Searches for a reservation based on their database id.
       * Throws SQLException if an error occurs communicating with the database.
-      * */
+      *
+      * @param id
+      * @return
+      * @throws SQLException
+      */
     public Reservation get(int id) throws SQLException {
         Reservation out = null; // Result of our query
 
@@ -73,6 +81,13 @@ public class ReservationServices implements ReservationDao {
         return out;
     }
 
+     /**
+      *
+      * @param roomNumber
+      * @param startDate
+      * @return
+      * @throws SQLException
+      */
     public Reservation get(int roomNumber, Date startDate) throws SQLException {
         Reservation out = null; // Result of our query
 
@@ -113,6 +128,11 @@ public class ReservationServices implements ReservationDao {
         return out;
     }
 
+     /**
+      *
+      * @return
+      * @throws SQLException
+      */
     public List<Reservation> getAll() throws SQLException {
         List<Reservation> out = null; // Result of our query
 
@@ -152,14 +172,20 @@ public class ReservationServices implements ReservationDao {
 
      /**
       * save
+      * TODO implement
       *
       * This method either inserts or updates behind-the-scenes
       * */
-    // TODO implement
     public Integer save(Reservation reservation) throws SQLException {
         return -1;
     }
 
+     /**
+      *
+      * @param reservation
+      * @return
+      * @throws SQLException
+      */
     public Integer insert(Reservation reservation) throws SQLException {
         // Establish database connection
         Connection connection;
@@ -194,6 +220,12 @@ public class ReservationServices implements ReservationDao {
         return result;
     }
 
+     /**
+      *
+      * @param reservation
+      * @return
+      * @throws SQLException
+      */
     public Integer update(Reservation reservation) throws SQLException {
         // Establish database connection
         Connection connection;
@@ -230,6 +262,12 @@ public class ReservationServices implements ReservationDao {
 
     // FIXME DO NOT ACTUALLY DELETE FROM DB, 
     // TODO status for reservations
+     /**
+      *
+      * @param reservation
+      * @return
+      * @throws SQLException
+      */
     public Integer delete(Reservation reservation) throws SQLException {
         // Establish database connection
         Connection connection;
@@ -257,6 +295,14 @@ public class ReservationServices implements ReservationDao {
         return result;
     }
 
+     /**
+      *
+      * @param roomNumber
+      * @param startDate
+      * @param endDate
+      * @return
+      * @throws SQLException
+      */
     public Boolean checkIfAvailable(int roomNumber, Date startDate, Date endDate) throws SQLException {
         //'20150131'
         // Establish database connection
@@ -292,6 +338,12 @@ public class ReservationServices implements ReservationDao {
     }
 
     // TODO need to test this
+     /**
+      *
+      * @param reservation
+      * @return
+      * @throws SQLException
+      */
     public Boolean checkIfAvailable(Reservation reservation) throws SQLException {
         //'20150131'
         // Establish database connection
@@ -382,6 +434,10 @@ public class ReservationServices implements ReservationDao {
         // }
     }
 
+     /**
+      *
+      * @return
+      */
     public static List<Reservation> getCurrentGuestTransactions() {
         String sql = "SELECT * FROM reservations JOIN transactions ON transactions.username = reservations.guestusername";
         List<Reservation> currentGuests = null;
@@ -412,6 +468,11 @@ public class ReservationServices implements ReservationDao {
         return currentGuests;
     }
 
+     /**
+      *
+      * @param username
+      * @return
+      */
     public static List<Reservation> getReservationsByGuest(String username) {
         String sql = "SELECT * FROM reservations WHERE guestUsername = ?";
         List<Reservation> reservations = null;
@@ -443,16 +504,37 @@ public class ReservationServices implements ReservationDao {
         return reservations;
     }
 
+     /**
+      *
+      * @param myDate
+      * @return
+      */
     private static String formatDate(Date myDate) {
         DateFormat dateFormat = new SimpleDateFormat(CoreUtils.DATE_FORMAT); // before: "MM/dd/yyyy"
         return dateFormat.format(myDate.getTime());
     }
 
+     /**
+      *
+      * @param start1
+      * @param end1
+      * @param start2
+      * @param end2
+      * @return
+      */
     private static boolean isOverlap(Date start1, Date end1, Date start2, Date end2) {
         return !start1.after(end2) && !end1.before(start2);
     }
 
-    // TODO stolen from Cole... what does this do?
+     // TODO stolen from Cole... what does this do?
+     /**
+      *
+      * @param roomNumber
+      * @param startDate
+      * @param endDate
+      * @return
+      * @throws SQLException
+      */
     private boolean isRoomBookedOn(int roomNumber, Date startDate, Date endDate) throws SQLException {
         List<Reservation> reservations = getAll();
         List<Reservation> roomReservations = reservations.stream()

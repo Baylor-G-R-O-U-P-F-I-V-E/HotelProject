@@ -20,6 +20,9 @@ import javax.swing.table.TableRowSorter;
 
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
+/**
+ *
+ */
 public class FormPane extends JPanel implements PagePanel {
 
     private Map<String, JTextField> textFields = new HashMap<>();
@@ -28,6 +31,12 @@ public class FormPane extends JPanel implements PagePanel {
     private TableRowSorter<DefaultTableModel> sorter;
     private int row = 1;
 
+    /**
+     *
+     * @param table
+     * @param sorter
+     * @param labels
+     */
     public FormPane(JTable table, TableRowSorter<DefaultTableModel> sorter, String[] labels) {
         super();
         this.table = table;
@@ -63,6 +72,9 @@ public class FormPane extends JPanel implements PagePanel {
         addDocumentListeners();
     }
 
+    /**
+     *
+     */
     private void applyFilters() {
         // If current expression doesn't parse, don't update.
         if (table == null)
@@ -91,6 +103,11 @@ public class FormPane extends JPanel implements PagePanel {
         }
     }
 
+    /**
+     *
+     * @param text
+     * @param row
+     */
     private void addFormLabel(String text, int row) {
         
         // Add label to the form
@@ -102,6 +119,11 @@ public class FormPane extends JPanel implements PagePanel {
         add(label, gbc);
     }
 
+    /**
+     *
+     * @param textfield
+     * @param row
+     */
     private void addFormTextfield(JTextField textfield, int row) {
         
         // Add text field to the form
@@ -111,6 +133,9 @@ public class FormPane extends JPanel implements PagePanel {
         add(textfield, gbc);
     }
 
+    /**
+     *
+     */
     private void addDocumentListeners() {
 
         // Add document listeners to all text fields
@@ -134,6 +159,9 @@ public class FormPane extends JPanel implements PagePanel {
         });
     }
 
+    /**
+     *
+     */
     @Override
     public void clear() {
         // Clear all text fields

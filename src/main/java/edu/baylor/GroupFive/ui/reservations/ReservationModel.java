@@ -8,8 +8,16 @@ import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.ui.utils.interfaces.DataModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 
+/**
+ *
+ */
 public class ReservationModel extends HotelModel implements DataModel {
 
+    /**
+     *
+     * @param columnNames
+     * @param columnClass
+     */
     public ReservationModel(String[] columnNames, Class<?>[] columnClass) {
         super(columnNames, columnClass);
 
@@ -21,6 +29,10 @@ public class ReservationModel extends HotelModel implements DataModel {
 
     }
 
+    /**
+     *
+     * @throws RuntimeException
+     */
      public void getData() throws RuntimeException {
        // Fetch room data from the database
         List<Reservation> reservations = ReservationController.getAllReservations();
@@ -44,6 +56,11 @@ public class ReservationModel extends HotelModel implements DataModel {
         }
     }
 
+    /**
+     *
+     * @param date
+     * @return
+     */
     public String formatDate(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(date);

@@ -8,10 +8,17 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
+/**
+ *
+ */
 public class HotelTable extends JTable {
 
     private final TableRowSorter<DefaultTableModel> sorter;
 
+    /**
+     *
+     * @param model
+     */
     public HotelTable(DefaultTableModel model) {
         super(model);
 
@@ -33,6 +40,10 @@ public class HotelTable extends JTable {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public TableRowSorter<DefaultTableModel> getSorter() {
         return sorter;
     }

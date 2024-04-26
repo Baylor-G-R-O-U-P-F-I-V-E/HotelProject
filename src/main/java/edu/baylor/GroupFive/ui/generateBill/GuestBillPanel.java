@@ -17,6 +17,9 @@ import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 
+/**
+ *
+ */
 public class GuestBillPanel extends JPanel implements PagePanel {
 
     /*
@@ -44,6 +47,11 @@ public class GuestBillPanel extends JPanel implements PagePanel {
             String.class, String.class, String.class
     };
 
+    /**
+     *
+     * @param page
+     * @param username
+     */
     public GuestBillPanel(Page page, String username) {
         super();
 
@@ -85,6 +93,9 @@ public class GuestBillPanel extends JPanel implements PagePanel {
         add(buttonPanel);
     }
 
+    /**
+     *
+     */
     public void addBackButton() {
         // Add back button
         PanelButton backButton = new PanelButton("Back");
@@ -98,6 +109,9 @@ public class GuestBillPanel extends JPanel implements PagePanel {
         buttonPanel.add(backButton);
     }
 
+    /**
+     *
+     */
     @Override
     public void clear() {
         // TODO Auto-generated method stub

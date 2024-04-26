@@ -52,12 +52,23 @@ public class G5Logger {
         MarkerManager.getMarker("RESERVATIONS"),
         MarkerManager.getMarker("DATABASE")
     };
+
+    /**
+     *
+     * @param args
+     * @return
+     */
     private static Level getReleaseLogLevel(String[] args){
         if(!(args.length == 0) && args[0].toLowerCase().equals("-debug"))
             return Level.DEBUG;
         else
             return Level.INFO;
     }
+
+    /**
+     *
+     * @param args
+     */
     public static void initLogging(String[] args){
         minLogLevel = getReleaseLogLevel(args);
 
@@ -115,17 +126,31 @@ public class G5Logger {
 
     /**
      * Filter Utilities
+     *
+     * @param level
+     * @return
      */
     private static Filter getLevelFilter(Level level){
         return ThresholdFilter.createFilter(level, Filter.Result.ACCEPT, Filter.Result.DENY);
     }
+
+    /**
+     *
+     * @param marker
+     * @return
+     */
     private static Filter getMarkerFilter(String marker){
         return MarkerFilter.createFilter(marker, Filter.Result.ACCEPT, Filter.Result.DENY);
     }
 
     /**
      * FilteredLog generators.
-     * markername = rollingName
+     * {@code markername} = {@code roollingName}
+     *
+     * @param logger
+     * @param fileName
+     * @param markerName
+     * @param level
      */
     private static void createFilteredLog(LoggerConfig logger, String fileName, String markerName, Level level){
         Filter multiFilter = CompositeFilter.createFilters(new Filter[] {
@@ -137,8 +162,23 @@ public class G5Logger {
 
     /**
      * RollingLog generators
+     *
+     * @param logger
+     * @param fileName
+     * @param rollingName
+     * @return
      */
     private static Appender createRollingLog(LoggerConfig logger, String fileName, String rollingName){return createRollingLog(logger, fileName, rollingName, null);}
+
+    /**
+     * Other RollingLog generator
+     *
+     * @param logger
+     * @param fileName
+     * @param rollingName
+     * @param filter
+     * @return
+     */
     private static Appender createRollingLog(LoggerConfig logger, String fileName, String rollingName, Filter filter){
         Appender appender = RollingFileAppender.newBuilder()
             .setLayout(textLayout)

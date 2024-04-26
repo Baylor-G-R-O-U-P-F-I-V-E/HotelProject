@@ -10,10 +10,19 @@ import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 import edu.baylor.GroupFive.util.CoreUtils;
 import edu.baylor.GroupFive.util.logging.G5Logger;
 
+/**
+ *
+ */
 public class HomeModel extends HotelModel implements DataModel {
 
     private User user;
 
+    /**
+     *
+     * @param columnNames
+     * @param columnClass
+     * @param user
+     */
     public HomeModel(String[] columnNames, Class<?>[] columnClass, User user) {
         super(columnNames, columnClass);
         this.user = user;
@@ -26,6 +35,10 @@ public class HomeModel extends HotelModel implements DataModel {
 
     }
 
+    /**
+     *
+     * @throws RuntimeException
+     */
     public void getData() throws RuntimeException {
         // Fetch user data from the database
         List<Reservation> reservations = ReservationController.getReservationsForUser(user.getUsername());

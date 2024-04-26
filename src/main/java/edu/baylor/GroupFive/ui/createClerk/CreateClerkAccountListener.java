@@ -12,10 +12,21 @@ import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.Page;
 
+/**
+ *
+ */
 public class CreateClerkAccountListener implements ActionListener {
     
     private JTextField firstName, lastName, username, password;
 
+    /**
+     *
+     * @param page
+     * @param firstName
+     * @param lastName
+     * @param username
+     * @param password
+     */
     public CreateClerkAccountListener(Page page, JTextField firstName, JTextField lastName, JTextField username, JTextField password) {
         super();
         this.firstName = firstName;
@@ -24,13 +35,20 @@ public class CreateClerkAccountListener implements ActionListener {
         this.password = password;
     }
 
+    /**
+     *
+     */
     public void clearFields() {
         firstName.setText("");
         lastName.setText("");
         username.setText("");
         password.setText("");
     }
-    
+
+    /**
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 

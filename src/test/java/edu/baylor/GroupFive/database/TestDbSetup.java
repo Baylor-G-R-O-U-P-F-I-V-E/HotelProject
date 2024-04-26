@@ -15,8 +15,14 @@ import java.util.Locale;
 import java.sql.SQLException;
 
 
+/**
+ *
+ */
 public class TestDbSetup {
 
+    /**
+     *
+     */
     @Test
     public void testDbSetup() {
         DbSetup db = new DbSetup();

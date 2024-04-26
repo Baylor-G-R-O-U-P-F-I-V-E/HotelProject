@@ -10,7 +10,14 @@ import javax.swing.JButton;
 
 import java.awt.Image;
 
+/**
+ *
+ */
 public class PageButton extends JButton {
+    /**
+     *
+     * @param path
+     */
     public PageButton(String path) {
         try {
             // Get the image from the path
@@ -25,6 +32,10 @@ public class PageButton extends JButton {
         }
     }
 
+    /**
+     *
+     * @param g the <code>Graphics</code> object to protect
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

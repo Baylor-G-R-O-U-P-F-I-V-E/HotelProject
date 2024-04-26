@@ -5,13 +5,25 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
+/**
+ *
+ */
 public class TableDialog extends JDialog {
 private JTable table;
+
+    /**
+     *
+     * @param owner
+     */
     public TableDialog(JTable owner) {
         super(javax.swing.SwingUtilities.windowForComponent(owner));
         table = owner;
         createGUI();
     }
+
+    /**
+     *
+     */
     private void createGUI() {
         //Sets up dialog panel
         setPreferredSize(new Dimension(600, 400));
@@ -42,6 +54,10 @@ private JTable table;
         pack();
         setLocationRelativeTo(getParent());
     }
+
+    /**
+     *
+     */
     @Override
     public void dispose() {
         super.dispose();

@@ -8,8 +8,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
+/**
+ * Basic functions and constants useful across our project
+ */
 public class CoreUtils {
-    
+
+    /**
+     * No need to instantiate this class.
+     */
     private CoreUtils() {}
 
     public static final String DATE_FORMAT = "MM/dd/yyyy";
@@ -34,6 +40,11 @@ public class CoreUtils {
         return new java.sql.Date(date.getTime());
     }
 
+    /**
+     *
+     * @param ex
+     * @return
+     */
     public static String stackTraceToString(Throwable ex) {
         StringBuilder builder = new StringBuilder();
         builder.append("\n" + ex.getMessage() + "\n");
@@ -71,11 +82,22 @@ public class CoreUtils {
         return stringBuilder.toString();
     }
 
+    /**
+     *
+     * @param myDate
+     * @return
+     */
     public static String formatDate(java.util.Date myDate) {
         DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         return dateFormat.format(myDate.getTime());
     }
 
+    /**
+     *
+     * @param dateStr
+     * @return
+     * @throws ParseException
+     */
     public static java.sql.Date getSqlDate(String dateStr) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         java.util.Date date = sdf.parse(dateStr);

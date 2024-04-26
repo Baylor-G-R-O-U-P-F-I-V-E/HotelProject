@@ -7,12 +7,21 @@ import edu.baylor.GroupFive.models.Transaction;
 import edu.baylor.GroupFive.ui.utils.interfaces.DataModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 
+/**
+ *
+ */
 public class GuestBillModel extends HotelModel implements DataModel {
 
     private Double totalAmount;
     private List<Transaction> transactions;
     private String username;
 
+    /**
+     *
+     * @param columnNames
+     * @param columnClass
+     * @param username
+     */
     public GuestBillModel(String[] columnNames, Class<?>[] columnClass, String username) {
         super(columnNames, columnClass);
         this.username = username;
@@ -25,6 +34,10 @@ public class GuestBillModel extends HotelModel implements DataModel {
 
     }
 
+    /**
+     *
+     * @throws RuntimeException
+     */
     public void getData() throws RuntimeException {
         // Fetch users transactions from the database
         List<Transaction> transactions = BillingController.getUserTransactions(username);
@@ -52,6 +65,10 @@ public class GuestBillModel extends HotelModel implements DataModel {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public Double getTotalAmount() {
         return totalAmount;
     }

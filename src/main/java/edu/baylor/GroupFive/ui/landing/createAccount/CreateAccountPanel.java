@@ -15,12 +15,19 @@ import javax.swing.JTextField;
 import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
+/**
+ *
+ */
 public class CreateAccountPanel extends JPanel implements PagePanel {
 
     private LandingPage delegate;
     private Dimension fieldSize = new Dimension(200, 50);
     private JTextField firstName, lastName, username, password;
 
+    /**
+     *
+     * @param delegate
+     */
     public CreateAccountPanel(LandingPage delegate) {
         super();
         this.delegate = delegate;
@@ -57,6 +64,10 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
 
     }
 
+    /**
+     *
+     * @param textPanel
+     */
     public void addFirstNamePanel(JPanel textPanel) {
         JPanel firstNamePanel = new JPanel();
         firstNamePanel.setOpaque(true);
@@ -76,6 +87,10 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         textPanel.add(firstNamePanel);
     }
 
+    /**
+     *
+     * @param textPanel
+     */
     public void addLastNamePanel(JPanel textPanel) {
         JPanel lastNamePanel = new JPanel();
         lastNamePanel.setOpaque(true);
@@ -96,6 +111,10 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         textPanel.add(lastNamePanel);
     }
 
+    /**
+     *
+     * @param textPanel
+     */
     public void addUsernamePanel(JPanel textPanel) {
         JPanel usernamePanel = new JPanel();
         usernamePanel.setOpaque(true);
@@ -115,6 +134,10 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         textPanel.add(usernamePanel);
     }
 
+    /**
+     *
+     * @param textPanel
+     */
     public void addPasswordPanel(JPanel textPanel) {
         JPanel passwordPanel = new JPanel();
         passwordPanel.setOpaque(true);
@@ -134,6 +157,10 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         textPanel.add(passwordPanel);
     }
 
+    /**
+     *
+     * @param buttonPanel
+     */
     public void addCreateAccountButton(JPanel buttonPanel) {
         JButton createButton = new JButton("Create Account");
         createButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -150,6 +177,10 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         buttonPanel.add(createButton);
     }
 
+    /**
+     *
+     * @param buttonPanel
+     */
     public void addBackButton(JPanel buttonPanel) {
         JButton backButton = new JButton("Back");
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -166,10 +197,18 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         buttonPanel.add(backButton);
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     */
     public void onClick(String username, String password) {
         // TODO Auto-generated method stub
     }
 
+    /**
+     *
+     */
     @Override
     public void clear() {
         // TODO Auto-generated method stub

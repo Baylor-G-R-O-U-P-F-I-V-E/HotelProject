@@ -14,9 +14,16 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 
+/**
+ *
+ */
 public class Main {
     public static final Marker RESERVATIONS = MarkerManager.getMarker("RESERVATIONS");
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         G5Logger.initLogging(args);
         Logger logger = LogManager.getLogger(Main.class);

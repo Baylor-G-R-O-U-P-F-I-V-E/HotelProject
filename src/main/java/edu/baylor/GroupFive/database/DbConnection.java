@@ -31,6 +31,7 @@ public class DbConnection {
 
     private DbConnection() {}
 
+
      /**
       * [1]: DriverManager.getConnection should not be returning null.
       *      If it returns null, there is something wrong with how we
@@ -38,6 +39,11 @@ public class DbConnection {
       * [2]: Normal behavior for DriverManager.getConnection failure
       *      is to throw a SQLException
       * */
+     /**
+      *
+      * @return
+      * @throws BadConnectionException
+      */
     public static Connection getConnection() throws BadConnectionException {
         Connection connection = null;
         try {
@@ -50,6 +56,10 @@ public class DbConnection {
         return connection;
     }
 
+     /**
+      *
+      * @param statement
+      */
     public static void closeStatement(PreparedStatement statement){
         if (statement != null) {
             try {
@@ -61,6 +71,10 @@ public class DbConnection {
 
     }
 
+     /**
+      *
+      * @param statement
+      */
     public static void closeStatement(Statement statement){
         if (statement != null) {
             try {
@@ -72,6 +86,10 @@ public class DbConnection {
 
     }
 
+     /**
+      *
+      * @param connection
+      */
     public static void closeConnection(Connection connection){
         if (connection != null) {
             try {

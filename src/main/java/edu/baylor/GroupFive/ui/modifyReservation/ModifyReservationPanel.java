@@ -21,6 +21,9 @@ import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
+/**
+ *
+ */
 public class ModifyReservationPanel extends JPanel implements PagePanel {
 
     private Page delegate;
@@ -31,6 +34,12 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
     private Date originalStartDate;
     private Reservation reservation;
 
+    /**
+     *
+     * @param delegate
+     * @param originalRoom
+     * @param originalStart
+     */
     public ModifyReservationPanel(Page delegate, String originalRoom, String originalStart) {
         super();
         this.delegate = delegate;
@@ -84,6 +93,10 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
 
     }
 
+    /**
+     *
+     * @param textPanel
+     */
     public void addRoomPanel(JPanel textPanel) {
         JPanel roomPanel = new JPanel();
         roomPanel.setOpaque(true);
@@ -105,6 +118,10 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         textPanel.add(roomPanel);
     }
 
+    /**
+     *
+     * @param textPanel
+     */
     public void addPricePanel(JPanel textPanel) {
         JPanel pricePanel = new JPanel();
         pricePanel.setOpaque(true);
@@ -127,6 +144,10 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         textPanel.add(pricePanel);
     }
 
+    /**
+     *
+     * @param buttonPanel
+     */
     public void addModifyReservationButton(JPanel buttonPanel) {
         PanelButton modifyButton = new PanelButton("Confirm");
 
@@ -136,6 +157,10 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         buttonPanel.add(modifyButton);
     }
 
+    /**
+     *
+     * @param buttonPanel
+     */
     public void addBackButton(JPanel buttonPanel) {
         PanelButton backButton = new PanelButton("Back");
 
@@ -145,6 +170,9 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         buttonPanel.add(backButton);
     }
 
+    /**
+     *
+     */
     @Override
     public void clear() {
         roomID.setText("");
