@@ -1,12 +1,14 @@
- /**
-  * Author: Icko
-  * */
 package edu.baylor.GroupFive.models;
 
 import edu.baylor.GroupFive.util.CoreUtils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * The Reservation class represents a reservation.
+ *
+ * @author Icko
+ * */
 public class Reservation {
 
     private int     dbId;
@@ -21,64 +23,100 @@ public class Reservation {
     private boolean checkedIn;
 
     // >>>> Constructors >>>>
-     /**
-      * Because for some reason we have a previous version that takes in a
-      * String roomNumber and I don't want to go through the entire code-base
-      * and change everywhere that this is a problem
-      * */
-     /**
-      * @deprecated Use {@link #Reservation(int, Date, Date, String, int, Double)},
-      *     {@link #Reservation(int, Date, Date, String, int, Double, boolean, boolean)},
-      *     or {@link #Reservation(Reservation)}
-      * */
+    /**
+     * Because for some reason we have a previous version that takes in a
+     * String roomNumber and I don't want to go through the entire code-base
+     * and change everywhere that this is a problem
+     *
+     * @deprecated Use {@link #Reservation(int, Date, Date, String, int, Double)},
+     *     {@link #Reservation(int, Date, Date, String, int, Double, boolean, boolean)},
+     *     or {@link #Reservation(Reservation)}
+     * @param id Unique id of this reservation.
+     * @param startDate Start date of reservation.
+     * @param endDate End date of reservation.
+     * @param guestUsername Username of guest this reservation is for.
+     * @param roomNumber String room number of room this reservation is in.
+     * @param price Price of this reservation.
+     * @author Icko
+     * */
     @Deprecated
-    public Reservation(int dbId_, Date startDate_, Date endDate_,
-                       String guestUsername_, String roomNumber_, Double price_) {
-        dbId = dbId_;
-        startDate = startDate_;
-        endDate = endDate_;
-        guestUsername = guestUsername_;
-        roomNumber = Integer.parseInt(roomNumber_);
-        price = price_;
-        active = false;
-        checkedIn = false;
+    public Reservation(int id, Date startDate, Date endDate,
+                       String guestUsername, String roomNumber, Double price) {
+        this.setDbId(id);
+        this.setStartDate(startDate);
+        this.setEndDate(endDate);
+        this.setGuestID(guestUsername);
+        this.setRoomID(Integer.parseInt(roomNumber));
+        this.setPrice(price);
+        this.setActiveStatus(false);
+        this.setCheckedInStatus(false);
     }
 
-    public Reservation(int id_, Date startDate_, Date endDate_,
-                       String guestUsername_, int roomNumber_, Double price_) {
-        dbId = id_;
-        startDate = startDate_;
-        endDate = endDate_;
-        guestUsername = guestUsername_;
-        roomNumber = roomNumber_;
-        price = price_;
-        active = false;
-        checkedIn = false;
+    /**
+     * Constructs a Reservation object with the specified attributes.
+     *
+     * @param id Unique id of this reservation.
+     * @param startDate Start date of reservation.
+     * @param endDate End date of reservation.
+     * @param guestUsername Username of guest this reservation is for.
+     * @param roomNumber Integer room number of room this reservation is in.
+     * @param price Price of this reservation.
+     * @author Icko
+     * */
+    public Reservation(int id, Date startDate, Date endDate,
+                       String guestUsername, int roomNumber, Double price) {
+        this.setDbId(id);
+        this.setStartDate(startDate);
+        this.setEndDate(endDate);
+        this.setGuestID(guestUsername);
+        this.setRoomID(roomNumber);
+        this.setPrice(price);
+        this.setActiveStatus(false);
+        this.setCheckedInStatus(false);
     }
 
-    // Now i need more versions bc i added status's... kms
-    public Reservation(int id_, Date startDate_, Date endDate_,
-                       String guestUsername_, int roomNumber_, Double price_,
-                       boolean active_, boolean checkedIn_) {
-        dbId = id_;
-        startDate = startDate_;
-        endDate = endDate_;
-        guestUsername = guestUsername_;
-        roomNumber = roomNumber_;
-        price = price_;
-        active = active_;
-        checkedIn = checkedIn_;
+    /**
+     * Now i need more versions bc i added status's... kms.
+     * Constructs a Reservation object with the specified attributes.
+     *
+     * @param id Unique id of this reservation.
+     * @param startDate Start date of reservation.
+     * @param endDate End date of reservation.
+     * @param guestUsername Username of guest this reservation is for.
+     * @param roomNumber Integer room number of room this reservation is in.
+     * @param price Price of this reservation.
+     * @param active If this reservation has been canceled or not.
+     * @param checkedIn If guest has checked in or not.
+     * @author Icko
+     * */
+    public Reservation(int id, Date startDate, Date endDate,
+                       String guestUsername, int roomNumber, Double price,
+                       boolean active, boolean checkedIn) {
+        this.setDbId(id);
+        this.setStartDate(startDate);
+        this.setEndDate(endDate);
+        this.setGuestID(guestUsername);
+        this.setRoomID(roomNumber);
+        this.setPrice(price);
+        this.setActiveStatus(active);
+        this.setCheckedInStatus(checkedIn);
     }
 
+    /**
+     * Performs a deep copy of another reservation object.
+     *
+     * @param reservation Reservation to make a copy of.
+     * @author Icko
+     * */
     public Reservation(Reservation reservation) {
-        dbId = reservation.getDbId();
-        startDate = reservation.getStartDate();
-        endDate = reservation.getEndDate();
-        guestUsername = reservation.getGuestUsername();
-        roomNumber = reservation.getRoomNumber();
-        price = reservation.getPrice();
-        active = reservation.getActiveStatus();
-        checkedIn = reservation.getCheckedInStatus();
+        this.setDbId(reservation.getDbId());
+        this.setStartDate(reservation.getStartDate());
+        this.setEndDate(reservation.getEndDate());
+        this.setGuestID(reservation.getGuestUsername());
+        this.setRoomID(reservation.getRoomNumber());
+        this.setPrice(reservation.getPrice());
+        this.setActiveStatus(reservation.getActiveStatus());
+        this.setCheckedInStatus(reservation.getCheckedInStatus());
     }
     // <<<< Constructors <<<<
 
@@ -94,17 +132,23 @@ public class Reservation {
     // <<<< Getters <<<<
 
     // >>>> Setters >>>>
-    public void setDbId(int id_) { dbId = id_; }
-    public void setStartDate(Date startDate_) { startDate = startDate_; }
-    public void setEndDate(Date endDate_) { endDate = endDate_; }
-    public void setGuestID(String guestUsername_) { guestUsername = guestUsername_; }
-    public void setRoomID(int roomNumber_) { roomNumber = roomNumber_; }
-    public void setRoomID(String roomNumber_) { roomNumber = Integer.parseInt(roomNumber_); }
-    public void setPrice(Double price_) { price = price_; }
-    public void setActiveStatus(boolean active_) { active = active_; }
-    public void setCheckedInStatus(boolean checkedIn_) { checkedIn = checkedIn_; }
+    public void setDbId(int id) { dbId = id; }
+    public void setStartDate(Date startDate) { this.startDate = startDate; }
+    public void setEndDate(Date endDate) { this.endDate = endDate; }
+    public void setGuestID(String guestUsername) { this.guestUsername = guestUsername; }
+    public void setRoomID(int roomNumber) { this.roomNumber = roomNumber; }
+    public void setRoomID(String roomNumber) { this.roomNumber = Integer.parseInt(roomNumber); }
+    public void setPrice(Double price) { this.price = price; }
+    public void setActiveStatus(boolean active) { this.active = active; }
+    public void setCheckedInStatus(boolean checkedIn) { this.checkedIn = checkedIn; }
     // <<<< Setters <<<<
 
+    /**
+     * Returns a String representation of this reservation object.
+     *
+     * @return String representation of this reservation object.
+     * @author Icko
+     * */
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(CoreUtils.DATE_FORMAT); // before: "MM/dd/yyyy"
         String out = "Guest Username: " + guestUsername + "\nStart Date: " + dateFormat.format(startDate) + "\nEnd Date: " + dateFormat.format(endDate) + "\nRoom Number: " + roomNumber + "\nPrice: " + price;

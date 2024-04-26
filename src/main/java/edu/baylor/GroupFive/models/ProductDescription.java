@@ -1,18 +1,32 @@
 package edu.baylor.GroupFive.models;
 
+/**
+ * The ProductDescription represents the information concerning a product in our
+ * inventory
+ *
+ * @author Afraz
+ * */
 public class ProductDescription {
     private double price;
     private String productName;
     private String productType;
 
+    /**
+     * Constructs a ProductDescription object with the specified attributes.
+     *
+     * @param price Price of the product.
+     * @param productName Name of the product.
+     * @param productType Type of product.
+     * @author Afraz
+     * */
     public ProductDescription(
-            double price_,
-            String productName_,
-            String productType_
+            double price,
+            String productName,
+            String productType
             ) {
-        price = price_;
-        productName = productName_;
-        productType = productType_;
+        this.setPrice(price);
+        this.setProductName(productName);
+        this.setProductType(productType);
     }
 
     // >>>> Getters >>>>

@@ -2,21 +2,35 @@ package edu.baylor.GroupFive.models;
 
 import java.util.Date;
 
+/**
+ * The BillingInfo class represents a Users billing information.
+ *
+ * @author Afraz
+ * */
 public class BillingInfo {
-    String name;
+    private String name;
     private int creditCardNumber;
     private Date expDate;
     private int securityCode;
 
+    /**
+     * Constructs a BillingInfo object with the specified attributes.
+     *
+     * @param name Name of person tied to billing info.
+     * @param creditCardNumber Users credit card number.
+     * @param expDate Credit card's expiration date.
+     * @param securityCode Credit card's security code.
+     * @author Afraz
+     * */
     public BillingInfo(
-            String name_,
-            int creditCardNumber_,
-            Date expDate_,
-            int securityCode_) {
-        name = name_;
-        creditCardNumber = creditCardNumber_;
-        expDate = expDate_;
-        securityCode = securityCode_;
+            String name,
+            int creditCardNumber,
+            Date expDate,
+            int securityCode) {
+        this.setName(name);
+        this.setCreditCardNumber(creditCardNumber);
+        this.setExpDate(expDate);
+        this.setSecurityCode(securityCode);
     }
 
     // >>>> Getters >>>>
@@ -27,7 +41,7 @@ public class BillingInfo {
     // <<<< Getters <<<<
 
     // >>>> Setters >>>>
-    public void setName(String name_) { name = name_; }
+    public void setName(String name) { this.name = name; }
     public void setCreditCardNumber(int creditCardNumber) { this.creditCardNumber = creditCardNumber; }
     public void setExpDate(Date expDate) { this.expDate = expDate; }
     public void setSecurityCode(int securityCode) { this.securityCode = securityCode; }

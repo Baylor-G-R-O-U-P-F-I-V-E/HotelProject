@@ -3,23 +3,38 @@ package edu.baylor.GroupFive.models;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The Purchase object represents a transaction in our shop
+ *
+ * @author Afraz
+ * */
 public class Purchase {
     private Date date;
     private float amount;
     private List<Item> items;
     private StayBill bill;
-    private long id;
+    private long id; // TODO: Should these be auto-generated inside this class if they should be unique? -Icko
 
-    public Purchase(Date date_,
-                    float amount_,
-                    List<Item> items_,
-                    StayBill bill_,
-                    long id_) {
-        this.date = date_;
-        this.amount = amount_;
-        this.items = items_;
-        this.bill = bill_;
-        this.id = id_;
+    /**
+     * Constructs a Purchase objects with the specified attributes
+     *
+     * @param date Date the purchase occurred.
+     * @param amount Dollar amount of purchase.
+     * @param items A List of items purchased.
+     * @param bill A StayBill object.
+     * @param id A unique Purchase id.
+     * @author Afraz
+     * */
+    public Purchase(Date date,
+                    float amount,
+                    List<Item> items,
+                    StayBill bill,
+                    long id) {
+        this.setDate(date);
+        this.setAmount(amount);
+        this.setItems(items);
+        this.setBill(bill);
+        this.setId(id);
     }
 
     // >>>> Getters >>>>
@@ -35,7 +50,7 @@ public class Purchase {
     public void setDate(Date date) { this.date = date; }
     public void setAmount(float amount) { this.amount = amount; }
     public void setItems(List<Item> items) { this.items = items; }
-    public void setBill(StayBill bill_) { bill = bill_; }
+    public void setBill(StayBill bill) { this.bill = bill; }
     // <<<< Setters <<<<
 
 }
