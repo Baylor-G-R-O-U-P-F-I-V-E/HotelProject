@@ -33,7 +33,7 @@ public class RoomController {
      * number. If it exists, the room is returned. Otherwise {@code null} is
      * returned.
      *
-     * @param roomNumber
+     * @param roomNumber Room number of Room.
      * @return Room if exists in database. {@code null} otherwise
      * @author Cole
      * @see RoomServices#getRoom(Integer)
@@ -47,7 +47,7 @@ public class RoomController {
      * This function takes in a room object and updates our database with
      * the new information.
      *
-     * @param updatedInfo
+     * @param updatedInfo Room with updated information.
      * @return {@code true} if room was modified successfully. {@code false} otherwise
      * @author Cole
      * @see RoomServices#modifyRoom(Room)
@@ -60,7 +60,7 @@ public class RoomController {
     /**
      * This function takes in a room object and adds it to our database.
      *
-     * @param newRoom
+     * @param newRoom Room to add.
      * @return {@code true} if room was added successfully. {@code false} otherwise
      * @author Cole
      * @see RoomServices#addRoom(Room)
@@ -74,8 +74,8 @@ public class RoomController {
      * This function takes in a start and end date and returns a list of rooms
      * that are available during that time interval.
      *
-     * @param startDate
-     * @param endDate
+     * @param startDate Starting date of interval.
+     * @param endDate End date of interval.
      * @return List of available rooms between {@code startDate} and {@code endDate}
      * @author Brendon
      * @see RoomServices#getAvailableRooms(Date, Date)

@@ -20,9 +20,9 @@ public class BillingController {
      * Adds a transaction to our database. This function calls
      * {@link TransactionService#addTransaction(String, String, float)}
      *
-     * @param username
-     * @param description
-     * @param amount
+     * @param username Users username
+     * @param description Description of transaction
+     * @param amount Value of transaction
      * @author Brendon
      * @see TransactionService#addTransaction(String, String, float)
      * */
@@ -34,7 +34,7 @@ public class BillingController {
      * Updates a transaction in our database. This function calls
      * {@link TransactionService#updateTransaction(Transaction)}
      *
-     * @param transaction
+     * @param transaction Transaction to update.
      * @author Brendon
      * @see TransactionService#updateTransaction(Transaction)
      * */
@@ -46,7 +46,7 @@ public class BillingController {
      * Deletes a transaction from our database. This function calls
      * {@link TransactionService#deleteTransaction(Transaction)}
      *
-     * @param transaction
+     * @param transaction Transaction to delete.
      * @author Brendon
      * @see TransactionService#deleteTransaction(Transaction)
      * */
@@ -59,8 +59,8 @@ public class BillingController {
      * an id and returns that transaction. This function calls
      * {@link TransactionService#getTransaction(long)}
      *
-     * @param id
-     * @return transaction matching {@code id}
+     * @param id Id of transaction.
+     * @return Transaction matching {@code id}.
      * @author Brendon
      * @see TransactionService#getTransaction(long)
      * */
@@ -72,7 +72,7 @@ public class BillingController {
      * This function returns a list of all transactions in our database.
      * This function calls {@link TransactionService#getTransactions()}
      *
-     * @return List of all transactions in database
+     * @return A List of all transactions in database.
      * @author Brendon
      * @see TransactionService#getTransactions()
      * */
@@ -85,8 +85,8 @@ public class BillingController {
      * to a user with a given {@code username}. This function
      * calls {@link TransactionService#getUserTransactions(String)}
      *
-     * @param username
-     * @return List of all transactions associated with {@code username}
+     * @param username Users username.
+     * @return A List of all transactions associated with {@code username}.
      * @author Brendon
      * @see TransactionService#getUserTransactions(String)
      * */
@@ -99,7 +99,7 @@ public class BillingController {
      * associated with the guest currently logged into our system.
      * This function calls {@link TransactionService#getCurrentGuestTransactions()}
      *
-     * @return List of reservations tied to logged in guest
+     * @return A List of reservations tied to logged in guest.
      * @author Brendon
      * @see TransactionService#getCurrentGuestTransactions()
      * */

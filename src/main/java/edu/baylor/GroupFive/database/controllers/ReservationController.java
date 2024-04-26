@@ -59,8 +59,8 @@ public class ReservationController {
      * This function searches for a reservation given a room number and 
      * start date and returns that reservation if it exists.
      *
-     * @param roomNumber
-     * @param startDate
+     * @param roomNumber Room number of room.
+     * @param startDate Starting date.
      * @return Reservation matching {@code roomNumber} and {@code startDate}
      * @author Icko
      * @see ReservationServices#get(int, Date)
@@ -84,7 +84,7 @@ public class ReservationController {
      * This function returns all reservations associated with a user
      * matching a specific {@code username}.
      *
-     * @param username
+     * @param username Users username
      * @return List of reservations tied to {@code username}
      * @author Brendon
      * @see ReservationServices#getReservationsByGuest(String)
@@ -100,10 +100,10 @@ public class ReservationController {
 
     /**
      * This function searches for a reservation in our database with a
-     * given {@code id}. If it exists, it is returned.
+     * given {@code id}. If it exists, it is returned, otherwise {@code null}.
      *
-     * @param id
-     * @return Reservation matching {@code id}
+     * @param id Id of reservation
+     * @return Reservation with id {@code id}. {@code null} otherwise.
      * @author Icko
      * @see ReservationServices#get(int)
      * */
@@ -125,7 +125,7 @@ public class ReservationController {
     /**
      * This function takes in a reservation and saves it in our database.
      *
-     * @param reservation
+     * @param reservation Reservation to save.
      * @return {@code true} if reservation was saved successfully. {@code false} otherwise
      * @author Icko
      * @see ReservationServices#save(Reservation)
@@ -151,7 +151,7 @@ public class ReservationController {
     /**
      * This function takes in a new reservation and saves it in our database.
      *
-     * @param reservation
+     * @param reservation Reservation to insert.
      * @return {@code true} if reservation was saved successfully. {@code false} otherwise
      * @author Icko
      * @see ReservationServices#insert(Reservation)
@@ -178,7 +178,7 @@ public class ReservationController {
      * This function takes in a reservation with updated information and
      * updates our database.
      *
-     * @param reservation
+     * @param reservation Reservation to update.
      * @return {@code true} if reservation was modified successfully. {@code false} otherwise
      * @author Icko
      * @see ReservationServices#update(Reservation)
@@ -204,7 +204,7 @@ public class ReservationController {
     /**
      * This function takes in a reservation and cancels it in our database.
      *
-     * @param reservation
+     * @param reservation Reservation to cancel.
      * @return {@code true} if reservation was cancelled successfully. {@code false} otherwise
      * @author Icko
      * @see ReservationServices#delete(Reservation)
@@ -231,10 +231,10 @@ public class ReservationController {
      * This function takes in a pair of start and end dates and determines
      * if there is any overlap.
      *
-     * @param start1
-     * @param end1
-     * @param start2
-     * @param end2
+     * @param start1 Start date of interval 1.
+     * @param end1 End date of interval 1.
+     * @param start2 Start date of interval 2.
+     * @param end2 End date of interval 2.
      * @return {@code true} if there is an overlap. {@code false} otherwise
      * @author Chase
      * */
@@ -246,9 +246,9 @@ public class ReservationController {
      * This function looks through our reservations and checks if a given
      * room is booked during a certain time period.
      *
-     * @param roomNumber
-     * @param startDate
-     * @param endDate
+     * @param roomNumber Room number of Room.
+     * @param startDate Starting date of interval.
+     * @param endDate End date of interval.
      * @return {@code true} if room is booked. {@code false} otherwise
      * @author Chase
      * */

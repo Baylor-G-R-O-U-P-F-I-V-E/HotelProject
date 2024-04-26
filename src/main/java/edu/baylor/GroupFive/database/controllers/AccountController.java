@@ -21,12 +21,12 @@ public class AccountController {
      * Takes in a username a password and attempts to log in the user. This
      * function calls {@link LoginService#login(String,String)}.
      *
-     * @param username
-     * @param password
+     * @param username Users username
+     * @param password Users password
      * @return User object associated with correct {@code username} and {@code password}
-     * @throws InvalidCredentialsException if invalid credentials are provided
+     * @throws InvalidCredentialsException If invalid credentials are provided
      * @author Brendon
-     * @see LoginService#login(String,String)
+     * @see LoginService#login(String, String)
      * */
     public static User login(String username, String password) throws InvalidCredentialsException {
         return LoginService.login(username, password);
@@ -36,7 +36,7 @@ public class AccountController {
      * Fetches a user from our database given a username. This function calls
      * {@link AccountService#getUser(String)}.
      * 
-     * @param username
+     * @param username Users username
      * @return User associated with {@code username}
      * @author Brendon
      * @see AccountService#getUser(String)
@@ -49,8 +49,8 @@ public class AccountController {
      * Takes in a user objects and registers them for an account. This function
      * calls {@link AccountService#register(User)}.
      *
-     * @param user
-     * @return true if saved successfully. false otherwise.
+     * @param user User to register
+     * @return {@code true} if saved successfully. {@code false} otherwise.
      * @author Brendon
      * @see AccountService#register(User)
      * */
@@ -63,8 +63,8 @@ public class AccountController {
      * this username exists in our database. This function calls
      * {@link AccountService#checkAccountExists(String)}.
      *
-     * @param username
-     * @return true if account with that username exists. false otherwise
+     * @param username Users username
+     * @return {@code true} if account with that username exists. {@code false} otherwise
      * @author Icko
      * @see AccountService#checkAccountExists(String)
      * */
@@ -88,7 +88,7 @@ public class AccountController {
     /**
      * TODO does not do anything atm
      *
-     * @param username
+     * @param username Users username
      * @return none
      * @author Icko
      * */
