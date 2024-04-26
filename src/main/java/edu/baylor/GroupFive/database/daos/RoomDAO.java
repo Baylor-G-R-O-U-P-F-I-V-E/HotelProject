@@ -11,15 +11,26 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * 
+ * The RoomDAO class provides methods for interacting with room data in a database.
+ *
+ * This class implements the {@code BaseDAO} abstract class.
+ *
+ * @see edu.baylor.GroupFive.database.daos.BaseDAO
+ * @author Brendon
+ * @author Cole
  */
 public class RoomDAO extends BaseDAO<Room>{
 
     public RoomDAO(){}
 
     /**
+     * Retrieves all rooms in our database.
      *
-     * @return
+     * @return A List of every room in our database.
+     * @author Brendon
+     * @author Chase
+     * @author Cole
+     * @author Icko
      */
     public List<Room> getAll() {
 
@@ -53,9 +64,12 @@ public class RoomDAO extends BaseDAO<Room>{
     }
 
     /**
+     * Saves a room in our database. Either inserts or updates behind-the-scenes.
      *
-     * @param room
-     * @return
+     * @param room Room to save.
+     * @return Number of rows affected by query.
+     * @author Brendon
+     * @author Cole
      */
     public Integer save(Room room){
 
@@ -77,9 +91,12 @@ public class RoomDAO extends BaseDAO<Room>{
     }
 
     /**
+     * Inserts a room into our database.
      *
-     * @param newRoom
-     * @return
+     * @param newRoom Room to insert.
+     * @return Number of rows affected by query.
+     * @author Brendon
+     * @author Cole
      */
     public Integer insert(Room newRoom){
 
@@ -103,9 +120,13 @@ public class RoomDAO extends BaseDAO<Room>{
     }
 
     /**
+     * Retrieves a room from our database given a room number. Returns the
+     * Room if found, {@code null} otherwise.
      *
-     * @param roomNumber
-     * @return
+     * @param roomNumber Room number.
+     * @return Room object if found, {@code null} otherwise.
+     * @author Brendon
+     * @author Cole
      */
     public Room get(int roomNumber){
 
@@ -138,9 +159,12 @@ public class RoomDAO extends BaseDAO<Room>{
 
 
     /**
+     * Updates an existing room in our database.
      *
-     * @param updatedInfo
-     * @return
+     * @param updatedInfo Room with updated information.
+     * @return Number of rows affected by query.
+     * @author Brendon
+     * @author Cole
      */
     public Integer update(Room updatedInfo){
 
@@ -162,14 +186,17 @@ public class RoomDAO extends BaseDAO<Room>{
     }
 
     /**
+     * Deletes a room in our database.
      *
-     * @param room
-     * @return
+     * @param room Room to delete.
+     * @return Number of rows affected by query.
+     * @author Brendon
      */
     public Integer delete(Room room){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
             
+            // FIXME should not actually delete? -Icko
             String sqlDelete = "DELETE FROM room WHERE roomNumber = " + room.getRoomNumber();
             statement.execute(sqlDelete);
 

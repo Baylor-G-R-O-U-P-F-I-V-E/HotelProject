@@ -9,18 +9,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * The UserDAO class provides methods for interacting with User data in a database.
  *
+ * This class implements the BaseDAO abstract class.
+ * 
+ * @see edu.baylor.GroupFive.database.daos.BaseDAO
+ * @author Brendon
  */
 public class UserDAO extends BaseDAO<User> {
 
-    /**
-     *
-     */
     public UserDAO() {}
 
     /**
+     * Retrieves all Users in the database.
      *
-     * @return
+     * @return A List of users.
+     * @author Brendon
      */
     public List<User> getAll() {
 
@@ -45,9 +49,12 @@ public class UserDAO extends BaseDAO<User> {
     }
 
     /**
+     * Retrieves a User from the database matching a given username.
      *
-     * @param username
-     * @return
+     * @param username username to match
+     * @return User object if found. {@code null} otherwise.
+     * @author Brendon
+     * @author Icko
      */
     public User getByUsername(String username) {
 
@@ -85,10 +92,12 @@ public class UserDAO extends BaseDAO<User> {
     }
 
     /**
+     * Retrieves a User from the database matching a given id.
      * USE THIS AT SOME POINT PLEASE PRETTY PLEASE WITH A CHERRY ON TOP
      *
-     * @param id
-     * @return
+     * @param id Id to match.
+     * @return User object if found. {@code null} otherwise.
+     * @author Brendon
      */
     public User get(int id) {
 
@@ -113,9 +122,11 @@ public class UserDAO extends BaseDAO<User> {
     }
 
     /**
+     * Saves a User in the database. Either inserts or updates behind the scenes.
      *
-     * @param user
-     * @return
+     * @param user User to save.
+     * @return Number of lines affected by query.
+     * @author Brendon
      */
     public Integer save(User user){
 
@@ -136,9 +147,11 @@ public class UserDAO extends BaseDAO<User> {
     }
 
     /**
+     * Inserts a User into the database.
      *
-     * @param user
-     * @return
+     * @param user User to insert.
+     * @return Number of lines affected by query.
+     * @author Brendon
      */
     public Integer insert(User user){
 
@@ -158,9 +171,11 @@ public class UserDAO extends BaseDAO<User> {
     }
 
     /**
+     * Updates an existing User in the database.
      *
-     * @param user
-     * @return
+     * @param user User object with changes.
+     * @return Number of lines affected by query.
+     * @author Brendon
      */
     public Integer update(User user){
 
@@ -179,9 +194,11 @@ public class UserDAO extends BaseDAO<User> {
     }
 
     /**
+     * Deletes a User from our database.
      *
-     * @param user
-     * @return
+     * @param user User to delete.
+     * @return Number of lines affected by query.
+     * @author Brendon
      */
     public Integer delete(User user){
 

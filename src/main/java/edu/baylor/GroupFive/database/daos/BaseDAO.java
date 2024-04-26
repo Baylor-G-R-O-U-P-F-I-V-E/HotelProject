@@ -35,6 +35,8 @@ public abstract class BaseDAO<T> {
      *
      * @return connection to our database
      * @throws BadConnectionException
+     * @author Brendon
+     * @author Icko
      */
     protected Connection getConnection() throws BadConnectionException {
         Connection connection = null;
@@ -49,8 +51,12 @@ public abstract class BaseDAO<T> {
     }
 
     /**
+     * Formats a Date object into a String representation
      * 
-     * @deprecated Use {@link CoreUtils#formatDate(Date)} instead
+     * @param myDate Date object.
+     * @return String representation of {@code myDate}.
+     * @deprecated Use {@link edu.baylor.GroupFive.util.CoreUtils#formatDate(Date)} instead.
+     * @author Cole
      */
     protected static String formatDate(Date myDate) {
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -58,52 +64,64 @@ public abstract class BaseDAO<T> {
     }
 
     /**
+     * Retrieve object in database matching a specific id.
      *
-     * @param id
-     * @return
-     * @throws SQLException
+     * @param id Id of object to retrieve
+     * @return Object if exists. {@code null} otherwise.
+     * @throws SQLException If error occurs during database communication.
+     * @author Brendon
      */
     public abstract T get(int id) throws SQLException;
 
     /**
+     * Retrieve all objects in our database.
      *
-     * @return
-     * @throws SQLException
+     * @return A List of objects.
+     * @throws SQLException If error occurs during database communication.
+     * @author Brendon
      */
     public abstract List<T> getAll() throws SQLException;
 
     /**
-     * Either inserts or updates based on our database
+     * Either inserts or updates based on our database.
      *
-     * @param t
-     * @return
-     * @throws SQLException
+     * @param t Object to save.
+     * @return Number of rows affected by save.
+     * @throws SQLException If error occurs during database communication.
+     * @author Brendon
      */
     public abstract Integer save(T t) throws SQLException;
 
     /**
+     * Inserts an object into our database.
      *
-     * @param t
-     * @return
-     * @throws SQLException
+     * @param t Object to insert.
+     * @return Number of rows affected by save.
+     * @throws SQLException If error occurs during database communication.
+     * @author Brendon
      */
     public abstract Integer insert(T t) throws SQLException;
 
     /**
+     * Updates (modifies) an existing object in our database.
      *
-     * @param t
-     * @return
-     * @throws SQLException
+     * @param t Object with new changes.
+     * @return Number of rows affected by update.
+     * @throws SQLException If error occurs during database communication.
+     * @author Brendon
      */
     public abstract Integer update(T t) throws SQLException;
 
     /**
+     * "Deletes" an object from our database.
      * We should not actually be deleting anything from the database except for
-     * drastic reasons
+     * drastic reasons. As such, typical functionality will set an {@code active}
+     * flag from {@code true} to {@code false}.
      *
-     * @param t
-     * @return
-     * @throws SQLException
+     * @param t Object to delete.
+     * @return Number of rows afffected by deletion.
+     * @throws SQLException If error occurs during database communication.
+     * @author Brendon
      */
     public abstract Integer delete(T t) throws SQLException;
 }
