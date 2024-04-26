@@ -8,17 +8,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 import java.awt.Component;
-import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 
-import edu.baylor.GroupFive.database.controllers.AccountController;
 import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.models.Room;
-import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.models.enums.BedType;
 import edu.baylor.GroupFive.models.enums.Quality;
 import edu.baylor.GroupFive.models.enums.Theme;
@@ -30,8 +28,8 @@ public class EditRoomPanel extends JPanel implements PagePanel {
 
     private Page page;
     private Room room;
-    private JTextField numberField, bedCountField, priceField, qualityField;
-    private JComboBox<String> roomTypeField, bedTypeField, smokingField;
+    private JTextField numberField, bedCountField, priceField;
+    private JComboBox<String> roomTypeField, bedTypeField, smokingField, qualityField;
     private JPanel buttonPanel, textPanel;
 
     public EditRoomPanel(Page page, Room room) {
@@ -49,7 +47,9 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
 
         textPanel = new JPanel();
-        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
+        textPanel.setLayout(new GridLayout(0, 1));
+        textPanel.setOpaque(false);
+        textPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         addRoomNumberPanel(textPanel);
         addRoomTypePanel(textPanel);
@@ -84,6 +84,7 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         JPanel numberPanel = new JPanel();
         numberPanel.setOpaque(true);
         numberPanel.setLayout(new BoxLayout(numberPanel, BoxLayout.X_AXIS));
+        numberPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel numberLabel = new JLabel("Room Number: ");
         numberLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -94,7 +95,6 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         numberField.setEditable(false);
         numberField.setOpaque(false);
         numberField.setBorder(null);
-        numberField.setMaximumSize(numberField.getPreferredSize());
 
         numberPanel.add(numberLabel);
         numberPanel.add(numberField);
@@ -106,14 +106,14 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         JPanel roomTypePanel = new JPanel();
         roomTypePanel.setOpaque(true);
         roomTypePanel.setLayout(new BoxLayout(roomTypePanel, BoxLayout.X_AXIS));
+        roomTypePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel roomTypeLabel = new JLabel("Theme: ");
         roomTypeLabel.setFont(new Font("Arial", Font.BOLD, 24));
         roomTypeLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         roomTypeField = new JComboBox<>(new String[] { "NatureRetreat", "UrbanElegance", "VintageCharm"});
-        roomTypeField.setFont(new Font("Arial", Font.PLAIN, 24));
-        roomTypeField.setMaximumSize(roomTypeField.getPreferredSize());
+        roomTypeField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         // Set the selected item
         roomTypeField.setSelectedItem(String.valueOf(room.getTheme()));
@@ -128,17 +128,14 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         JPanel qualityPanel = new JPanel();
         qualityPanel.setOpaque(true);
         qualityPanel.setLayout(new BoxLayout(qualityPanel, BoxLayout.X_AXIS));
+        qualityPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel qualityLabel = new JLabel("Quality: ");
         qualityLabel.setFont(new Font("Arial", Font.BOLD, 24));
         qualityLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        qualityField = new JTextField(String.valueOf(room.getQuality()), 8);
-        qualityField.setFont(new Font("Arial", Font.PLAIN, 24));
-        qualityField.setEditable(true);
-        qualityField.setOpaque(true);
-        qualityField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        qualityField.setMaximumSize(qualityField.getPreferredSize());
+        qualityField = new JComboBox<>(new String[] { "Economy", "Comfort", "Busniess", "Executive" });
+        qualityField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         qualityPanel.add(qualityLabel);
         qualityPanel.add(qualityField);
@@ -150,14 +147,14 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         JPanel bedTypePanel = new JPanel();
         bedTypePanel.setOpaque(true);
         bedTypePanel.setLayout(new BoxLayout(bedTypePanel, BoxLayout.X_AXIS));
+        bedTypePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel bedTypeLabel = new JLabel("Bed Type: ");
         bedTypeLabel.setFont(new Font("Arial", Font.BOLD, 24));
         bedTypeLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         bedTypeField = new JComboBox<>(new String[] { "Single", "Double", "Queen", "King" });
-        bedTypeField.setFont(new Font("Arial", Font.PLAIN, 24));
-        bedTypeField.setMaximumSize(bedTypeField.getPreferredSize());
+        bedTypeField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         // Set the selected item
         bedTypeField.setSelectedItem(String.valueOf(room.getBedType()));
@@ -172,6 +169,7 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         JPanel bedCountPanel = new JPanel();
         bedCountPanel.setOpaque(true);
         bedCountPanel.setLayout(new BoxLayout(bedCountPanel, BoxLayout.X_AXIS));
+        bedCountPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel bedCountLabel = new JLabel("Bed Count: ");
         bedCountLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -182,7 +180,6 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         bedCountField.setEditable(true);
         bedCountField.setOpaque(true);
         bedCountField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        bedCountField.setMaximumSize(bedCountField.getPreferredSize());
 
         bedCountPanel.add(bedCountLabel);
         bedCountPanel.add(bedCountField);
@@ -194,14 +191,14 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         JPanel smokingPanel = new JPanel();
         smokingPanel.setOpaque(true);
         smokingPanel.setLayout(new BoxLayout(smokingPanel, BoxLayout.X_AXIS));
+        smokingPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel smokingLabel = new JLabel("Smoking: ");
         smokingLabel.setFont(new Font("Arial", Font.BOLD, 24));
         smokingLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         smokingField = new JComboBox<>(new String[] { "true", "false"});
-        smokingField.setFont(new Font("Arial", Font.PLAIN, 24));
-        smokingField.setMaximumSize(smokingField.getPreferredSize());
+        smokingField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         // Set the selected item
         smokingField.setSelectedItem(String.valueOf(room.isSmoking()).toLowerCase());
@@ -216,6 +213,7 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         JPanel pricePanel = new JPanel();
         pricePanel.setOpaque(true);
         pricePanel.setLayout(new BoxLayout(pricePanel, BoxLayout.X_AXIS));
+        pricePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel priceLabel = new JLabel("Price per Night: ");
         priceLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -223,10 +221,9 @@ public class EditRoomPanel extends JPanel implements PagePanel {
 
         priceField = new JTextField(String.valueOf(room.getDailyPrice()), 8);
         priceField.setFont(new Font("Arial", Font.PLAIN, 24));
-        priceField.setEditable(false);
+        priceField.setEditable(true);
         priceField.setOpaque(true);
         priceField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        priceField.setMaximumSize(priceField.getPreferredSize());
 
         pricePanel.add(priceLabel);
         pricePanel.add(priceField);
@@ -267,8 +264,8 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         // Get the values from the text fields
         int roomNumber = Integer.parseInt(numberField.getText());
         Theme theme = Theme.valueOf((String) roomTypeField.getSelectedItem());
-        Quality quality = Quality.fromString(qualityField.getText());
-        BedType bedType = BedType.valueOf((String) bedTypeField.getSelectedItem());
+        Quality quality = Quality.fromString(String.valueOf(qualityField.getSelectedItem()));
+        BedType bedType = BedType.fromString((String) bedTypeField.getSelectedItem());
         int numBeds = Integer.parseInt(bedCountField.getText());
         boolean smoking = Boolean.parseBoolean((String) smokingField.getSelectedItem());
         double dailyPrice = Double.parseDouble(priceField.getText());
@@ -288,6 +285,7 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         }
 
         // Refresh the table
+        page.onPageSwitch("modify-rooms");
         page.refresh();
     }
 
@@ -295,7 +293,7 @@ public class EditRoomPanel extends JPanel implements PagePanel {
     public void clear() {
         // Set textfields back to original values
         roomTypeField.setSelectedItem(String.valueOf(room.getTheme()));
-        qualityField.setText(String.valueOf(room.getQuality()));
+        qualityField.setSelectedItem(String.valueOf(room.getQuality()));
         bedTypeField.setSelectedItem(String.valueOf(room.getBedType()));
         bedCountField.setText(String.valueOf(room.getNumBeds()));
         smokingField.setSelectedItem(String.valueOf(room.isSmoking()).toLowerCase());
