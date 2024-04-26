@@ -28,8 +28,6 @@ public class DbSetup {
 
         logger.info("Running");
 
-        dbTearDown();
-
         try (Connection connection = DriverManager.getConnection(url, user, password);
                 Statement statement = connection.createStatement()) {
 
@@ -75,7 +73,7 @@ public class DbSetup {
 
     }
 
-    private static void dbTearDown() {
+    public static void dbTearDown() {
         try (Connection connection = DriverManager.getConnection(url, user, password);
                 Statement statement = connection.createStatement()) {
             
