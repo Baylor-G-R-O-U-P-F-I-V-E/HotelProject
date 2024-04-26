@@ -28,4 +28,5 @@ logs/
 .idea/
 .vscode
 /FinalProject
+/FinalProject*
 .factorypath
