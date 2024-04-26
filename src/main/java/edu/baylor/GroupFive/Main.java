@@ -15,14 +15,16 @@ import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 
 /**
- *
+ * Big bad initializer class for our entire project.
  */
 public class Main {
     public static final Marker RESERVATIONS = MarkerManager.getMarker("RESERVATIONS");
 
     /**
+     * THE main.
      *
-     * @param args
+     * @param args Command line arguments. Used for logger init.
+     * @see edu.baylor.GroupFive.util.logging.G5Logger
      */
     public static void main(String[] args) {
         G5Logger.initLogging(args);
