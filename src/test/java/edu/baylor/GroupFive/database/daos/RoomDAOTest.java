@@ -8,12 +8,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
+ * Tests methods of {@link edu.baylor.GroupFive.database.daos.RoomDAO}.
  *
+ * @author Cole
  */
 public class RoomDAOTest {
 
     /**
+     * Initialize our database.
      *
+     * @author Cole
      */
     @BeforeEach
     void init(){
@@ -21,7 +25,9 @@ public class RoomDAOTest {
     }
 
     /**
+     * Tests {@link RoomDAO#save(Room)}.
      *
+     * @author Cole
      */
     @Test
     void addARoom(){
@@ -33,7 +39,9 @@ public class RoomDAOTest {
     }
 
     /**
+     * Tests {@link RoomDAO#get(int)}.
      *
+     * @author Cole
      */
     @Test
     void addAndGetRoom(){
@@ -47,7 +55,9 @@ public class RoomDAOTest {
     }
 
     /**
+     * Tests {@link RoomDAO#get(int)} on existing room.
      *
+     * @author Cole
      */
     @Test
     void getSetupRoom(){
@@ -58,7 +68,9 @@ public class RoomDAOTest {
     }
 
     /**
+     * Tests {@link RoomDAO#get(int)} on non-existing room.
      *
+     * @author Cole
      */
     @Test
     void getNonexistingRoom(){
@@ -70,7 +82,9 @@ public class RoomDAOTest {
 
 
     /**
+     * Tests {@link RoomDAO#update(Room)}.
      *
+     * @author Cole
      */
     @Test
     void modifyRoom(){

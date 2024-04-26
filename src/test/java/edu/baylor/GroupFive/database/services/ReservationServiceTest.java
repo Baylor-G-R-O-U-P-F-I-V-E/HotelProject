@@ -15,7 +15,7 @@ import java.util.Locale;
 import java.sql.SQLException;
 
 /**
- *
+ * Tests methods for {@link edu.baylor.GroupFive.database.services.ReservationServices}
  */
 public class ReservationServiceTest {
 
@@ -23,7 +23,10 @@ public class ReservationServiceTest {
 
 
     /**
-     * this doesnt actually work right for some reason
+     * This doesnt actually work right for some reason. Maybe an issue
+     * with pom, junit version inconsistencies, etc. -Icko
+     *
+     * @author Cole
      */
     @BeforeEach
     void init(){
@@ -31,7 +34,10 @@ public class ReservationServiceTest {
     }
 
     /**
+     * Tests {@link ReservationServices#checkIfAvailable(int, Date, Date)}
+     * with a room and date that should be available.
      *
+     * @author Cole
      */
     @Test
     public void checkAvailable1(){
@@ -54,7 +60,10 @@ public class ReservationServiceTest {
     }
 
     /**
+     * Tests {@link ReservationServices#checkIfAvailable(int, Date, Date)}
+     * with a room and date that should not be available.
      *
+     * @author Cole
      */
     @Test
     public void checkAvailable2(){
@@ -79,8 +88,11 @@ public class ReservationServiceTest {
     }
 
     /**
+     * Tests {@link ReservationServices#get(int, Date)}, retrieving a
+     * Reservation in our database.
      *
-     * @throws SQLException
+     * @throws SQLException If error occurs during database communication.
+     * @author Cole
      */
     @Test
     public void selectExisting() throws SQLException{
@@ -96,8 +108,11 @@ public class ReservationServiceTest {
     }
 
     /**
+     * Tests {@link ReservationServices#get(int, Date)}, retrieving a
+     * Reservation not in our database.
      *
-     * @throws SQLException
+     * @throws SQLException If error occurs during database communication.
+     * @author Cole
      */
     @Test
     public void selectNonExisting() throws SQLException{
@@ -114,7 +129,9 @@ public class ReservationServiceTest {
 
 
     /**
+     * Tests {@link ReservationServices#insert(Reservation)}.
      *
+     * @author Cole
      */
     @Test
     @Disabled
@@ -142,8 +159,10 @@ public class ReservationServiceTest {
     }
 
     /**
+     * Tests {@link ReservationServices#delete(Reservation)}.
      *
-     * @throws SQLException
+     * @throws SQLException If error occurs during database communication.
+     * @author Cole
      */
     @Test
     public void cancelReservation() throws SQLException{
@@ -168,7 +187,9 @@ public class ReservationServiceTest {
     }
 
     /**
+     * Tests {@link ReservationServices#getAll()}.
      *
+     * @author Cole
      */
     @Test
     public void getAllReservations(){

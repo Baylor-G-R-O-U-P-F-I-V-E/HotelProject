@@ -10,11 +10,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
+ * Tests methods in {@link edu.baylor.GroupFive.database.daos.UserDAO}.
  *
+ * @author Cole
  */
 public class UserDAOTest {
     /**
+     * Initializes our database.
      *
+     * @author Cole
      */
     @BeforeEach
     void init() {
@@ -24,7 +28,9 @@ public class UserDAOTest {
 
 
     /**
+     * Tests {@link UserDAO#save(User)}.
      *
+     * @author Cole
      */
     @Test
     void addAUser() {
@@ -35,7 +41,9 @@ public class UserDAOTest {
     }
 
     /**
+     * Tests {@link UserDAO#getByUsername(String)}.
      *
+     * @author Cole
      */
     @Test
     void addThenGetUser(){
@@ -47,7 +55,9 @@ public class UserDAOTest {
     }
 
     /**
+     * Tests {@link UserDAO#getByUsername(String)} on existing user.
      *
+     * @author Cole
      */
     @Test
     void findExistingUserFromSetup(){
@@ -57,7 +67,9 @@ public class UserDAOTest {
     }
 
     /**
+     * Tests {@link UserDAO#getByUsername(String)} on non-existing user.
      *
+     * @author Cole
      */
     @Test
     void findNonExistingUser(){
@@ -68,7 +80,9 @@ public class UserDAOTest {
 
 
     /**
+     * Tests {@link UserDAO#update(User)}.
      *
+     * @author Cole
      */
     @Test
     void modifyUser(){

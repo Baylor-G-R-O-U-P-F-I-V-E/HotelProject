@@ -16,12 +16,16 @@ import java.sql.SQLException;
 
 
 /**
+ * This class tests our database setup and initialization.
  *
+ * @author Icko
  */
 public class TestDbSetup {
 
     /**
+     * Tests our database is created successfully.
      *
+     * @author Icko
      */
     @Test
     public void testDbSetup() {
