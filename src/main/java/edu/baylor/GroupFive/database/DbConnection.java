@@ -24,6 +24,8 @@ import java.sql.PreparedStatement;
   * DbConnection establishes a connection to our database. This object has
   * a private constructor, meaning this class is not meant to be instantiated.
   * This class only contains static methods related to database connectivity
+  *
+  * @author Icko
   * */
 public class DbConnection {
     private static final Logger logger = LogManager.getLogger(DbConnection.class.getName());
@@ -33,16 +35,17 @@ public class DbConnection {
 
 
      /**
+      * Establishes a Connection with a database and returns it.
+      *
       * [1]: DriverManager.getConnection should not be returning null.
       *      If it returns null, there is something wrong with how we
       *      are trying to establish the connection (i hope)
       * [2]: Normal behavior for DriverManager.getConnection failure
       *      is to throw a SQLException
-      * */
-     /**
       *
-      * @return
-      * @throws BadConnectionException
+      * @return Connection to a database
+      * @throws BadConnectionException If no connection can be established
+      * @author Icko
       */
     public static Connection getConnection() throws BadConnectionException {
         Connection connection = null;
@@ -57,8 +60,10 @@ public class DbConnection {
     }
 
      /**
+      * Closes a PreparedStatement.
       *
-      * @param statement
+      * @param statement PreparedStatement to close
+      * @author Icko
       */
     public static void closeStatement(PreparedStatement statement){
         if (statement != null) {
@@ -72,8 +77,10 @@ public class DbConnection {
     }
 
      /**
+      * Closes a Statement.
       *
-      * @param statement
+      * @param statement Statement to close
+      * @author Icko
       */
     public static void closeStatement(Statement statement){
         if (statement != null) {
@@ -87,8 +94,10 @@ public class DbConnection {
     }
 
      /**
+      * Closes a Connection.
       *
-      * @param connection
+      * @param connection Connection to close
+      * @author Icko
       */
     public static void closeConnection(Connection connection){
         if (connection != null) {
