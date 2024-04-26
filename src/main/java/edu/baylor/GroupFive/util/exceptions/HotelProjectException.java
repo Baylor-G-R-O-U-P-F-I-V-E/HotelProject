@@ -3,12 +3,16 @@ package edu.baylor.GroupFive.util.exceptions;
 import java.lang.Exception;
 
 /**
- * Base class for all exceptions in this project
+ * Base class for all exceptions in this project.
+ *
+ * @author Icko
  */
-public class HotelProjectException extends Exception {
+public abstract class HotelProjectException extends Exception {
     /**
+     * Constructs a new HotelProjectException with the specified message.
      *
-     * @param msg
+     * @param msg Error message.
+     * @author Icko
      */
     public HotelProjectException(String msg) {
         super(msg);
