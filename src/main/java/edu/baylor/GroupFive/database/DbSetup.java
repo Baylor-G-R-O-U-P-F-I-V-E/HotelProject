@@ -28,7 +28,7 @@ public class DbSetup {
 
         logger.info("Running");
 
-        dbTearDown();
+        // dbTearDown();
 
         try (Connection connection = DriverManager.getConnection(url, user, password);
                 Statement statement = connection.createStatement()) {
@@ -188,7 +188,7 @@ public class DbSetup {
             rs = statement.executeQuery(sqlQ);
             logger.info("Current transactions in database...");
             while (rs.next()) {
-                logger.info(rs.getInt("id") + " " + rs.getString("description") + " " + rs.getDouble("amount"));
+                logger.info(rs.getInt("transId") + " " + rs.getString("description") + " " + rs.getDouble("amount"));
             }
 
         } catch (SQLException e) {
@@ -207,14 +207,16 @@ public class DbSetup {
     private static final String sqlDropUserTable = "DROP TABLE USERs";
     private static final String sqlDropTransactionsTable = "DROP TABLE TRANSACTIONS";
     private static final String sqlCreateUserTable = "CREATE TABLE USERs(" +
+            "userId INTEGER GENERATED ALWAYS AS IDENTITY," +
             "firstName VARCHAR(30)," +
             "lastName VARCHAR(30)," +
             "username VARCHAR(30) NOT NULL ," +
             "password VARCHAR(256)," +
-            "privilege VARCHAR(20)," +
-            "CONSTRAINT PK_USER PRIMARY KEY(username))";
+            "CONSTRAINT PK_USER PRIMARY KEY(userId)" + 
+            ")";
 
     private static final String sqlCreateRoomTable = "CREATE TABLE ROOM(" +
+            "roomId INTEGER GENERATED ALWAYS AS IDENTITY," +
             "roomNumber INTEGER NOT NULL , " +
             "quality INTEGER," +
             "theme VARCHAR(50)," +
@@ -222,36 +224,40 @@ public class DbSetup {
             "bedType VARCHAR(10)," +
             "numBeds INTEGER," +
             "dailyPrice DECIMAL(5,2)," +
-            "CONSTRAINT PK_ROOM PRIMARY KEY(roomNumber))";
+            "CONSTRAINT PK_ROOM PRIMARY KEY(roomId)" +
+            ")";
 
     private static final String sqlCreateReservationTable = "CREATE TABLE RESERVATIONs(" +
+            "resId INTEGER GENERATED ALWAYS AS IDENTITY," +
             "startDate DATE," +
             "endDate Date," +
             "price DECIMAL(5,2)," +
             "guestusername VARCHAR(30)," +
             "roomNumber INTEGER," +
-            "id INTEGER," +
             "active BOOLEAN," +
             "checkedIn BOOLEAN," +
-            "CONSTRAINT FK_12 FOREIGN KEY (guestusername) REFERENCES users(username)," +
-            "CONSTRAINT FK_23 FOREIGN KEY (roomNumber) REFERENCES ROOM(roomNumber)," +
-            "CONSTRAINT PK_RES3 PRIMARY KEY(roomNumber, startDate)" +
+            "guestId INTEGER," +
+            "roomId INTEGER," +
+            "CONSTRAINT FK_12 FOREIGN KEY (guestId) REFERENCES users(PK_USER)," +
+            "CONSTRAINT FK_23 FOREIGN KEY (roomId) REFERENCES ROOM(PK_ROOM)," +
+            "CONSTRAINT PK_RES3 PRIMARY KEY(resId)" +
             ")";
     
     private static final String sqlCreateTransactionsTable = "CREATE TABLE TRANSACTIONS(" +
-            "id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+            "transId INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY," +
             "amount DECIMAL(5,2)," +
             "purchaseDate DATE," +
             "description VARCHAR(100)," +
             "username VARCHAR(30)," +
-            "CONSTRAINT FK_34 FOREIGN KEY (username) REFERENCES users(username)," +
-            "CONSTRAINT PK_TRANS PRIMARY KEY(id)" +
+            "userId INTEGER," +
+            "CONSTRAINT FK_34 FOREIGN KEY (userId) REFERENCES users(PK_USER)," +
+            "CONSTRAINT PK_TRANS PRIMARY KEY(transId)" +
             ")";
 
 
     private static final String BASE_USER_INSERT_QUERY = "INSERT INTO USERS(firstName, lastName, userName, password, privilege) VALUES ( ?, ?, ?, ?, ? )";
     private static final String BASE_ROOM_INSERT_QUERY = "INSERT INTO ROOM(roomNumber, quality, theme, smoking, bedType, numBeds, dailyPrice) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
-    private static final String BASE_RESERVATION_INSERT_QUERY = "INSERT INTO RESERVATIONS(startDate, endDate, price, guestUsername, roomNumber, id, active, checkedIn) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
+    private static final String BASE_RESERVATION_INSERT_QUERY = "INSERT INTO RESERVATIONS(startDate, endDate, price, guestUsername, roomNumber, active, checkedIn) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
     private static final String BASE_TRANSACTION_INSERT_QUERY = "INSERT INTO TRANSACTIONS(amount, purchaseDate, description, username) VALUES ( ?, ?, ?, ? )";
 
     private static final List<Object[]> userInits = new ArrayList<>();
@@ -270,6 +276,7 @@ public class DbSetup {
         userInits.add(new Object[] { "Antoine", "Wu",           "Ant",              "1234",     "guest" });
         userInits.add(new Object[] { "Everett", "Anderson",     "andyEv",           "1234",     "guest" });
         userInits.add(new Object[] { "Icko",    "Iben",         "ickoxii",          "sicem",    "guest" });
+        userInits.add(new Object[] { "General", "Kenobi",       "blueeyejedi",      "order66",  "admin" });
 
         roomInits.add(new Object[] { 101, 1, "VintageCharm",    true,     "KING",     2,    98.22 });
         roomInits.add(new Object[] { 102, 1, "NatureRetreat",   false,    "KING",     2,    97.22 });
@@ -281,15 +288,15 @@ public class DbSetup {
         roomInits.add(new Object[] { 108, 1, "NatureRetreat",   false,    "QUEEN",    2,    92.22 });
         roomInits.add(new Object[] { 109, 1, "VintageCharm",    true,     "KING",     2,    98.22 });
 
-        reservationInits.add(new Object[] { "12/17/2024",   "12/19/2024",   97.99,  "Axel112",            102, 1, true,     false });
-        reservationInits.add(new Object[] { "07/12/2024",   "07/22/2024",   95.99,  "LarryTheLobster",    103, 2, true,     false });
-        reservationInits.add(new Object[] { "07/20/2024",   "07/23/2024",   96.99,  "BigA",               101, 3, true,     false });
-        reservationInits.add(new Object[] { "07/20/2024",   "07/23/2024",   97.99,  "Jman",               104, 4, true,     true });
-        reservationInits.add(new Object[] { "07/11/2024",   "07/13/2024",   88.99,  "T-Lee",              105, 5, false,    false });
-        reservationInits.add(new Object[] { "07/09/2024",   "07/12/2024",   97.99,  "andyEv",             101, 6, false,    false });
-        reservationInits.add(new Object[] { "07/10/2024",   "07/17/2024",   88.99,  "KevDog",             102, 7, true,     true });
-        reservationInits.add(new Object[] { "07/22/2024",   "07/25/2024",   97.99,  "Bongo",              103, 8, true,     false });
-        reservationInits.add(new Object[] { "07/14/2024",   "07/19/2024",   97.99,  "Ant",                104, 9, true,     true });
+        reservationInits.add(new Object[] { "12/17/2024",   "12/19/2024",   97.99,  "Axel112",            102, true,     false });
+        reservationInits.add(new Object[] { "07/12/2024",   "07/22/2024",   95.99,  "LarryTheLobster",    103, true,     false });
+        reservationInits.add(new Object[] { "07/20/2024",   "07/23/2024",   96.99,  "BigA",               101, true,     false });
+        reservationInits.add(new Object[] { "07/20/2024",   "07/23/2024",   97.99,  "Jman",               104, true,     true });
+        reservationInits.add(new Object[] { "07/11/2024",   "07/13/2024",   88.99,  "T-Lee",              105, false,    false });
+        reservationInits.add(new Object[] { "07/09/2024",   "07/12/2024",   97.99,  "andyEv",             101, false,    false });
+        reservationInits.add(new Object[] { "07/10/2024",   "07/17/2024",   88.99,  "KevDog",             102, true,     true });
+        reservationInits.add(new Object[] { "07/22/2024",   "07/25/2024",   97.99,  "Bongo",              103, true,     false });
+        reservationInits.add(new Object[] { "07/14/2024",   "07/19/2024",   97.99,  "Ant",                104, true,     true });
 
         transactionInits.add(new Object[] { 3.79, "07/14/2024", "Yogurt", "Ant" });
         transactionInits.add(new Object[] { 4.05, "07/14/2024", "Cereal", "Ant" });
@@ -369,7 +376,6 @@ public class DbSetup {
             statement.setDouble(3, (double) reservation[2]);
             statement.setString(4, (String) reservation[3]);
             statement.setInt(5, (int) reservation[4]);
-            statement.setInt(6, (int) reservation[5]);
             statement.setBoolean(7, (boolean) reservation[6]);
             statement.setBoolean(8, (boolean) reservation[7]);
 
@@ -408,6 +414,50 @@ public class DbSetup {
     }
 
 }
+/*
+    private static final String sqlCreateUserTable = "CREATE TABLE USERs(" +
+            "firstName VARCHAR(30)," +
+            "lastName VARCHAR(30)," +
+            "username VARCHAR(30) NOT NULL ," +
+            "password VARCHAR(256)," +
+            "privilege VARCHAR(20)," +
+            "CONSTRAINT PK_USER PRIMARY KEY(username))";
+
+    private static final String sqlCreateRoomTable = "CREATE TABLE ROOM(" +
+            "roomNumber INTEGER NOT NULL , " +
+            "quality INTEGER," +
+            "theme VARCHAR(50)," +
+            "smoking Boolean," +
+            "bedType VARCHAR(10)," +
+            "numBeds INTEGER," +
+            "dailyPrice DECIMAL(5,2)," +
+            "CONSTRAINT PK_ROOM PRIMARY KEY(roomNumber))";
+
+    private static final String sqlCreateReservationTable = "CREATE TABLE RESERVATIONs(" +
+            "startDate DATE," +
+            "endDate Date," +
+            "price DECIMAL(5,2)," +
+            "guestusername VARCHAR(30)," +
+            "roomNumber INTEGER," +
+            "id INTEGER," +
+            "active BOOLEAN," +
+            "checkedIn BOOLEAN," +
+            "CONSTRAINT FK_12 FOREIGN KEY (guestusername) REFERENCES users(username)," +
+            "CONSTRAINT FK_23 FOREIGN KEY (roomNumber) REFERENCES ROOM(roomNumber)," +
+            "CONSTRAINT PK_RES3 PRIMARY KEY(roomNumber, startDate)" +
+            ")";
+    
+    private static final String sqlCreateTransactionsTable = "CREATE TABLE TRANSACTIONS(" +
+            "id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+            "amount DECIMAL(5,2)," +
+            "purchaseDate DATE," +
+            "description VARCHAR(100)," +
+            "username VARCHAR(30)," +
+            "CONSTRAINT FK_34 FOREIGN KEY (username) REFERENCES users(username)," +
+            "CONSTRAINT PK_TRANS PRIMARY KEY(id)" +
+            ")";
+*/
+
 /*
     private static final List<String> sqlInserts = List.of(
             "INSERT INTO USERs(firstName, lastNAME, username,password,privilege) VALUES('Joe','Smith','Bongo','p1234', 'admin')",
