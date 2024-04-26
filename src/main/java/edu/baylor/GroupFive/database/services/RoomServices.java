@@ -22,6 +22,7 @@ public class RoomServices {
      * Returns all rooms in our database.
      *
      * @return A List of every room
+     * @author Brendon
      */
     public static List<Room> getRooms(){
         RoomDAO roomConn = new RoomDAO();
@@ -34,6 +35,7 @@ public class RoomServices {
      *
      * @param roomNum Room number.
      * @return {@code Room} object if it exists. {@code null} otherwise.
+     * @author Brendon
      */
     public static Room getRoom(Integer roomNum){
         RoomDAO conn = new RoomDAO();
@@ -45,6 +47,7 @@ public class RoomServices {
      *
      * @param updatedInfo Room with modified information
      * @return {@code true} if successful modification. {@code false} otherwise.
+     * @author Brendon
      */
     public static Boolean modifyRoom(Room updatedInfo){
         RoomDAO conn = new RoomDAO();
@@ -56,6 +59,7 @@ public class RoomServices {
      *
      * @param newRoom Room to add.
      * @return {@code true} if successful insertion. {@code false} otherwise.
+     * @author Brendon
      */
     public static Boolean addRoom(Room newRoom){
         RoomDAO conn = new RoomDAO();
@@ -68,6 +72,7 @@ public class RoomServices {
      * @param startDate Start date of time interval.
      * @param endDate End date of time interval.
      * @return A List of available rooms.
+     * @author Cole
      */
     public static List<Room> getAvailableRooms(Date startDate, Date endDate){
         List<Room> allRooms = getRooms();

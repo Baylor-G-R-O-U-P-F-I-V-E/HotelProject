@@ -9,6 +9,7 @@ import edu.baylor.GroupFive.util.exceptions.InvalidCredentialsException;
  * The AccountService class provides static methods for managing user accounts.
  *
  * @author Brendon
+ * @author Icko
  */
 public class AccountService {
 
@@ -17,6 +18,7 @@ public class AccountService {
      *
      * @param username The username of the user to retrieve.
      * @return The User object corresponding to the username.
+     * @author Brendon
      */
     public static User getUser(String username) {
         UserDAO conn = new UserDAO();
@@ -31,6 +33,7 @@ public class AccountService {
      * @param newPassword    The new password to be set for the user.
      * @throws UserNotFoundException        If the user with the specified username does not exist.
      * @throws InvalidCredentialsException  If the provided old password does not match the user's current password.
+     * @author Icko
      */
     public static void changePassword(String username, String oldPassword, String newPassword) throws UserNotFoundException, InvalidCredentialsException {
         UserDAO conn = new UserDAO();
@@ -52,6 +55,7 @@ public class AccountService {
      *
      * @param user The User object representing the new user to be registered.
      * @return true if the user is successfully registered, false otherwise.
+     * @author Brendon
      */
     public static boolean register(User user){
         UserDAO conn = new UserDAO();
@@ -63,6 +67,7 @@ public class AccountService {
      *
      * @param username The username to check for existence.
      * @return true if an account with the username exists, false otherwise.
+     * @author Icko
      */
     public static boolean checkAccountExists(String username) {
         UserDAO conn = new UserDAO();
@@ -74,6 +79,7 @@ public class AccountService {
      *
      * @param user The User object representing the modified user account.
      * @return true if the account is successfully modified, false otherwise.
+     * @author Brendon
      */
     public static Boolean modifyAccount(User user) {
         UserDAO conn = new UserDAO();
