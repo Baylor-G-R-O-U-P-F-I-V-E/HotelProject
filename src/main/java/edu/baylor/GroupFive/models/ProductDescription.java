@@ -5,6 +5,7 @@ package edu.baylor.GroupFive.models;
  * inventory
  *
  * @author Afraz
+ * @author Icko
  * */
 public class ProductDescription {
     private double price;
@@ -17,7 +18,6 @@ public class ProductDescription {
      * @param price Price of the product.
      * @param productName Name of the product.
      * @param productType Type of product.
-     * @author Afraz
      * */
     public ProductDescription(
             double price,

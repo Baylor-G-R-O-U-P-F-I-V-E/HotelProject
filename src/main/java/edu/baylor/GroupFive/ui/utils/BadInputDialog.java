@@ -22,7 +22,6 @@ public class BadInputDialog extends JOptionPane {
      * @param message The Bad Man Speaks.
      * @param title Name By Which The Bad Man Is Known.
      * @throws IOException If The Bad Man's Summon Is Negated.
-     * @author TheBadMan
      */
     public BadInputDialog(String message, String title) throws IOException {
         BufferedImage badImage = ImageIO.read(new File("src/main/resources/dialog-icons/mad-guy.png"));

@@ -17,7 +17,6 @@ public class CreateAccountButton extends LandingButton {
      *
      * @param delegate The input delegate.
      * @param path The path.
-     * @author Brendon
      */
     public CreateAccountButton(InputDelegate delegate, String path) {
         super(path);

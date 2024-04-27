@@ -36,7 +36,6 @@ public class ReservationController {
      * This function returns all reservations in our database.
      *
      * @return List of all reservations in database
-     * @author Icko
      * @see ReservationServices#getAll()
      * */
     public static List<Reservation> getAllReservations() {
@@ -62,7 +61,6 @@ public class ReservationController {
      * @param roomNumber Room number of room.
      * @param startDate Starting date.
      * @return Reservation matching {@code roomNumber} and {@code startDate}
-     * @author Icko
      * @see ReservationServices#get(int, Date)
      * */
     public static Reservation getReservation(int roomNumber, Date startDate) {
@@ -86,7 +84,6 @@ public class ReservationController {
      *
      * @param username Users username
      * @return List of reservations tied to {@code username}
-     * @author Brendon
      * @see ReservationServices#getReservationsByGuest(String)
      * */
     public static List<Reservation> getReservationsForUser(String username) {
@@ -104,7 +101,6 @@ public class ReservationController {
      *
      * @param id Id of reservation
      * @return Reservation with id {@code id}. {@code null} otherwise.
-     * @author Icko
      * @see ReservationServices#get(int)
      * */
     public static Reservation getReservation(int id) {
@@ -127,7 +123,6 @@ public class ReservationController {
      *
      * @param reservation Reservation to save.
      * @return {@code true} if reservation was saved successfully. {@code false} otherwise
-     * @author Icko
      * @see ReservationServices#save(Reservation)
      * */
     public static boolean saveReservation(Reservation reservation) {
@@ -153,7 +148,6 @@ public class ReservationController {
      *
      * @param reservation Reservation to insert.
      * @return {@code true} if reservation was saved successfully. {@code false} otherwise
-     * @author Icko
      * @see ReservationServices#insert(Reservation)
      * */
     public static boolean createReservation(Reservation reservation) {
@@ -180,7 +174,6 @@ public class ReservationController {
      *
      * @param reservation Reservation to update.
      * @return {@code true} if reservation was modified successfully. {@code false} otherwise
-     * @author Icko
      * @see ReservationServices#update(Reservation)
      * */
     public static boolean modifyReservation(Reservation reservation) {
@@ -206,7 +199,6 @@ public class ReservationController {
      *
      * @param reservation Reservation to cancel.
      * @return {@code true} if reservation was cancelled successfully. {@code false} otherwise
-     * @author Icko
      * @see ReservationServices#delete(Reservation)
      * */
     public static boolean cancelReservation(Reservation reservation) {
@@ -236,7 +228,6 @@ public class ReservationController {
      * @param start2 Start date of interval 2.
      * @param end2 End date of interval 2.
      * @return {@code true} if there is an overlap. {@code false} otherwise
-     * @author Chase
      * */
     private static boolean isOverlap(Date start1, Date end1, Date start2, Date end2) {
         return !start1.after(end2) && !end1.before(start2);
@@ -250,7 +241,6 @@ public class ReservationController {
      * @param startDate Starting date of interval.
      * @param endDate End date of interval.
      * @return {@code true} if room is booked. {@code false} otherwise
-     * @author Chase
      * */
     public static boolean isRoomBookedOn(int roomNumber, Date startDate, Date endDate){
         List<Reservation> reservations = getAllReservations();

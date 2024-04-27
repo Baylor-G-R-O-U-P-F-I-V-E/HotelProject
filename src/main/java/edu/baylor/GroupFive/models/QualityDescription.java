@@ -4,6 +4,7 @@ package edu.baylor.GroupFive.models;
  * The QualityDescription class maps each quality with a price per day.
  *
  * @author Afraz
+ * @author Icko
  * */
 public class QualityDescription {
     private String description; // TODO What is this for. Should this be the enum? -Icko
@@ -14,7 +15,6 @@ public class QualityDescription {
      *
      * @param description Description of the quality level.
      * @param pricePerDay Price per day for this quality level.
-     * @author Afraz
      * */
     public QualityDescription(String description, double pricePerDay) {
         this.setDescription(description);

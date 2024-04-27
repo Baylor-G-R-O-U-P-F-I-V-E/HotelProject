@@ -16,7 +16,6 @@ public class HotelModel extends DefaultTableModel {
      *
      * @param columnNames An array of column names.
      * @param columnClasses An array of column classes.
-     * @author Brendon
      */
     public HotelModel(String[] columnNames, Class<?>[] columnClasses) {
         super(null, columnNames);
@@ -27,7 +26,6 @@ public class HotelModel extends DefaultTableModel {
      * Gets the classes of the columns.
      *
      * @return An array of column classes.
-     * @author Brendon
      * */
     public Class<?>[] getColumnClasses() {
         return columnClasses;
@@ -39,7 +37,6 @@ public class HotelModel extends DefaultTableModel {
      * @param row             the row whose value is to be queried.
      * @param column          the column whose value is to be queried.
      * @return {@code true} if the cell is editable, {@code false} otherwise.
-     * @author Brendon
      */
     @Override
     public boolean isCellEditable(int row, int column) {
@@ -51,7 +48,6 @@ public class HotelModel extends DefaultTableModel {
      *
      * @param columnIndex  the column being queried.
      * @return The class of the value at the specified column index.
-     * @author Brendon
      */
     @Override
     public Class<?> getColumnClass(int columnIndex) {

@@ -13,7 +13,6 @@ public enum BedType {
      *
      * @param text The string representation of the bed type
      * @return The BedType enumvalue corresponding to the input string. {@code null} if no match.
-     * @author Afraz
      */
     public static BedType fromString(String text) {
         for (BedType b : BedType.values()) {

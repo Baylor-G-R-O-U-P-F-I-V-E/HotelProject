@@ -23,7 +23,6 @@ public class StringRenderer extends DefaultTableCellRenderer {
      * @param row  the row of the cell to render.
      * @param column the column of the cell to render.
      * @return The component used for drawing the cell.
-     * @author Brendon
      */
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);

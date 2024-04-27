@@ -23,7 +23,6 @@ public class BillingController {
      * @param username Users username
      * @param description Description of transaction
      * @param amount Value of transaction
-     * @author Brendon
      * @see TransactionService#addTransaction(String, String, float)
      * */
     public static void addTransaction(String username, String description, float amount) {
@@ -35,7 +34,6 @@ public class BillingController {
      * {@link TransactionService#updateTransaction(Transaction)}
      *
      * @param transaction Transaction to update.
-     * @author Brendon
      * @see TransactionService#updateTransaction(Transaction)
      * */
     public static void updateTransaction(Transaction transaction) {
@@ -47,7 +45,6 @@ public class BillingController {
      * {@link TransactionService#deleteTransaction(Transaction)}
      *
      * @param transaction Transaction to delete.
-     * @author Brendon
      * @see TransactionService#deleteTransaction(Transaction)
      * */
     public static void deleteTransaction(Transaction transaction) {
@@ -61,7 +58,6 @@ public class BillingController {
      *
      * @param id Id of transaction.
      * @return Transaction matching {@code id}.
-     * @author Brendon
      * @see TransactionService#getTransaction(long)
      * */
     public static Transaction getTransaction(long id) {
@@ -73,7 +69,6 @@ public class BillingController {
      * This function calls {@link TransactionService#getTransactions()}
      *
      * @return A List of all transactions in database.
-     * @author Brendon
      * @see TransactionService#getTransactions()
      * */
     public static List<Transaction> getTransactions() {
@@ -87,7 +82,6 @@ public class BillingController {
      *
      * @param username Users username.
      * @return A List of all transactions associated with {@code username}.
-     * @author Brendon
      * @see TransactionService#getUserTransactions(String)
      * */
     public static List<Transaction> getUserTransactions(String username) {
@@ -100,7 +94,6 @@ public class BillingController {
      * This function calls {@link TransactionService#getCurrentGuestTransactions()}
      *
      * @return A List of reservations tied to logged in guest.
-     * @author Brendon
      * @see TransactionService#getCurrentGuestTransactions()
      * */
     public static List<Reservation> getCurrentGuestTransactions() {

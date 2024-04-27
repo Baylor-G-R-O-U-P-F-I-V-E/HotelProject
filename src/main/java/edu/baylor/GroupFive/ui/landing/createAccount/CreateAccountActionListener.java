@@ -29,7 +29,6 @@ public class CreateAccountActionListener implements ActionListener {
      * @param last The text field for the last name.
      * @param username The text field for the username.
      * @param password The text field for the password.
-     * @author Brendon
      */
     public CreateAccountActionListener(LandingPage landingPage, JTextField first, JTextField last, JTextField username, JTextField password) {
         this.landingPage = landingPage;
@@ -46,7 +45,6 @@ public class CreateAccountActionListener implements ActionListener {
      * - If verification fails, the bad man appears.
      *
      * @param e the event to be processed
-     * @author Brendon
      */
     @Override
     public void actionPerformed(ActionEvent e) {

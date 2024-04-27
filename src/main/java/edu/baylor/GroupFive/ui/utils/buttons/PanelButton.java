@@ -18,7 +18,6 @@ public class PanelButton extends JButton {
      * Constructs a PanelButton with the specified text.
      *
      * @param text The text to display on the button.
-     * @author Brendon
      */
     public PanelButton(String text) {
         this(text, 350, 50);
@@ -30,7 +29,6 @@ public class PanelButton extends JButton {
      * @param text The text to display on the button.
      * @param width The width of the button.
      * @param height The height of the button.
-     * @author Brendon
      */
     public PanelButton(String text, int width, int height) {
         super(text);

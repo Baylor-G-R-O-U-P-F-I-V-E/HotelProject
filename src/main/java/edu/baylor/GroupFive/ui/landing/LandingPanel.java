@@ -27,7 +27,6 @@ public class LandingPanel extends JPanel implements PagePanel {
      * Constructs a LandingPanel with the specified delegate.
      *
      * @param delegate The input delegate for handling user interactions
-     * @author Brendon
      */
     public LandingPanel(InputDelegate delegate) {
         super();
@@ -49,8 +48,6 @@ public class LandingPanel extends JPanel implements PagePanel {
 
     /**
      * Adds the login button to the landing panel.
-     *
-     * @author Brendon
      */
     private void addLoginButton() {
         
@@ -69,8 +66,6 @@ public class LandingPanel extends JPanel implements PagePanel {
 
     /**
      * Adds the create account button to the landing panel.
-     *
-     * @author Brendong
      */
     private void addCreateAccountButton() {
         // Set the constraints for the create account button
@@ -87,8 +82,6 @@ public class LandingPanel extends JPanel implements PagePanel {
 
     /**
      * Clears the landing panel.
-     *
-     * @author Intellij
      */
     @Override
     public void clear() {

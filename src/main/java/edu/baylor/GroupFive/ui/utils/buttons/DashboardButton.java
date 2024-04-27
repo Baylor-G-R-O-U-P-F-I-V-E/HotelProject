@@ -22,7 +22,6 @@ public class DashboardButton extends PageButton {
      * @param delegate The input delegate.
      * @param path The path.
      * @param message The message.
-     * @author Brendon
      */
     public DashboardButton(InputDelegate delegate, String path, String message) {
         super(path);

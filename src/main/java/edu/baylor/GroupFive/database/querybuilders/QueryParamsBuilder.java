@@ -20,7 +20,6 @@ public abstract class QueryParamsBuilder {
      * @param builder StringBuilder used to make query
      * @param key Query argument
      * @param value Value to match
-     * @author Icko
      */
     protected void append (StringBuilder builder, String key, Object value) {
     }
@@ -29,7 +28,6 @@ public abstract class QueryParamsBuilder {
      * Constructor for our QueryParamsBuilder object.
      *
      * @param limit_ Max number of results to return
-     * @author Icko
      */
     public QueryParamsBuilder(Integer limit_) {
     }
@@ -38,7 +36,6 @@ public abstract class QueryParamsBuilder {
      * Builds our query.
      *
      * @return String output of an SQL query
-     * @author Icko
      */
     public String build() {
         return null;

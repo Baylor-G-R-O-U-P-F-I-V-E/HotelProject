@@ -19,7 +19,6 @@ public class PaymentController {
      * This function returns a list of all purchases in our database.
      *
      * @return List of all purchases in our database
-     * @author Chase
      * */
     public List<Purchase> getPurchases() {
         return purchases;
@@ -28,8 +27,6 @@ public class PaymentController {
     /**
      * This functions takes in a list of purchases and sets our database
      * to that list.
-     *
-     * @author Chase
      * */
     public void setPurchases(List<Purchase> purchases) {
         this.purchases = purchases;

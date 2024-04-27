@@ -24,8 +24,6 @@ public class TestDbSetup {
 
     /**
      * Tests our database is created successfully.
-     *
-     * @author Icko
      */
     @Test
     public void testDbSetup() {

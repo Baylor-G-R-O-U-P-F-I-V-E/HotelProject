@@ -12,7 +12,6 @@ public abstract class HotelProjectException extends Exception {
      * Constructs a new HotelProjectException with the specified message.
      *
      * @param msg Error message.
-     * @author Icko
      */
     public HotelProjectException(String msg) {
         super(msg);

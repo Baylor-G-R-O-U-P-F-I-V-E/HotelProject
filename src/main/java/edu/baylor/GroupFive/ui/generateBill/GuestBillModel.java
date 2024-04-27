@@ -13,9 +13,6 @@ import edu.baylor.GroupFive.ui.utils.table.HotelModel;
  * and implements {@link edu.baylor.GroupFive.ui.utils.interfaces.DataModel},
  * providing functionality to display a guest's transactions and calculate the total.
  *
- * @param columnNames An array of column names for the table.
- * @param columnClass an array of column classes for the table
- * @param username the username of the guest
  * @see edu.baylor.GroupFive.ui.utils.table.HotelModel
  * @see edu.baylor.GroupFive.ui.utils.interfaces.DataModel
  * @author Brendon
@@ -32,7 +29,6 @@ public class GuestBillModel extends HotelModel implements DataModel {
      * @param columnNames An array of column names.
      * @param columnClass An array of column classes.
      * @param username The username of the guest.
-     * @author Brendon
      */
     public GuestBillModel(String[] columnNames, Class<?>[] columnClass, String username) {
         super(columnNames, columnClass);
@@ -50,7 +46,6 @@ public class GuestBillModel extends HotelModel implements DataModel {
      * Retrieves transaction data for the guest from the database.
      *
      * @throws RuntimeException If an error occurs while fetching data from the database.
-     * @author Brendon
      */
     public void getData() throws RuntimeException {
         // Fetch users transactions from the database
@@ -83,7 +78,6 @@ public class GuestBillModel extends HotelModel implements DataModel {
      * Retrieves the total amount of all transactions for the guest.
      *
      * @return The total amount of all transactions.
-     * @author Brendon
      */
     public Double getTotalAmount() {
         return totalAmount;

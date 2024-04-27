@@ -41,7 +41,6 @@ public class FormPane extends JPanel implements PagePanel {
      * @param table The table.
      * @param sorter The table row sorter.
      * @param labels The labels for form fields.
-     * @author Brendon
      */
     public FormPane(JTable table, TableRowSorter<DefaultTableModel> sorter, String[] labels) {
         super();
@@ -80,8 +79,6 @@ public class FormPane extends JPanel implements PagePanel {
 
     /**
      * Applies filters based on the input values.
-     *
-     * @author Brendon
      */
     private void applyFilters() {
         // If current expression doesn't parse, don't update.
@@ -116,7 +113,6 @@ public class FormPane extends JPanel implements PagePanel {
      *
      * @param text The text of the label.
      * @param row The row position.
-     * @author Brendon
      */
     private void addFormLabel(String text, int row) {
         
@@ -134,7 +130,6 @@ public class FormPane extends JPanel implements PagePanel {
      *
      * @param textfield The text field to add.
      * @param row The row position.
-     * @author Brendon
      */
     private void addFormTextfield(JTextField textfield, int row) {
         
@@ -147,8 +142,6 @@ public class FormPane extends JPanel implements PagePanel {
 
     /**
      * Adds document listeners to all text fields.
-     *
-     * @author Brendon
      */
     private void addDocumentListeners() {
 
@@ -175,8 +168,6 @@ public class FormPane extends JPanel implements PagePanel {
 
     /**
      * Clears all text fields.
-     *
-     * @author Brendon
      */
     @Override
     public void clear() {

@@ -7,6 +7,7 @@ import java.util.List;
  * The Purchase object represents a transaction in our shop
  *
  * @author Afraz
+ * @author Icko
  * */
 public class Purchase {
     private Date date;
@@ -23,7 +24,6 @@ public class Purchase {
      * @param items A List of items purchased.
      * @param bill A StayBill object.
      * @param id A unique Purchase id.
-     * @author Afraz
      * */
     public Purchase(Date date,
                     float amount,

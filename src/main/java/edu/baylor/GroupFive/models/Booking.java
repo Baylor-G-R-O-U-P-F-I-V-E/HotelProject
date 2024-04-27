@@ -6,6 +6,7 @@ import java.util.Date;
  * The Booking class represents a reservation.
  *
  * @author Afraz
+ * @author Icko
  * */
 public class Booking {
 
@@ -26,7 +27,6 @@ public class Booking {
      * @param canceled Flag is this reservation is canceled or not.
      * @param holder Account tied to this reservation
      * @param id Database id, if exists
-     * @author Afraz
      * */
     public Booking(Date startDate,
                    Date endDate,

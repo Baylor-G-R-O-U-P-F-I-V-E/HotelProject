@@ -8,6 +8,7 @@ import java.util.Objects;
  * The User class represents a user of our system.
  *
  * @author Cole
+ * @author Icko
  * */
 public class User {
     private Integer id = null;
@@ -25,7 +26,6 @@ public class User {
      * @param userName Username for user.
      * @param passwordHash Hashed password for user.
      * @param privilege Privilege level of user.
-     * @author Cole
      * */
     public User(String firstName, String lastName, String userName, String passwordHash, String privilege){
         this.setFirstName(firstName);
@@ -58,7 +58,6 @@ public class User {
      *
      * @param o Object to compare to.
      * @return {@code true} if {@code o} is equivalent this User. {@code false} otherwise.
-     * @author Cole
      * */
     @Override
     public boolean equals(Object o) {
@@ -72,7 +71,6 @@ public class User {
      * Returns a hash of this object.
      *
      * @return Hash of this object.
-     * @author Cole
      * */
     @Override
     public int hashCode() {
@@ -84,7 +82,6 @@ public class User {
      *
      * @param password Password to verify.
      * @return {@code true} if verified. {@code false} otherwise.
-     * @author Icko
      * */
     public boolean verify(String password) {
         return password.equals(passwordHash);
@@ -94,7 +91,6 @@ public class User {
      * Changes password hash to a new password
      *
      * @param newPasswordHash New password.
-     * @author Icko
      * */
     public void changePassword(String newPasswordHash) {
         passwordHash = newPasswordHash;

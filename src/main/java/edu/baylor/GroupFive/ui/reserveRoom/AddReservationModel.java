@@ -29,7 +29,6 @@ public class AddReservationModel extends HotelModel implements DataModel {
      *
      * @param columnNames An array of column names.
      * @param columnClasses An array of column classes.
-     * @author Brendon
      */
     public AddReservationModel(String[] columnNames, Class<?>[] columnClasses) {
         super(columnNames, columnClasses);
@@ -46,7 +45,6 @@ public class AddReservationModel extends HotelModel implements DataModel {
      * Retrieves room data from the database and populates the table with it.
      *
      * @throws RuntimeException If there is an error fetching data from the database.
-     * @author Brendon
      */
      public void getData() throws RuntimeException {
         // Fetch room data from the database
@@ -76,7 +74,6 @@ public class AddReservationModel extends HotelModel implements DataModel {
      *
      * @param startDate The start date.
      * @param endDate The end date.
-     * @authors Brendon
      */
     public void filterRoomsByDate(Date startDate, Date endDate) {
         // Fetch room data from the database
@@ -106,8 +103,6 @@ public class AddReservationModel extends HotelModel implements DataModel {
 
     /**
      * Clears the reservation table.
-     *
-     * @author Brendon
      */
     private void clearTable() {
         // Clear the table
@@ -121,7 +116,6 @@ public class AddReservationModel extends HotelModel implements DataModel {
      * 
      * @param theme The theme enum to be formatted.
      * @return A string representing the formatted theme.
-     * @author Brendon
      */
     // @Deprecated
     public String formatTheme(Theme theme) {
@@ -143,7 +137,6 @@ public class AddReservationModel extends HotelModel implements DataModel {
      *
      * @param bedtype The bedtype enum to be formatted.
      * @return A string represenging the formatted bedtype.
-     * @author Brendon
      */
     // @Deprecated
     public String formatBedSize(BedType bedtype) {

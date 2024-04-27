@@ -25,7 +25,6 @@ public class AccountController {
      * @param password Users password
      * @return User object associated with correct {@code username} and {@code password}
      * @throws InvalidCredentialsException If invalid credentials are provided
-     * @author Brendon
      * @see LoginService#login(String, String)
      * */
     public static User login(String username, String password) throws InvalidCredentialsException {
@@ -38,7 +37,6 @@ public class AccountController {
      * 
      * @param username Users username
      * @return User associated with {@code username}
-     * @author Brendon
      * @see AccountService#getUser(String)
      * */
     public static User getUser(String username) {
@@ -51,7 +49,6 @@ public class AccountController {
      *
      * @param user User to register
      * @return {@code true} if saved successfully. {@code false} otherwise.
-     * @author Brendon
      * @see AccountService#register(User)
      * */
     public static boolean register(User user) {
@@ -65,7 +62,6 @@ public class AccountController {
      *
      * @param username Users username
      * @return {@code true} if account with that username exists. {@code false} otherwise
-     * @author Icko
      * @see AccountService#checkAccountExists(String)
      * */
     public static boolean checkAccountExists(String username) {
@@ -76,9 +72,8 @@ public class AccountController {
      * Takes in a new User object and updates the account information.
      * This function calls {@link AccountService#modifyAccount(User)}
      *
-     * @param user
+     * @param user User with modifications
      * @return {@code true} if account was successfully modified. {@code false} otherwise
-     * @author Brendon
      * @see AccountService#modifyAccount(User)
      * */
     public static Boolean modifyAccount(User user) {
@@ -89,8 +84,6 @@ public class AccountController {
      * TODO does not do anything atm
      *
      * @param username Users username
-     * @return none
-     * @author Icko
      * */
     public static void changePassword(String username) {
     }

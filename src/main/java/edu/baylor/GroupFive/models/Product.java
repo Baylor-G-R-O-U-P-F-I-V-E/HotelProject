@@ -4,6 +4,7 @@ package edu.baylor.GroupFive.models;
  * The Product class represents a physical item in our inventory.
  *
  * @author Afraz
+ * @author Icko
  * */
 public class Product {
     private int productID;
@@ -16,7 +17,6 @@ public class Product {
      * @param productID Unique id of the product
      * @param inventory For some damn reason
      * @param description Description of this product
-     * @author Afraz
      * */
     public Product(
             int productID,

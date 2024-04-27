@@ -24,7 +24,6 @@ public class UserQueryParamsBuilder {
      * @param userName_ Users username
      * @param password_ Users password
      * @param privilege_ Users privilege level
-     * @author Icko
      */
     public UserQueryParamsBuilder(String query_, String firstName_, String lastName_, String userName_, String password_, String privilege_) {
         firstName = firstName_;
@@ -43,7 +42,6 @@ public class UserQueryParamsBuilder {
      * @param password Users password
      * @param privilege Users privilege level.
      * @return PreparedStatement initialized with our query.
-     * @author Icko
      */
     public PreparedStatement build(String firstName, String lastName, String userName, String password, String privilege) {
         StringBuilder builder = new StringBuilder();

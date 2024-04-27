@@ -24,7 +24,6 @@ public class BorderRenderer extends DefaultTableCellRenderer {
      * @param row  The row of the cell to render.
      * @param column The column of the cell to render.
      * @return The component used for drawing the cell.
-     * @author Brendon
      */
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         JComponent c = (JComponent) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);

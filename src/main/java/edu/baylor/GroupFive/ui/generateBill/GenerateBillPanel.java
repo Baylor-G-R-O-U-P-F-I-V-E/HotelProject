@@ -64,7 +64,6 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
      * Constructs a GeneratedBillPanel with the specified page.
      *
      * @param page The page associated with this panel.
-     * @author Brendon
      */
     public GenerateBillPanel(Page page) {
         super();
@@ -113,7 +112,6 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
      * Adds a button to generate a bill for the selected guest to the specified panel.
      *
      * @param panel The panel to which the button will be added.
-     * @author Brendon
      */
     public void addGenerateSelectedGuestBillButton(JPanel panel) {
         PanelButton generateButton = new PanelButton("Generate Bill for Selected Guest");
@@ -136,7 +134,6 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
      * Retrieves the guest ID of the selected guest from the table.
      *
      * @return The guest ID of the selected guest, or {@code null} if no guest is selected.
-     * @author Brendon
      */
     public String getSelectedGuest() {
         // Get the selected row

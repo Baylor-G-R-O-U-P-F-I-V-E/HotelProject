@@ -18,7 +18,6 @@ public class ShopPanel extends JPanel implements PagePanel {
      * Constructs a new ShopPanel with the specified delegate
      *
      * // @param delegate Page
-     * @author Brendon
      */
     public ShopPanel() {
         super();
@@ -26,8 +25,6 @@ public class ShopPanel extends JPanel implements PagePanel {
 
     /**
      * Clears the panel (but does nothing atm).
-     *
-     * @author Brendon
      */
     @Override
     public void clear() {

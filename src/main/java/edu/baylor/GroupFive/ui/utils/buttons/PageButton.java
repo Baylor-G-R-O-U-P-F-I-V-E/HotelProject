@@ -39,7 +39,6 @@ public class PageButton extends JButton {
      * Prints the component using the provided Graphics object.
      *
      * @param g The {@code Graphics} object to paint with.
-     * @author Brendon
      */
     @Override
     protected void paintComponent(Graphics g) {

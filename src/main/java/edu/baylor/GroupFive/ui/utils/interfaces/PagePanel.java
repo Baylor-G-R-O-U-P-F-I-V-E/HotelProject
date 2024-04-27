@@ -8,8 +8,6 @@ package edu.baylor.GroupFive.ui.utils.interfaces;
 public interface PagePanel {
     /**
      * Clears the contents of the panel.
-     *
-     * @author Brendon
      */
     public void clear();
 }

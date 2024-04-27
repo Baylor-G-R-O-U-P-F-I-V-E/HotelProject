@@ -22,7 +22,8 @@ import java.util.List;
  * {@link BaseDAO#insert(Object)} 
  * {@link BaseDAO#update(Object)} 
  * {@link BaseDAO#delete(Object)} 
- * 
+ *
+ * @param <T> Object this DAO is meant to interact with
  * @author Brendon
  * @author Cole
  * */
@@ -35,8 +36,6 @@ public abstract class BaseDAO<T> {
      *
      * @return connection to our database
      * @throws BadConnectionException
-     * @author Brendon
-     * @author Icko
      */
     protected Connection getConnection() throws BadConnectionException {
         Connection connection = null;
@@ -56,7 +55,6 @@ public abstract class BaseDAO<T> {
      * @param myDate Date object.
      * @return String representation of {@code myDate}.
      * @deprecated Use {@link edu.baylor.GroupFive.util.CoreUtils#formatDate(Date)} instead.
-     * @author Cole
      */
     protected static String formatDate(Date myDate) {
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -69,7 +67,6 @@ public abstract class BaseDAO<T> {
      * @param id Id of object to retrieve
      * @return Object if exists. {@code null} otherwise.
      * @throws SQLException If error occurs during database communication.
-     * @author Brendon
      */
     public abstract T get(int id) throws SQLException;
 
@@ -78,7 +75,6 @@ public abstract class BaseDAO<T> {
      *
      * @return A List of objects.
      * @throws SQLException If error occurs during database communication.
-     * @author Brendon
      */
     public abstract List<T> getAll() throws SQLException;
 
@@ -88,7 +84,6 @@ public abstract class BaseDAO<T> {
      * @param t Object to save.
      * @return Number of rows affected by save.
      * @throws SQLException If error occurs during database communication.
-     * @author Brendon
      */
     public abstract Integer save(T t) throws SQLException;
 
@@ -98,7 +93,6 @@ public abstract class BaseDAO<T> {
      * @param t Object to insert.
      * @return Number of rows affected by save.
      * @throws SQLException If error occurs during database communication.
-     * @author Brendon
      */
     public abstract Integer insert(T t) throws SQLException;
 
@@ -108,7 +102,6 @@ public abstract class BaseDAO<T> {
      * @param t Object with new changes.
      * @return Number of rows affected by update.
      * @throws SQLException If error occurs during database communication.
-     * @author Brendon
      */
     public abstract Integer update(T t) throws SQLException;
 
@@ -121,7 +114,6 @@ public abstract class BaseDAO<T> {
      * @param t Object to delete.
      * @return Number of rows afffected by deletion.
      * @throws SQLException If error occurs during database communication.
-     * @author Brendon
      */
     public abstract Integer delete(T t) throws SQLException;
 }

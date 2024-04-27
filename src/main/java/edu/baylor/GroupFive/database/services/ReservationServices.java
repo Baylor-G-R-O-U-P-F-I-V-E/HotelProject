@@ -28,6 +28,8 @@ import org.apache.logging.log4j.Logger;
   * It implements the ReservationDao interface.
   *
   * @author Brendon
+  * @author Chase
+  * @author Cole
   * @author Icko
   */
  public class ReservationServices implements ReservationDao {
@@ -35,8 +37,6 @@ import org.apache.logging.log4j.Logger;
 
      /**
       * Constructs a new ReservationServices object.
-      *
-      * @author Icko
       */
     public ReservationServices(){}
 
@@ -47,7 +47,6 @@ import org.apache.logging.log4j.Logger;
       * @param id The database id of the reservation to retrieve.
       * @return The Reservation object corresponding to the id.
       * @throws SQLException If an error occurs during database communication.
-      * @author Icko
       */
     public Reservation get(int id) throws SQLException {
         Reservation out = null; // Result of our query
@@ -95,7 +94,6 @@ import org.apache.logging.log4j.Logger;
      * @param startDate The start date of the reservation.
      * @return The Reservation object corresponding to the room number and start date.
      * @throws SQLException If an error occurs during database communication.
-     * @author Icko
      */
     public Reservation get(int roomNumber, Date startDate) throws SQLException {
         Reservation out = null; // Result of our query
@@ -142,7 +140,6 @@ import org.apache.logging.log4j.Logger;
       *
       * @return A List containing all reservations
       * @throws SQLException If an error occurs during database communication
-      * @author Icko
       */
     public List<Reservation> getAll() throws SQLException {
         List<Reservation> out = null; // Result of our query
@@ -188,7 +185,6 @@ import org.apache.logging.log4j.Logger;
       * @param reservation Reservation to save in our database
       * @return Number of rows affected by query
       * @throws SQLException If error occurs during database communication
-      * @author Icko
       * */
     public Integer save(Reservation reservation) throws SQLException {
         return -1;
@@ -200,7 +196,6 @@ import org.apache.logging.log4j.Logger;
       * @param reservation Reservation to insert into the database.
       * @return Number of rows affect by query
       * @throws SQLException If error occurs during database communication
-      * @author Icko
       */
     public Integer insert(Reservation reservation) throws SQLException {
         // Establish database connection
@@ -242,7 +237,6 @@ import org.apache.logging.log4j.Logger;
       * @param reservation Reservation with updated information
       * @return Number of rows affected by query
       * @throws SQLException If error occurs during database communication
-      * @author Icko
       */
     public Integer update(Reservation reservation) throws SQLException {
         // Establish database connection
@@ -288,7 +282,6 @@ import org.apache.logging.log4j.Logger;
       * @param reservation Reservation to cancel
       * @return Number of rows affected by query
       * @throws SQLException If error occurs during database communication
-      * @author Icko
       */
     public Integer delete(Reservation reservation) throws SQLException {
         // Establish database connection
@@ -325,7 +318,6 @@ import org.apache.logging.log4j.Logger;
       * @param endDate End date of interval
       * @return {@code true} if room is available. {@code false} otherwise.
       * @throws SQLException If error occurs during database communication
-      * @author Icko
       */
     public Boolean checkIfAvailable(int roomNumber, Date startDate, Date endDate) throws SQLException {
         //'20150131'
@@ -369,7 +361,6 @@ import org.apache.logging.log4j.Logger;
       * @param reservation
       * @return
       * @throws SQLException
-      * @author Icko
       */
     public Boolean checkIfAvailable(Reservation reservation) throws SQLException {
         //'20150131'
@@ -466,7 +457,6 @@ import org.apache.logging.log4j.Logger;
       * Returns all transactions of the guest currently logged into the system.
       *
       * @return A List of transactions tied to the logged-in guest
-      * @author Brendon
       */
     public static List<Reservation> getCurrentGuestTransactions() {
         String sql = "SELECT * FROM reservations JOIN transactions ON transactions.username = reservations.guestusername";
@@ -503,7 +493,6 @@ import org.apache.logging.log4j.Logger;
       *
       * @param username Username of the guest.
       * @return A List of all reservations for the guest with username {@code username}.
-      * @author Brendon
       */
     public static List<Reservation> getReservationsByGuest(String username) {
         String sql = "SELECT * FROM reservations WHERE guestUsername = ?";
@@ -542,7 +531,6 @@ import org.apache.logging.log4j.Logger;
       * @param myDate Date object
       * @return String representation of {@code myDate}
       * @deprecated use {@link edu.baylor.GroupFive.util.CoreUtils#formatDate(Date)} instead.
-      * @author Icko
       */
     @Deprecated
     private static String formatDate(Date myDate) {
@@ -559,7 +547,6 @@ import org.apache.logging.log4j.Logger;
       * @param start2 Start date of interval 2.
       * @param end2 End date of interval 2.
       * @return {@code true} if overlap is present. {@code false} otherwise.
-      * @author Cole
       */
     private static boolean isOverlap(Date start1, Date end1, Date start2, Date end2) {
         return !start1.after(end2) && !end1.before(start2);
@@ -574,7 +561,6 @@ import org.apache.logging.log4j.Logger;
       * @return {@code true} if room is booked between {@code startDate} and {@code endDate}.
       *         {@code false} otherwise.
       * @throws SQLException
-      * @author Chase
       */
     private boolean isRoomBookedOn(int roomNumber, Date startDate, Date endDate) throws SQLException {
         List<Reservation> reservations = getAll();

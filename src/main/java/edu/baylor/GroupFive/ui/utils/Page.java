@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Represents a Graphical User Interface page with dynamic content switching,
- * extending {@link edu.baylor.GroupFive.ui.itils.interfaces.InputDelegate}.
+ * extending {@link edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate}.
  *
  * @author Brendon
  */
@@ -65,7 +65,6 @@ public class Page extends JFrame implements InputDelegate {
      * Creates the frame with the specified privilege level.
      *
      * @param privilege The privilege level of the user.
-     * @author Brendon
      */
     public void createFrame(Privilege privilege) {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -87,7 +86,6 @@ public class Page extends JFrame implements InputDelegate {
      * Adds the dashboard to the page.
      *
      * @param page The page to add the dashboard to.
-     * @author Brendon
      */
     public void addDashboard(Page page) {
     
@@ -107,7 +105,6 @@ public class Page extends JFrame implements InputDelegate {
      * Switches the page content based on the given option.
      *
      * @param option The option indicating the content to switch to.
-     * @author Brendon
      */
     public void onPageSwitch(String option) {
         
@@ -164,7 +161,6 @@ public class Page extends JFrame implements InputDelegate {
      * Sets the user associated with the page.
      *
      * @param user The user to set.
-     * @author Brendon
      * */
     public void setUser(User user) {
         this.user = user;
@@ -174,7 +170,6 @@ public class Page extends JFrame implements InputDelegate {
      * Returns the user associated with the page.
      *
      * @return The user associated with the page.
-     * @author Brendon
      * */
     public User getUser() {
         return user;
@@ -184,7 +179,6 @@ public class Page extends JFrame implements InputDelegate {
      * Adds information to the page.
      *
      * @param info The information to add.
-     * @author Brendon
      */
     public void addInfo(String info) {
         this.info.add(info);
@@ -194,7 +188,6 @@ public class Page extends JFrame implements InputDelegate {
      * Returns the information stored in the page.
      *
      * @return The information stored in the page.
-     * @author Brendon
      */
     public List<String> getInfo() {
         return info;
@@ -202,8 +195,6 @@ public class Page extends JFrame implements InputDelegate {
 
     /**
      * Refreshes the page content.
-     *
-     * @author Brendon
      */
     public void refresh() {
         revalidate();

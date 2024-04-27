@@ -26,7 +26,6 @@ public class ReservationModel extends HotelModel implements DataModel {
      *
      * @param columnNames An array of column names
      * @param columnClass An array of column classes
-     * @author Brendon
      */
     public ReservationModel(String[] columnNames, Class<?>[] columnClass) {
         super(columnNames, columnClass);
@@ -43,7 +42,6 @@ public class ReservationModel extends HotelModel implements DataModel {
      * Retrieves data from the database and populates the model.
      *
      * @throws RuntimeException If an error occurs while fetching data from the database.
-     * @author Brendon
      */
      public void getData() throws RuntimeException {
        // Fetch room data from the database

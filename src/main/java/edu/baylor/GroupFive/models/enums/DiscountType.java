@@ -14,7 +14,6 @@ public enum DiscountType {
      *
      * @param text The string representation of the discount type.
      * @return The DiscountType enum value corresponding to {@code test}, or {@code null} if no match
-     * @author Afraz
      */
     public static Privilege fromString(String text) {
         for (Privilege b : Privilege.values()) {

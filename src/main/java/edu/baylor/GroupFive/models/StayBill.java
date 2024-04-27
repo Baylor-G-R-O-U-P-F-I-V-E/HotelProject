@@ -7,6 +7,7 @@ import java.util.List;
  * The StayBill class represents the bill for a reservation.
  *
  * @author Afraz
+ * @author Icko
  * */
 public class StayBill {
     private List<Payment> payments;
@@ -16,9 +17,7 @@ public class StayBill {
 
     /**
      * workaround for now because I am instantiating a new StayBill in models/Booking.java
-     * but it is currently 3:14 am and I am tired
-     *
-     * @author Icko
+     * but it is currently 3:14 am and I am tired -Icko
      * */
     public StayBill() {
         payments = null;
@@ -34,7 +33,6 @@ public class StayBill {
      * @param purchases A List of purchases associated with this bill.
      * @param room The room associated with this booking.
      * @param booking The booking tied to this bill.
-     * @author Afraz
      * */
     public StayBill(List<Payment> payments,
                     List<Purchase> purchases,
@@ -50,7 +48,6 @@ public class StayBill {
      * Adds a payment to our bill.
      *
      * @param pay Payment to add.
-     * @author Afraz
      * */
     public void addPayment(Payment pay) {
         payments.add(pay);
@@ -60,7 +57,6 @@ public class StayBill {
      * Adds a purchase to our bill.
      * 
      * @param purchase Purchase to add.
-     * @author Afraz
      * */
     public void addPurchase(Purchase purchase) {
         purchases.add(purchase);
@@ -70,7 +66,6 @@ public class StayBill {
      * Remove a payment from our bill.
      *
      * @param pay Payment to remove.
-     * @author Afraz
      * */
     public void removePayment(Payment pay) {
         if(!payments.isEmpty()) {
@@ -82,7 +77,6 @@ public class StayBill {
      * Remove a purchase from our bill.
      *
      * @param purchase Purchase to remove.
-     * @author Afraz
      * */
     public void removePurchase(Purchase purchase) {
         if(!purchases.isEmpty()) {
@@ -98,7 +92,6 @@ public class StayBill {
      * Just return 0 apparently.
      *
      * @return 0
-     * @author Afraz
      * */
     public double getPaymentsBill() {
         if(!payments.isEmpty()) {
@@ -115,7 +108,6 @@ public class StayBill {
      * Just return 0 apparently.
      *
      * @return 0
-     * @author Afraz
      * */
     public double getPurchaseBill() {
         if(!purchases.isEmpty()) {
@@ -132,7 +124,6 @@ public class StayBill {
      * Just return 0 apparently.
      *
      * @return 0
-     * @author Afraz
      * */
     public double getStaySubtotal() {
         double bill = 0;

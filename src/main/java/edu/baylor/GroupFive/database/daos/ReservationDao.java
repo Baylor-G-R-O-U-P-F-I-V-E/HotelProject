@@ -23,7 +23,6 @@ public interface ReservationDao extends Dao<Reservation> {
      * @param reservation New reservation.
      * @return {@code true} if available. {@code false} otherwise.
      * @throws SQLException If error occurs during database communication.
-     * @author Icko
      * */
     public Boolean checkIfAvailable(Reservation reservation) throws SQLException;
 }

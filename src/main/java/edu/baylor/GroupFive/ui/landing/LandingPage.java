@@ -34,8 +34,6 @@ public class LandingPage extends JFrame implements InputDelegate {
 
     /**
      * Constructs a LandingPage
-     *
-     * @author Brendon
      */
     public LandingPage() {
         super();
@@ -55,8 +53,6 @@ public class LandingPage extends JFrame implements InputDelegate {
 
     /**
      * Creates the frame and initializes the components.
-     *
-     * @author Brendon
      */
     public void createFrame() {
         try {
@@ -91,7 +87,6 @@ public class LandingPage extends JFrame implements InputDelegate {
      * Handles navigation to different pages based on the specified option.
      *
      * @param option The option indicating the page to switch to.
-     * @author Brendon
      */
     public void onPageSwitch(String option) {
         
@@ -146,7 +141,6 @@ public class LandingPage extends JFrame implements InputDelegate {
      * Sets the username.
      *
      * @param username The username.
-     * @author Brendon
      */
     public void setUsername(String username) {
         this.username = username;

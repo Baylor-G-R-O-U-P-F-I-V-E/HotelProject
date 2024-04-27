@@ -27,10 +27,6 @@ public class RoomDAO extends BaseDAO<Room>{
      * Retrieves all rooms in our database.
      *
      * @return A List of every room in our database.
-     * @author Brendon
-     * @author Chase
-     * @author Cole
-     * @author Icko
      */
     public List<Room> getAll() {
 
@@ -68,8 +64,6 @@ public class RoomDAO extends BaseDAO<Room>{
      *
      * @param room Room to save.
      * @return Number of rows affected by query.
-     * @author Brendon
-     * @author Cole
      */
     public Integer save(Room room){
 
@@ -95,8 +89,6 @@ public class RoomDAO extends BaseDAO<Room>{
      *
      * @param newRoom Room to insert.
      * @return Number of rows affected by query.
-     * @author Brendon
-     * @author Cole
      */
     public Integer insert(Room newRoom){
 
@@ -125,8 +117,6 @@ public class RoomDAO extends BaseDAO<Room>{
      *
      * @param roomNumber Room number.
      * @return Room object if found, {@code null} otherwise.
-     * @author Brendon
-     * @author Cole
      */
     public Room get(int roomNumber){
 
@@ -163,8 +153,6 @@ public class RoomDAO extends BaseDAO<Room>{
      *
      * @param updatedInfo Room with updated information.
      * @return Number of rows affected by query.
-     * @author Brendon
-     * @author Cole
      */
     public Integer update(Room updatedInfo){
 
@@ -190,7 +178,6 @@ public class RoomDAO extends BaseDAO<Room>{
      *
      * @param room Room to delete.
      * @return Number of rows affected by query.
-     * @author Brendon
      */
     public Integer delete(Room room){
 

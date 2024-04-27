@@ -21,7 +21,6 @@ public class HotelTable extends JTable {
      * Constructs a HotelTable with the specified table model.
      *
      * @param model The table model.
-     * @author Brendon
      */
     public HotelTable(DefaultTableModel model) {
         super(model);
@@ -48,7 +47,6 @@ public class HotelTable extends JTable {
      * Gets the table sorter.
      *
      * @return The table sorter.
-     * @author Brendon
      */
     public TableRowSorter<DefaultTableModel> getSorter() {
         return sorter;

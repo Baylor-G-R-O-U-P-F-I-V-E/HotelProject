@@ -4,6 +4,7 @@ package edu.baylor.GroupFive.models;
  * The Address class represents an address.
  *
  * @author Afraz
+ * @author Icko
  * */
 public class Address {
     private int buildingNumber;
@@ -29,7 +30,6 @@ public class Address {
      * @param country Country this address is in.
      * @param account Account tied to this address.
      * @param billingInfo Billing information.
-     * @author Afraz
      * */
     public Address(
             int buildingNumber,

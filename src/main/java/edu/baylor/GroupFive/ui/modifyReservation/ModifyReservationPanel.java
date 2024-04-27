@@ -45,7 +45,6 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
      * @param delegate      The page delegate for handling user interactions.
      * @param originalRoom  The original room number of the reservation.
      * @param originalStart The original start date of the reservation.
-     * @author Brendon
      */
     public ModifyReservationPanel(Page delegate, String originalRoom, String originalStart) {
         super();
@@ -104,7 +103,6 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
      * Adds a panel for entering the room number to the specified panel.
      *
      * @param textPanel The panel to which the room number panel will be added.
-     * @author Brendon
      */
     public void addRoomPanel(JPanel textPanel) {
         JPanel roomPanel = new JPanel();
@@ -131,7 +129,6 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
      * Adds a panel for entering the price to the specified panel.
      *
      * @param textPanel The panel to which the price panel will be added.
-     * @author Brendon
      */
     public void addPricePanel(JPanel textPanel) {
         JPanel pricePanel = new JPanel();
@@ -159,7 +156,6 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
      * Adds a button for modifying the reservation to the specified panel.
      *
      * @param buttonPanel The panel to which the modify reservation button will be added.
-     * @author Brendon
      */
     public void addModifyReservationButton(JPanel buttonPanel) {
         PanelButton modifyButton = new PanelButton("Confirm");
@@ -174,7 +170,6 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
      * Adds a back button to the specified panel.
      *
      * @param buttonPanel The panel to which the back button will be added.
-     * @author Brendon
      */
     public void addBackButton(JPanel buttonPanel) {
         PanelButton backButton = new PanelButton("Back");
@@ -187,8 +182,6 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
 
     /**
      * Clears the input fields.
-     *
-     * @author Brendon
      */
     @Override
     public void clear() {

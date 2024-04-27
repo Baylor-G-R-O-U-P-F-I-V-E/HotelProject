@@ -7,6 +7,8 @@ import edu.baylor.GroupFive.models.User;
 
 /**
  * The LoginService class provides static methods for logging in.
+ *
+ * @author Icko
  * */
 public class LoginService {
 
@@ -19,7 +21,6 @@ public class LoginService {
       * @return The authenticated User object of login is successful.
       * @throws InvalidCredentialsException If user does not exist in database
       *     or if password does not match credentials.
-      * @author Icko
       * */
     public static User login(String username, String password) throws InvalidCredentialsException {
         UserDAO udao = new UserDAO();

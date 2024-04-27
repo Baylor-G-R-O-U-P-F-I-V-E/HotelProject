@@ -21,7 +21,7 @@ import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
  *
  * Implements PagePanel.
  *
- * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
  * @author Brendon
  */
 public class CreateClerkAccountPanel extends JPanel implements PagePanel {
@@ -33,7 +33,6 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
      * Constructs a CreateClerkAccountPanel with the specified page delegate.
      *
      * @param page The page delegate.
-     * @author Brendon
      */
     public CreateClerkAccountPanel(Page page) {
         super();
@@ -78,7 +77,6 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
      * Adds the username panel to the text panel.
      *
      * @param textPanel The text panel to add the username panel to.
-     * @author Brendon
      */
     private void addUsernamePanel(JPanel textPanel) {
         JPanel userPanel = new JPanel();
@@ -103,7 +101,6 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
      * Adds the password panel to the text panel.
      *
      * @param textPanel The text panel to add the passwor dpanel to.
-     * @author Brendon
      */
     private void addPasswordPanel(JPanel textPanel) {
         JPanel passPanel = new JPanel();
@@ -129,7 +126,6 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
      * Adds the name panel to the text panel
      *
      * @param textPanel The text panel to add the name panel to.
-     * @author Brendon
      */
     private void addNamePanel(JPanel textPanel) {
         JPanel namePanel = new JPanel();
@@ -166,7 +162,6 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
      * Adds the create button to the button panel.
      *
      * @param buttonPanel The button panel to add the create button to.
-     * @author Brendon
      */
     private void addCreateButton(JPanel buttonPanel) {
         // Create the create button
@@ -178,8 +173,6 @@ public class CreateClerkAccountPanel extends JPanel implements PagePanel {
 
     /**
      * Clears the input fields.
-     *
-     * @author Brendon
      */
     @Override
     public void clear() {

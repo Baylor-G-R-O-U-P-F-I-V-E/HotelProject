@@ -41,7 +41,6 @@ public class ModifyReservationActionListener implements ActionListener {
       * Makes the bad man appear.
       *
       * @param msg Message to display
-      * @author Brendon
       * */
     private void makeBadInputDialog(String msg) {
         try {
@@ -61,7 +60,6 @@ public class ModifyReservationActionListener implements ActionListener {
      * @param priceField    The text field for entering the price.
      * @param startDate     The date panel for selecting the start date.
      * @param endDate       The date panel for selecting the end date.
-     * @author Brendon
      */
     public ModifyReservationActionListener(Page loginPage, String originalRoom, Date originalStart, JTextField roomField, JTextField priceField, DatePanel startDate, DatePanel endDate) {
         this.page = loginPage;
@@ -77,7 +75,6 @@ public class ModifyReservationActionListener implements ActionListener {
       * Error checks values within cells and attempts to change reservation
       *
       * @param e the action event to be processed
-      * @author Brendon
       * */
     @Override
     public void actionPerformed(ActionEvent e) {

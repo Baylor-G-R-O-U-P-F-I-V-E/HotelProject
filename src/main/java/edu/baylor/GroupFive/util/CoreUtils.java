@@ -10,6 +10,8 @@ import java.text.ParseException;
 
 /**
  * Basic functions and constants useful across our project
+ *
+ * @author Icko
  */
 public class CoreUtils {
 
@@ -25,7 +27,6 @@ public class CoreUtils {
       *
       * @param date {@code java.sql.Date} object to convert.
       * @return Converted {@code date} object.
-      * @author Icko
       * */
     public static java.util.Date getUtilDate(java.sql.Date date) {
         return new java.util.Date(date.getTime());
@@ -36,7 +37,6 @@ public class CoreUtils {
       *
       * @param date {@code java.util.Date} object to convert.
       * @return Converted {@code date} object.
-      * @author Icko
       * */
     public static java.sql.Date getSqlDate(java.util.Date date) {
         return new java.sql.Date(date.getTime());
@@ -48,7 +48,6 @@ public class CoreUtils {
      *
      * @param ex Throwable to parse stack trace from.
      * @return String representation of {@code ex}'s stack trace.
-     * @author Icko
      */
     public static String stackTraceToString(Throwable ex) {
         StringBuilder builder = new StringBuilder();
@@ -64,8 +63,6 @@ public class CoreUtils {
       *
       * @param password Password to hash.
       * @return Returns a SHA-256 hash of {@code password}.
-      * @author Icko
-      * @author ChatGPT
       * */
     public static String hashPassword(String password) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -93,7 +90,6 @@ public class CoreUtils {
      *
      * @param myDate Date object to convert.
      * @return String representation of {@code myDate}.
-     * @author Icko
      */
     public static String formatDate(java.util.Date myDate) {
         DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
@@ -106,7 +102,6 @@ public class CoreUtils {
      * @param dateStr String to convert.
      * @return Date object initialized from {@code dateStr}.
      * @throws ParseException If error occurs during date parsing.
-     * @author Icko
      */
     public static java.sql.Date getSqlDate(String dateStr) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);

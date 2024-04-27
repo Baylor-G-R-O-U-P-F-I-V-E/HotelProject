@@ -27,7 +27,8 @@ import java.sql.SQLTimeoutException;
   * {@link Dao#insert(Object)} 
   * {@link Dao#update(Object)} 
   * {@link Dao#delete(Object)} 
-  * 
+  *
+  * @param <T> Object this DAO is meant to interact with
   * @author Icko
   * */
 public interface Dao<T> {
@@ -38,7 +39,6 @@ public interface Dao<T> {
      * @param id Id of object.
      * @return Object if found. {@code null} if not.
      * @throws SQLException If error occurs during database communication.
-     * @author Icko
      * */
     public T get(int id) throws SQLException;
 
@@ -47,7 +47,6 @@ public interface Dao<T> {
      *
      * @return A List of objects.
      * @throws SQLException If error occurs during database communication.
-     * @author Icko
      * */
     public List<T> getAll() throws SQLException;
 
@@ -57,7 +56,6 @@ public interface Dao<T> {
       * @param t Object to save.
       * @return Number of rows affected by query.
       * @throws SQLException If error occurs during database communication.
-      * @author Icko
       * */
     public Integer save(T t) throws SQLException;
 
@@ -67,7 +65,6 @@ public interface Dao<T> {
       * @param t Object to insert.
       * @return Number of rows affected by query.
       * @throws SQLException If error occurs during database communication.
-      * @author Icko
       * */
     public Integer insert(T t) throws SQLException;
 
@@ -77,7 +74,6 @@ public interface Dao<T> {
       * @param t Object with new changes.
       * @return Number of rows affected by query.
       * @throws SQLException If error occurs during database communication.
-      * @author Icko
       * */
     public Integer update(T t) throws SQLException;
 
@@ -89,7 +85,6 @@ public interface Dao<T> {
       * @param t Object to delete.
       * @return Number of rows affected by query.
       * @throws SQLException If error occurs during database communication.
-      * @author Icko
       * */
     public Integer delete(T t) throws SQLException;
 

@@ -4,6 +4,9 @@ import java.util.Date;
 
 /**
  * The Transaction class represents a transaction
+ *
+ * @author Afraz
+ * @author Icko
  * */
 public class Transaction {
     private long id;
@@ -18,7 +21,6 @@ public class Transaction {
      * @param description Description of the transaction.
      * @param purchaseDate Date this transaction occurred.
      * @param amount Dollar amount of this transaction.
-     * @author Afraz
      * */
     public Transaction(String username, String description, Date purchaseDate, float amount) {
         this.setAmount(amount);

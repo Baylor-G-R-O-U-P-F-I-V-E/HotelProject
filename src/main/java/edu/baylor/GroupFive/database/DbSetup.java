@@ -32,8 +32,6 @@ public class DbSetup {
 
     /**
      * Tears down our database, creates all tables, then inserts initial values
-     *
-     * @author Brendon
      */
     public DbSetup() {
 
@@ -88,8 +86,6 @@ public class DbSetup {
 
     /**
      * Tears down our database.
-     *
-     * @author Brendon
      */
     private static void dbTearDown() {
         try (Connection connection = DriverManager.getConnection(url, user, password);
@@ -150,9 +146,6 @@ public class DbSetup {
 
     /**
      * Inserts our initial values into our database.
-     *
-     * @author Brendon
-     * @author Icko
      */
     private static void dbInit() {
 
@@ -333,7 +326,6 @@ public class DbSetup {
       *
       * @param statement PreparedStatement containing sql insert query
       * @throws SQLException If error occurs during database communication
-      * @author Icko
       * */
     private static void initializeUsers(PreparedStatement statement) throws SQLException {
         for (Object[] user : userInits) {
@@ -359,7 +351,6 @@ public class DbSetup {
       *
       * @param statement PreparedStatement containing sql insert query
       * @throws SQLException If error occurs during database communication
-      * @author Icko
       * */
     private static void initializeRooms(PreparedStatement statement) throws SQLException {
         for (Object[] room : roomInits) {
@@ -387,7 +378,6 @@ public class DbSetup {
       *
       * @param statement PreparedStatement containing sql insert query
       * @throws SQLException If error occurs during database communication
-      * @author Icko
       * */
     private static void initializeReservations(PreparedStatement statement) throws SQLException {
         for (Object[] reservation : reservationInits) {
@@ -421,7 +411,6 @@ public class DbSetup {
       *
       * @param statement PreparedStatement containing sql insert query
       * @throws SQLException If error occurs during database communication
-      * @author Brendon
       */
     private static void initializeTransactions(PreparedStatement statement) throws SQLException {
         for (Object[] transaction : transactionInits) {

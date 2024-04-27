@@ -30,7 +30,6 @@ public class GenerateBillModel extends HotelModel implements DataModel {
      *
      * @param columnNames An array of column names.
      * @param columnClass An array of column classes.
-     * @author Brendon
      */
     public GenerateBillModel(String[] columnNames, Class<?>[] columnClass) {
         super(columnNames, columnClass);
@@ -49,7 +48,6 @@ public class GenerateBillModel extends HotelModel implements DataModel {
      * populates the model with the data, and handles any exceptions.
      *
      * @throws RuntimeException If an error occurs while fetching data from the database.
-     * @author Brendon
      */
     public void getData() throws RuntimeException {
         // Fetch user data from the database

@@ -34,7 +34,6 @@ public class TransactionDAO extends BaseDAO<Transaction> {
      *
      * @param transaction Transaction to save.
      * @return Number of rows affected by query.
-     * @author Brendon
      */
     public Integer save(Transaction transaction) {
         if (transaction.getId() == 0) {
@@ -49,7 +48,6 @@ public class TransactionDAO extends BaseDAO<Transaction> {
      * 
      * @param transaction Transaction to insert.
      * @return Number of rows affected by query.
-     * @author Brendon
      */
     public Integer insert(Transaction transaction) {
         String sql = "INSERT INTO transactions (username, description, purchaseDate, amount) VALUES (?, ?, ?, ?)";
@@ -72,7 +70,6 @@ public class TransactionDAO extends BaseDAO<Transaction> {
      *
      * @param transaction Transaction with updated information.
      * @return Number of rows affected by query.
-     * @author Brendon
      */
     public Integer update(Transaction transaction) {
         String sql = "UPDATE transactions SET username = ?, description = ?, purchaseDate = ?, amount = ? WHERE id = ?";
@@ -96,7 +93,6 @@ public class TransactionDAO extends BaseDAO<Transaction> {
      *
      * @param transaction Transaction to delete.
      * @return Number of rows affected by query.
-     * @author Brendon
      */
     public Integer delete(Transaction transaction) {
         String sql = "DELETE FROM transactions WHERE id = ?";
@@ -116,7 +112,6 @@ public class TransactionDAO extends BaseDAO<Transaction> {
      *
      * @param id Transaction id.
      * @return Transaction if found. {@code null} otherwise.
-     * @author Brendon
      * */
     public Transaction get(int id) {
         String sql = "SELECT * FROM transactions WHERE id = ?";
@@ -145,7 +140,6 @@ public class TransactionDAO extends BaseDAO<Transaction> {
      * Retreives all transactions in our database.
      *
      * @return A List of transactions.
-     * @author Brendon
      */
     public List<Transaction> getAll() {
         String sql = "SELECT * FROM transactions";
@@ -174,7 +168,6 @@ public class TransactionDAO extends BaseDAO<Transaction> {
      *
      * @param username username of User.
      * @return A List of transactions tied to User.
-     * @author Brendon
      */
     public List<Transaction> getByUsername(String username) {
         String sql = "SELECT * FROM transactions WHERE username = ?";

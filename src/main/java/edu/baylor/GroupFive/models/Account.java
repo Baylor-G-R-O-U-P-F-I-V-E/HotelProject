@@ -6,6 +6,7 @@ import edu.baylor.GroupFive.models.enums.Privilege;
  * The Account class represents a user account
  *
  * @author Afraz
+ * @author Icko
  */
 public class Account {
 
@@ -28,7 +29,6 @@ public class Account {
      * @param email The email address of the account holder.
      * @param address The address associated with the account.
      * @param privilege The privilege level of the account.
-     * @author Afraz
      */
     public Account( String name,
                     int phoneNumber,

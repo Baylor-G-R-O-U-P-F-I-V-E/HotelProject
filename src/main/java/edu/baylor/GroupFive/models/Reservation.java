@@ -37,7 +37,6 @@ public class Reservation {
      * @param guestUsername Username of guest this reservation is for.
      * @param roomNumber String room number of room this reservation is in.
      * @param price Price of this reservation.
-     * @author Icko
      * */
     @Deprecated
     public Reservation(int id, Date startDate, Date endDate,
@@ -61,7 +60,6 @@ public class Reservation {
      * @param guestUsername Username of guest this reservation is for.
      * @param roomNumber Integer room number of room this reservation is in.
      * @param price Price of this reservation.
-     * @author Icko
      * */
     public Reservation(int id, Date startDate, Date endDate,
                        String guestUsername, int roomNumber, Double price) {
@@ -87,7 +85,6 @@ public class Reservation {
      * @param price Price of this reservation.
      * @param active If this reservation has been canceled or not.
      * @param checkedIn If guest has checked in or not.
-     * @author Icko
      * */
     public Reservation(int id, Date startDate, Date endDate,
                        String guestUsername, int roomNumber, Double price,
@@ -106,7 +103,6 @@ public class Reservation {
      * Performs a deep copy of another reservation object.
      *
      * @param reservation Reservation to make a copy of.
-     * @author Icko
      * */
     public Reservation(Reservation reservation) {
         this.setDbId(reservation.getDbId());
@@ -147,7 +143,6 @@ public class Reservation {
      * Returns a String representation of this reservation object.
      *
      * @return String representation of this reservation object.
-     * @author Icko
      * */
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(CoreUtils.DATE_FORMAT); // before: "MM/dd/yyyy"

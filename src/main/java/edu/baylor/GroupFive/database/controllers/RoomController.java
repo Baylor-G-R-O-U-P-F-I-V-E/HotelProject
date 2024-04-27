@@ -21,7 +21,6 @@ public class RoomController {
      * This function returns all rooms in our database.
      *
      * @return List of all rooms in our database
-     * @author Icko
      * @see RoomServices#getRooms()
      * */
     public static List<Room> getAllRooms() {
@@ -35,7 +34,6 @@ public class RoomController {
      *
      * @param roomNumber Room number of Room.
      * @return Room if exists in database. {@code null} otherwise
-     * @author Cole
      * @see RoomServices#getRoom(Integer)
      * */
     public static Room getRoomInfo(Integer roomNumber){
@@ -49,7 +47,6 @@ public class RoomController {
      *
      * @param updatedInfo Room with updated information.
      * @return {@code true} if room was modified successfully. {@code false} otherwise
-     * @author Cole
      * @see RoomServices#modifyRoom(Room)
      * */
     public Boolean modifyRoom(Room updatedInfo){
@@ -62,7 +59,6 @@ public class RoomController {
      *
      * @param newRoom Room to add.
      * @return {@code true} if room was added successfully. {@code false} otherwise
-     * @author Cole
      * @see RoomServices#addRoom(Room)
      * */
     public Boolean addRoom(Room newRoom){
@@ -77,7 +73,6 @@ public class RoomController {
      * @param startDate Starting date of interval.
      * @param endDate End date of interval.
      * @return List of available rooms between {@code startDate} and {@code endDate}
-     * @author Brendon
      * @see RoomServices#getAvailableRooms(Date, Date)
      * */
     public static List<Room> getAvailableRooms(Date startDate, Date endDate){

@@ -31,7 +31,6 @@ public class DatePanel extends JPanel implements PagePanel {
      * Constructs a DatePanel with the specified title.
      *
      * @param title The title for the date panel.
-     * @author Brendon
      */
     public DatePanel(String title) {
         this(title, 0);
@@ -42,7 +41,6 @@ public class DatePanel extends JPanel implements PagePanel {
      *
      * @param title The title for the date panel.
      * @param daysAhead The number of days ahead.
-     * @author Brendon
      */
     public DatePanel(String title, int daysAhead) {
 
@@ -66,7 +64,6 @@ public class DatePanel extends JPanel implements PagePanel {
      * Returns the formatter for date values.
      *
      * @return The formatter for date values.
-     * @author Brendon
      */
     public AbstractFormatter getFormatter() {
         return new AbstractFormatter() {
@@ -94,7 +91,6 @@ public class DatePanel extends JPanel implements PagePanel {
      *
      * @param daysAhead The number of days ahead.
      * @return The UtilDateModel for the date picker.
-     * @author Brendon
      */
     public UtilDateModel createModel(int daysAhead) {
         //Create Model for the date picker
@@ -114,7 +110,6 @@ public class DatePanel extends JPanel implements PagePanel {
      * Returns the internationalization strings for the date picker.
      *
      * @return The internationalization strings.
-     * @author Brendon
      */
     public Properties getI18nStrings() {
         Properties i18nStrings = new Properties();
@@ -128,7 +123,6 @@ public class DatePanel extends JPanel implements PagePanel {
      * Adds the componenets to the date panel.
      *
      * @param daysAhead The number of days ahead.
-     * @author Brendon
      */
     private void addComponents(int daysAhead) {
 
@@ -150,7 +144,6 @@ public class DatePanel extends JPanel implements PagePanel {
      * Returns the selected date.
      *
      * @return The selected date.
-     * @author Brendon
      */
     public Date getDate() {
         return (Date) model.getValue();
@@ -160,7 +153,6 @@ public class DatePanel extends JPanel implements PagePanel {
      * Sets the date forr the date panel.
      *
      * @param date The date to set.
-     * @author Brendon
      */
     public void setDate(Date date) {
         cal.setTime(date);
@@ -170,8 +162,6 @@ public class DatePanel extends JPanel implements PagePanel {
 
     /**
      * Clears the components in the date panle.
-     *
-     * @author Brendon
      */
     @Override
     public void clear() {

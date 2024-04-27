@@ -45,7 +45,6 @@ public class DbConnection {
       *
       * @return Connection to a database
       * @throws BadConnectionException If no connection can be established
-      * @author Icko
       */
     public static Connection getConnection() throws BadConnectionException {
         Connection connection = null;
@@ -63,7 +62,6 @@ public class DbConnection {
       * Closes a PreparedStatement.
       *
       * @param statement PreparedStatement to close
-      * @author Icko
       */
     public static void closeStatement(PreparedStatement statement){
         if (statement != null) {
@@ -80,7 +78,6 @@ public class DbConnection {
       * Closes a Statement.
       *
       * @param statement Statement to close
-      * @author Icko
       */
     public static void closeStatement(Statement statement){
         if (statement != null) {
@@ -97,7 +94,6 @@ public class DbConnection {
       * Closes a Connection.
       *
       * @param connection Connection to close
-      * @author Icko
       */
     public static void closeConnection(Connection connection){
         if (connection != null) {

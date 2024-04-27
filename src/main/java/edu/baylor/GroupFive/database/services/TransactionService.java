@@ -24,7 +24,6 @@ public class TransactionService {
      *
      * @param id Id of transaction.
      * @return Transaction if it exists. {@code null} otherwise.
-     * @author Brendon
      */
     public static Transaction getTransaction(long id) {
         TransactionDAO transactionDAO = new TransactionDAO();
@@ -35,7 +34,6 @@ public class TransactionService {
      * Gets all transactions in our database.
      *
      * @return A List containing all transactions in our database.
-     * @author Brendon
      */
     public static List<Transaction> getTransactions() {
         TransactionDAO transactionDAO = new TransactionDAO();
@@ -47,7 +45,6 @@ public class TransactionService {
      *
      * @param username Username of user.
      * @return A List containing all transactions tied to {@code username}.
-     * @author Brendon
      */
     public static List<Transaction> getUserTransactions(String username) {
         TransactionDAO transactionDAO = new TransactionDAO();
@@ -58,7 +55,6 @@ public class TransactionService {
      * Gets all transactions tied to the currently logged in user.
      *
      * @return A List containing all transactions.
-     * @author Brendon
      */
     public static List<Reservation> getCurrentGuestTransactions() {
         // FIXME return type, function call. -Icko
@@ -71,7 +67,6 @@ public class TransactionService {
      * @param username Username of the User
      * @param description Transaction description
      * @param amount Value of transaction
-     * @author Brendon
      */
     public static void addTransaction(String username, String description, float amount) {
         Transaction transaction = new Transaction(username, description, new Date(), amount);
@@ -83,7 +78,6 @@ public class TransactionService {
      * Updates a transaction in our database.
      *
      * @param transaction Transaction with updated information.
-     * @author Brendon
      */
     public static void updateTransaction(Transaction transaction) {
         TransactionDAO transactionDAO = new TransactionDAO();
@@ -94,7 +88,6 @@ public class TransactionService {
      * Deletes a transaction in our database.
      *
      * @param transaction Transaction to delete.
-     * @author Brendon
      */
     public static void deleteTransaction(Transaction transaction) {
         TransactionDAO transactionDAO = new TransactionDAO();

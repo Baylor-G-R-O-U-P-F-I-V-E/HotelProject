@@ -55,7 +55,6 @@ public class GuestBillPanel extends JPanel implements PagePanel {
      *
      * @param page The page associated with this panel.
      * @param username The username of the guest.
-     * @author Brendon
      */
     public GuestBillPanel(Page page, String username) {
         super();
@@ -100,8 +99,6 @@ public class GuestBillPanel extends JPanel implements PagePanel {
 
     /**
      * Adds a back button to the panel.
-     *
-     * @author Brendon
      */
     public void addBackButton() {
         // Add back button

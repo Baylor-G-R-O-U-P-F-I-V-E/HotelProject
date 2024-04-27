@@ -24,7 +24,6 @@ public class UserDAO extends BaseDAO<User> {
      * Retrieves all Users in the database.
      *
      * @return A List of users.
-     * @author Brendon
      */
     public List<User> getAll() {
 
@@ -53,8 +52,6 @@ public class UserDAO extends BaseDAO<User> {
      *
      * @param username username to match
      * @return User object if found. {@code null} otherwise.
-     * @author Brendon
-     * @author Icko
      */
     public User getByUsername(String username) {
 
@@ -97,7 +94,6 @@ public class UserDAO extends BaseDAO<User> {
      *
      * @param id Id to match.
      * @return User object if found. {@code null} otherwise.
-     * @author Brendon
      */
     public User get(int id) {
 
@@ -126,7 +122,6 @@ public class UserDAO extends BaseDAO<User> {
      *
      * @param user User to save.
      * @return Number of lines affected by query.
-     * @author Brendon
      */
     public Integer save(User user){
 
@@ -151,7 +146,6 @@ public class UserDAO extends BaseDAO<User> {
      *
      * @param user User to insert.
      * @return Number of lines affected by query.
-     * @author Brendon
      */
     public Integer insert(User user){
 
@@ -175,7 +169,6 @@ public class UserDAO extends BaseDAO<User> {
      *
      * @param user User object with changes.
      * @return Number of lines affected by query.
-     * @author Brendon
      */
     public Integer update(User user){
 
@@ -198,7 +191,6 @@ public class UserDAO extends BaseDAO<User> {
      *
      * @param user User to delete.
      * @return Number of lines affected by query.
-     * @author Brendon
      */
     public Integer delete(User user){
 

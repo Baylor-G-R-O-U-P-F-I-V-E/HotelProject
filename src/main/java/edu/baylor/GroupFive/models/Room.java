@@ -13,6 +13,7 @@ import java.util.Objects;
  * The Room object represents a physical room.
  *
  * @author Afraz
+ * @author Icko
  * */
 public class Room {
 
@@ -31,8 +32,6 @@ public class Room {
 
     /**
      * Constructs a basic room object.
-     *
-     * @author Icko
      * */
     public Room(){
         this.roomNumber = -1;
@@ -49,7 +48,6 @@ public class Room {
      * @param numBeds Number of beds in this room.
      * @param bedType Type of beds in the room.
      * @param dailyPrice Daily prics of this room.
-     * @author Afraz
      * */
     public Room(int roomNumber, int quality, Theme theme, boolean smoking, int numBeds, BedType bedType, double dailyPrice) {
         this.setRoomNumber(roomNumber);
@@ -87,7 +85,6 @@ public class Room {
      * Compares two Room objects.
      *
      * @return {@code true} if the objects are equivalent. {@code false} otherwise.
-     * @author Afraz
      * */
     @Override
     public boolean equals(Object o) {
@@ -101,7 +98,6 @@ public class Room {
      * Generates a hash of the current room object.
      *
      * @return This objects hash.
-     * @author Afraz
      * */
     @Override
     public int hashCode() {
@@ -112,7 +108,6 @@ public class Room {
      * Returns String representation of this object.
      * 
      * @return String representation of this object.
-     * @author Afraz
      * */
     @Override
     public String toString() {

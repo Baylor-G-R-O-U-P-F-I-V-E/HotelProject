@@ -18,7 +18,6 @@ public class Dashboard extends JPanel {
      *
      * @param page The input delegate.
      * @param privilige The privilege level
-     * @author Brendon
      */
     public Dashboard(InputDelegate page, Privilege privilige) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

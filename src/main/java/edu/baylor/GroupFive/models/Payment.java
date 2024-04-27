@@ -6,6 +6,7 @@ import java.util.Date;
  * The Payment class represents a payment action.
  *
  * @author Afraz
+ * @author Icko
  * */
 public class Payment {
 
@@ -21,7 +22,6 @@ public class Payment {
      * @param id Unique id for this transaction.
      * @param amount Dollar amount of this transaction.
      * @param bill StayBill object associated with this payment.
-     * @author Afraz
      * */
     public Payment(Date date,
                    long id,

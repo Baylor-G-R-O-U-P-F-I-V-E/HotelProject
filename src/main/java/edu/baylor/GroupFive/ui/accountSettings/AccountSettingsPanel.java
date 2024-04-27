@@ -47,7 +47,6 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
      *
      * @param page Page that houses this account settings panel.
      * @param user User currently logged in.
-     * @author Brendon
      */
     public AccountSettingsPanel(Page page, User user) {
         super();
@@ -93,7 +92,6 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
      * Adds a username panel to our account settings panel.
      *
      * @param textPanel Username panel.
-     * @author Brendon
      */
     private void addUsernamePanel(JPanel textPanel) {
         JPanel userPanel = new JPanel();
@@ -121,7 +119,6 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
      * Adds a first name panel to our account settings panel.
      *
      * @param textPanel First name panel.
-     * @author Brendon
      */
     private void addFirstNamePanel(JPanel textPanel) {
 
@@ -155,7 +152,6 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
      * Adds a last name panel to our account settings panel.
      *
      * @param textPanel Last name panel.
-     * @author Brendon
      */
     private void addLastNamePanel(JPanel textPanel) {
         JPanel namePanel = new JPanel();
@@ -183,7 +179,6 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
      * When clicked, invokes the {@code makeEditable} method.
      *
      * @param buttonPanel the panel to which the button will be added.
-     * @author Brendon
      */
     private void addModifyButton(JPanel buttonPanel) {
         // Modify the Modify button
@@ -200,8 +195,6 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     /**
      * Makes the text fields editable, sets their properties,
      * removes the modify button, and adds save and back buttons.
-     *
-     * @author Brendon
      */
     private void makeEditable() {
 
@@ -243,7 +236,6 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
      * When clicked, invokes the clear method.
      *
      * @param panel The panel to which the button will be added
-     * @author Brendon
      */
     private void addBackButton(JPanel panel) {
 
@@ -264,7 +256,6 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
      * When clicked, saves the changes made to the user's account information.
      *
      * @param panel The panel to which the button will be added.
-     * @author Brendon
      */
     private void addSaveButton(JPanel panel) {
 
@@ -306,8 +297,6 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     /**
      * Clears the text fields, resets their properties,
      * removes all buttons, and adds the modify button back.
-     *
-     * @author Brendon
      */
     @Override
     public void clear() {

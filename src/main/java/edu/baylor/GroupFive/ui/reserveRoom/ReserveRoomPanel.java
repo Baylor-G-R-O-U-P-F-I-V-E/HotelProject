@@ -61,7 +61,6 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
      * Constructs a ReserveRoomPanel with the specified page delegate.
      *
      * @param page The page delegate.
-     * @author Brendon
      */
     public ReserveRoomPanel(Page page) {
         super();
@@ -107,8 +106,6 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
 
     /**
      * Adds buttons to the button panel.
-     *
-     * @author Brendon
      */
     private void addButtonPanel() {
         // Create button panel
@@ -134,7 +131,6 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
      * @param reserveRoom The reserve room button.
      * @param viewRoom The view room button.
      * @param adjustDates The adjust dates button.
-     * @author Brendon
      */
     private void addButtonListeners(JButton reserveRoom, JButton viewRoom, JButton adjustDates) {
         reserveRoom.addActionListener(e -> {
@@ -178,7 +174,6 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
      * Shows a dialog to input start and end dates.
      *
      * @return A List containing start and end dates.
-     * @author Brendon
      */
     public List<Date> showDates() {
         DatePanel startDatePanel = new DatePanel("");
@@ -217,7 +212,6 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
      *
      * @param startDate The start date.
      * @param endDate The end date.
-     * @author Brendon
      */
     public void promptReservation(Date startDate, Date endDate) {
         SimpleDateFormat formatter = new SimpleDateFormat("EEE MM/dd/yyyy");
@@ -263,7 +257,6 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
      *
      * @param startDate The start date.
      * @param endDate The end date.
-     * @author Brendon
      */
     public void filterRoomsByDate(Date startDate, Date endDate) {
         
@@ -279,7 +272,6 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
      * Get a date formatter.
      *
      * @return A date format of the form "EEEE MM/dd/yyyy"
-     * @author Brendon
      */
     public SimpleDateFormat getFormatter() {
         // Make a formatter for a date that looks like "Day of week MM/dd/yyyy"
@@ -289,8 +281,6 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
 
     /**
      * Does nothing
-     *
-     * @author Intellij
      */
     @Override
     public void clear() {

@@ -16,7 +16,6 @@ public class LoginButton extends LandingButton {
      *
      * @param delegate The input delegate.
      * @param path The path.
-     * @author Brendon
      */
     public LoginButton(InputDelegate delegate, String path) {
         super(path);

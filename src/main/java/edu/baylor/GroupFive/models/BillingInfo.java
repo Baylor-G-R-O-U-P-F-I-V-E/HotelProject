@@ -6,6 +6,7 @@ import java.util.Date;
  * The BillingInfo class represents a Users billing information.
  *
  * @author Afraz
+ * @author Icko
  * */
 public class BillingInfo {
     private String name;
@@ -20,7 +21,6 @@ public class BillingInfo {
      * @param creditCardNumber Users credit card number.
      * @param expDate Credit card's expiration date.
      * @param securityCode Credit card's security code.
-     * @author Afraz
      * */
     public BillingInfo(
             String name,

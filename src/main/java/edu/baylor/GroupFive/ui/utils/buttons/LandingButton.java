@@ -16,7 +16,6 @@ public class LandingButton extends PageButton {
      * Constructs a LandingButton with the specified path.
      *
      * @param path The path.
-     * @author Brendon
      */
     public LandingButton(String path) {
         super(path);

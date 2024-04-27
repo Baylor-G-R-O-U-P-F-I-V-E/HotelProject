@@ -8,6 +8,7 @@ import edu.baylor.GroupFive.models.enums.DiscountType;
  * a specific StayBill (?)
  *
  * @author Afraz
+ * @author Icko
  * */
 public class Promotions {
     private double discountAmount;
@@ -22,7 +23,6 @@ public class Promotions {
      * @param discountType Discount type. i.e. is this a percentage or fixed discount
      * @param expirationDate Expiration date of the promotion
      * @param bill Why is this here
-     * @author Afraz
      * */
     public Promotions(double discountAmount,
                       DiscountType discountType,

@@ -18,11 +18,6 @@ import edu.baylor.GroupFive.ui.utils.Page;
  * It validates the input fields and registers the new account if all fields are filled.
  * If the account already exists or if any field is empty, appropriate error messages are displayed.
  *
- * @param page The page associated with the action
- * @param firstName The text field for the first name.
- * @param lastName The text field for the last name.
- * @param username The text field for the username.
- * @param password The text field for the password.
  * @author Brendon
  */
 public class CreateClerkAccountListener implements ActionListener {
@@ -37,7 +32,6 @@ public class CreateClerkAccountListener implements ActionListener {
      * @param lastName The text field for the last name.
      * @param username The text field for the username.
      * @param password The text field for the password.
-     * @author Brendon
      */
     public CreateClerkAccountListener(Page page, JTextField firstName, JTextField lastName, JTextField username, JTextField password) {
         super();
@@ -49,8 +43,6 @@ public class CreateClerkAccountListener implements ActionListener {
 
     /**
      * Clears the text fields associated with this listener.
-     *
-     * @author Brendon
      */
     public void clearFields() {
         firstName.setText("");
@@ -63,7 +55,6 @@ public class CreateClerkAccountListener implements ActionListener {
      * Performs the action associated with creating a clerk account.
      *
      * @param e the event to be processed
-     * @author Brendon
      */
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -10,7 +10,6 @@ public interface DataModel {
      * Retrieves data.
      *
      * @throws RuntimeException If an error occurs while retrieving data.
-     * @author Brendon
      */
     public void getData() throws RuntimeException;
 }

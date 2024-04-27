@@ -39,7 +39,6 @@ public class LoginPanel extends JPanel implements PagePanel {
      * Constructs a LoginPanel with the specified delegate.
      *
      * @param delegate The landing page.
-     * @author Brendon
      */
     public LoginPanel(LandingPage delegate) {
         super();
@@ -76,7 +75,6 @@ public class LoginPanel extends JPanel implements PagePanel {
      * Adds the name panel to the text panel.
      *
      * @param textPanel The panel to which the name panel is added.
-     * @author Brendon
      */
     public void addNamePanel(JPanel textPanel) {
         // Create a new panel for the name
@@ -103,7 +101,6 @@ public class LoginPanel extends JPanel implements PagePanel {
      * Adds the password panel to the text panel
      *
      * @param textPanel The panel to which the password panel is added.
-     * @author Brendon
      */
     public void addPasswordPanel(JPanel textPanel) {
         // Create a panel for the room number
@@ -132,7 +129,6 @@ public class LoginPanel extends JPanel implements PagePanel {
      * Adds the login button to the button panel.
      *
      * @param buttonPanel The panel to which the login button is added.
-     * @author Brendon
      */
     public void addLoginButton(JPanel buttonPanel) {
         JButton loginButton = new JButton("Login");
@@ -154,7 +150,6 @@ public class LoginPanel extends JPanel implements PagePanel {
      * Adds the back button to the button panel.
      *
      * @param buttonPanel The panel to which the back button is added.
-     * @author Brendon
      */
     public void addBackButton(JPanel buttonPanel) {
         JButton backButton = new JButton("Back");
@@ -179,7 +174,6 @@ public class LoginPanel extends JPanel implements PagePanel {
      *
      * @param username The username.
      * @param password The password.
-     * @author Brendon
      */
     public void onClick(String username, String password) {
         delegate.setUsername(username);
@@ -191,7 +185,6 @@ public class LoginPanel extends JPanel implements PagePanel {
      * Gets the username.
      *
      * @return The username
-     * @author Brendon
      */
     public String getUsername() {
         return username;
@@ -201,7 +194,6 @@ public class LoginPanel extends JPanel implements PagePanel {
      * Gets the password hash.
      *
      * @return The password hash.
-     * @author Brendon
      */
     public String getPassword() {
         return passwordHash;
@@ -209,8 +201,6 @@ public class LoginPanel extends JPanel implements PagePanel {
 
     /**
      * Clears the text fields.
-     *
-     * @author Brendon
      */
     @Override
     public void clear() {

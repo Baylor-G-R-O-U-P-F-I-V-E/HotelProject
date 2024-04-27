@@ -34,7 +34,6 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
      * Constructs a CreateAccountPanel with the specified delegate.
      *
      * @param delegate The landing page delegate.
-     * @author Brendon
      */
     public CreateAccountPanel(LandingPage delegate) {
         super();
@@ -76,7 +75,6 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
      * Adds the first name panel to the text panel.
      *
      * @param textPanel The panel to which the first name panel will be added.
-     * @author Brendon
      */
     public void addFirstNamePanel(JPanel textPanel) {
         JPanel firstNamePanel = new JPanel();
@@ -101,7 +99,6 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
      * Adds the last name panel to the text panel.
      *
      * @param textPanel The panel to which the last name panel will be added.
-     * @author Brendon
      */
     public void addLastNamePanel(JPanel textPanel) {
         JPanel lastNamePanel = new JPanel();
@@ -127,7 +124,6 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
      * Adds the username panel to the text panel.
      *
      * @param textPanel The panel to which the username panel will be added.
-     * @author Brendon
      */
     public void addUsernamePanel(JPanel textPanel) {
         JPanel usernamePanel = new JPanel();
@@ -152,7 +148,6 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
      * Adds the password panel to the text panel.
      *
      * @param textPanel The panel to which the password panel will be added.
-     * @author Brendon
      */
     public void addPasswordPanel(JPanel textPanel) {
         JPanel passwordPanel = new JPanel();
@@ -177,7 +172,6 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
      * Adds a create account button to the button panel.
      *
      * @param buttonPanel The panel to which the button will be added.
-     * @author Brendon
      */
     public void addCreateAccountButton(JPanel buttonPanel) {
         JButton createButton = new JButton("Create Account");
@@ -199,7 +193,6 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
      * Adds a back button to the button panel.
      *
      * @param buttonPanel The panel to which the button will be added.
-     * @author Brendon
      */
     public void addBackButton(JPanel buttonPanel) {
         JButton backButton = new JButton("Back");
@@ -222,7 +215,6 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
      *
      * @param username The username.
      * @param password The password.
-     * @author Intellij
      */
     public void onClick(String username, String password) {
         // TODO Auto-generated method stub
@@ -230,8 +222,6 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
 
     /**
      * Clears the panel
-     *
-     * @author Intellij
      */
     @Override
     public void clear() {
