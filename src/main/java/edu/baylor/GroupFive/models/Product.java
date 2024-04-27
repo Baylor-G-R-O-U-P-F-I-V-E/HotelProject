@@ -8,36 +8,42 @@ package edu.baylor.GroupFive.models;
  * */
 public class Product {
     private int productID;
-    private Inventory inventory; // TODO why does a product have an inventory?? -Icko
-    private ProductDescription description;
+
+    private Double baseCost;
+    private String description;
+
+
 
     /**
      * Constructs a Product with the specified attributes.
      *
      * @param productID Unique id of the product
-     * @param inventory For some damn reason
+     * @param baseCost Initial cost of product
      * @param description Description of this product
      * */
     public Product(
             int productID,
-            Inventory inventory,
-            ProductDescription description
+            Double baseCost,
+            String description
             ) {
         this.setProductID(productID);
-        this.setInventory(inventory);
         this.setDescription(description);
+        this.setBaseCost(baseCost);
     }
 
-    // >>>> Getters >>>>
-    public int getProductID() { return productID; }
-    public ProductDescription getDescription() { return description; }
-    public Inventory getInventory(){return this.inventory;}
-    // <<<< Getters <<<<
 
-    // >>>> Setters >>>>
+    public int getProductID() { return productID; }
+    public String getDescription() { return description; }
+
     public void setProductID(int productID) { this.productID = productID; }
-    public void setDescription(ProductDescription description) { this.description = description; }
-    public void setInventory(Inventory val) {this.inventory = val;}
-    // <<<< Setters <<<<
+    public void setDescription(String description) { this.description = description; }
+    public Double getBaseCost() {
+        return baseCost;
+    }
+
+    public void setBaseCost(Double baseCost) {
+        this.baseCost = baseCost;
+    }
+
 
 }
