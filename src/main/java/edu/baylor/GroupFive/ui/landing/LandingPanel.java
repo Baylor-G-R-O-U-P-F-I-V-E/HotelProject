@@ -12,15 +12,22 @@ import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import java.awt.Insets;
 
 /**
+ * Landing panel displayed on the landing page, providing options for user interactivity.
  *
+ * Implements {@link edu.baylor.GroupFive.ui.utils.interfaces.PagePanel}.
+ *
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
+ * @author Brendon
  */
 public class LandingPanel extends JPanel implements PagePanel {
     private GridBagConstraints gbc;
     private InputDelegate delegate;
 
     /**
+     * Constructs a LandingPanel with the specified delegate.
      *
-     * @param delegate
+     * @param delegate The input delegate for handling user interactions
+     * @author Brendon
      */
     public LandingPanel(InputDelegate delegate) {
         super();
@@ -41,7 +48,9 @@ public class LandingPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds the login button to the landing panel.
      *
+     * @author Brendon
      */
     private void addLoginButton() {
         
@@ -59,8 +68,9 @@ public class LandingPanel extends JPanel implements PagePanel {
 
 
     /**
-     * Write method to create create account button
+     * Adds the create account button to the landing panel.
      *
+     * @author Brendong
      */
     private void addCreateAccountButton() {
         // Set the constraints for the create account button
@@ -76,7 +86,9 @@ public class LandingPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Clears the landing panel.
      *
+     * @author Intellij
      */
     @Override
     public void clear() {

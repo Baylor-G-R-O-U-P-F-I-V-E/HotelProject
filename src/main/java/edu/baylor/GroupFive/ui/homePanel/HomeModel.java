@@ -11,17 +11,29 @@ import edu.baylor.GroupFive.util.CoreUtils;
 import edu.baylor.GroupFive.util.logging.G5Logger;
 
 /**
+ * Model for managing home-related data.
+ * This model extends {@link edu.baylor.GroupFive.ui.utils.table.HotelModel}
+ * and implements {@link edu.baylor.GroupFive.ui.utils.interfaces.DataModel},
+ * providing functionality to retrieve and display home-related data for a user.
  *
+ * @param columnNames An array of column names for the table.
+ * @param columnClass An array of column classes for the table.
+ * @param user The user for whom the data is being retrieved
+ * @see edu.baylor.GroupFive.ui.utils.table.HotelModel
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.DataModel
+ * @author Brendon
  */
 public class HomeModel extends HotelModel implements DataModel {
 
     private User user;
 
     /**
+     * Constructs a HomeModel with the specified column names, column classes, and user.
      *
-     * @param columnNames
-     * @param columnClass
-     * @param user
+     * @param columnNames An array of column names.
+     * @param columnClass An array of column classes.
+     * @param user The user for whom the data is being retrieved.
+     * @author Brendon
      */
     public HomeModel(String[] columnNames, Class<?>[] columnClass, User user) {
         super(columnNames, columnClass);
@@ -36,8 +48,10 @@ public class HomeModel extends HotelModel implements DataModel {
     }
 
     /**
+     * Retrieves home-related data for the user from the database.
      *
-     * @throws RuntimeException
+     * @throws RuntimeException If an error occurs while fetching data from the database.
+     * @author Brendon
      */
     public void getData() throws RuntimeException {
         // Fetch user data from the database

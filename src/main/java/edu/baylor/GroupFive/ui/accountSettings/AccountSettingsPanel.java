@@ -24,7 +24,15 @@ import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
 /**
+ * A panel for displaying and modifying account settings.
+ * This panel allows users to view and edit their account information,
+ * including first name, last name, and username.
+ * It provides functionality to modify the account details and save changes.
  *
+ * Implements PagePanel.
+ *
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
+ * @author Brendon
  */
 public class AccountSettingsPanel extends JPanel implements PagePanel {
     private static final Logger LOGGER = Logger.getLogger(AccountSettingsPanel.class.getName());
@@ -35,9 +43,11 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     private JPanel buttonPanel, textPanel;
 
     /**
+     * Constructs an AccountSettingsPanel object with the specified attributes.
      *
-     * @param page
-     * @param user
+     * @param page Page that houses this account settings panel.
+     * @param user User currently logged in.
+     * @author Brendon
      */
     public AccountSettingsPanel(Page page, User user) {
         super();
@@ -80,8 +90,10 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds a username panel to our account settings panel.
      *
-     * @param textPanel
+     * @param textPanel Username panel.
+     * @author Brendon
      */
     private void addUsernamePanel(JPanel textPanel) {
         JPanel userPanel = new JPanel();
@@ -106,8 +118,10 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds a first name panel to our account settings panel.
      *
-     * @param textPanel
+     * @param textPanel First name panel.
+     * @author Brendon
      */
     private void addFirstNamePanel(JPanel textPanel) {
 
@@ -138,8 +152,10 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds a last name panel to our account settings panel.
      *
-     * @param textPanel
+     * @param textPanel Last name panel.
+     * @author Brendon
      */
     private void addLastNamePanel(JPanel textPanel) {
         JPanel namePanel = new JPanel();
@@ -163,8 +179,11 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds a "Modify Account Info" button to the specified panel.
+     * When clicked, invokes the {@code makeEditable} method.
      *
-     * @param buttonPanel
+     * @param buttonPanel the panel to which the button will be added.
+     * @author Brendon
      */
     private void addModifyButton(JPanel buttonPanel) {
         // Modify the Modify button
@@ -179,7 +198,10 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Makes the text fields editable, sets their properties,
+     * removes the modify button, and adds save and back buttons.
      *
+     * @author Brendon
      */
     private void makeEditable() {
 
@@ -217,8 +239,11 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds a "Back" button to the specified panel.
+     * When clicked, invokes the clear method.
      *
-     * @param panel
+     * @param panel The panel to which the button will be added
+     * @author Brendon
      */
     private void addBackButton(JPanel panel) {
 
@@ -235,8 +260,11 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds a "Save Changes" button to the specified panel.
+     * When clicked, saves the changes made to the user's account information.
      *
-     * @param panel
+     * @param panel The panel to which the button will be added.
+     * @author Brendon
      */
     private void addSaveButton(JPanel panel) {
 
@@ -276,7 +304,10 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Clears the text fields, resets their properties,
+     * removes all buttons, and adds the modify button back.
      *
+     * @author Brendon
      */
     @Override
     public void clear() {

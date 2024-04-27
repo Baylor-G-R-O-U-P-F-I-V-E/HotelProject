@@ -6,14 +6,18 @@ import java.awt.Dimension;
 import javax.swing.*;
 
 /**
+ * A dialog for displaying table data, extending JDialog.
  *
+ * @author Brendon
  */
 public class TableDialog extends JDialog {
 private JTable table;
 
     /**
+     * Constructs a TableDialog with the specified owner table.
      *
-     * @param owner
+     * @param owner The owner table.
+     * @author Brendon
      */
     public TableDialog(JTable owner) {
         super(javax.swing.SwingUtilities.windowForComponent(owner));
@@ -22,7 +26,9 @@ private JTable table;
     }
 
     /**
+     * Creates the GUI components for the dialog.
      *
+     * @author Brendon
      */
     private void createGUI() {
         //Sets up dialog panel
@@ -56,7 +62,9 @@ private JTable table;
     }
 
     /**
+     * Disposes the dialog.
      *
+     * @author Brendon
      */
     @Override
     public void dispose() {

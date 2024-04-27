@@ -13,14 +13,23 @@ import edu.baylor.GroupFive.ui.utils.interfaces.DataModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 
 /**
+ * Model for adding reservations.
  *
+ * Extends {@link edu.baylor.GroupFive.ui.utils.table.HotelModel} and
+ * implements {@link edu.baylor.GroupFive.ui.utils.interfaces.DataModel}.
+ *
+ * @see edu.baylor.GroupFive.ui.utils.table.HotelModel
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.DataModel
+ * @author Brendon
  */
 public class AddReservationModel extends HotelModel implements DataModel {
 
     /**
+     * Constructs an AddReservationModel with the specified column names and classes.
      *
-     * @param columnNames
-     * @param columnClasses
+     * @param columnNames An array of column names.
+     * @param columnClasses An array of column classes.
+     * @author Brendon
      */
     public AddReservationModel(String[] columnNames, Class<?>[] columnClasses) {
         super(columnNames, columnClasses);
@@ -34,8 +43,10 @@ public class AddReservationModel extends HotelModel implements DataModel {
     }
 
     /**
+     * Retrieves room data from the database and populates the table with it.
      *
-     * @throws RuntimeException
+     * @throws RuntimeException If there is an error fetching data from the database.
+     * @author Brendon
      */
      public void getData() throws RuntimeException {
         // Fetch room data from the database
@@ -61,9 +72,11 @@ public class AddReservationModel extends HotelModel implements DataModel {
     }
 
     /**
+     * Filter rooms based on the specified start and end dates.
      *
-     * @param startDate
-     * @param endDate
+     * @param startDate The start date.
+     * @param endDate The end date.
+     * @authors Brendon
      */
     public void filterRoomsByDate(Date startDate, Date endDate) {
         // Fetch room data from the database
@@ -92,7 +105,9 @@ public class AddReservationModel extends HotelModel implements DataModel {
     }
 
     /**
+     * Clears the reservation table.
      *
+     * @author Brendon
      */
     private void clearTable() {
         // Clear the table
@@ -102,11 +117,15 @@ public class AddReservationModel extends HotelModel implements DataModel {
     }
 
     /**
-     *
-     * @param theme
-     * @return
+     * Formats the theme enum into a human-readable string representation.
+     * 
+     * @param theme The theme enum to be formatted.
+     * @return A string representing the formatted theme.
+     * @author Brendon
      */
+    // @Deprecated
     public String formatTheme(Theme theme) {
+        // Cant we just use the enum.toString function? -Icko
         switch (theme) {
             case VintageCharm:
                 return "Vintage Charm";
@@ -120,11 +139,15 @@ public class AddReservationModel extends HotelModel implements DataModel {
     }
 
     /**
+     * Formates the bedtype enum into a human-readable string representation.
      *
-     * @param bedtype
-     * @return
+     * @param bedtype The bedtype enum to be formatted.
+     * @return A string represenging the formatted bedtype.
+     * @author Brendon
      */
+    // @Deprecated
     public String formatBedSize(BedType bedtype) {
+        // Cant we just use the enum.toString function? -Icko
         switch (bedtype) {
             case KING:
                 return "King";
@@ -138,11 +161,5 @@ public class AddReservationModel extends HotelModel implements DataModel {
                 return "Unknown";
         }
     }
-
-    /*
-    public String formatQuality(Quality quality) {
-
-    }
-    */
 
 }

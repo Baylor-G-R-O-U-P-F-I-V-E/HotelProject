@@ -20,7 +20,12 @@ import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 import java.awt.*;
 
 /**
+ * Panel for displaying and managin reservations.
  *
+ * Implements {@link edu.baylor.GroupFive.ui.utils.interfaces.PagePanel}.
+ *
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
+ * @author Brendon
  */
 public class ReservationsPanel extends JPanel implements PagePanel {
     
@@ -41,8 +46,10 @@ public class ReservationsPanel extends JPanel implements PagePanel {
     };
 
     /**
+     * Constructs a ReservationsPanel with the specified page.
      *
-     * @param page
+     * @param page The page associated with this panel
+     * @author Brendon
      */
     public ReservationsPanel(Page page) {
         super();
@@ -85,7 +92,9 @@ public class ReservationsPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds the button panel to this panel.
      *
+     * @author Brendon
      */
     private void addButtonPanel() {
         // Create button panel
@@ -106,10 +115,12 @@ public class ReservationsPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds actions listeners to the buttons.
      *
-     * @param viewReservation
-     * @param viewRoom
-     * @param deleteReservation
+     * @param viewReservation The view reservation button.
+     * @param viewRoom The view room button.
+     * @param deleteReservation The delete reservation button.
+     * @author Brendon
      */
     private void addButtonListeners(JButton viewReservation, JButton viewRoom, JButton deleteReservation) {
         viewReservation.addActionListener(e -> {
@@ -181,7 +192,9 @@ public class ReservationsPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Clears the panel (does nothing).
      *
+     * @author Intellij
      */
     @Override
     public void clear() {

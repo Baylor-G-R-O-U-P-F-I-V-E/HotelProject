@@ -25,23 +25,26 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 /**
+ * Panel for generating bills for hotel guests.
+ * This panel displays a table of current guests and provides a button
+ * to generate a bill for a selected guest.
  *
+ * What does this need to have?
+ * - A table that shows a list of current guests
+ * - A button to generate a bill for a guest
+ *
+ * Implements {@link edu.baylor.GroupFive.ui.utils.interfaces.PagePanel}.
+ *
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
+ * @author Brendon
  */
 public class GenerateBillPanel extends JPanel implements PagePanel {
-
-    /*
-     * What does this need to have?
-     * 
-     * A table that shows a list of current guests
-     * A button to generate a bill for a guest
-     * 
-     */
 
     private JTable table;
     private Page page;
     private JPanel buttonPanel;
 
-    // Define column names
+    /** Define column names */
     private String[] columnNames = {
             "First Name",
             "Last Name",
@@ -50,17 +53,18 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
             "Guest ID",
             "Room Number"};
 
-    // Define data types for the columns
     /**
-     *
+     * Define data types for the columns
      */
     final Class<?>[] columnClass = new Class[] {
             String.class, String.class, String.class, String.class, String.class, String.class
     };
 
     /**
+     * Constructs a GeneratedBillPanel with the specified page.
      *
-     * @param page
+     * @param page The page associated with this panel.
+     * @author Brendon
      */
     public GenerateBillPanel(Page page) {
         super();
@@ -106,8 +110,10 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds a button to generate a bill for the selected guest to the specified panel.
      *
-     * @param panel
+     * @param panel The panel to which the button will be added.
+     * @author Brendon
      */
     public void addGenerateSelectedGuestBillButton(JPanel panel) {
         PanelButton generateButton = new PanelButton("Generate Bill for Selected Guest");
@@ -127,8 +133,10 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Retrieves the guest ID of the selected guest from the table.
      *
-     * @return
+     * @return The guest ID of the selected guest, or {@code null} if no guest is selected.
+     * @author Brendon
      */
     public String getSelectedGuest() {
         // Get the selected row
@@ -145,10 +153,11 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
         return (String) table.getValueAt(row, columnIndex);
     }
 
+    /**
+     * TODO Auto-generated method stub
+     * */
     @Override
-    public void clear() {
-        // TODO Auto-generated method stub
-    }
+    public void clear() {}
 
 }
 

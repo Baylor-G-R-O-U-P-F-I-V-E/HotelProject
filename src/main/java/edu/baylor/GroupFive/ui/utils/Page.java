@@ -21,7 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Represents a Graphical User Interface page with dynamic content switching,
+ * extending {@link edu.baylor.GroupFive.ui.itils.interfaces.InputDelegate}.
  *
+ * @author Brendon
  */
 public class Page extends JFrame implements InputDelegate {
 
@@ -34,8 +37,9 @@ public class Page extends JFrame implements InputDelegate {
     public JPanel currentPanel;
 
     /**
+     * Constructs a Page object with the specified user.
      *
-     * @param user
+     * @param user The user associated with the page.
      */
     public Page(User user) {
         super();
@@ -58,8 +62,10 @@ public class Page extends JFrame implements InputDelegate {
     }
 
     /**
+     * Creates the frame with the specified privilege level.
      *
-     * @param privilege
+     * @param privilege The privilege level of the user.
+     * @author Brendon
      */
     public void createFrame(Privilege privilege) {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -78,8 +84,10 @@ public class Page extends JFrame implements InputDelegate {
     }
 
     /**
+     * Adds the dashboard to the page.
      *
-     * @param page
+     * @param page The page to add the dashboard to.
+     * @author Brendon
      */
     public void addDashboard(Page page) {
     
@@ -96,8 +104,10 @@ public class Page extends JFrame implements InputDelegate {
     }
 
     /**
+     * Switches the page content based on the given option.
      *
-     * @param option
+     * @param option The option indicating the content to switch to.
+     * @author Brendon
      */
     public void onPageSwitch(String option) {
         
@@ -151,39 +161,49 @@ public class Page extends JFrame implements InputDelegate {
     }
 
     /**
+     * Sets the user associated with the page.
      *
-     * @param user
-     */
+     * @param user The user to set.
+     * @author Brendon
+     * */
     public void setUser(User user) {
         this.user = user;
     }
 
     /**
+     * Returns the user associated with the page.
      *
-     * @return
-     */
+     * @return The user associated with the page.
+     * @author Brendon
+     * */
     public User getUser() {
         return user;
     }
 
     /**
+     * Adds information to the page.
      *
-     * @param info
+     * @param info The information to add.
+     * @author Brendon
      */
     public void addInfo(String info) {
         this.info.add(info);
     }
 
     /**
+     * Returns the information stored in the page.
      *
-     * @return
+     * @return The information stored in the page.
+     * @author Brendon
      */
     public List<String> getInfo() {
         return info;
     }
 
     /**
+     * Refreshes the page content.
      *
+     * @author Brendon
      */
     public void refresh() {
         revalidate();

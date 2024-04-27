@@ -11,12 +11,15 @@ import javax.swing.JButton;
 import java.awt.Image;
 
 /**
+ * A button for navigating pages.
  *
+ * @author Brendon
  */
 public class PageButton extends JButton {
     /**
+     * Constructs a PageButton with the specified path.
      *
-     * @param path
+     * @param path The path to the image for the button.
      */
     public PageButton(String path) {
         try {
@@ -33,8 +36,10 @@ public class PageButton extends JButton {
     }
 
     /**
+     * Prints the component using the provided Graphics object.
      *
-     * @param g the <code>Graphics</code> object to protect
+     * @param g The {@code Graphics} object to paint with.
+     * @author Brendon
      */
     @Override
     protected void paintComponent(Graphics g) {

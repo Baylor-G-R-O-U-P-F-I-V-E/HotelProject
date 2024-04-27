@@ -16,7 +16,13 @@ import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
 /**
+ * Panel for creating a new account.
  *
+ * Implements {@link edu.baylor.GroupFive.ui.utils.interfaces.PagePanel}.
+ *
+ * @see edu.baylor.GroupFive.ui.landing.LandingPage
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
+ * @author Brendon
  */
 public class CreateAccountPanel extends JPanel implements PagePanel {
 
@@ -25,8 +31,10 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
     private JTextField firstName, lastName, username, password;
 
     /**
+     * Constructs a CreateAccountPanel with the specified delegate.
      *
-     * @param delegate
+     * @param delegate The landing page delegate.
+     * @author Brendon
      */
     public CreateAccountPanel(LandingPage delegate) {
         super();
@@ -65,8 +73,10 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds the first name panel to the text panel.
      *
-     * @param textPanel
+     * @param textPanel The panel to which the first name panel will be added.
+     * @author Brendon
      */
     public void addFirstNamePanel(JPanel textPanel) {
         JPanel firstNamePanel = new JPanel();
@@ -88,8 +98,10 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds the last name panel to the text panel.
      *
-     * @param textPanel
+     * @param textPanel The panel to which the last name panel will be added.
+     * @author Brendon
      */
     public void addLastNamePanel(JPanel textPanel) {
         JPanel lastNamePanel = new JPanel();
@@ -112,8 +124,10 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds the username panel to the text panel.
      *
-     * @param textPanel
+     * @param textPanel The panel to which the username panel will be added.
+     * @author Brendon
      */
     public void addUsernamePanel(JPanel textPanel) {
         JPanel usernamePanel = new JPanel();
@@ -135,8 +149,10 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds the password panel to the text panel.
      *
-     * @param textPanel
+     * @param textPanel The panel to which the password panel will be added.
+     * @author Brendon
      */
     public void addPasswordPanel(JPanel textPanel) {
         JPanel passwordPanel = new JPanel();
@@ -158,8 +174,10 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds a create account button to the button panel.
      *
-     * @param buttonPanel
+     * @param buttonPanel The panel to which the button will be added.
+     * @author Brendon
      */
     public void addCreateAccountButton(JPanel buttonPanel) {
         JButton createButton = new JButton("Create Account");
@@ -178,8 +196,10 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Adds a back button to the button panel.
      *
-     * @param buttonPanel
+     * @param buttonPanel The panel to which the button will be added.
+     * @author Brendon
      */
     public void addBackButton(JPanel buttonPanel) {
         JButton backButton = new JButton("Back");
@@ -198,16 +218,20 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
     }
 
     /**
+     * Handles the click event for the specific username and password.
      *
-     * @param username
-     * @param password
+     * @param username The username.
+     * @param password The password.
+     * @author Intellij
      */
     public void onClick(String username, String password) {
         // TODO Auto-generated method stub
     }
 
     /**
+     * Clears the panel
      *
+     * @author Intellij
      */
     @Override
     public void clear() {
