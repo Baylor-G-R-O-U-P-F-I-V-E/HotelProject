@@ -72,6 +72,22 @@ public class DbSetup {
                 statement.executeUpdate(sqlCreateTransactionsTable);
             }
 
+            try {
+                // Try to select from the "TRANSACTIONS" table
+                statement.executeQuery("SELECT * FROM PRODUCTS");
+            } catch (SQLException e) {
+                // The "TRANSACTIONS" table does not exist, so create it
+                statement.executeUpdate(sqlCreateProductsTable);
+            }
+
+
+            try {
+                // Try to select from the "TRANSACTIONS" table
+                statement.executeQuery("SELECT * FROM STOCKS");
+            } catch (SQLException e) {
+                // The "TRANSACTIONS" table does not exist, so create it
+                statement.executeUpdate(sqlCreateStocksTable);
+            }
         } catch (SQLException e) {
             logger.info("ERROR");
             logger.info(e.getMessage());
@@ -133,6 +149,8 @@ public class DbSetup {
             statement.executeUpdate(sqlDropRoomTable);
             statement.executeUpdate(sqlDropUserTable);
             statement.executeUpdate(sqlDropTransactionsTable);
+            statement.executeUpdate(sqlDropStockTable);
+            statement.executeUpdate(sqlDropProductTable);
         } catch (SQLException e) {
             logger.warn("SQLException in dbTearDown");
             e.printStackTrace();
@@ -158,6 +176,10 @@ public class DbSetup {
             initializeReservations(ps);
             ps = connection.prepareStatement(BASE_TRANSACTION_INSERT_QUERY);
             initializeTransactions(ps);
+            ps = connection.prepareStatement(BASE_PRODUCT_INSERT_QUERY);
+            initializeProducts(ps);
+            ps = connection.prepareStatement(BASE_STOCK_INSERT_QUERY);
+            initializeStocks(ps);
             
 //             int count = 0;
 //             try{
@@ -201,6 +223,25 @@ public class DbSetup {
                 logger.info(rs.getInt("id") + " " + rs.getString("description") + " " + rs.getDouble("amount"));
             }
 
+            sqlQ = "SELECT * FROM PRODUCTS";
+            rs = statement.executeQuery(sqlQ);
+            logger.info("Current products in database...");
+            while (rs.next()){
+                logger.info(rs.getInt("id") + " " + rs.getString("productName") + " " + rs.getDouble("baseCost"));
+            }
+
+
+
+            sqlQ = "SELECT * FROM STOCKS";
+
+           rs = statement.executeQuery(sqlQ);
+
+
+            logger.info("Current stocks in database...");
+            while (rs.next()){
+                logger.info(rs.getInt("id") + " " + rs.getString("productId") + " " + rs.getDouble("stock"));
+            }
+
         } catch (SQLException e) {
             logger.info("ERROR");
             logger.info(e.getMessage());
@@ -213,6 +254,8 @@ public class DbSetup {
     private static final String user = "";
     private static final String password = "";
     private static final String sqlDropReservationTable = "DROP TABLE RESERVATIONs";
+    private static final String sqlDropProductTable = "DROP TABLE PRODUCTS";
+    private static final String sqlDropStockTable = "DROP TABLE STOCKS";
     private static final String sqlDropRoomTable = "DROP TABLE ROOM";
     private static final String sqlDropUserTable = "DROP TABLE USERs";
     private static final String sqlDropTransactionsTable = "DROP TABLE TRANSACTIONS";
@@ -258,16 +301,34 @@ public class DbSetup {
             "CONSTRAINT PK_TRANS PRIMARY KEY(id)" +
             ")";
 
+    private static final String sqlCreateProductsTable = "CREATE TABLE PRODUCTS(id  INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+    "productName VARCHAR(100), " +
+    "baseCost DECIMAL(5,2)," +
+    "description VARCHAR(200)," +
+    "CONSTRAINT PK_PRODUCTS PRIMARY KEY(id))";
+
+    private static final String sqlCreateStocksTable = "CREATE TABLE STOCKS(id  INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+            "productId INTEGER," +
+            "stock INTEGER," +
+            "CONSTRAINT PK_STOCKS PRIMARY KEY(id),"+
+            "CONSTRAINT FK_STOCKS FOREIGN KEY (productid) REFERENCES products(id)";
+
 
     private static final String BASE_USER_INSERT_QUERY = "INSERT INTO USERS(firstName, lastName, userName, password, privilege) VALUES ( ?, ?, ?, ?, ? )";
     private static final String BASE_ROOM_INSERT_QUERY = "INSERT INTO ROOM(roomNumber, quality, theme, smoking, bedType, numBeds, dailyPrice) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
     private static final String BASE_RESERVATION_INSERT_QUERY = "INSERT INTO RESERVATIONS(startDate, endDate, price, guestUsername, roomNumber, id, active, checkedIn) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
     private static final String BASE_TRANSACTION_INSERT_QUERY = "INSERT INTO TRANSACTIONS(amount, purchaseDate, description, username) VALUES ( ?, ?, ?, ? )";
+    private static final String BASE_PRODUCT_INSERT_QUERY = "INSERT INTO PRODUCTS(productName, baseCost, description) VALUES (?,?,?)";
+    private static final String BASE_STOCK_INSERT_QUERY = "INSERT INTO STOCKS(productId, stock) VALUES (?,?)";
 
     private static final List<Object[]> userInits = new ArrayList<>();
     private static final List<Object[]> roomInits = new ArrayList<>();
     private static final List<Object[]> reservationInits = new ArrayList<>();
     private static final List<Object[]> transactionInits = new ArrayList<>();
+    private static final List<Object[]> productInits = new ArrayList<>();
+    private static final List<Object[]> stockInits = new ArrayList<>();
+
+
 
     /**
      * Initializes our initial values for inserting into database
@@ -314,6 +375,22 @@ public class DbSetup {
         transactionInits.add(new Object[] { 2.79, "10/16/2024", "Soap", "LarryTheLobster" });
         transactionInits.add(new Object[] { 23.68, "06/14/2024", "Shop order", "Axel112" });
         transactionInits.add(new Object[] { 15.00, "06/11/2024", "Shop order", "Axel112" });
+
+        productInits.add(new Object[] {"Choclate Bar", 1.29, "A generic bar of choclate"});
+        productInits.add(new Object[] {"Popcorn", 2.49, "A generic bag of popcorn"});
+        productInits.add(new Object[] {"Hershey's", 2.29, "A Hershey's bar of choclate"});
+        productInits.add(new Object[] {"Birthday Cake", 31.09, "A Cake for a Birthday or a bad day"});
+        productInits.add(new Object[] {"Choclate Ice Cream", 5.29, "A pint of choclate ice cream"});
+        productInits.add(new Object[] {"Vanilla Ice Cream", 5.29, "A pint of Vanilla ie cream"});
+
+        stockInits.add(new Object[] {101, 27});
+        stockInits.add(new Object[] {102, 297});
+        stockInits.add(new Object[] {103, 17});
+        stockInits.add(new Object[] {104, 77});
+        stockInits.add(new Object[] {105, 124});
+        stockInits.add(new Object[] {106, 95});
+
+
     }
 
      /**
@@ -423,6 +500,57 @@ public class DbSetup {
                 if (e instanceof SQLIntegrityConstraintViolationException) {
                     logger.warn("Attempted to insert a duplicate key, skipping this record.");
                 } else {
+                    throw e;
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Initializes Product table in our database
+     *
+     * @param statement PreparedStatement containing sql insert query
+     * @throws SQLException If error occurs during database communication
+     */
+    private static void initializeProducts(PreparedStatement statement) throws SQLException {
+        for (Object[] product : productInits) {
+            statement.setString(1, (String) product[0]);
+            statement.setDouble(2, (Double) product[1]);
+            statement.setString(3, (String) product[2]);
+
+            try {
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                if (e instanceof SQLIntegrityConstraintViolationException) {
+                    logger.warn("Attempted to insert a duplicate key, skipping this record.");
+                } else {
+                    logger.warn(e.getMessage());
+                    throw e;
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Initializes Stock table in our database
+     *
+     * @param statement PreparedStatement containing sql insert query
+     * @throws SQLException If error occurs during database communication
+     */
+    private static void initializeStocks(PreparedStatement statement) throws SQLException {
+        for (Object[] item : stockInits) {
+            statement.setInt(1, (Integer) item[0]);
+            statement.setInt(2, (Integer) item[1]);
+
+            try {
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                if (e instanceof SQLIntegrityConstraintViolationException) {
+                    logger.warn("Attempted to insert a duplicate key, skipping this record.");
+                } else {
+                    logger.warn(e.getMessage());
                     throw e;
                 }
             }
