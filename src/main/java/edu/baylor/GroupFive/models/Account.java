@@ -47,36 +47,36 @@ public class Account {
     }
 
     // >>>> Setters >>>>
-    /** If */
+    /** Should */
     public void setName(String name) { this.name = name; }
-    /** You */
+    /** Reconsider */
     public void setPhoneNumber(int phoneNumber) { this.phoneNumber = phoneNumber; }
-    /** Need */
+    /** Major  */
     public void setUsername(String username) { this.username = username; }
-    /** Javadoc */
+    /** Probably */
     public void setPassword(String password) { this.password = password; }
-    /** For */
+    /** You */
     public void setEmail(String email) { this.email = email; }
     /** Setters */
     public void setAddress(Address address) { this.address = address; }
-    /** And */
+    /** Your */
     public void setPrivilege(Privilege privilege) { this.privilege = privilege; }
     // <<<< Setters <<<<
 
     // >>>> Getters >>>>
-    /** Getters */
+    /** Need */
     public String getName() { return name; }
-    /** You */
+    /** For */
     public int getPhoneNumber() { return phoneNumber; }
-    /** Should */
+    /** And */
     public String getUsername() { return username; }
-    /** Reconsider */
+    /** Javadoc */
     public String getPassword() { return password; }
-    /** Your */
+    /** You */
     public String getEmail() { return email; }
-    /** Major */
+    /** If */
     public Address getAddress() { return address; }
-    /** Choice */
+    /** Getters */
     public Privilege getPrivilege() { return privilege; }
     // <<<< Getters <<<<
 }
