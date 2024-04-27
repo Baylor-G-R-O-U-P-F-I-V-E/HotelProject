@@ -15,10 +15,26 @@ import edu.baylor.GroupFive.util.CoreUtils;
 import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
 import edu.baylor.GroupFive.util.logging.G5Logger;
 
+/**
+ * The TransactionDAO class provides methods for interacting with transaction data
+ * in a database.
+ *
+ * This class implements the BaseDAO abstract class.
+ *
+ * @see edu.baylor.GroupFive.database.daos.BaseDAO
+ * @author Brendon
+ */
 public class TransactionDAO extends BaseDAO<Transaction> {
 
     public TransactionDAO() {}
 
+    /**
+     * Saves a transaction into the database. Either inserts or updates behind
+     * the scenes.
+     *
+     * @param transaction Transaction to save.
+     * @return Number of rows affected by query.
+     */
     public Integer save(Transaction transaction) {
         if (transaction.getId() == 0) {
             return insert(transaction);
@@ -27,6 +43,12 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         }
     }
 
+    /**
+     * Inserts a transaction into the database.
+     * 
+     * @param transaction Transaction to insert.
+     * @return Number of rows affected by query.
+     */
     public Integer insert(Transaction transaction) {
         String sql = "INSERT INTO transactions (username, description, purchaseDate, amount) VALUES (?, ?, ?, ?)";
         
@@ -43,6 +65,12 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         }
     }
 
+    /**
+     * Updates an existing transaction in the database.
+     *
+     * @param transaction Transaction with updated information.
+     * @return Number of rows affected by query.
+     */
     public Integer update(Transaction transaction) {
         String sql = "UPDATE transactions SET username = ?, description = ?, purchaseDate = ?, amount = ? WHERE id = ?";
         
@@ -60,6 +88,12 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         }
     }
 
+    /**
+     * Deletes a transaction in our database.
+     *
+     * @param transaction Transaction to delete.
+     * @return Number of rows affected by query.
+     */
     public Integer delete(Transaction transaction) {
         String sql = "DELETE FROM transactions WHERE id = ?";
         
@@ -73,6 +107,12 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         }
     }
 
+    /**
+     * Retrieves a transaction from our database given an id.
+     *
+     * @param id Transaction id.
+     * @return Transaction if found. {@code null} otherwise.
+     * */
     public Transaction get(int id) {
         String sql = "SELECT * FROM transactions WHERE id = ?";
         
@@ -96,6 +136,11 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         }
     }
 
+    /**
+     * Retreives all transactions in our database.
+     *
+     * @return A List of transactions.
+     */
     public List<Transaction> getAll() {
         String sql = "SELECT * FROM transactions";
         List<Transaction> transactions = null;
@@ -118,6 +163,12 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         return transactions;
     }
 
+    /**
+     * Retrieves all transactions tied to a given User.
+     *
+     * @param username username of User.
+     * @return A List of transactions tied to User.
+     */
     public List<Transaction> getByUsername(String username) {
         String sql = "SELECT * FROM transactions WHERE username = ?";
         List<Transaction> transactions = null;
@@ -140,6 +191,13 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         return transactions;
     }
 
+    /**
+     * Helper function to parse Transaction data from a ResultSet.
+     *
+     * @param result ResultSet object returned by query.
+     * @return Transaction object.
+     * @throws SQLException If error occurs during ResultSet parsing.
+     */
     protected Transaction parseResultSet(ResultSet result) throws SQLException {
         return new Transaction(
             result.getString("username"),

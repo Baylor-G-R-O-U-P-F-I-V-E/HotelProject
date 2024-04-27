@@ -8,10 +8,20 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
+/**
+ * A table for displaying hotel data, extending JTable.
+ *
+ * @author Brendon
+ */
 public class HotelTable extends JTable {
 
     private final TableRowSorter<DefaultTableModel> sorter;
 
+    /**
+     * Constructs a HotelTable with the specified table model.
+     *
+     * @param model The table model.
+     */
     public HotelTable(DefaultTableModel model) {
         super(model);
 
@@ -33,6 +43,11 @@ public class HotelTable extends JTable {
 
     }
 
+    /**
+     * Gets the table sorter.
+     *
+     * @return The table sorter.
+     */
     public TableRowSorter<DefaultTableModel> getSorter() {
         return sorter;
     }

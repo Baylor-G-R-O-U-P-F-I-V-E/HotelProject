@@ -8,32 +8,47 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
+/**
+ * Basic functions and constants useful across our project
+ *
+ * @author Icko
+ */
 public class CoreUtils {
-    
+
+    /**
+     * No need to instantiate this class.
+     */
     private CoreUtils() {}
 
     public static final String DATE_FORMAT = "MM/dd/yyyy";
 
      /**
-      * Converts a `java.sql.Date` into a `java.util.Date`.
+      * Converts a {@code java.sql.Date} into a {@code java.util.Date}.
       *
-      * @author Icko
-      * @return Returns a `java.sql.Date` object
+      * @param date {@code java.sql.Date} object to convert.
+      * @return Converted {@code date} object.
       * */
     public static java.util.Date getUtilDate(java.sql.Date date) {
         return new java.util.Date(date.getTime());
     }
 
      /**
-      * Converts a `java.util.Date` into a `java.sql.Date`.
+      * Converts a {@code java.util.Date} into a {@code java.sql.Date}.
       *
-      * @author Icko
-      * @return Returns a `java.util.Date` object
+      * @param date {@code java.util.Date} object to convert.
+      * @return Converted {@code date} object.
       * */
     public static java.sql.Date getSqlDate(java.util.Date date) {
         return new java.sql.Date(date.getTime());
     }
 
+    /**
+     * Takes in a Throwable object and returns the entire stack trace
+     * as a single String.
+     *
+     * @param ex Throwable to parse stack trace from.
+     * @return String representation of {@code ex}'s stack trace.
+     */
     public static String stackTraceToString(Throwable ex) {
         StringBuilder builder = new StringBuilder();
         builder.append("\n" + ex.getMessage() + "\n");
@@ -44,11 +59,10 @@ public class CoreUtils {
     }
 
      /**
-      * Takes in a clear-test password and hashes it.
+      * Takes in a clear-text password and hashes it.
       *
-      * @author Icko
-      * @author ChatGPT
-      * @return Returns the hash of a password
+      * @param password Password to hash.
+      * @return Returns a SHA-256 hash of {@code password}.
       * */
     public static String hashPassword(String password) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -71,11 +85,24 @@ public class CoreUtils {
         return stringBuilder.toString();
     }
 
+    /**
+     * Returns a String representation of a {@code java.util.Date} object.
+     *
+     * @param myDate Date object to convert.
+     * @return String representation of {@code myDate}.
+     */
     public static String formatDate(java.util.Date myDate) {
         DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         return dateFormat.format(myDate.getTime());
     }
 
+    /**
+     * Get a {@code java.sql.Date} object from a String.
+     *
+     * @param dateStr String to convert.
+     * @return Date object initialized from {@code dateStr}.
+     * @throws ParseException If error occurs during date parsing.
+     */
     public static java.sql.Date getSqlDate(String dateStr) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         java.util.Date date = sdf.parse(dateStr);

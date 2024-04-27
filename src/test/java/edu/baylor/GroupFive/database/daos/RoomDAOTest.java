@@ -7,13 +7,24 @@ import edu.baylor.GroupFive.models.enums.BedType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests methods of {@link edu.baylor.GroupFive.database.daos.RoomDAO}.
+ *
+ * @author Cole
+ */
 public class RoomDAOTest {
 
+    /**
+     * Initialize our database.
+     */
     @BeforeEach
     void init(){
         DbSetup db = new DbSetup();
     }
 
+    /**
+     * Tests {@link RoomDAO#save(Room)}.
+     */
     @Test
     void addARoom(){
         DbSetup db = new DbSetup();
@@ -23,6 +34,9 @@ public class RoomDAOTest {
         assert(added.equals(1));
     }
 
+    /**
+     * Tests {@link RoomDAO#get(int)}.
+     */
     @Test
     void addAndGetRoom(){
         DbSetup db = new DbSetup();
@@ -34,6 +48,9 @@ public class RoomDAOTest {
         assert(pulledRoom.equals(newRoom));
     }
 
+    /**
+     * Tests {@link RoomDAO#get(int)} on existing room.
+     */
     @Test
     void getSetupRoom(){
         DbSetup db = new DbSetup();
@@ -42,6 +59,9 @@ public class RoomDAOTest {
         assert(pulledRoom != null);
     }
 
+    /**
+     * Tests {@link RoomDAO#get(int)} on non-existing room.
+     */
     @Test
     void getNonexistingRoom(){
         DbSetup db = new DbSetup();
@@ -51,6 +71,9 @@ public class RoomDAOTest {
     }
 
 
+    /**
+     * Tests {@link RoomDAO#update(Room)}.
+     */
     @Test
     void modifyRoom(){
         DbSetup db = new DbSetup();

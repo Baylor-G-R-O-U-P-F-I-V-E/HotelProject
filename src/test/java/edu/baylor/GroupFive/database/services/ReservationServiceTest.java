@@ -4,6 +4,7 @@ import edu.baylor.GroupFive.database.DbSetup;
 import edu.baylor.GroupFive.models.Reservation;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,16 +14,29 @@ import java.util.Locale;
 
 import java.sql.SQLException;
 
+/**
+ * Tests methods for {@link edu.baylor.GroupFive.database.services.ReservationServices}
+ *
+ * @author Cole
+ */
 public class ReservationServiceTest {
 
     ReservationServices conn;
 
-    //this doesnt actually work right for some reason
+
+    /**
+     * This doesnt actually work right for some reason. Maybe an issue
+     * with pom, junit version inconsistencies, etc. -Icko
+     */
     @BeforeEach
     void init(){
         DbSetup db = new DbSetup();
     }
 
+    /**
+     * Tests {@link ReservationServices#checkIfAvailable(int, Date, Date)}
+     * with a room and date that should be available.
+     */
     @Test
     public void checkAvailable1(){
         DbSetup db = new DbSetup();
@@ -43,9 +57,10 @@ public class ReservationServiceTest {
         assert(isAvailable == true);
     }
 
-
-
-
+    /**
+     * Tests {@link ReservationServices#checkIfAvailable(int, Date, Date)}
+     * with a room and date that should not be available.
+     */
     @Test
     public void checkAvailable2(){
         DbSetup db = new DbSetup();
@@ -67,6 +82,13 @@ public class ReservationServiceTest {
         }
         //assert(!isAvailable);
     }
+
+    /**
+     * Tests {@link ReservationServices#get(int, Date)}, retrieving a
+     * Reservation in our database.
+     *
+     * @throws SQLException If error occurs during database communication.
+     */
     @Test
     public void selectExisting() throws SQLException{
         DbSetup db = new DbSetup();
@@ -80,6 +102,12 @@ public class ReservationServiceTest {
         assert(myRes != null);
     }
 
+    /**
+     * Tests {@link ReservationServices#get(int, Date)}, retrieving a
+     * Reservation not in our database.
+     *
+     * @throws SQLException If error occurs during database communication.
+     */
     @Test
     public void selectNonExisting() throws SQLException{
         DbSetup db = new DbSetup();
@@ -94,7 +122,11 @@ public class ReservationServiceTest {
     }
 
 
-    //@Test
+    /**
+     * Tests {@link ReservationServices#insert(Reservation)}.
+     */
+    @Test
+    @Disabled
     public void addReservation(){
         DbSetup db = new DbSetup();
         ReservationServices conn = new ReservationServices();
@@ -118,6 +150,11 @@ public class ReservationServiceTest {
 
     }
 
+    /**
+     * Tests {@link ReservationServices#delete(Reservation)}.
+     *
+     * @throws SQLException If error occurs during database communication.
+     */
     @Test
     public void cancelReservation() throws SQLException{
         DbSetup db = new DbSetup();
@@ -139,6 +176,10 @@ public class ReservationServiceTest {
         assert(r == null);
 
     }
+
+    /**
+     * Tests {@link ReservationServices#getAll()}.
+     */
     @Test
     public void getAllReservations(){
         DbSetup db = new DbSetup();

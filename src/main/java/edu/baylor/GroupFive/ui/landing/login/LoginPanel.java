@@ -17,6 +17,14 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Color;
 
+/**
+ * Panel for handling user login.
+ *
+ * Implements {@link edu.baylor.GroupFive.ui.utils.interfaces.PagePanel}.
+ *
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
+ * @author Brendon
+ */
 public class LoginPanel extends JPanel implements PagePanel {
 
     private Dimension fieldSize = new Dimension(200, 50);
@@ -27,6 +35,11 @@ public class LoginPanel extends JPanel implements PagePanel {
     public String username;
     public String passwordHash;
 
+    /**
+     * Constructs a LoginPanel with the specified delegate.
+     *
+     * @param delegate The landing page.
+     */
     public LoginPanel(LandingPage delegate) {
         super();
         this.delegate = delegate;
@@ -58,6 +71,11 @@ public class LoginPanel extends JPanel implements PagePanel {
         setSize(400, 400);
     }
 
+    /**
+     * Adds the name panel to the text panel.
+     *
+     * @param textPanel The panel to which the name panel is added.
+     */
     public void addNamePanel(JPanel textPanel) {
         // Create a new panel for the name
         JPanel namePanel = new JPanel();
@@ -79,6 +97,11 @@ public class LoginPanel extends JPanel implements PagePanel {
         textPanel.add(namePanel, gbc);
     }
 
+    /**
+     * Adds the password panel to the text panel
+     *
+     * @param textPanel The panel to which the password panel is added.
+     */
     public void addPasswordPanel(JPanel textPanel) {
         // Create a panel for the room number
         JPanel passwordPanel = new JPanel();
@@ -102,6 +125,11 @@ public class LoginPanel extends JPanel implements PagePanel {
         textPanel.add(passwordPanel, gbc);
     }
 
+    /**
+     * Adds the login button to the button panel.
+     *
+     * @param buttonPanel The panel to which the login button is added.
+     */
     public void addLoginButton(JPanel buttonPanel) {
         JButton loginButton = new JButton("Login");
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -118,6 +146,11 @@ public class LoginPanel extends JPanel implements PagePanel {
         buttonPanel.add(loginButton);
     }
 
+    /**
+     * Adds the back button to the button panel.
+     *
+     * @param buttonPanel The panel to which the back button is added.
+     */
     public void addBackButton(JPanel buttonPanel) {
         JButton backButton = new JButton("Back");
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -136,20 +169,39 @@ public class LoginPanel extends JPanel implements PagePanel {
         buttonPanel.add(backButton);
     }
 
+    /**
+     * Sets the username and password and switches to the success page.
+     *
+     * @param username The username.
+     * @param password The password.
+     */
     public void onClick(String username, String password) {
         delegate.setUsername(username);
 
         delegate.onPageSwitch("success");
     }
 
+    /**
+     * Gets the username.
+     *
+     * @return The username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Gets the password hash.
+     *
+     * @return The password hash.
+     */
     public String getPassword() {
         return passwordHash;
     }
 
+    /**
+     * Clears the text fields.
+     */
     @Override
     public void clear() {
         // Clears textfields

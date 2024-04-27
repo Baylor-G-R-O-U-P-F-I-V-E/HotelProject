@@ -15,8 +15,16 @@ import java.util.Locale;
 import java.sql.SQLException;
 
 
+/**
+ * This class tests our database setup and initialization.
+ *
+ * @author Icko
+ */
 public class TestDbSetup {
 
+    /**
+     * Tests our database is created successfully.
+     */
     @Test
     public void testDbSetup() {
         DbSetup db = new DbSetup();

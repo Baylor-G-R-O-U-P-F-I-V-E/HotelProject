@@ -6,8 +6,19 @@ import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
 import javax.swing.*;
 
+/**
+ * A dashboard panel for navigation.
+ *
+ * @author Brendon
+ */
 public class Dashboard extends JPanel {
 
+    /**
+     * Constructs a Dashboard with the specified input delegate and privilege level.
+     *
+     * @param page The input delegate.
+     * @param privilige The privilege level
+     */
     public Dashboard(InputDelegate page, Privilege privilige) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

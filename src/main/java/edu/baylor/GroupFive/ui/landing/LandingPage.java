@@ -18,12 +18,23 @@ import edu.baylor.GroupFive.ui.landing.login.LoginPanel;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
+/**
+ * Landing page of the application, responsible for user interaction and navigation.
+ *
+ * This class implements {@link edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate}.
+ *
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate
+ * @author Brendon
+ */
 public class LandingPage extends JFrame implements InputDelegate {
 
     private JPanel background;
     private JPanel surface;
     private String username;
 
+    /**
+     * Constructs a LandingPage
+     */
     public LandingPage() {
         super();
 
@@ -40,6 +51,9 @@ public class LandingPage extends JFrame implements InputDelegate {
         add(surface);
     }
 
+    /**
+     * Creates the frame and initializes the components.
+     */
     public void createFrame() {
         try {
             // Load the background image
@@ -69,6 +83,11 @@ public class LandingPage extends JFrame implements InputDelegate {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * Handles navigation to different pages based on the specified option.
+     *
+     * @param option The option indicating the page to switch to.
+     */
     public void onPageSwitch(String option) {
         
         // Switch to the login page
@@ -118,6 +137,11 @@ public class LandingPage extends JFrame implements InputDelegate {
         }
     }
 
+    /**
+     * Sets the username.
+     *
+     * @param username The username.
+     */
     public void setUsername(String username) {
         this.username = username;
     }

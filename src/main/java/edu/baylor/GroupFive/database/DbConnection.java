@@ -24,6 +24,8 @@ import java.sql.PreparedStatement;
   * DbConnection establishes a connection to our database. This object has
   * a private constructor, meaning this class is not meant to be instantiated.
   * This class only contains static methods related to database connectivity
+  *
+  * @author Icko
   * */
 public class DbConnection {
     private static final Logger logger = LogManager.getLogger(DbConnection.class.getName());
@@ -31,13 +33,19 @@ public class DbConnection {
 
     private DbConnection() {}
 
+
      /**
+      * Establishes a Connection with a database and returns it.
+      *
       * [1]: DriverManager.getConnection should not be returning null.
       *      If it returns null, there is something wrong with how we
       *      are trying to establish the connection (i hope)
       * [2]: Normal behavior for DriverManager.getConnection failure
       *      is to throw a SQLException
-      * */
+      *
+      * @return Connection to a database
+      * @throws BadConnectionException If no connection can be established
+      */
     public static Connection getConnection() throws BadConnectionException {
         Connection connection = null;
         try {
@@ -50,6 +58,11 @@ public class DbConnection {
         return connection;
     }
 
+     /**
+      * Closes a PreparedStatement.
+      *
+      * @param statement PreparedStatement to close
+      */
     public static void closeStatement(PreparedStatement statement){
         if (statement != null) {
             try {
@@ -61,6 +74,11 @@ public class DbConnection {
 
     }
 
+     /**
+      * Closes a Statement.
+      *
+      * @param statement Statement to close
+      */
     public static void closeStatement(Statement statement){
         if (statement != null) {
             try {
@@ -72,6 +90,11 @@ public class DbConnection {
 
     }
 
+     /**
+      * Closes a Connection.
+      *
+      * @param connection Connection to close
+      */
     public static void closeConnection(Connection connection){
         if (connection != null) {
             try {

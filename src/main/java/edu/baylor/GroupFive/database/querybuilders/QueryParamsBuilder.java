@@ -1,5 +1,10 @@
 package edu.baylor.GroupFive.database.querybuilders;
 
+/**
+ * Planned class for building queries with an arbitrary amount of search conditions.
+ *
+ * @author Icko
+ */
 public abstract class QueryParamsBuilder {
     /**
      * Base string for our SQL query
@@ -9,12 +14,29 @@ public abstract class QueryParamsBuilder {
      * */
     protected String baseQuery;
 
+    /**
+     * Append a key value pair to a StringBuilder object
+     *
+     * @param builder StringBuilder used to make query
+     * @param key Query argument
+     * @param value Value to match
+     */
     protected void append (StringBuilder builder, String key, Object value) {
     }
 
+    /**
+     * Constructor for our QueryParamsBuilder object.
+     *
+     * @param limit_ Max number of results to return
+     */
     public QueryParamsBuilder(Integer limit_) {
     }
 
+    /**
+     * Builds our query.
+     *
+     * @return String output of an SQL query
+     */
     public String build() {
         return null;
     }

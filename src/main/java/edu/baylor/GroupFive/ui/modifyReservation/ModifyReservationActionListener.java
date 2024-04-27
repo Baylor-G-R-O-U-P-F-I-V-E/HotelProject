@@ -16,6 +16,11 @@ import edu.baylor.GroupFive.ui.utils.DatePanel;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
+/**
+ * ActionListener implementation for modifying a reservation.
+ *
+ * @author Brendon
+ */
 public class ModifyReservationActionListener implements ActionListener {
     private InputDelegate page;
     private JTextField roomField, priceField;
@@ -33,9 +38,9 @@ public class ModifyReservationActionListener implements ActionListener {
         """;
 
      /**
-      * makeBadInputDialog
+      * Makes the bad man appear.
       *
-      * Attempts to create a JDialog panel containing our error message
+      * @param msg Message to display
       * */
     private void makeBadInputDialog(String msg) {
         try {
@@ -45,6 +50,17 @@ public class ModifyReservationActionListener implements ActionListener {
         }
     }
 
+    /**
+     * Constructs a ModifyReservationActionListener with the specified parameters.
+     *
+     * @param loginPage     The input delegate for handling user interactions.
+     * @param originalRoom  The original room number of the reservation.
+     * @param originalStart The original start date of the reservation.
+     * @param roomField     The text field for entering the room number.
+     * @param priceField    The text field for entering the price.
+     * @param startDate     The date panel for selecting the start date.
+     * @param endDate       The date panel for selecting the end date.
+     */
     public ModifyReservationActionListener(Page loginPage, String originalRoom, Date originalStart, JTextField roomField, JTextField priceField, DatePanel startDate, DatePanel endDate) {
         this.page = loginPage;
         this.roomField = roomField;
@@ -56,9 +72,9 @@ public class ModifyReservationActionListener implements ActionListener {
     }
 
      /**
-      * ModifyReservationActionListener::actionPerformed
-      *
       * Error checks values within cells and attempts to change reservation
+      *
+      * @param e the action event to be processed
       * */
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -42,6 +42,7 @@ import org.apache.logging.log4j.core.layout.PatternLayout;
  *    and when a developer requires their use, he should enable that marker's tracelog.
  *    - enabled tracelogs should never make it into a dev-branch commit.
  *
+ * @author Chase
  */
 public class G5Logger {
     public static final Logger logger = LogManager.getLogger(G5Logger.class);
@@ -52,12 +53,26 @@ public class G5Logger {
         MarkerManager.getMarker("RESERVATIONS"),
         MarkerManager.getMarker("DATABASE")
     };
+
+    /**
+     * Checks if our passed arguments are equal to {@code -debug}. If yes,
+     * {@code Level.DEBUG} is returned, otherwise {@code Level.INFO} is returned.
+     *
+     * @param args List of logger config arguments.
+     * @return Returns a logger Level.
+     */
     private static Level getReleaseLogLevel(String[] args){
         if(!(args.length == 0) && args[0].toLowerCase().equals("-debug"))
             return Level.DEBUG;
         else
             return Level.INFO;
     }
+
+    /**
+     * Initializes our projects logger class.
+     *
+     * @param args List of logging arguments grabbed from CLAs.
+     */
     public static void initLogging(String[] args){
         minLogLevel = getReleaseLogLevel(args);
 
@@ -114,18 +129,33 @@ public class G5Logger {
     private static final String rotLogPrefix = "%d{yyyy-MM-dd}_%i";
 
     /**
-     * Filter Utilities
+     * Filter Utilities. Gets a ThresholdFilter acting with a certain Level.
+     *
+     * @param level Logging level.
+     * @return Returns a filter with the passed {@code level}
      */
     private static Filter getLevelFilter(Level level){
         return ThresholdFilter.createFilter(level, Filter.Result.ACCEPT, Filter.Result.DENY);
     }
+
+    /**
+     * Filter Utilities. Gets a MarkerFilter acting on a certain marker.
+     *
+     * @param marker Marker for filter.
+     * @return MarkerFilter initialized with {@code marker}
+     */
     private static Filter getMarkerFilter(String marker){
         return MarkerFilter.createFilter(marker, Filter.Result.ACCEPT, Filter.Result.DENY);
     }
 
     /**
      * FilteredLog generators.
-     * markername = rollingName
+     * {@code markername} = {@code rollingName}
+     *
+     * @param logger A LoggerConfig
+     * @param fileName The log file name.
+     * @param markerName The Marker name.
+     * @param level The logging Level.
      */
     private static void createFilteredLog(LoggerConfig logger, String fileName, String markerName, Level level){
         Filter multiFilter = CompositeFilter.createFilters(new Filter[] {
@@ -136,9 +166,28 @@ public class G5Logger {
     }
 
     /**
-     * RollingLog generators
+     * RollingLog generators.
+     *
+     * Create a rolling log given the specified attributes.
+     *
+     * @param logger Logger config.
+     * @param fileName Log file name.
+     * @param rollingName Rolling log file name.
+     * @return Returns an Appender object with the generated rolling log.
      */
     private static Appender createRollingLog(LoggerConfig logger, String fileName, String rollingName){return createRollingLog(logger, fileName, rollingName, null);}
+
+    /**
+     * Other RollingLog generator.
+     *
+     * Create a rolling log given the specified attributes.
+     *
+     * @param logger Logger config.
+     * @param fileName Log file name. 
+     * @param rollingName Rolling log file name.
+     * @param filter Filter level for the rolling log.
+     * @return Returns an Appender objected with the generated rolling log.
+     */
     private static Appender createRollingLog(LoggerConfig logger, String fileName, String rollingName, Filter filter){
         Appender appender = RollingFileAppender.newBuilder()
             .setLayout(textLayout)

@@ -23,6 +23,17 @@ import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
+/**
+ * A panel for displaying and modifying account settings.
+ * This panel allows users to view and edit their account information,
+ * including first name, last name, and username.
+ * It provides functionality to modify the account details and save changes.
+ *
+ * Implements PagePanel.
+ *
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
+ * @author Brendon
+ */
 public class AccountSettingsPanel extends JPanel implements PagePanel {
     private static final Logger LOGGER = Logger.getLogger(AccountSettingsPanel.class.getName());
 
@@ -31,6 +42,12 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
     private JTextField firstNameField, lastNameField, usernameField;
     private JPanel buttonPanel, textPanel;
 
+    /**
+     * Constructs an AccountSettingsPanel object with the specified attributes.
+     *
+     * @param page Page that houses this account settings panel.
+     * @param user User currently logged in.
+     */
     public AccountSettingsPanel(Page page, User user) {
         super();
         this.page = page;
@@ -71,6 +88,11 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
 
     }
 
+    /**
+     * Adds a username panel to our account settings panel.
+     *
+     * @param textPanel Username panel.
+     */
     private void addUsernamePanel(JPanel textPanel) {
         JPanel userPanel = new JPanel();
         userPanel.setOpaque(true);
@@ -93,6 +115,11 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         textPanel.add(userPanel);
     }
 
+    /**
+     * Adds a first name panel to our account settings panel.
+     *
+     * @param textPanel First name panel.
+     */
     private void addFirstNamePanel(JPanel textPanel) {
 
         // Create a panel for the first name
@@ -121,6 +148,11 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         textPanel.add(namePanel);
     }
 
+    /**
+     * Adds a last name panel to our account settings panel.
+     *
+     * @param textPanel Last name panel.
+     */
     private void addLastNamePanel(JPanel textPanel) {
         JPanel namePanel = new JPanel();
         namePanel.setOpaque(true);
@@ -142,6 +174,12 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         textPanel.add(namePanel);
     }
 
+    /**
+     * Adds a "Modify Account Info" button to the specified panel.
+     * When clicked, invokes the {@code makeEditable} method.
+     *
+     * @param buttonPanel the panel to which the button will be added.
+     */
     private void addModifyButton(JPanel buttonPanel) {
         // Modify the Modify button
         PanelButton ModifyButton = new PanelButton("Modify Account Info", 300, 50);
@@ -154,6 +192,10 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         buttonPanel.add(ModifyButton);
     }
 
+    /**
+     * Makes the text fields editable, sets their properties,
+     * removes the modify button, and adds save and back buttons.
+     */
     private void makeEditable() {
 
         // Set textfields to editable
@@ -189,6 +231,12 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         buttonPanel.repaint();
     }
 
+    /**
+     * Adds a "Back" button to the specified panel.
+     * When clicked, invokes the clear method.
+     *
+     * @param panel The panel to which the button will be added
+     */
     private void addBackButton(JPanel panel) {
 
         // Create and style the back button
@@ -203,6 +251,12 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         panel.add(backButton);
     }
 
+    /**
+     * Adds a "Save Changes" button to the specified panel.
+     * When clicked, saves the changes made to the user's account information.
+     *
+     * @param panel The panel to which the button will be added.
+     */
     private void addSaveButton(JPanel panel) {
 
         // Create and style the save button
@@ -240,6 +294,10 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         panel.add(saveButton);
     }
 
+    /**
+     * Clears the text fields, resets their properties,
+     * removes all buttons, and adds the modify button back.
+     */
     @Override
     public void clear() {
 

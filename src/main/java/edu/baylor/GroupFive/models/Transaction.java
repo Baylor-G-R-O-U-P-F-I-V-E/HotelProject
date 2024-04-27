@@ -2,17 +2,31 @@ package edu.baylor.GroupFive.models;
 
 import java.util.Date;
 
+/**
+ * The Transaction class represents a transaction
+ *
+ * @author Afraz
+ * @author Icko
+ * */
 public class Transaction {
     private long id;
     private float amount;
     private Date purchaseDate;
     private String description, username;
 
+    /**
+     * Constructs a Transaction class with the specified attributes.
+     *
+     * @param username Username of the User conducting this transaction.
+     * @param description Description of the transaction.
+     * @param purchaseDate Date this transaction occurred.
+     * @param amount Dollar amount of this transaction.
+     * */
     public Transaction(String username, String description, Date purchaseDate, float amount) {
-        this.amount = amount;
-        this.purchaseDate = purchaseDate;
-        this.description = description;
-        this.username = username;
+        this.setAmount(amount);
+        this.setPurchaseDate(purchaseDate);
+        this.setDescription(description);
+        this.setUsername(username);
     }
 
     // Getters
