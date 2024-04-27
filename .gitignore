@@ -1,32 +1,43 @@
-target/
+# MacOS
+.DS_Store
+
+# Poms
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
 pom.xml.next
-release.properties
 dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-.mvn/wrapper/maven-wrapper.jar
-lib/derby.jar
-/FinalProject/
-derby.log
-.project
 
-logs/
-
-.classpath
-.classpath.classpath
-.project
-.settings/
-
+# Generated files and binaries
+target/
 *.out
 .dat
 .ctrl
 .lck
-.DS_Store
+
+# IDE Bloat
 .idea/
 .vscode
-/FinalProject
-/FinalProject*
+
+# Configs
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+release.properties
+.classpath
+.classpath.classpath
+.project
+.settings/
 .factorypath
+
+# Database
+lib/derby.jar
+FinalProject/
+FinalProject*/
+
+# Javadoc
+doc/
+
+# Log files
+derby.log
+logs/
