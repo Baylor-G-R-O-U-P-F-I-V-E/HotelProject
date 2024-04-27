@@ -51,7 +51,7 @@ public class RoomServices {
      */
     public static Boolean modifyRoom(Room updatedInfo){
         RoomDAO conn = new RoomDAO();
-        return conn.update(updatedInfo) == 1 ? true : false;
+        return conn.save(updatedInfo) == 1 ? true : false;
     }
 
     /**
@@ -62,7 +62,13 @@ public class RoomServices {
      */
     public static Boolean addRoom(Room newRoom){
         RoomDAO conn = new RoomDAO();
-        return conn.insert(newRoom) == 1 ? true : false;
+        return conn.save(newRoom) == 1 ? true : false;
+    }
+
+    public static Boolean deleteRoom(Integer roomNum){
+        RoomDAO conn = new RoomDAO();
+        Room room = conn.get(roomNum);
+        return conn.delete(room) == 1 ? true : false;
     }
 
     /**

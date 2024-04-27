@@ -37,8 +37,6 @@ public class DbSetup {
 
         logger.info("Running");
 
-        dbTearDown();
-
         try (Connection connection = DriverManager.getConnection(url, user, password);
                 Statement statement = connection.createStatement()) {
 
@@ -84,10 +82,7 @@ public class DbSetup {
 
     }
 
-    /**
-     * Tears down our database.
-     */
-    private static void dbTearDown() {
+    public static void dbTearDown() {
         try (Connection connection = DriverManager.getConnection(url, user, password);
                 Statement statement = connection.createStatement()) {
             
@@ -231,7 +226,7 @@ public class DbSetup {
 
     private static final String sqlCreateRoomTable = "CREATE TABLE ROOM(" +
             "roomNumber INTEGER NOT NULL , " +
-            "quality INTEGER," +
+            "quality VARCHAR(15)," +
             "theme VARCHAR(50)," +
             "smoking Boolean," +
             "bedType VARCHAR(10)," +
@@ -289,15 +284,15 @@ public class DbSetup {
         userInits.add(new Object[] { "Everett", "Anderson",     "andyEv",           "1234",     "guest" });
         userInits.add(new Object[] { "Icko",    "Iben",         "ickoxii",          "sicem",    "guest" });
 
-        roomInits.add(new Object[] { 101, 1, "VintageCharm",    true,     "KING",     2,    98.22 });
-        roomInits.add(new Object[] { 102, 1, "NatureRetreat",   false,    "KING",     2,    97.22 });
-        roomInits.add(new Object[] { 103, 1, "UrbanElegance",   true,     "SINGLE",   2,    77.22 });
-        roomInits.add(new Object[] { 104, 1, "UrbanElegance",   true,     "SINGLE",   2,    89.22 });
-        roomInits.add(new Object[] { 105, 1, "VintageCharm",    false,    "QUEEN",    2,    99.22 });
-        roomInits.add(new Object[] { 106, 1, "NatureRetreat",   true,     "SINGLE",   2,    101.22 });
-        roomInits.add(new Object[] { 107, 1, "NatureRetreat",   false,    "DOUBLE",   2,    94.22 });
-        roomInits.add(new Object[] { 108, 1, "NatureRetreat",   false,    "QUEEN",    2,    92.22 });
-        roomInits.add(new Object[] { 109, 1, "VintageCharm",    true,     "KING",     2,    98.22 });
+        roomInits.add(new Object[] { 101, "economy", "VintageCharm",    true,     "KING",     2,    98.22 });
+        roomInits.add(new Object[] { 102, "comfort", "NatureRetreat",   false,    "KING",     2,    97.22 });
+        roomInits.add(new Object[] { 103, "business", "UrbanElegance",   true,     "SINGLE",   2,    77.22 });
+        roomInits.add(new Object[] { 104, "executive", "UrbanElegance",   true,     "SINGLE",   2,    89.22 });
+        roomInits.add(new Object[] { 105, "comfort", "VintageCharm",    false,    "QUEEN",    2,    99.22 });
+        roomInits.add(new Object[] { 106, "economy", "NatureRetreat",   true,     "SINGLE",   2,    101.22 });
+        roomInits.add(new Object[] { 107, "economy", "NatureRetreat",   false,    "DOUBLE",   2,    94.22 });
+        roomInits.add(new Object[] { 108, "comfort", "NatureRetreat",   false,    "QUEEN",    2,    92.22 });
+        roomInits.add(new Object[] { 109, "executive", "VintageCharm",    true,     "KING",     2,    98.22 });
 
         reservationInits.add(new Object[] { "12/17/2024",   "12/19/2024",   97.99,  "Axel112",            102, 1, true,     false });
         reservationInits.add(new Object[] { "07/12/2024",   "07/22/2024",   95.99,  "LarryTheLobster",    103, 2, true,     false });
@@ -355,7 +350,7 @@ public class DbSetup {
     private static void initializeRooms(PreparedStatement statement) throws SQLException {
         for (Object[] room : roomInits) {
             statement.setInt(1, (int) room[0]);
-            statement.setInt(2, (int) room[1]);
+            statement.setString(2, (String) room[1]);
             statement.setString(3, (String) room[2]);
             statement.setBoolean(4, (boolean) room[3]);
             statement.setString(5, (String) room[4]);
