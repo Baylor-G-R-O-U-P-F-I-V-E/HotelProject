@@ -85,6 +85,17 @@
 
     <build>
         <plugins>
+            <!-- Javadoc plugin for generating javadocs -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <configuration>
+                    <show>private</show>
+                    <nohelp>false</nohelp>
+                </configuration>
+            </plugin>
+
             <!-- surefire plugin to allow tests to be executed during the maven build -->
             <!-- https://www.digitalocean.com/community/tutorials/junit-setup-maven -->
             <plugin>
@@ -131,5 +142,20 @@
             </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <!-- Javadoc plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <configuration>
+                <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
+                <show>public</show>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>
