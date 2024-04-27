@@ -12,6 +12,10 @@ Created by:
 
 1. [`HotelProjectException`](./EXCEPTIONS_README.md)
 
+## JavaDoc
+
+Open [doc/index.html](./doc/index.html)
+
 ## Contents
 
 1. [Cloning This Repository Locally](./Installation.md)
