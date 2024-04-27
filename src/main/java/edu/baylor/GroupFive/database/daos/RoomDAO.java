@@ -185,6 +185,7 @@ public class RoomDAO extends BaseDAO<Room>{
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
             
             // FIXME should not actually delete? -Icko
+            // At this point if it doesnt break the proj lets just keep it - Cole
             String sqlDelete = "DELETE FROM room WHERE roomNumber = " + room.getRoomNumber();
             statement.execute(sqlDelete);
 
