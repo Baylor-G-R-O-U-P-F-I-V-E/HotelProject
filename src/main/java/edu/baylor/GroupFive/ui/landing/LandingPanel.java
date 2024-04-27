@@ -11,10 +11,23 @@ import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import java.awt.Insets;
 
+/**
+ * Landing panel displayed on the landing page, providing options for user interactivity.
+ *
+ * Implements {@link edu.baylor.GroupFive.ui.utils.interfaces.PagePanel}.
+ *
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
+ * @author Brendon
+ */
 public class LandingPanel extends JPanel implements PagePanel {
     private GridBagConstraints gbc;
     private InputDelegate delegate;
-    
+
+    /**
+     * Constructs a LandingPanel with the specified delegate.
+     *
+     * @param delegate The input delegate for handling user interactions
+     */
     public LandingPanel(InputDelegate delegate) {
         super();
         this.delegate = delegate;
@@ -33,6 +46,9 @@ public class LandingPanel extends JPanel implements PagePanel {
         addCreateAccountButton();
     }
 
+    /**
+     * Adds the login button to the landing panel.
+     */
     private void addLoginButton() {
         
         // Set the constraints for the login button
@@ -47,7 +63,10 @@ public class LandingPanel extends JPanel implements PagePanel {
         add(new LoginButton(delegate, "src/main/resources/button-icons/login-button-icon.png"), gbc);
     }
 
-    //Write method to create create account button
+
+    /**
+     * Adds the create account button to the landing panel.
+     */
     private void addCreateAccountButton() {
         // Set the constraints for the create account button
         gbc.gridx = 1;
@@ -61,6 +80,9 @@ public class LandingPanel extends JPanel implements PagePanel {
         add(new CreateAccountButton(delegate, "src/main/resources/button-icons/create-acct-button-icon.png"), gbc);
     }
 
+    /**
+     * Clears the landing panel.
+     */
     @Override
     public void clear() {
         //Nothing to clear

@@ -5,13 +5,28 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
+/**
+ * A dialog for displaying table data, extending JDialog.
+ *
+ * @author Brendon
+ */
 public class TableDialog extends JDialog {
 private JTable table;
+
+    /**
+     * Constructs a TableDialog with the specified owner table.
+     *
+     * @param owner The owner table.
+     */
     public TableDialog(JTable owner) {
         super(javax.swing.SwingUtilities.windowForComponent(owner));
         table = owner;
         createGUI();
     }
+
+    /**
+     * Creates the GUI components for the dialog.
+     */
     private void createGUI() {
         //Sets up dialog panel
         setPreferredSize(new Dimension(600, 400));
@@ -42,6 +57,10 @@ private JTable table;
         pack();
         setLocationRelativeTo(getParent());
     }
+
+    /**
+     * Disposes the dialog.
+     */
     @Override
     public void dispose() {
         super.dispose();

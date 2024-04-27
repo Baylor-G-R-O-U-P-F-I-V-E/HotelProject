@@ -7,8 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.sql.DriverManager;
-import java.sql.Connection;
+import java.sql.DriverManager; import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -18,12 +17,22 @@ import java.util.ArrayList;
 
 import java.text.ParseException;
 
+/**
+ * Initializes our database with given values.
+ *
+ * @author Brendon
+ * @author Cole
+ * @author Icko
+ */
 public class DbSetup {
 
     private static final Logger logger = LogManager.getLogger(DbSetup.class.getName());
 
     // ALL QUERIES MOVED TO BOTTOM OF CLASS - brendon
 
+    /**
+     * Tears down our database, creates all tables, then inserts initial values
+     */
     public DbSetup() {
 
         logger.info("Running");
@@ -130,6 +139,9 @@ public class DbSetup {
         }
     }
 
+    /**
+     * Inserts our initial values into our database.
+     */
     private static void dbInit() {
 
         try (Connection connection = DriverManager.getConnection(url, user, password); Statement statement = connection.createStatement()) {
@@ -257,6 +269,9 @@ public class DbSetup {
     private static final List<Object[]> reservationInits = new ArrayList<>();
     private static final List<Object[]> transactionInits = new ArrayList<>();
 
+    /**
+     * Initializes our initial values for inserting into database
+     */
     static {
         userInits.add(new Object[] { "Joe",     "Smith",        "Bongo",            "p1234",    "admin" });
         userInits.add(new Object[] { "Kevin",   "James",        "KevDog",           "1234",     "clerk" });
@@ -302,9 +317,10 @@ public class DbSetup {
     }
 
      /**
-      * Initializes Users table in our database
+      * Initializes Users table in our database.
       *
-      * @author Icko
+      * @param statement PreparedStatement containing sql insert query
+      * @throws SQLException If error occurs during database communication
       * */
     private static void initializeUsers(PreparedStatement statement) throws SQLException {
         for (Object[] user : userInits) {
@@ -326,9 +342,10 @@ public class DbSetup {
     }
 
      /**
-      * Initializes Rooms table in our database
+      * Initializes Rooms table in our database.
       *
-      * @author Icko
+      * @param statement PreparedStatement containing sql insert query
+      * @throws SQLException If error occurs during database communication
       * */
     private static void initializeRooms(PreparedStatement statement) throws SQLException {
         for (Object[] room : roomInits) {
@@ -354,7 +371,8 @@ public class DbSetup {
      /**
       * Initializes Reservations table in our database
       *
-      * @author Icko
+      * @param statement PreparedStatement containing sql insert query
+      * @throws SQLException If error occurs during database communication
       * */
     private static void initializeReservations(PreparedStatement statement) throws SQLException {
         for (Object[] reservation : reservationInits) {
@@ -383,6 +401,12 @@ public class DbSetup {
         }
     }
 
+     /**
+      * Initializes Transaction table in our database
+      *
+      * @param statement PreparedStatement containing sql insert query
+      * @throws SQLException If error occurs during database communication
+      */
     private static void initializeTransactions(PreparedStatement statement) throws SQLException {
         for (Object[] transaction : transactionInits) {
             statement.setDouble(1, (double) transaction[0]);

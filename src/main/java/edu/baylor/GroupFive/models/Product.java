@@ -1,18 +1,31 @@
 package edu.baylor.GroupFive.models;
 
+/**
+ * The Product class represents a physical item in our inventory.
+ *
+ * @author Afraz
+ * @author Icko
+ * */
 public class Product {
     private int productID;
-    private Inventory inventory;
+    private Inventory inventory; // TODO why does a product have an inventory?? -Icko
     private ProductDescription description;
 
+    /**
+     * Constructs a Product with the specified attributes.
+     *
+     * @param productID Unique id of the product
+     * @param inventory For some damn reason
+     * @param description Description of this product
+     * */
     public Product(
-            int productID_,
-            Inventory inventory_,
-            ProductDescription description_
+            int productID,
+            Inventory inventory,
+            ProductDescription description
             ) {
-        productID = productID_;
-        inventory = inventory_;
-        description = description_;
+        this.setProductID(productID);
+        this.setInventory(inventory);
+        this.setDescription(description);
     }
 
     // >>>> Getters >>>>

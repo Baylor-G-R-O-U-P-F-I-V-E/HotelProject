@@ -21,6 +21,16 @@ import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 import edu.baylor.GroupFive.ui.reservations.ReservationModel;
 
+/**
+ * Panel for displaying the home screen.
+ *
+ * This panel includes a title label and list of reservations for the user.
+ *
+ * Implements {@link edu.baylor.GroupFive.ui.utils.interfaces.PagePanel}.
+ *
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
+ * @author Brendon
+ */
 public class HomePanel extends JPanel implements PagePanel {
 
     /*
@@ -46,6 +56,12 @@ public class HomePanel extends JPanel implements PagePanel {
         String.class, String.class, String.class, String.class, String.class
     };
 
+    /**
+     * Constructs a HomePanel with the specified page and user.
+     *
+     * @param page_ the page containing this panel.
+     * @param user_ the user for whom the panel is displayed.
+     */
     public HomePanel(Page page_, User user_) {
         super();
 
@@ -97,6 +113,11 @@ public class HomePanel extends JPanel implements PagePanel {
         add(Box.createVerticalGlue());
     }
 
+    /**
+     * Adds a "Shop" button to the specified button panel.
+     *
+     * @param buttonPanel The panel to which the button will be added.
+     */
     public void addShopButton(JPanel buttonPanel) {
         
         // Add a button to the panel
@@ -107,6 +128,11 @@ public class HomePanel extends JPanel implements PagePanel {
         buttonPanel.add(shopButton);
     }
 
+    /**
+     * Adds a "Find Rooms button to the specified button panel.
+     *
+     * @param buttonPanel The panel to which the button will be added.
+     */
     public void addFindRoomsButton(JPanel buttonPanel) {
         
         // Add a button to the panel
@@ -117,11 +143,19 @@ public class HomePanel extends JPanel implements PagePanel {
         buttonPanel.add(findRoomsButton);
     }
 
+    /**
+     * Filters the table for reservations that include the users username
+     *
+     * @param table
+     */
     public void filterTable(JTable table) {
-        // Filter the table for reservations that include the users username
+        // TODO Filter the table for reservations that include the users username
 
     }
 
+    /**
+     * Clears the panel.
+     */
     @Override
     public void clear() {
         // TODO Auto-generated method stub

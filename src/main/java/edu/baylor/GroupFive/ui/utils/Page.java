@@ -21,6 +21,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a Graphical User Interface page with dynamic content switching,
+ * extending {@link edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate}.
+ *
+ * @author Brendon
+ */
 public class Page extends JFrame implements InputDelegate {
 
     private Dashboard dashboard;
@@ -30,7 +36,12 @@ public class Page extends JFrame implements InputDelegate {
     private Privilege privilege;
     
     public JPanel currentPanel;
-    
+
+    /**
+     * Constructs a Page object with the specified user.
+     *
+     * @param user The user associated with the page.
+     */
     public Page(User user) {
         super();
 
@@ -51,6 +62,11 @@ public class Page extends JFrame implements InputDelegate {
         add(currentPanel, BorderLayout.CENTER);
     }
 
+    /**
+     * Creates the frame with the specified privilege level.
+     *
+     * @param privilege The privilege level of the user.
+     */
     public void createFrame(Privilege privilege) {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -67,6 +83,11 @@ public class Page extends JFrame implements InputDelegate {
         }
     }
 
+    /**
+     * Adds the dashboard to the page.
+     *
+     * @param page The page to add the dashboard to.
+     */
     public void addDashboard(Page page) {
     
         // Create a scroll pane for the dashboard
@@ -81,6 +102,11 @@ public class Page extends JFrame implements InputDelegate {
         add(pane, BorderLayout.WEST);
     }
 
+    /**
+     * Switches the page content based on the given option.
+     *
+     * @param option The option indicating the content to switch to.
+     */
     public void onPageSwitch(String option) {
         
         if (currentPanel != null) {
@@ -134,22 +160,45 @@ public class Page extends JFrame implements InputDelegate {
         refresh();
     }
 
+    /**
+     * Sets the user associated with the page.
+     *
+     * @param user The user to set.
+     * */
     public void setUser(User user) {
         this.user = user;
     }
 
+    /**
+     * Returns the user associated with the page.
+     *
+     * @return The user associated with the page.
+     * */
     public User getUser() {
         return user;
     }
 
+    /**
+     * Adds information to the page.
+     *
+     * @param info The information to add.
+     */
     public void addInfo(String info) {
         this.info.add(info);
     }
 
+    /**
+     * Returns the information stored in the page.
+     *
+     * @return The information stored in the page.
+     */
     public List<String> getInfo() {
         return info;
     }
 
+    /**
+     * Refreshes the page content.
+     */
     public void refresh() {
         revalidate();
         repaint();

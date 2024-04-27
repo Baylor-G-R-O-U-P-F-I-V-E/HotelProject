@@ -15,12 +15,26 @@ import javax.swing.JTextField;
 import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
+/**
+ * Panel for creating a new account.
+ *
+ * Implements {@link edu.baylor.GroupFive.ui.utils.interfaces.PagePanel}.
+ *
+ * @see edu.baylor.GroupFive.ui.landing.LandingPage
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
+ * @author Brendon
+ */
 public class CreateAccountPanel extends JPanel implements PagePanel {
 
     private LandingPage delegate;
     private Dimension fieldSize = new Dimension(200, 50);
     private JTextField firstName, lastName, username, password;
 
+    /**
+     * Constructs a CreateAccountPanel with the specified delegate.
+     *
+     * @param delegate The landing page delegate.
+     */
     public CreateAccountPanel(LandingPage delegate) {
         super();
         this.delegate = delegate;
@@ -57,6 +71,11 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
 
     }
 
+    /**
+     * Adds the first name panel to the text panel.
+     *
+     * @param textPanel The panel to which the first name panel will be added.
+     */
     public void addFirstNamePanel(JPanel textPanel) {
         JPanel firstNamePanel = new JPanel();
         firstNamePanel.setOpaque(true);
@@ -76,6 +95,11 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         textPanel.add(firstNamePanel);
     }
 
+    /**
+     * Adds the last name panel to the text panel.
+     *
+     * @param textPanel The panel to which the last name panel will be added.
+     */
     public void addLastNamePanel(JPanel textPanel) {
         JPanel lastNamePanel = new JPanel();
         lastNamePanel.setOpaque(true);
@@ -96,6 +120,11 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         textPanel.add(lastNamePanel);
     }
 
+    /**
+     * Adds the username panel to the text panel.
+     *
+     * @param textPanel The panel to which the username panel will be added.
+     */
     public void addUsernamePanel(JPanel textPanel) {
         JPanel usernamePanel = new JPanel();
         usernamePanel.setOpaque(true);
@@ -115,6 +144,11 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         textPanel.add(usernamePanel);
     }
 
+    /**
+     * Adds the password panel to the text panel.
+     *
+     * @param textPanel The panel to which the password panel will be added.
+     */
     public void addPasswordPanel(JPanel textPanel) {
         JPanel passwordPanel = new JPanel();
         passwordPanel.setOpaque(true);
@@ -134,6 +168,11 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         textPanel.add(passwordPanel);
     }
 
+    /**
+     * Adds a create account button to the button panel.
+     *
+     * @param buttonPanel The panel to which the button will be added.
+     */
     public void addCreateAccountButton(JPanel buttonPanel) {
         JButton createButton = new JButton("Create Account");
         createButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -150,6 +189,11 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         buttonPanel.add(createButton);
     }
 
+    /**
+     * Adds a back button to the button panel.
+     *
+     * @param buttonPanel The panel to which the button will be added.
+     */
     public void addBackButton(JPanel buttonPanel) {
         JButton backButton = new JButton("Back");
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -166,10 +210,19 @@ public class CreateAccountPanel extends JPanel implements PagePanel {
         buttonPanel.add(backButton);
     }
 
+    /**
+     * Handles the click event for the specific username and password.
+     *
+     * @param username The username.
+     * @param password The password.
+     */
     public void onClick(String username, String password) {
         // TODO Auto-generated method stub
     }
 
+    /**
+     * Clears the panel
+     */
     @Override
     public void clear() {
         // TODO Auto-generated method stub

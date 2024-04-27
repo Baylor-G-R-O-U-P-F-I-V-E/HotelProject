@@ -9,7 +9,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests methods in {@link edu.baylor.GroupFive.database.daos.UserDAO}.
+ *
+ * @author Cole
+ */
 public class UserDAOTest {
+    /**
+     * Initializes our database.
+     */
     @BeforeEach
     void init() {
         DbSetup setup = new DbSetup();
@@ -17,6 +25,9 @@ public class UserDAOTest {
     }
 
 
+    /**
+     * Tests {@link UserDAO#save(User)}.
+     */
     @Test
     void addAUser() {
         UserDAO conn = new UserDAO();
@@ -25,6 +36,9 @@ public class UserDAOTest {
         assert(conn.save(newUser) == 1);
     }
 
+    /**
+     * Tests {@link UserDAO#getByUsername(String)}.
+     */
     @Test
     void addThenGetUser(){
         UserDAO conn = new UserDAO();
@@ -34,6 +48,9 @@ public class UserDAOTest {
         assertEquals(cole,newUser);
     }
 
+    /**
+     * Tests {@link UserDAO#getByUsername(String)} on existing user.
+     */
     @Test
     void findExistingUserFromSetup(){
         UserDAO conn = new UserDAO();
@@ -41,6 +58,9 @@ public class UserDAOTest {
         assert(cole != null);
     }
 
+    /**
+     * Tests {@link UserDAO#getByUsername(String)} on non-existing user.
+     */
     @Test
     void findNonExistingUser(){
         UserDAO conn = new UserDAO();
@@ -49,6 +69,9 @@ public class UserDAOTest {
     }
 
 
+    /**
+     * Tests {@link UserDAO#update(User)}.
+     */
     @Test
     void modifyUser(){
         User newUser = new User("ColeS", "Flenniken", "colef888", "cole123", "Clerk");

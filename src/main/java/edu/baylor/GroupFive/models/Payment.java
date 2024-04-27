@@ -2,6 +2,12 @@ package edu.baylor.GroupFive.models;
 
 import java.util.Date;
 
+/**
+ * The Payment class represents a payment action.
+ *
+ * @author Afraz
+ * @author Icko
+ * */
 public class Payment {
 
     private Date date;
@@ -9,15 +15,23 @@ public class Payment {
     private float amount;
     private StayBill bill;
 
-    public Payment(Date date_,
-                   long id_,
-                   float amount_,
-                   StayBill bill_
+    /**
+     * Constructs a Payment object with the specified attributes.
+     *
+     * @param date Date this transaction occurred.
+     * @param id Unique id for this transaction.
+     * @param amount Dollar amount of this transaction.
+     * @param bill StayBill object associated with this payment.
+     * */
+    public Payment(Date date,
+                   long id,
+                   float amount,
+                   StayBill bill
                    ){
-        this.date = date_;
-        this.id = id_;
-        this.amount = amount_;
-        this.bill = bill_;
+        this.setDate(date);
+        this.setId(id);
+        this.setAmount(amount);
+        this.setBill(bill);
     }
 
     // >>>> Getters >>>>

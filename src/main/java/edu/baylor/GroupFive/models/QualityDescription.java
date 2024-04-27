@@ -1,12 +1,24 @@
 package edu.baylor.GroupFive.models;
 
+/**
+ * The QualityDescription class maps each quality with a price per day.
+ *
+ * @author Afraz
+ * @author Icko
+ * */
 public class QualityDescription {
-    private String description;
+    private String description; // TODO What is this for. Should this be the enum? -Icko
     private double pricePerDay;
 
-    public QualityDescription(String description_, double pricePerDay_) {
-        description = description_;
-        pricePerDay = pricePerDay_;
+    /**
+     * Constructs a QualityDescription object with the specified attributes.
+     *
+     * @param description Description of the quality level.
+     * @param pricePerDay Price per day for this quality level.
+     * */
+    public QualityDescription(String description, double pricePerDay) {
+        this.setDescription(description);
+        this.setPricePerDay(pricePerDay);
     }
 
     // >>>> Getters >>>>

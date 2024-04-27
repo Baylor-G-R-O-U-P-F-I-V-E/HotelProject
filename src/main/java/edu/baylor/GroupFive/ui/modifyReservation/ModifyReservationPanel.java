@@ -21,6 +21,14 @@ import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
+/**
+ * Panel for modifying a reservation.
+ *
+ * Implements {@link edu.baylor.GroupFive.ui.utils.interfaces.PagePanel}.
+ *
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
+ * @author Brendon
+ */
 public class ModifyReservationPanel extends JPanel implements PagePanel {
 
     private Page delegate;
@@ -31,6 +39,13 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
     private Date originalStartDate;
     private Reservation reservation;
 
+    /**
+     * Constructs a ModifyReservationPanel with the specified parameters.
+     *
+     * @param delegate      The page delegate for handling user interactions.
+     * @param originalRoom  The original room number of the reservation.
+     * @param originalStart The original start date of the reservation.
+     */
     public ModifyReservationPanel(Page delegate, String originalRoom, String originalStart) {
         super();
         this.delegate = delegate;
@@ -84,6 +99,11 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
 
     }
 
+    /**
+     * Adds a panel for entering the room number to the specified panel.
+     *
+     * @param textPanel The panel to which the room number panel will be added.
+     */
     public void addRoomPanel(JPanel textPanel) {
         JPanel roomPanel = new JPanel();
         roomPanel.setOpaque(true);
@@ -105,6 +125,11 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         textPanel.add(roomPanel);
     }
 
+    /**
+     * Adds a panel for entering the price to the specified panel.
+     *
+     * @param textPanel The panel to which the price panel will be added.
+     */
     public void addPricePanel(JPanel textPanel) {
         JPanel pricePanel = new JPanel();
         pricePanel.setOpaque(true);
@@ -127,6 +152,11 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         textPanel.add(pricePanel);
     }
 
+    /**
+     * Adds a button for modifying the reservation to the specified panel.
+     *
+     * @param buttonPanel The panel to which the modify reservation button will be added.
+     */
     public void addModifyReservationButton(JPanel buttonPanel) {
         PanelButton modifyButton = new PanelButton("Confirm");
 
@@ -136,6 +166,11 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         buttonPanel.add(modifyButton);
     }
 
+    /**
+     * Adds a back button to the specified panel.
+     *
+     * @param buttonPanel The panel to which the back button will be added.
+     */
     public void addBackButton(JPanel buttonPanel) {
         PanelButton backButton = new PanelButton("Back");
 
@@ -145,6 +180,9 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         buttonPanel.add(backButton);
     }
 
+    /**
+     * Clears the input fields.
+     */
     @Override
     public void clear() {
         roomID.setText("");

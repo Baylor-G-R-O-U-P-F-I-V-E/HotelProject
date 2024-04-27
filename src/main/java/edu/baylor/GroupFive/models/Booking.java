@@ -2,6 +2,12 @@ package edu.baylor.GroupFive.models;
 
 import java.util.Date;
 
+/**
+ * The Booking class represents a reservation.
+ *
+ * @author Afraz
+ * @author Icko
+ * */
 public class Booking {
 
     private Date startDate;
@@ -12,19 +18,29 @@ public class Booking {
     private Account holder;
     private long id;
 
-    public Booking(Date startDate_,
-                   Date endDate_,
-                   boolean active_,
-                   boolean canceled_,
-                   Account holder_,
-                   long id_ ){
-        startDate = startDate_;
-        endDate = endDate_;
-        bill = new StayBill();
-        active = true;
-        canceled = false;
-        holder = holder_;
-        id = id_;
+    /**
+     * Constructs a Booking object with the specified attributes.
+     *
+     * @param startDate Reservations start date.
+     * @param endDate Reservations end date.
+     * @param active Whether this reservation is still active.
+     * @param canceled Flag is this reservation is canceled or not.
+     * @param holder Account tied to this reservation
+     * @param id Database id, if exists
+     * */
+    public Booking(Date startDate,
+                   Date endDate,
+                   boolean active,
+                   boolean canceled,
+                   Account holder,
+                   long id ){
+        this.setStartDate(startDate);
+        this.setEndDate(endDate);
+        this.setBill(new StayBill());
+        this.setActive(active);
+        this.setCanceled(canceled);
+        this.setHolder(holder);
+        this.setId(id);
     }
 
     // >>>> Getters >>>>

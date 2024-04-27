@@ -8,10 +8,23 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The UserDAO class provides methods for interacting with User data in a database.
+ *
+ * This class implements the BaseDAO abstract class.
+ * 
+ * @see edu.baylor.GroupFive.database.daos.BaseDAO
+ * @author Brendon
+ */
 public class UserDAO extends BaseDAO<User> {
 
     public UserDAO() {}
 
+    /**
+     * Retrieves all Users in the database.
+     *
+     * @return A List of users.
+     */
     public List<User> getAll() {
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -34,6 +47,12 @@ public class UserDAO extends BaseDAO<User> {
 
     }
 
+    /**
+     * Retrieves a User from the database matching a given username.
+     *
+     * @param username username to match
+     * @return User object if found. {@code null} otherwise.
+     */
     public User getByUsername(String username) {
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -69,13 +88,13 @@ public class UserDAO extends BaseDAO<User> {
 
     }
 
-    /*
-     * 
-     * 
+    /**
+     * Retrieves a User from the database matching a given id.
      * USE THIS AT SOME POINT PLEASE PRETTY PLEASE WITH A CHERRY ON TOP
-     * 
+     *
+     * @param id Id to match.
+     * @return User object if found. {@code null} otherwise.
      */
-
     public User get(int id) {
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -98,6 +117,12 @@ public class UserDAO extends BaseDAO<User> {
 
     }
 
+    /**
+     * Saves a User in the database. Either inserts or updates behind the scenes.
+     *
+     * @param user User to save.
+     * @return Number of lines affected by query.
+     */
     public Integer save(User user){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -116,6 +141,12 @@ public class UserDAO extends BaseDAO<User> {
         }
     }
 
+    /**
+     * Inserts a User into the database.
+     *
+     * @param user User to insert.
+     * @return Number of lines affected by query.
+     */
     public Integer insert(User user){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -133,6 +164,12 @@ public class UserDAO extends BaseDAO<User> {
 
     }
 
+    /**
+     * Updates an existing User in the database.
+     *
+     * @param user User object with changes.
+     * @return Number of lines affected by query.
+     */
     public Integer update(User user){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -149,6 +186,12 @@ public class UserDAO extends BaseDAO<User> {
 
     }
 
+    /**
+     * Deletes a User from our database.
+     *
+     * @param user User to delete.
+     * @return Number of lines affected by query.
+     */
     public Integer delete(User user){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
@@ -166,4 +209,3 @@ public class UserDAO extends BaseDAO<User> {
     }
 
 }
-

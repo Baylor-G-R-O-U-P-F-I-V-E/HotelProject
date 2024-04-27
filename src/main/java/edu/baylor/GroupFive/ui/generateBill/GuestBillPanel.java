@@ -17,16 +17,22 @@ import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 
+/**
+ * Panel for displaying a bill for a specific guest.
+ * This panel lists the items purchased by the guest,
+ * the total amount for the bill, and provides a button to print the bill.
+ *
+ * What does this need to have?
+ * - A list of the items purchased by the guest
+ * - A total amount for the bill
+ * - A button to print the bill
+ *
+ * Implements {@link edu.baylor.GroupFive.ui.utils.interfaces.PagePanel}.
+ *
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
+ * @author Brendon
+ */
 public class GuestBillPanel extends JPanel implements PagePanel {
-
-    /*
-     * What does this need to have?
-     * 
-     * A list of the items purchased by the guest
-     * A total amount for the bill
-     * A button to print the bill
-     * 
-     */
 
     private JTable table;
     private JPanel buttonPanel;
@@ -44,6 +50,12 @@ public class GuestBillPanel extends JPanel implements PagePanel {
             String.class, String.class, String.class
     };
 
+    /**
+     * Constructs a GuestBillPanel with the specified page and username.
+     *
+     * @param page The page associated with this panel.
+     * @param username The username of the guest.
+     */
     public GuestBillPanel(Page page, String username) {
         super();
 
@@ -85,6 +97,9 @@ public class GuestBillPanel extends JPanel implements PagePanel {
         add(buttonPanel);
     }
 
+    /**
+     * Adds a back button to the panel.
+     */
     public void addBackButton() {
         // Add back button
         PanelButton backButton = new PanelButton("Back");
@@ -98,9 +113,10 @@ public class GuestBillPanel extends JPanel implements PagePanel {
         buttonPanel.add(backButton);
     }
 
+    /**
+     * TODO Auto-generated method stub
+     */
     @Override
-    public void clear() {
-        // TODO Auto-generated method stub
-    }
+    public void clear() {}
 
 }

@@ -20,6 +20,13 @@ import javax.swing.table.TableRowSorter;
 
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
+/**
+ * A panel for creating form filters.
+ *
+ * Implements {@link edu.baylor.GroupFive.ui.utils.interfaces.PagePanel}.
+ *
+ * @author Brendon
+ */
 public class FormPane extends JPanel implements PagePanel {
 
     private Map<String, JTextField> textFields = new HashMap<>();
@@ -28,6 +35,13 @@ public class FormPane extends JPanel implements PagePanel {
     private TableRowSorter<DefaultTableModel> sorter;
     private int row = 1;
 
+    /**
+     * Constructs a FormPane with the specified attributes.
+     *
+     * @param table The table.
+     * @param sorter The table row sorter.
+     * @param labels The labels for form fields.
+     */
     public FormPane(JTable table, TableRowSorter<DefaultTableModel> sorter, String[] labels) {
         super();
         this.table = table;
@@ -63,6 +77,9 @@ public class FormPane extends JPanel implements PagePanel {
         addDocumentListeners();
     }
 
+    /**
+     * Applies filters based on the input values.
+     */
     private void applyFilters() {
         // If current expression doesn't parse, don't update.
         if (table == null)
@@ -91,6 +108,12 @@ public class FormPane extends JPanel implements PagePanel {
         }
     }
 
+    /**
+     * Adds a label to the form.
+     *
+     * @param text The text of the label.
+     * @param row The row position.
+     */
     private void addFormLabel(String text, int row) {
         
         // Add label to the form
@@ -102,6 +125,12 @@ public class FormPane extends JPanel implements PagePanel {
         add(label, gbc);
     }
 
+    /**
+     * Adds a text field to the form.
+     *
+     * @param textfield The text field to add.
+     * @param row The row position.
+     */
     private void addFormTextfield(JTextField textfield, int row) {
         
         // Add text field to the form
@@ -111,6 +140,9 @@ public class FormPane extends JPanel implements PagePanel {
         add(textfield, gbc);
     }
 
+    /**
+     * Adds document listeners to all text fields.
+     */
     private void addDocumentListeners() {
 
         // Add document listeners to all text fields
@@ -134,6 +166,9 @@ public class FormPane extends JPanel implements PagePanel {
         });
     }
 
+    /**
+     * Clears all text fields.
+     */
     @Override
     public void clear() {
         // Clear all text fields
