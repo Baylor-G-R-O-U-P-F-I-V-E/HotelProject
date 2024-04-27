@@ -6,6 +6,7 @@ package edu.baylor.GroupFive.models;
  * @author Cole
  * */
 public class Stock {
+    private Integer stockID;
     private Integer productID;
 
     private Integer stock;
@@ -16,9 +17,10 @@ public class Stock {
      * @param productID Unique id of the product
      * @param stock Number of item in stock
      * */
-    public Stock(Integer productID, Integer stock) {
-        this.productID = productID;
-        this.stock = stock;
+    public Stock(Integer stockID, Integer productID, Integer stock) {
+        setProductID(productID);
+        setStock(stock);
+        setStockID(stockID);
     }
     public Integer getProductID() {
         return productID;
@@ -37,4 +39,11 @@ public class Stock {
     }
 
 
+    public Integer getStockID() {
+        return stockID;
+    }
+
+    public void setStockID(Integer stockID) {
+        this.stockID = stockID;
+    }
 }

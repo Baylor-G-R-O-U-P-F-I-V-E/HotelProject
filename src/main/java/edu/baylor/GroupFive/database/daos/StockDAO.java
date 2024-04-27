@@ -2,11 +2,7 @@ package edu.baylor.GroupFive.database.daos;
 
 import edu.baylor.GroupFive.database.DbConnection;
 import edu.baylor.GroupFive.models.Product;
-import edu.baylor.GroupFive.models.ProductDescription;
-import edu.baylor.GroupFive.models.Room;
-import edu.baylor.GroupFive.models.enums.BedType;
-import edu.baylor.GroupFive.models.enums.Quality;
-import edu.baylor.GroupFive.models.enums.Theme;
+import edu.baylor.GroupFive.models.Stock;
 import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
 import edu.baylor.GroupFive.util.logging.G5Logger;
 
@@ -17,37 +13,28 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * The ProductDAO class provides methods for interacting with Product data in our database.
- *
- * This class implements the {@code BaseDAO} abstract class.
- *
- * @see edu.baylor.GroupFive.database.daos.BaseDAO
- * @author Cole
- */
-public class ProductsDAO extends BaseDAO<Product> {
-    public ProductsDAO(){}
+public class StockDAO extends BaseDAO<Stock>{
+    public StockDAO(){}
 
 
     /**
-     * Retrieves a product with associated id from our database.
+     * Retrieves a stock entry in our database.
      *
-     * @param id The id of the product in our database
+     * @param id The id of the Stock entry in our database
      *
-     * @return the product with associated id in the databse.
+     * @return the stock entry with the associated id.
      */
     @Override
-    public Product get(int id) throws SQLException {
+    public Stock get(int id) throws SQLException {
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
-            String sqlQuery = "SELECT * FROM PRODUCTS WHERE id = " + String.valueOf(id);
+            String sqlQuery = "SELECT * FROM STOCKS WHERE id = " + String.valueOf(id);
             ResultSet rs = statement.executeQuery(sqlQuery);
 
             while (rs.next()) {
-                Product out = new  Product(rs.getInt("id"),
-                        rs.getDouble("baseCost"),
-                        rs.getString("description")
+                Stock out = new  Stock(rs.getInt("id"),
+                        rs.getInt("productID"),
+                        rs.getInt("stock")
                 );
                 return out;
             }
@@ -61,21 +48,21 @@ public class ProductsDAO extends BaseDAO<Product> {
     }
 
     /**
-     * Retrieves all Products in our database.
+     * Retrieves all stock entries in our database.
      *
-     * @return A List of every Product in our database.
+     * @return A List of every stock entry in our database.
      */
     @Override
-    public List<Product> getAll() throws SQLException {
+    public List<Stock> getAll() throws SQLException {
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
-            List<Product> prods = new ArrayList<>();
-            String sqlQuery = "SELECT * FROM PRODUCTS";
+            List<Stock> prods = new ArrayList<>();
+            String sqlQuery = "SELECT * FROM STOCKS";
             ResultSet rs = statement.executeQuery(sqlQuery);
 
             while (rs.next()) {
-                Product out = new  Product(rs.getInt("id"),
-                        rs.getDouble("baseCost"),
-                        rs.getString("description")
+                Stock out = new  Stock(rs.getInt("id"),
+                        rs.getInt("productID"),
+                        rs.getInt("stock")
                 );
                 prods.add(out);
 
@@ -94,37 +81,37 @@ public class ProductsDAO extends BaseDAO<Product> {
 
 
     /**
-     * Saves a Product in our database. Either inserts or updates depending on whether a matching id exists.
+     * Saves a stock entity in our database. Either inserts or updates depending on whether a matching id exists.
      *
-     * @param product product to save.
+     * @param stock stock entity to save.
      * @return Number of rows affected by query.
      */
     @Override
-    public Integer save(Product product) throws SQLException {
+    public Integer save(Stock stock) throws SQLException {
 
-        Product exists = get(product.getProductID());
+        Stock exists = get(stock.getStockID());
 
         if (exists == null){
-            return insert(product);
+            return insert(stock);
         } else {
-            return update(product);
+            return update(stock);
         }
 
 
     }
 
     /**
-     * @param product Object to insert.
+     * @param stock stock entity to insert.
      * @return 1 signifying success or 0 otherwise
      * @throws SQLException
      */
     @Override
-    public Integer insert(Product product) throws SQLException {
+    public Integer insert(Stock stock) throws SQLException {
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
-            String sqlInsert = "INSERT INTO PRODUCTS(baseCost, Description) VALUES (" +
-                    product.getBaseCost() + ",'" + product.getDescription() +
-                    "')";
+            String sqlInsert = "INSERT INTO STOCKS(productID, stock) VALUES (" +
+                    stock.getProductID() + "," + stock.getStock() +
+                    ")";
             statement.executeUpdate(sqlInsert);
 
             return 1;
@@ -136,17 +123,20 @@ public class ProductsDAO extends BaseDAO<Product> {
     }
 
     /**
-     * Updates an existing Product in our database.
+     * Updates an existing Stock in our database.
      *
-     * @param updatedInfo Product with updated information.
+     * @param updatedInfo Stock with updated information.
      * @return 1 if update succeeds and 0 otherwise
      */
-    public Integer update(Product updatedInfo){
+    public Integer update(Stock updatedInfo){
 
+        //stockID
+        //productID
+        //stock
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
-            String sqlUpdate = "UPDATE PRODUCTS SET baseCost = " + updatedInfo.getBaseCost() +
-                    ", description = '" + updatedInfo.getDescription() + "' WHERE id = " + updatedInfo.getProductID();
+            String sqlUpdate = "UPDATE STOCKS SET stock = " + updatedInfo.getStock() +
+                    ", productID = " + updatedInfo.getProductID() + " WHERE id = " + updatedInfo.getStockID();
             statement.executeUpdate(sqlUpdate);
 
             return 1;
@@ -159,17 +149,17 @@ public class ProductsDAO extends BaseDAO<Product> {
     }
 
     /**
-     * Deletes a product in our database.
+     * Deletes a stock entry for a product in our database.
      *
-     * @param product Product to delete.
+     * @param stock stock entry to delete.
      * @return 1 if successful and 0 otherwise
      */
-    public Integer delete(Product product){
+    public Integer delete(Stock stock){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
 
-            String sqlDelete = "DELETE FROM Products WHERE id = " + product.getProductID();
+            String sqlDelete = "DELETE FROM STOCKS WHERE id = " + stock.getStockID();
             statement.execute(sqlDelete);
 
             return 1;
