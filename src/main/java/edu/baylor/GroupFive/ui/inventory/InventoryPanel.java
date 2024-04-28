@@ -1,4 +1,4 @@
-package edu.baylor.GroupFive.ui.shop;
+package edu.baylor.GroupFive.ui.inventory;
 
 import javax.swing.JPanel;
 
@@ -6,21 +6,20 @@ import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
 /**
  * Panel for the shop.
- * 
+ *
  * Implements {@link edu.baylor.GroupFive.ui.utils.interfaces.PagePanel}.
  *
  * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
- * @author Brendon
  * @author Siri
  */
-public class ShopPanel extends JPanel implements PagePanel {
+public class InventoryPanel extends JPanel implements PagePanel {
 
     /**
      * Constructs a new ShopPanel with the specified delegate
      *
      * // @param delegate Page
      */
-    public ShopPanel() {
+    public InventoryPanel() {
         super();
     }
 
