@@ -162,7 +162,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
                 String endDate = (String) table.getValueAt(row, endDateColumnIndex);
 
                 // Parse the startDate from a string to a Date object
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                 Date parsedStartDate = null;
                 Date parsedEndDate = null;
                 try {

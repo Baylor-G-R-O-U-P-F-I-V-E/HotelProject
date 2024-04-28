@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -82,6 +83,18 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
 
         textPanel.setOpaque(false);
 
+        // Add some glue
+        add(Box.createVerticalGlue());
+
+        // Add a title
+        JLabel title = new JLabel("Modify Reservation");
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(title);
+
+        // Add some glue
+        add(Box.createVerticalGlue());
+
         add(textPanel);
 
         JPanel buttonPanel = new JPanel();
@@ -92,6 +105,9 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         buttonPanel.setOpaque(false);
 
         add(buttonPanel);
+
+        // Add some glue
+        add(Box.createVerticalGlue());
 
         setVisible(true);
 
@@ -175,7 +191,7 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         PanelButton backButton = new PanelButton("Back");
 
         // Add an action listener to the button
-        backButton.addActionListener(e -> delegate.onPageSwitch("home"));
+        backButton.addActionListener(e -> delegate.onPageSwitch("reservations"));
 
         buttonPanel.add(backButton);
     }

@@ -111,7 +111,8 @@ import org.apache.logging.log4j.Logger;
         String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = ? AND startDate = ?";
         PreparedStatement statement = connection.prepareStatement(sqlQuery); // [1]
         statement.setInt(1, roomNumber);
-        statement.setDate(2, CoreUtils.getSqlDate(startDate));
+        System.out.println(CoreUtils.formatDate(startDate));
+        statement.setString(2, CoreUtils.formatDate(startDate));
 
         // Execute query
         ResultSet rs = statement.executeQuery();
