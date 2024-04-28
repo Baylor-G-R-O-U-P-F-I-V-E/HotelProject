@@ -311,7 +311,7 @@ public class DbSetup {
             "productId INTEGER," +
             "stock INTEGER," +
             "CONSTRAINT PK_STOCKS PRIMARY KEY(id),"+
-            "CONSTRAINT FK_STOCKS FOREIGN KEY (productid) REFERENCES products(id)";
+            "CONSTRAINT FK_STOCKS FOREIGN KEY (productid) REFERENCES products(id))";
 
 
     private static final String BASE_USER_INSERT_QUERY = "INSERT INTO USERS(firstName, lastName, userName, password, privilege) VALUES ( ?, ?, ?, ?, ? )";
