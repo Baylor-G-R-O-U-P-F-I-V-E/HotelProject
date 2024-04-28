@@ -93,6 +93,7 @@ public class CoreUtils {
      */
     public static String formatDate(java.util.Date myDate) {
         DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        System.out.println(dateFormat.format(myDate.getTime()));
         return dateFormat.format(myDate.getTime());
     }
 
