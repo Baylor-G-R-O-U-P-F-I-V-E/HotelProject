@@ -274,7 +274,7 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         Room newRoom = new Room(roomNumber, quality, theme, smoking, numBeds, bedType, dailyPrice);
 
         // Update the room in the database
-        Boolean result = RoomController.updateRoom(newRoom);
+        Boolean result = RoomController.modifyRoom(newRoom);
 
         // Check if the update was successful
         if (!result) {

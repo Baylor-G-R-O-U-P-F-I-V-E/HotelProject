@@ -49,7 +49,7 @@ public class RoomController {
      * @return {@code true} if room was modified successfully. {@code false} otherwise
      * @see RoomServices#modifyRoom(Room)
      * */
-    public Boolean modifyRoom(Room updatedInfo){
+    public static Boolean modifyRoom(Room updatedInfo){
         //true only if room already exists and modification is successful
         return RoomServices.modifyRoom(updatedInfo);
     }
@@ -61,7 +61,7 @@ public class RoomController {
      * @return {@code true} if room was added successfully. {@code false} otherwise
      * @see RoomServices#addRoom(Room)
      * */
-    public Boolean addRoom(Room newRoom){
+    public static Boolean addRoom(Room newRoom){
         //true if room is added
         return RoomServices.addRoom(newRoom);
     }
@@ -79,4 +79,7 @@ public class RoomController {
         return RoomServices.getAvailableRooms(startDate,endDate);
     }
 
+    public static Boolean deleteRoom(int roomNum){
+        return RoomServices.deleteRoom(roomNum);
+    }
 }
