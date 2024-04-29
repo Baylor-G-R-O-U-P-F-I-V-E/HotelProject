@@ -57,7 +57,8 @@ public class AddShopModel extends HotelModel implements DataModel {
      * @throws RuntimeException If there is an error fetching data from the database.
      */
     public void getData() throws RuntimeException {
-        // Fetch room data from the database
+        // Fetch stock data from the database
+        // TODO: create ShopController instead to retrieve unique products with stock > 0
         List<Stock> stock = StockController.getAllStock();
 
         // Check if data was fetched successfully
