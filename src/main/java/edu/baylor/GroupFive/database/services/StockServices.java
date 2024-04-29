@@ -1,16 +1,53 @@
 package edu.baylor.GroupFive.database.services;
 
+import edu.baylor.GroupFive.database.daos.RoomDAO;
 import edu.baylor.GroupFive.database.daos.StockDAO;
+import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.Stock;
 import edu.baylor.GroupFive.util.logging.G5Logger;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /*
  * @param stockId the stock entry to have stock incremented
  * @return true if stock added successfully and false otherwise
  */
 public class StockServices {
+
+    /**
+     * Returns all stock in our database.
+     *
+     * @return A List of all stock
+     */
+    public static List<Stock> getStock() throws SQLException {
+        StockDAO stockConn = new StockDAO();
+        return stockConn.getAll();
+    };
+
+    /**
+     * Searches for a room in our database given a stock ID. If it exists,
+     * the Stock is returned. Otherwise {@code null} is returned.
+     *
+     * @param stockID stock number.
+     * @return {@code Stock} object if it exists. {@code null} otherwise.
+     */
+    public static Stock getProduct(Integer stockID) throws SQLException {
+        StockDAO conn = new StockDAO();
+        return conn.get(stockID);
+    }
+
+    /**
+     * Modifies a stock in our database.
+     *
+     * @param updatedInfo stock with modified information
+     * @return {@code true} if successful modification. {@code false} otherwise.
+     */
+    public static Boolean modifyStock(Stock updatedInfo) throws SQLException {
+        StockDAO conn = new StockDAO();
+        return conn.save(updatedInfo) == 1 ? true : false;
+    }
+
     /**
      * @param stockId id of stock entry to fill
      * @param addToStock number of items to add to stock
@@ -27,6 +64,12 @@ public class StockServices {
             return false;
         }
         return true;
+    }
+
+    public static Boolean deleteStock(Integer stockID) throws SQLException {
+        StockDAO conn = new StockDAO();
+        Stock stock = conn.get(stockID);
+        return conn.delete(stock) == 1;
     }
 
     /**
@@ -48,15 +91,15 @@ public class StockServices {
         return true;
     }
 
-    public static Integer createEntry(Stock newStock){
+    public static Boolean createEntry(Stock newStock){
         StockDAO stockDAO = new StockDAO();
         try {
             stockDAO.save(newStock);
         } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());
-            return 0;
+            return false;
         }
-        return 1;
+        return true;
     }
 
 
