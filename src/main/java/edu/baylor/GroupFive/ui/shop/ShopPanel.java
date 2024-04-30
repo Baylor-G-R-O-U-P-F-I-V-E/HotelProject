@@ -31,9 +31,9 @@ public class ShopPanel extends JPanel implements PagePanel {
     //private ProductTable table;
 
     private String[] columnNames = {
-            "Stock ID",
             "Product ID",
-            "Stock (#)",
+            "Description",
+            "Cost",
     };
 
     final Class<?>[] columnClass = new Class[] {
@@ -64,7 +64,7 @@ public class ShopPanel extends JPanel implements PagePanel {
         add(Box.createVerticalGlue());
 
         // Add a title
-        JLabel title = new JLabel("Stock");
+        JLabel title = new JLabel("Products");
         title.setFont(new java.awt.Font("Arial", Font.BOLD, 36));
         title.setAlignmentX(Panel.CENTER_ALIGNMENT);
         add(title);
