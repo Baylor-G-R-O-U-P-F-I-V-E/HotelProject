@@ -72,9 +72,9 @@ public class StockDAO extends BaseDAO<Stock>{
 
         } catch (SQLException | BadConnectionException e) {
             G5Logger.logger.error(e.getMessage());;
-
+            return null;
         }
-        return null;
+
 
     }
 
