@@ -8,12 +8,14 @@ import edu.baylor.GroupFive.ui.accountSettings.AccountSettingsPanel;
 import edu.baylor.GroupFive.ui.createClerk.CreateClerkAccountPanel;
 import edu.baylor.GroupFive.ui.generateBill.GenerateBillPanel;
 import edu.baylor.GroupFive.ui.homePanel.HomePanel;
+import edu.baylor.GroupFive.ui.inventory.InventoryPanel;
 import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.modifyReservation.ModifyReservationPanel;
 import edu.baylor.GroupFive.ui.modifyRoom.RoomsPanel;
 //import edu.baylor.GroupFive.model.Privilege;
 import edu.baylor.GroupFive.ui.reservations.ReservationsPanel;
 import edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel;
+import edu.baylor.GroupFive.ui.shop.ShopPanel;
 import edu.baylor.GroupFive.ui.utils.dashboard.Dashboard;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
 
@@ -125,6 +127,12 @@ public class Page extends JFrame implements InputDelegate {
                 @SuppressWarnings("unused")
                 LandingPage page = new LandingPage();
                 break;
+            case "shop":
+                currentPanel = new ShopPanel(this);
+                break;
+//            case "inventory":
+//                currentPanel = new InventoryPanel(this);
+//                break;
             case "reservations":
                 currentPanel = new ReservationsPanel(this);
                 break;
@@ -194,6 +202,10 @@ public class Page extends JFrame implements InputDelegate {
      */
     public List<String> getInfo() {
         return info;
+    }
+
+    public void clearInfo() {
+        info.clear();
     }
 
     /**

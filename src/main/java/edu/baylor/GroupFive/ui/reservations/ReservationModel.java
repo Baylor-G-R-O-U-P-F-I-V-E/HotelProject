@@ -75,7 +75,7 @@ public class ReservationModel extends HotelModel implements DataModel {
      */
     @Deprecated
     public String formatDate(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         return formatter.format(date);
     }
 

@@ -1,6 +1,7 @@
 package edu.baylor.GroupFive.database;
 
 import edu.baylor.GroupFive.util.CoreUtils;
+import edu.baylor.GroupFive.util.logging.G5Logger;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,6 +38,9 @@ public class DbSetup {
 
         logger.info("Running");
 
+        logger.info("Initializing database tables");
+        PreparedStatement ps;
+
         try (Connection connection = DriverManager.getConnection(url, user, password);
                 Statement statement = connection.createStatement()) {
 
@@ -45,7 +49,10 @@ public class DbSetup {
                 statement.executeQuery("SELECT * FROM USERs");
             } catch (SQLException e) {
                 // The "USERs" table does not exist, so create it
+                G5Logger.logger.info("Creating User Table");
                 statement.executeUpdate(sqlCreateUserTable);
+                ps = connection.prepareStatement(BASE_USER_INSERT_QUERY);
+                initializeUsers(ps);
             }
         
             try {
@@ -53,7 +60,10 @@ public class DbSetup {
                 statement.executeQuery("SELECT * FROM ROOM");
             } catch (SQLException e) {
                 // The "ROOM" table does not exist, so create it
+                G5Logger.logger.info("Creating Room Table");
                 statement.executeUpdate(sqlCreateRoomTable);
+                ps = connection.prepareStatement(BASE_ROOM_INSERT_QUERY);
+                initializeRooms(ps);
             }
         
             try {
@@ -61,7 +71,10 @@ public class DbSetup {
                 statement.executeQuery("SELECT * FROM RESERVATIONs");
             } catch (SQLException e) {
                 // The "RESERVATION" table does not exist, so create it
+                G5Logger.logger.info("Creating Reservation Table");
                 statement.executeUpdate(sqlCreateReservationTable);
+                ps = connection.prepareStatement(BASE_RESERVATION_INSERT_QUERY);
+                initializeReservations(ps);
             }
 
             try {
@@ -69,24 +82,33 @@ public class DbSetup {
                 statement.executeQuery("SELECT * FROM TRANSACTIONS");
             } catch (SQLException e) {
                 // The "TRANSACTIONS" table does not exist, so create it
+                G5Logger.logger.info("Creating Transactions Table");
                 statement.executeUpdate(sqlCreateTransactionsTable);
+                ps = connection.prepareStatement(BASE_TRANSACTION_INSERT_QUERY);
+                initializeTransactions(ps);
             }
 
             try {
-                // Try to select from the "TRANSACTIONS" table
+                // Try to select from the "PRODUCTS" table
                 statement.executeQuery("SELECT * FROM PRODUCTS");
             } catch (SQLException e) {
-                // The "TRANSACTIONS" table does not exist, so create it
+                // The "PRODUCTS" table does not exist, so create it
+                G5Logger.logger.info("Creating Products Table");
                 statement.executeUpdate(sqlCreateProductsTable);
+                ps = connection.prepareStatement(BASE_PRODUCT_INSERT_QUERY);
+                initializeProducts(ps);
             }
 
 
             try {
-                // Try to select from the "TRANSACTIONS" table
+                // Try to select from the "STOCKS" table
                 statement.executeQuery("SELECT * FROM STOCKS");
             } catch (SQLException e) {
-                // The "TRANSACTIONS" table does not exist, so create it
+                // The "STOCKS" table does not exist, so create it
+                G5Logger.logger.info("Creating Stocks Table");
                 statement.executeUpdate(sqlCreateStocksTable);
+                ps = connection.prepareStatement(BASE_STOCK_INSERT_QUERY);
+                initializeStocks(ps);
             }
         } catch (SQLException e) {
             logger.info("ERROR");
@@ -163,37 +185,8 @@ public class DbSetup {
     private static void dbInit() {
 
         try (Connection connection = DriverManager.getConnection(url, user, password); Statement statement = connection.createStatement()) {
-            
-            logger.info("Initializing database tables");
-            PreparedStatement ps;
 
-            // Inserts all records, avoiding duplicates
-            ps = connection.prepareStatement(BASE_USER_INSERT_QUERY);
-            initializeUsers(ps);
-            ps = connection.prepareStatement(BASE_ROOM_INSERT_QUERY);
-            initializeRooms(ps);
-            ps = connection.prepareStatement(BASE_RESERVATION_INSERT_QUERY);
-            initializeReservations(ps);
-            ps = connection.prepareStatement(BASE_TRANSACTION_INSERT_QUERY);
-            initializeTransactions(ps);
-            ps = connection.prepareStatement(BASE_PRODUCT_INSERT_QUERY);
-            initializeProducts(ps);
-            ps = connection.prepareStatement(BASE_STOCK_INSERT_QUERY);
-            initializeStocks(ps);
-            
-//             int count = 0;
-//             try{
-// 
-//                 logger.info("Initializing database tables");
-//                 for(String r : sqlInserts){
-//                     count++;
-//                     statement.executeUpdate(r);
-//                 }
-// 
-//             }catch(SQLException e){
-//                 logger.info("INSERTION ERROR " + count);
-//                 logger.info(e.getMessage());
-//             }
+            // Get reservation information
 
             String sqlQ = "SELECT * FROM RESERVATIONs";
             ResultSet rs = statement.executeQuery(sqlQ);
@@ -202,12 +195,16 @@ public class DbSetup {
                 logger.info(CoreUtils.getUtilDate(rs.getDate("startDate")) + " " + rs.getString("roomNumber") + " " + rs.getDouble("price"));
             }
 
+            // Get user information
+
             sqlQ = "SELECT * FROM USERS";
             rs = statement.executeQuery(sqlQ);
             logger.info("Current users in database...");
             while (rs.next()) {
                 logger.info(rs.getString("username") + " " + rs.getString("password"));
             }
+
+            // Get room information
 
             sqlQ = "SELECT * FROM ROOM";
             rs = statement.executeQuery(sqlQ);
@@ -216,12 +213,16 @@ public class DbSetup {
                 logger.info(rs.getInt("roomNumber") + " " + rs.getString("theme"));
             }
 
+            // Get transaction information
+
             sqlQ = "SELECT * FROM TRANSACTIONS";
             rs = statement.executeQuery(sqlQ);
             logger.info("Current transactions in database...");
             while (rs.next()) {
                 logger.info(rs.getInt("id") + " " + rs.getString("description") + " " + rs.getDouble("amount"));
             }
+
+            // Get product information
 
             sqlQ = "SELECT * FROM PRODUCTS";
             rs = statement.executeQuery(sqlQ);
@@ -230,13 +231,10 @@ public class DbSetup {
                 logger.info(rs.getInt("id") + " " + rs.getString("productName") + " " + rs.getDouble("baseCost"));
             }
 
-
+            // Get stock information
 
             sqlQ = "SELECT * FROM STOCKS";
-
-           rs = statement.executeQuery(sqlQ);
-
-
+            rs = statement.executeQuery(sqlQ);
             logger.info("Current stocks in database...");
             while (rs.next()){
                 logger.info(rs.getInt("id") + " " + rs.getString("productId") + " " + rs.getDouble("stock"));
@@ -311,7 +309,7 @@ public class DbSetup {
             "productId INTEGER," +
             "stock INTEGER," +
             "CONSTRAINT PK_STOCKS PRIMARY KEY(id),"+
-            "CONSTRAINT FK_STOCKS FOREIGN KEY (productid) REFERENCES products(id)";
+            "CONSTRAINT FK_STOCKS FOREIGN KEY (productid) REFERENCES products(id))";
 
 
     private static final String BASE_USER_INSERT_QUERY = "INSERT INTO USERS(firstName, lastName, userName, password, privilege) VALUES ( ?, ?, ?, ?, ? )";
@@ -383,12 +381,12 @@ public class DbSetup {
         productInits.add(new Object[] {"Choclate Ice Cream", 5.29, "A pint of choclate ice cream"});
         productInits.add(new Object[] {"Vanilla Ice Cream", 5.29, "A pint of Vanilla ie cream"});
 
-        stockInits.add(new Object[] {101, 27});
-        stockInits.add(new Object[] {102, 297});
-        stockInits.add(new Object[] {103, 17});
-        stockInits.add(new Object[] {104, 77});
-        stockInits.add(new Object[] {105, 124});
-        stockInits.add(new Object[] {106, 95});
+        stockInits.add(new Object[] {1, 27});
+        stockInits.add(new Object[] {2, 297});
+        stockInits.add(new Object[] {3, 17});
+        stockInits.add(new Object[] {4, 77});
+        stockInits.add(new Object[] {5, 124});
+        stockInits.add(new Object[] {6, 95});
 
 
     }
@@ -410,7 +408,7 @@ public class DbSetup {
                 statement.executeUpdate();
             } catch (SQLException e) {
                 if (e instanceof SQLIntegrityConstraintViolationException) {
-                    logger.warn("Attempted to insert a duplicate key, skipping this record.");
+                    logger.warn("Attempted to insert a duplicate user key, skipping this record.");
                 } else {
                     throw e;
                 }
@@ -437,7 +435,7 @@ public class DbSetup {
                 statement.executeUpdate();
             } catch (SQLException e) {
                 if (e instanceof SQLIntegrityConstraintViolationException) {
-                    logger.warn("Attempted to insert a duplicate key, skipping this record.");
+                    logger.warn("Attempted to insert a duplicate room key, skipping this record.");
                 } else {
                     throw e;
                 }
@@ -470,7 +468,7 @@ public class DbSetup {
                 statement.executeUpdate();
             } catch (SQLException e) {
                 if (e instanceof SQLIntegrityConstraintViolationException) {
-                    logger.warn("Attempted to insert a duplicate key, skipping this record.");
+                    logger.warn("Attempted to insert a duplicate reservation key, skipping this record.");
                 } else {
                     throw e;
                 }
@@ -498,7 +496,7 @@ public class DbSetup {
                 statement.executeUpdate();
             } catch (SQLException e) {
                 if (e instanceof SQLIntegrityConstraintViolationException) {
-                    logger.warn("Attempted to insert a duplicate key, skipping this record.");
+                    logger.warn("Attempted to insert a duplicate transaction key, skipping this record.");
                 } else {
                     throw e;
                 }
@@ -548,7 +546,7 @@ public class DbSetup {
                 statement.executeUpdate();
             } catch (SQLException e) {
                 if (e instanceof SQLIntegrityConstraintViolationException) {
-                    logger.warn("Attempted to insert a duplicate key, skipping this record.");
+                    logger.warn("Attempted to insert a duplicate stock key, skipping this record.");
                 } else {
                     logger.warn(e.getMessage());
                     throw e;
