@@ -1,5 +1,6 @@
 package edu.baylor.GroupFive.database.controllers;
 
+import edu.baylor.GroupFive.database.services.ProductServices;
 import edu.baylor.GroupFive.models.Stock;
 import edu.baylor.GroupFive.database.services.StockServices;
 
@@ -65,4 +66,14 @@ public class StockController {
     public static Boolean deleteStock(int stockID) throws SQLException {
         return StockServices.deleteStock(stockID);
     }
+
+    public static String getName(Stock stock) throws SQLException {
+        return ProductServices.getProduct(stock.getProductID()).getProductName();
+    }
+
+    public static Double getCost(Stock stock) throws SQLException {
+        return ProductServices.getProduct(stock.getProductID()).getBaseCost();
+    }
+
+
 }
