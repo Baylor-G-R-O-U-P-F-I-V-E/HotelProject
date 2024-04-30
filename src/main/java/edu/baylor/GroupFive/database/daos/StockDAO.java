@@ -47,6 +47,29 @@ public class StockDAO extends BaseDAO<Stock>{
         }
     }
 
+
+    public Stock getByProductId(int id) throws SQLException {
+        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+
+            String sqlQuery = "SELECT * FROM STOCKS WHERE productid = " + id;
+            ResultSet rs = statement.executeQuery(sqlQuery);
+
+            while (rs.next()) {
+                Stock out = new  Stock(rs.getInt("id"),
+                        rs.getInt("productID"),
+                        rs.getInt("stock")
+                );
+                return out;
+            }
+
+            return null;
+
+        } catch (SQLException | BadConnectionException e) {
+            G5Logger.logger.error(e.getMessage());
+            return null;
+        }
+    }
+
     /**
      * Retrieves all stock entries in our database.
      *

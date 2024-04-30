@@ -106,6 +106,7 @@ public class ProductsDAO extends BaseDAO<Product> {
 
         Product exists = get(product.getProductID());
 
+
         if (exists == null){
             return insert(product);
         } else {
