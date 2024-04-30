@@ -7,6 +7,7 @@ import java.util.Date;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import edu.baylor.GroupFive.database.controllers.ReservationController;
@@ -164,7 +165,10 @@ public class ModifyReservationActionListener implements ActionListener {
         //     return;
         // }
 
-        page.onPageSwitch("home");
+        // Show a success message
+        JOptionPane.showMessageDialog(null, SUCCESS_MSG);
+
+        page.onPageSwitch("reservations");
         
     }
 }

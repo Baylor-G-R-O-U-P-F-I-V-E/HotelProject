@@ -53,6 +53,8 @@ public class ModifyReservationPanel extends JPanel implements PagePanel {
         this.originalRoom = originalRoom;
         SimpleDateFormat sdf = new SimpleDateFormat(CoreUtils.DATE_FORMAT);
 
+        delegate.clearInfo();
+
         try {
             this.originalStartDate = sdf.parse(originalStart);
         } catch (Exception e) {
