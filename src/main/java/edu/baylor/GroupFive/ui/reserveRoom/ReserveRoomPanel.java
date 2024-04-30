@@ -240,7 +240,7 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
 
             // Check if the room is already reserved
             if (ReservationController.isRoomBookedOn(roomObj.getRoomNumber(), startDate, endDate)) {
-                JOptionPane.showMessageDialog(null, "Room is already reserved for the selected dates.");
+                JOptionPane.showMessageDialog(null, "Room is already reserved for the selected dates.\nPlease select different dates.");
                 return;
             }
 
