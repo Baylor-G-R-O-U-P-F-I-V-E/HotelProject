@@ -43,10 +43,10 @@ public class Main {
                 //InputDelegate landing = new Page(AccountController.getUser("Bongo"));
 
                 // Uncomment this one for clerk
-                //InputDelegate landing = new Page(AccountController.getUser("KevDog"));
+                InputDelegate landing = new Page(AccountController.getUser("KevDog"));
 
                 // Uncomment this one for guest
-                InputDelegate landing = new Page(AccountController.getUser("Ant"));
+                //InputDelegate landing = new Page(AccountController.getUser("Ant"));
             }
         });
     }
