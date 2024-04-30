@@ -238,8 +238,12 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
             User user = delegate.getUser();
             Room roomObj = RoomController.getRoomInfo(Integer.parseInt(room));
 
-            // Reserve the room using a reservation controller
-            // boolean result = ReservationController.bookRoom(user, startDate, endDate, roomObj);
+            // Check if the room is already reserved
+            if (ReservationController.isRoomBookedOn(roomObj.getRoomNumber(), startDate, endDate)) {
+                JOptionPane.showMessageDialog(null, "Room is already reserved for the selected dates.\nPlease select different dates.");
+                return;
+            }
+
             // TODO should this be the total price or daily price?
             boolean result = ReservationController.createReservation(new Reservation(-1, startDate, endDate, user.getUsername(), roomObj.getRoomNumber(), roomObj.getDailyPrice()));
 

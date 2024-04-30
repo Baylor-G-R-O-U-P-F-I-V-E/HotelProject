@@ -563,7 +563,7 @@ import org.apache.logging.log4j.Logger;
       *         {@code false} otherwise.
       * @throws SQLException
       */
-    private boolean isRoomBookedOn(int roomNumber, Date startDate, Date endDate) throws SQLException {
+    public boolean isRoomBookedOn(int roomNumber, Date startDate, Date endDate) throws SQLException {
         List<Reservation> reservations = getAll();
         List<Reservation> roomReservations = reservations.stream()
             .filter(rsv -> rsv.getRoomNumber() == roomNumber)

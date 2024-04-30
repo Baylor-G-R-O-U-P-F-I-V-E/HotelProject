@@ -204,6 +204,10 @@ public class Page extends JFrame implements InputDelegate {
         return info;
     }
 
+    public void clearInfo() {
+        info.clear();
+    }
+
     /**
      * Refreshes the page content.
      */
