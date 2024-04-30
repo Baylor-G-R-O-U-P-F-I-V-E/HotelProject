@@ -85,6 +85,7 @@ public class AddToCartDialog extends JDialog {
         textFields.add(price);
 
         // Make a new panel for each text field and label and add them
+        System.out.println("ccount: "+table.getColumnCount());
         for (int i = 0; i < table.getColumnCount(); i++) {
             JPanel panel = new JPanel();
             panel.add(labels.get(i));
