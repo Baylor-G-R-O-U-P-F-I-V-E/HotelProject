@@ -94,4 +94,23 @@ public class TransactionService {
         transactionDAO.delete(transaction);
     }
 
+    public static double getBill(String username) {
+        TransactionDAO transactionDAO = new TransactionDAO();
+        List<Transaction> userTransactions = transactionDAO.getByUsername(username);
+        double bill = 0;
+        for(Transaction singleTransaction : userTransactions) {
+            bill += singleTransaction.getAmount();
+        }
+
+        return bill;
+    }
+
+    public static void paid(String username) {
+        TransactionDAO transactionDAO = new TransactionDAO();
+        List<Transaction> userTranscations = transactionDAO.getByUsername(username);
+        for(Transaction singleTransaction : userTranscations) {
+            transactionDAO.delete(singleTransaction);
+        }
+    }
+    
 }
