@@ -31,9 +31,9 @@ public class ShopPanel extends JPanel implements PagePanel {
     //private ProductTable table;
 
     private String[] columnNames = {
-            "Stock ID",
             "Product ID",
-            "Stock (#)",
+            "Description",
+            "Cost",
     };
 
     final Class<?>[] columnClass = new Class[] {
