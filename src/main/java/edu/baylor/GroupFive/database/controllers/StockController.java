@@ -12,11 +12,11 @@ public class StockController {
      * This function returns all stock in our database.
      *
      * @return List of all stock in our database
-     * @see StockServices#getAllStock()
+     * @see StockServices#getStock()
      * */
     public static List<Stock> getAllStock() {
         try {
-            return StockServices.getAllStock();
+            return StockServices.getStock();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -29,10 +29,10 @@ public class StockController {
      *
      * @param stockID stock id of Stock.
      * @return Stock if exists in database. {@code null} otherwise
-     * @see StockServices#getStock (Integer)
+     * @see StockServices#getProduct (Integer)
      * */
     public static Stock getStockInfo(Integer stockID) throws SQLException {
-        return StockServices.getStock(stockID);
+        return StockServices.getProduct(stockID);
     }
 
     /**

@@ -20,19 +20,19 @@ public class StockServices {
      *
      * @return A List of all stock
      */
-    public static List<Stock> getAllStock() throws SQLException {
+    public static List<Stock> getStock() throws SQLException {
         StockDAO stockConn = new StockDAO();
         return stockConn.getAll();
     };
 
     /**
-     * Searches for a stock in our database given a stock ID. If it exists,
+     * Searches for a room in our database given a stock ID. If it exists,
      * the Stock is returned. Otherwise {@code null} is returned.
      *
      * @param stockID stock number.
      * @return {@code Stock} object if it exists. {@code null} otherwise.
      */
-    public static Stock getStock(Integer stockID) throws SQLException {
+    public static Stock getProduct(Integer stockID) throws SQLException {
         StockDAO conn = new StockDAO();
         return conn.get(stockID);
     }

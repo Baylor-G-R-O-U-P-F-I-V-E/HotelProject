@@ -1,8 +1,6 @@
 package edu.baylor.GroupFive.ui.shop;
 
-import edu.baylor.GroupFive.database.controllers.ShopController;
 import edu.baylor.GroupFive.database.controllers.StockController;
-import edu.baylor.GroupFive.models.Product;
 import edu.baylor.GroupFive.models.Stock;
 import edu.baylor.GroupFive.ui.utils.interfaces.DataModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelModel;
@@ -61,20 +59,20 @@ public class AddShopModel extends HotelModel implements DataModel {
     public void getData() throws RuntimeException {
         // Fetch stock data from the database
         // TODO: create ShopController instead to retrieve unique products with stock > 0
-        List<Product> products = ShopController.getAllProducts();
+        List<Stock> stock = StockController.getAllStock();
 
         // Check if data was fetched successfully
-        if (products == null) {
+        if (stock == null) {
             throw new RuntimeException("Error fetching data from the database");
         }
 
         // Add the data to the table
-        for (Product product : products) {
+        for (Stock currStock : stock) {
             try {
                 // Add the row to the table
-                addRow(new Object[] {String.valueOf(product.getProductID()), String.valueOf(product.getDescription()), String.valueOf(product.getBaseCost())});
+                addRow(new Object[] {String.valueOf(currStock.getStockID()), String.valueOf(currStock.getProductID()), String.valueOf(currStock.getStock())});
                 // Print the row to the console
-                System.out.println("Added row to table: " + product.getProductID() + ", " + product.getDescription() + ", " + product.getBaseCost() );
+                System.out.println("Added row to table: " + currStock.getStockID() + ", " + currStock.getProductID() + ", " + currStock.getStock() );
             } catch (Exception e) {
                 // Log any errors
                 System.out.println("Error adding row to table");
