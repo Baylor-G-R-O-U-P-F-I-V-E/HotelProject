@@ -48,7 +48,7 @@ public class StockDAO extends BaseDAO<Stock>{
     }
 
 
-    public Stock getByProductId(int id) throws SQLException {
+    public Stock getByProductId(int id) {
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
             String sqlQuery = "SELECT * FROM STOCKS WHERE productid = " + id;
