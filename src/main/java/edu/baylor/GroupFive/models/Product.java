@@ -9,6 +9,17 @@ package edu.baylor.GroupFive.models;
 public class Product {
     private int productID;
 
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    private String productName;
+
+
     private Double baseCost;
     private String description;
 
@@ -24,7 +35,8 @@ public class Product {
     public Product(
             int productID,
             Double baseCost,
-            String description
+            String description,
+            String productName
             ) {
         this.setProductID(productID);
         this.setDescription(description);

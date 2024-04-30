@@ -47,7 +47,8 @@ public class ProductsDAO extends BaseDAO<Product> {
             while (rs.next()) {
                 Product out = new  Product(rs.getInt("id"),
                         rs.getDouble("baseCost"),
-                        rs.getString("description")
+                        rs.getString("description"),
+                        rs.getString("productName")
                 );
                 return out;
             }
@@ -75,7 +76,8 @@ public class ProductsDAO extends BaseDAO<Product> {
             while (rs.next()) {
                 Product out = new  Product(rs.getInt("id"),
                         rs.getDouble("baseCost"),
-                        rs.getString("description")
+                        rs.getString("description"),
+                        rs.getString("productName")
                 );
                 prods.add(out);
 
@@ -122,8 +124,8 @@ public class ProductsDAO extends BaseDAO<Product> {
     public Integer insert(Product product) throws SQLException {
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
-            String sqlInsert = "INSERT INTO PRODUCTS(baseCost, Description) VALUES (" +
-                    product.getBaseCost() + ",'" + product.getDescription() +
+            String sqlInsert = "INSERT INTO PRODUCTS(baseCost, Description,productName) VALUES (" +
+                    product.getBaseCost() + ",'" + product.getDescription() + "','" + product.getProductName() +
                     "')";
             statement.executeUpdate(sqlInsert);
 
@@ -146,7 +148,7 @@ public class ProductsDAO extends BaseDAO<Product> {
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
             String sqlUpdate = "UPDATE PRODUCTS SET baseCost = " + updatedInfo.getBaseCost() +
-                    ", description = '" + updatedInfo.getDescription() + "' WHERE id = " + updatedInfo.getProductID();
+                    ", description = '" + updatedInfo.getDescription() + "' productName = '" + updatedInfo.getProductName() + "' WHERE id = " + updatedInfo.getProductID();
             statement.executeUpdate(sqlUpdate);
 
             return 1;
