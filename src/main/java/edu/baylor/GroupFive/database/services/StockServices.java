@@ -107,4 +107,9 @@ public class StockServices {
         StockDAO stockDAO = new StockDAO();
         return stockDAO.delete(stock);
     }
+
+    public static Integer getNumStockByProductID(Integer productID){
+        StockDAO stockDAO = new StockDAO();
+        return stockDAO.getByProductId(productID).getStock();
+    }
 }
