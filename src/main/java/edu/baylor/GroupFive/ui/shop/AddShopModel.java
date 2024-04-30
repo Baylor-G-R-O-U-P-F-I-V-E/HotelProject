@@ -25,7 +25,7 @@ import edu.baylor.GroupFive.ui.utils.interfaces.DataModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 
 /**
- * Model for adding reservations.
+ * Model for displaying Products.
  *
  * Extends {@link edu.baylor.GroupFive.ui.utils.table.HotelModel} and
  * implements {@link edu.baylor.GroupFive.ui.utils.interfaces.DataModel}.
@@ -37,7 +37,7 @@ import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 public class AddShopModel extends HotelModel implements DataModel {
 
     /**
-     * Constructs an AddReservationModel with the specified column names and classes.
+     * Constructs an AddShopModel with the specified column names and classes.
      *
      * @param columnNames An array of column names.
      * @param columnClasses An array of column classes.
@@ -54,13 +54,12 @@ public class AddShopModel extends HotelModel implements DataModel {
     }
 
     /**
-     * Retrieves room data from the database and populates the table with it.
+     * Retrieves product data from the database and populates the table with it.
      *
      * @throws RuntimeException If there is an error fetching data from the database.
      */
     public void getData() throws RuntimeException {
         // Fetch stock data from the database
-        // TODO: create ShopController instead to retrieve unique products with stock > 0
         List<Product> products = ShopController.getAllProducts();
 
         // Check if data was fetched successfully
@@ -84,7 +83,7 @@ public class AddShopModel extends HotelModel implements DataModel {
 
 
     /**
-     * Clears the reservation table.
+     * Clears the product table.
      */
     private void clearTable() {
         // Clear the table

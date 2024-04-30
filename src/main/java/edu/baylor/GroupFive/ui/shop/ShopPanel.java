@@ -86,7 +86,7 @@ public class ShopPanel extends JPanel implements PagePanel {
 
     }
 
-    // Implement AddToCartDialog first - Siri
+    // TODO: Implement AddToCartDialog first - Siri
     private void addButtonPanel() {
         JPanel buttonPanel = new JPanel();
 
