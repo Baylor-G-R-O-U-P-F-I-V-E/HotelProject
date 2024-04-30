@@ -7,22 +7,7 @@ import edu.baylor.GroupFive.models.Stock;
 import edu.baylor.GroupFive.ui.utils.interfaces.DataModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 
-import java.util.Date;
 import java.util.List;
-
-
-
-import java.util.Date;
-import java.util.List;
-
-import edu.baylor.GroupFive.database.controllers.ReservationController;
-import edu.baylor.GroupFive.database.controllers.RoomController;
-import edu.baylor.GroupFive.models.Room;
-import edu.baylor.GroupFive.models.enums.BedType;
-//import edu.baylor.GroupFive.models.enums.Quality;
-import edu.baylor.GroupFive.models.enums.Theme;
-import edu.baylor.GroupFive.ui.utils.interfaces.DataModel;
-import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 
 /**
  * Model for displaying Products.
