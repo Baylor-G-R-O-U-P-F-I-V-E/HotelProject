@@ -7,6 +7,7 @@ import java.util.Date;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import edu.baylor.GroupFive.database.controllers.ReservationController;
@@ -135,14 +136,29 @@ public class ModifyReservationActionListener implements ActionListener {
         // Get the reservation
         Reservation reservation = ReservationController.getReservation(Integer.parseInt(originalRoom), originalStart);
 
+        // Get original end date
+        Date originalEnd = reservation.getEndDate();
+
         // Update the reservation
         reservation.setRoomID(room);
         reservation.setPrice(Double.parseDouble(price));
         reservation.setStartDate(start);
         reservation.setEndDate(end);
 
-        // Update the reservation in the database
-        // boolean result = ReservationController.modifyReservation(reservation, originalRoom, originalStart);
+        // Check if the room or dates have changed
+        if (!(Integer.parseInt(room) == (Integer.parseInt(originalRoom))) || 
+        !(start.after(originalStart) || start.equals(originalStart)) && (end.before(originalEnd) || end.equals(originalEnd))) {
+            // Ensure the room is not already booked
+            if (ReservationController.isRoomBookedOn(Integer.parseInt(room), start, end)) {
+                message = """
+                            Oopsie! The room is already booked during that time.
+                        """;
+                makeBadInputDialog(message);
+                return;
+            }
+        }
+
+        // Update the reservation
         boolean result = ReservationController.modifyReservation(reservation); // changed here
 
         // If the update failed, show an error message
@@ -154,17 +170,10 @@ public class ModifyReservationActionListener implements ActionListener {
             return;
         }
 
-        // Check if reservation is available
-        // TODO check implementation
-        // if (!reservationDAO.checkIfAvailable(room, start, end)) {
-        //     message = """
-        //         Oopsie! The reservation is unavailable
-        //         """;
-        //     makeBadInputDialog(message);
-        //     return;
-        // }
+        // Show a success message
+        JOptionPane.showMessageDialog(null, SUCCESS_MSG);
 
-        page.onPageSwitch("home");
+        page.onPageSwitch("reservations");
         
     }
 }
