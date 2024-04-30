@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import edu.baylor.GroupFive.database.controllers.StockController;
 import edu.baylor.GroupFive.models.Stock;
+import edu.baylor.GroupFive.ui.shop.dialogs.AddToCartDialog;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
@@ -34,10 +35,11 @@ public class ShopPanel extends JPanel implements PagePanel {
             "Product ID",
             "Description",
             "Cost",
+            "# In Stock"
     };
 
     final Class<?>[] columnClass = new Class[] {
-            String.class, String.class, String.class
+            String.class, String.class, String.class, Integer.class
     };
 
 
@@ -93,9 +95,10 @@ public class ShopPanel extends JPanel implements PagePanel {
         PanelButton addToCartButton = new PanelButton("Add To Cart");
         addToCartButton.addActionListener(e -> {
             // Show the dialog to add a room.
-//            AddRoomDialog dialog = new AddRoomDialog(table);
-//            dialog.setVisible(true);
+            AddToCartDialog dialog = new AddToCartDialog(table);
+            dialog.setVisible(true);
         });
+        add(addToCartButton);
 //
 //        PanelButton deleteRoomButton = new PanelButton("Delete Room");
 //        deleteRoomButton.addActionListener(e -> {
