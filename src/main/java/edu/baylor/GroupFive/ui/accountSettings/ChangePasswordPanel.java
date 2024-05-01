@@ -20,6 +20,14 @@ import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.util.CoreUtils;
 
+/**
+ * Represents a panel for changing the password of a user.
+ * Extends {@link javax.swing.JPanel} and implements {@link PagePanel}.
+ * 
+ * @see PagePanel
+ * 
+ * @author: Brendon
+ */
 public class ChangePasswordPanel extends JPanel implements PagePanel {
 
     private Page page;
@@ -27,7 +35,14 @@ public class ChangePasswordPanel extends JPanel implements PagePanel {
     private JPanel textPanel;
     private JTextField currentPasswordField, newPasswordField;
 
+    /**
+     * Constructs a ChangePasswordPanel object with the specified page and user.
+     * 
+     * @param page The page associated with the panel.
+     * @param user The user associated with the panel.
+     */
     public ChangePasswordPanel(Page page, User user) {
+        super();
         this.page = page;
         this.user = user;
 
@@ -73,6 +88,10 @@ public class ChangePasswordPanel extends JPanel implements PagePanel {
         add(Box.createVerticalGlue());
     }
 
+    /**
+     * Adds a panel for entering the current password.
+     * @param panel The panel to add the current password panel to.
+     */
     private void addEnterCurrentPasswordPanel(JPanel panel) {
         JPanel currentPasswordPanel = new JPanel();
         currentPasswordPanel.setOpaque(true);
@@ -86,16 +105,20 @@ public class ChangePasswordPanel extends JPanel implements PagePanel {
         currentPasswordField.setEditable(true);
         currentPasswordField.setPreferredSize(new Dimension(200, 50));
 
-        JLabel userLabel = new JLabel("Enter current password: ");
-        userLabel.setBounds(200, 50, 200, 50);
-        userLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        JLabel currentPasswordLabel = new JLabel("Enter current password: ");
+        currentPasswordLabel.setBounds(200, 50, 200, 50);
+        currentPasswordLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
-        currentPasswordPanel.add(userLabel);
+        currentPasswordPanel.add(currentPasswordLabel);
         currentPasswordPanel.add(currentPasswordField);
 
         panel.add(currentPasswordPanel);
     }
 
+    /**
+     * Adds a panel for entering the new password.
+     * @param panel The panel to add the new password panel to.
+     */
     private void addNewPasswordPanel(JPanel panel) {
         JPanel newPasswordPanel = new JPanel();
         newPasswordPanel.setOpaque(true);
@@ -109,22 +132,31 @@ public class ChangePasswordPanel extends JPanel implements PagePanel {
         newPasswordField.setEditable(true);
         newPasswordField.setPreferredSize(new Dimension(200, 50));
 
-        JLabel userLabel = new JLabel("Enter new password: ");
-        userLabel.setBounds(200, 50, 200, 50);
-        userLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        JLabel newPasswordLabel = new JLabel("Enter new password: ");
+        newPasswordLabel.setBounds(200, 50, 200, 50);
+        newPasswordLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
-        newPasswordPanel.add(userLabel);
+        newPasswordPanel.add(newPasswordLabel);
         newPasswordPanel.add(newPasswordField);
 
         panel.add(newPasswordPanel);
     }
 
+    /**
+     * Adds a save button to the panel.
+     * @param panel The panel to add the save button to.
+     */
     private void addSaveButton(JPanel panel) {
 
         // Create and style the save button
         PanelButton saveButton = new PanelButton("Save Changes");
 
         saveButton.addActionListener(e -> {
+
+            if (currentPasswordField.getText().length() < 1 || newPasswordField.getText().length() < 1) {
+                JOptionPane.showMessageDialog(this, "Please fill out all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             
             // Check if the current password is correct
             if (!user.getPasswordHash().equals(CoreUtils.hashPassword(currentPasswordField.getText()))) {
@@ -155,6 +187,10 @@ public class ChangePasswordPanel extends JPanel implements PagePanel {
         panel.add(saveButton);
     }
 
+    /**
+     * Adds a back button to the panel.
+     * @param panel The panel to add the back button to.
+     */
     private void addBackButton(JPanel panel) {
 
         // Create and style the back button
@@ -168,6 +204,9 @@ public class ChangePasswordPanel extends JPanel implements PagePanel {
         panel.add(backButton);
     }
 
+    /**
+     * Clears the text fields in the panel.
+     */
     @Override
     public void clear() {
         currentPasswordField.setText("");

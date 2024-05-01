@@ -274,6 +274,20 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         PanelButton saveButton = new PanelButton("Save Changes");
 
         saveButton.addActionListener(e -> {
+
+            // Check if the fields are empty
+            if (firstNameField.getText().equals("") || lastNameField.getText().equals("")) {
+                // Pop up a message saying the fields cannot be empty
+                JOptionPane.showMessageDialog(null, "First name and last name cannot be empty.");
+                return;
+            }
+
+            // Check if the username is empty
+            if (usernameField.getText().equals("")) {
+                // Pop up a message saying the username cannot be empty
+                JOptionPane.showMessageDialog(null, "Username cannot be empty.");
+                return;
+            }
             
             // Save the changes
             User newUser = new User(firstNameField.getText(), lastNameField.getText(), usernameField.getText(), user.getPasswordHash(), user.getPrivilege().toString());
