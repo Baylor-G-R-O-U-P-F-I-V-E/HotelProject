@@ -100,6 +100,28 @@ public class Reservation {
     }
 
     /**
+     * Constructs a Reservation object with the specified attributes and no id.
+     *
+     * @param startDate Start date of reservation.
+     * @param endDate End date of reservation.
+     * @param guestUsername Username of guest this reservation is for.
+     * @param roomNumber Integer room number of room this reservation is in.
+     * @param price Price of this reservation.
+     * */
+    public Reservation(Date startDate, Date endDate,
+                       String guestUsername, String roomNumber, Double price, 
+                       boolean active, boolean checkedIn) {
+        this.setDbId(-1);
+        this.setStartDate(startDate);
+        this.setEndDate(endDate);
+        this.setGuestID(guestUsername);
+        this.setRoomID(Integer.parseInt(roomNumber));
+        this.setPrice(price);
+        this.setActiveStatus(active);
+        this.setCheckedInStatus(checkedIn);
+    }
+
+    /**
      * Performs a deep copy of another reservation object.
      *
      * @param reservation Reservation to make a copy of.
@@ -138,6 +160,20 @@ public class Reservation {
     public void setActiveStatus(boolean active) { this.active = active; }
     public void setCheckedInStatus(boolean checkedIn) { this.checkedIn = checkedIn; }
     // <<<< Setters <<<<
+
+    /**
+     * Compares this Reservation to another object.
+     *
+     * @param o Object to compare to.
+     * @return {@code true} if {@code o} is equivalent this Reservation. {@code false} otherwise.
+     * */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reservation that = (Reservation) o;
+        return roomNumber == that.roomNumber && active == that.active && checkedIn == that.checkedIn && startDate.equals(that.startDate) && endDate.equals(that.endDate) && guestUsername.equals(that.guestUsername) && price.equals(that.price);
+    }
 
     /**
      * Returns a String representation of this reservation object.

@@ -69,9 +69,11 @@ public class UserDAO extends BaseDAO<User> {
                 String pswdHash = rs.getString("password");
                 String privilege = rs.getString("privilege");
                 User out = new User(firstName, lastName, userName, pswdHash, privilege);
-                // User out = new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("username"), rs.getString("password"), rs.getString("privilege"));
-                // FIXME dbg
+
+                // Add a print statement to see if the user is being found
                 System.out.println("User got: " + userName + " [pswd]=" + pswdHash);
+
+                // Add the user to the list
                 output.add(out);
             }
 

@@ -386,10 +386,6 @@ import org.apache.logging.log4j.Logger;
 
         // Check violations
         while (rs.next()) {
-            // Date endDate = rs.getDate("endDate");
-            // if (endDate.compareTo(reservation.getEndDate()) != 0 || rs.getBoolean("active") == true) {
-                // return false;
-            // }
             if (rs.getBoolean("active") == true && !isOverlap(reservation.getStartDate(), reservation.getEndDate(), rs.getDate("startDate"), rs.getDate("endDate"))) {
                 return false;
             }
@@ -400,58 +396,6 @@ import org.apache.logging.log4j.Logger;
         connection.close();
 
         return true;
-
-        // ArrayList<ArrayList<Date>> mem;
-        // try {
-        //     statement = connection.createStatement();
-        //     rs = statement.executeQuery(sqlQuery);
-        //     mem = new ArrayList<>();
-        //     while(rs.next()){
-        //         ArrayList<Date> temp = new ArrayList<>();
-        //         temp.add(rs.getDate("startDate"));
-        //         temp.add(rs.getDate("endDate"));
-        //         mem.add(temp);
-        //     }
-
-        // } catch (SQLException e) {
-        //     logger.info("RDC check if available failed");
-        //     logger.info(e.getMessage());
-        //     return null;
-        // }finally {
-        //     if (statement != null) {
-        //         try {
-        //             statement.close();
-        //         } catch (SQLException e) {
-        //             throw new RuntimeException(e);
-        //         }
-        //     }
-        //     if (connection != null) {
-        //         try {
-        //             connection.close();
-        //         } catch (SQLException e) {
-        //             throw new RuntimeException(e);
-        //         }
-        //     }
-        // }
-
-        // for(ArrayList<Date> r : mem){
-        //     logger.info(r.get(0) + " " + r.get(1) + " : " + startDate + " " + endDate);
-
-        //     if((startDate.after(r.get(0)) || startDate.equals(r.get(0))) && startDate.before(r.get(1))){
-        //         logger.info("3");
-        //         return false;
-        //     }
-        //     if(endDate.after(r.get(0)) && (endDate.equals(r.get(1)) || endDate.before(r.get(1)))){
-        //         logger.info("2");
-        //         return false;
-        //     }
-
-        //     if((startDate.before(r.get(0)) || startDate.equals(r.get(0))) &&
-        //         (endDate.equals(r.get(1)) || endDate.after(r.get(1)))){
-        //         logger.info("1");
-        //         return false;
-        //     }
-        // }
     }
 
      /**

@@ -78,6 +78,22 @@ public class User {
     }
 
     /**
+     * Returns a string representation of this object.
+     *
+     * @return String representation of this object.
+     * */
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", passwordHash='" + passwordHash + '\'' +
+                ", privilege=" + privilege +
+                '}';
+    }
+
+    /**
      * Verifies a password matches our stored password hash.
      *
      * @param password Password to verify.
