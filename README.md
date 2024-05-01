@@ -3,17 +3,22 @@
 Contents
 --------
 
-1. [Developer References](#developer-references)
-1. [Usage](#usage)
-1. [About This Project](#about-this-project)
+1.  [Developer References](#developer-references)
+1.  [Usage](#usage)
+1.  [Generating JavaDoc](#generating-javadoc)
+1.  [About This Project](#about-this-project)
     * [The Stay & Shop Reservation System](#the-stay-shop-reservation-system)
-        * [Hotel Section](#hotel-section)
+    * [Hotel Section](#hotel-section)
+
 
 Developer References
 --------------------
 
-1. [`HotelProjectException`](./docs/EXCEPTIONS_README.md)
-1. [Cloning This Repository Locally](./docs/INSTALLATION.md)
+1.  [`HotelProjectException`](./docs/EXCEPTIONS_README.md)
+1.  [Cloning This Repository Locally](./docs/INSTALLATION.md)
+1.  [Design Models](./docs/design-models/)
+1.  [Deliverables](./docs/deliverables/)
+
 
 Usage
 -----
@@ -35,6 +40,7 @@ make jvd
 make
 make help
 ```
+
 
 Generating JavaDoc
 ------------------
