@@ -2,7 +2,7 @@ package edu.baylor.GroupFive.database.services;
 
 import edu.baylor.GroupFive.database.DbSetup;
 import edu.baylor.GroupFive.models.Reservation;
-import org.junit.Test;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 
@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Locale;
 
 import java.sql.SQLException;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests methods for {@link edu.baylor.GroupFive.database.services.ReservationServices}
@@ -124,10 +125,11 @@ public class ReservationServiceTest {
 
     /**
      * Tests {@link ReservationServices#insert(Reservation)}.
+     * @throws SQLException 
      */
     @Test
     @Disabled
-    public void addReservation(){
+    public void addReservation() throws SQLException{
         DbSetup db = new DbSetup();
         ReservationServices conn = new ReservationServices();
 
@@ -137,16 +139,8 @@ public class ReservationServiceTest {
 
         // TODO reservation now requires an id
         Reservation newReservation = new Reservation(1, start,end,"Axel112",102,12.34);
-        Integer res = null;
 
-        try {
-            res = conn.insert(newReservation);
-        } catch (SQLException e) {
-            System.out.println("exception in addReservation test code");
-        }
-        System.out.println(res + "--");
-
-        assert(res.equals(1));
+        assert(conn.insert(newReservation) == 1);
 
     }
 
