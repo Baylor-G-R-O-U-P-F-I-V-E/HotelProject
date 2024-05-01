@@ -26,11 +26,10 @@ public class Dashboard extends JPanel {
         add(new DashboardButton(page, "src/main/resources/button-icons/logout-icon.png", "logout"));
         add(new DashboardButton(page, "src/main/resources/button-icons/account-settings-icon.png", "account-settings"));
         add(new DashboardButton(page, "src/main/resources/button-icons/home-icon.png", "home"));
-        add(new DashboardButton(page, "src/main/resources/button-icons/find-rooms-icon.png", "find-rooms"));
-        add(new DashboardButton(page, "src/main/resources/button-icons/shop-icon.png", "shop"));
 
         // For Admin only
         if (privilige == Privilege.ADMIN) {
+            add(new DashboardButton(page, "src/main/resources/button-icons/reset-password-icon.png", "reset-password"));
             add(new DashboardButton(page, "src/main/resources/button-icons/create-clerk-icon.png", "create-clerk"));
         }
 
@@ -42,5 +41,9 @@ public class Dashboard extends JPanel {
             add(new DashboardButton(page, "src/main/resources/button-icons/inventory-icon.png", "inventory"));
         }
         
+        // For everyone
+        add(new DashboardButton(page, "src/main/resources/button-icons/find-rooms-icon.png", "find-rooms"));
+        add(new DashboardButton(page, "src/main/resources/button-icons/shop-icon.png", "shop"));
+
     }
 }
