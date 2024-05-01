@@ -1,6 +1,7 @@
 package edu.baylor.GroupFive.database.daos;
 
 import edu.baylor.GroupFive.database.DbConnection;
+import edu.baylor.GroupFive.database.services.ProductServices;
 import edu.baylor.GroupFive.models.Product;
 import edu.baylor.GroupFive.models.Stock;
 import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
