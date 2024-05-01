@@ -116,8 +116,6 @@ public class DbSetup {
             throw new RuntimeException(e);
         }
 
-        dbInit();
-
     }
 
     public static void dbTearDown() {
@@ -180,9 +178,9 @@ public class DbSetup {
     }
 
     /**
-     * Inserts our initial values into our database.
+     * Displays the values in the database
      */
-    private static void dbInit() {
+    public static void dbInfo() {
 
         try (Connection connection = DriverManager.getConnection(url, user, password); Statement statement = connection.createStatement()) {
 

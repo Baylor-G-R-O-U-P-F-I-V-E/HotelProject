@@ -3,11 +3,13 @@ package edu.baylor.GroupFive.database.services;
 import edu.baylor.GroupFive.database.DbSetup;
 import edu.baylor.GroupFive.models.Reservation;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -23,11 +25,25 @@ import org.junit.jupiter.api.Test;
 public class ReservationServiceTest {
 
     ReservationServices conn;
+    private static List<Reservation> reservationInits = new ArrayList<>();
 
+
+    @SuppressWarnings("deprecation")
+    @BeforeAll
+    static void initReservations() {
+        reservationInits.add(new Reservation(new Date("12/17/2024"), new Date("12/19/2024"), "Axel112", "102", 97.99, true, false));
+        reservationInits.add(new Reservation(new Date("07/12/2024"), new Date("07/22/2024"), "LarryTheLobster", "103", 95.99, true, false));
+        reservationInits.add(new Reservation(new Date("07/20/2024"), new Date("07/23/2024"), "BigA", "101", 96.99, true, false));
+        reservationInits.add(new Reservation(new Date("07/20/2024"), new Date("07/23/2024"), "Jman", "104", 97.99, true, true));
+        reservationInits.add(new Reservation(new Date("07/11/2024"), new Date("07/13/2024"), "T-Lee", "105", 88.99, false, false));
+        reservationInits.add(new Reservation(new Date("07/09/2024"), new Date("07/12/2024"), "andyEv", "101", 97.99, false, false));
+        reservationInits.add(new Reservation(new Date("07/10/2024"), new Date("07/17/2024"), "KevDog", "102", 88.99, true, true));
+        reservationInits.add(new Reservation(new Date("07/22/2024"), new Date("07/25/2024"), "Bongo", "103", 97.99, true, false));
+        reservationInits.add(new Reservation(new Date("07/14/2024"), new Date("07/19/2024"), "Ant", "104", 97.99, true, true));
+    }
 
     /**
-     * This doesnt actually work right for some reason. Maybe an issue
-     * with pom, junit version inconsistencies, etc. -Icko
+     * Initializes our database before each test.
      */
     @BeforeEach
     void init(){
@@ -173,23 +189,21 @@ public class ReservationServiceTest {
 
     /**
      * Tests {@link ReservationServices#getAll()}.
+     * @throws SQLException 
      */
     @Test
-    public void getAllReservations(){
+    public void getAllReservations() throws SQLException{
         DbSetup db = new DbSetup();
         ReservationServices conn = new ReservationServices();
         List<Reservation> r = null;
 
-        try {
-            r = conn.getAll();
-        } catch (SQLException e) {
-            System.out.println("exception in getAllReservations test code");
-            return;
+        r = conn.getAll();
+
+        // Test the reservations against the initialized reservations
+        for (int i = 0; i < reservationInits.size(); i++) {
+            assert(r.get(i).equals(reservationInits.get(i)));
         }
-        for(Reservation a : r){
-            System.out.println(a.toString());
-        }
-        assert (r.size() > 5);
+        
     }
 
 }

@@ -9,11 +9,15 @@ import org.junit.jupiter.api.Test;
  */
 public class TestDbSetup {
 
+    
+
     /**
      * Tests our database is created successfully.
      */
     @Test
     public void testDbSetup() {
         DbSetup db = new DbSetup();
+        DbSetup.dbTearDown();
     }
+
 }

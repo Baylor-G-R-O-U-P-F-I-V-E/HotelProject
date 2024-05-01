@@ -24,23 +24,23 @@ import java.util.List;
  */
 public class UserDAOTest {
 
-    private static List<Object[]> userInits = new ArrayList<>();
+    private static List<User> userInits = new ArrayList<>();
 
     /**
      * Initializes our users before all tests.
      */
     @BeforeAll
     static void initUsers() {
-        userInits.add(new Object[] { "Joe",     "Smith",        "Bongo",            "p1234",    "admin" });
-        userInits.add(new Object[] { "Kevin",   "James",        "KevDog",           "1234",     "clerk" });
-        userInits.add(new Object[] { "Axel",    "Washington",   "Axel112",          "1234",     "clerk" });
-        userInits.add(new Object[] { "Andrew",  "Wiles",        "BigA",             "1234",     "clerk" });
-        userInits.add(new Object[] { "Larry",   "AB",           "LarryTheLobster",  "1234",     "guest" });
-        userInits.add(new Object[] { "Josh",    "Smith",        "Jman",             "1234",     "guest" });
-        userInits.add(new Object[] { "Tyler",   "Lee",          "T-Lee",            "1234",     "guest" });
-        userInits.add(new Object[] { "Antoine", "Wu",           "Ant",              "1234",     "guest" });
-        userInits.add(new Object[] { "Everett", "Anderson",     "andyEv",           "1234",     "guest" });
-        userInits.add(new Object[] { "Icko",    "Iben",         "ickoxii",          "sicem",    "guest" });
+        userInits.add(new User("Joe", "Smith", "Bongo", CoreUtils.hashPassword("p1234"), "admin"));
+        userInits.add(new User("Kevin", "James", "KevDog", CoreUtils.hashPassword("1234"), "clerk"));
+        userInits.add(new User("Axel", "Washington", "Axel112", CoreUtils.hashPassword("1234"), "clerk"));
+        userInits.add(new User("Andrew", "Wiles", "BigA", CoreUtils.hashPassword("1234"), "clerk"));
+        userInits.add(new User("Larry", "AB", "LarryTheLobster", CoreUtils.hashPassword("1234"), "guest"));
+        userInits.add(new User("Josh", "Smith", "Jman", CoreUtils.hashPassword("1234"), "guest"));
+        userInits.add(new User("Tyler", "Lee", "T-Lee", CoreUtils.hashPassword("1234"), "guest"));
+        userInits.add(new User("Antoine", "Wu", "Ant", CoreUtils.hashPassword("1234"), "guest"));
+        userInits.add(new User("Everett", "Anderson", "andyEv", CoreUtils.hashPassword("1234"), "guest"));
+        userInits.add(new User("Icko", "Iben", "ickoxii", CoreUtils.hashPassword("sicem"), "guest"));
     }
     
     /**
@@ -92,8 +92,10 @@ public class UserDAOTest {
     public void getAllUsers(){
         UserDAO conn = new UserDAO();
         List<User> users = conn.getAll();
-        for (User u : users) {
-            System.out.println(u.toString());
+        
+        // Compare the users in the database to the users we initialized
+        for (int i = 0; i < userInits.size(); i++) {
+            assert(users.get(i).equals(userInits.get(i)));
         }
     }
 
