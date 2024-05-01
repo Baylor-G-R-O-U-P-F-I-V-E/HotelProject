@@ -342,6 +342,7 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
 
         // Add back the modify button
         addModifyButton(buttonPanel);
+        addChangePasswordButton(buttonPanel);
 
         // Refresh text fields
         textPanel.revalidate();
