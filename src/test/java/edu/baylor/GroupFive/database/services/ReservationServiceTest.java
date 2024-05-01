@@ -77,27 +77,24 @@ public class ReservationServiceTest {
     /**
      * Tests {@link ReservationServices#checkIfAvailable(int, Date, Date)}
      * with a room and date that should not be available.
+     * @throws SQLException 
+     * @throws ParseException 
      */
     @Test
-    public void checkAvailable2(){
+    public void checkAvailable2() throws SQLException, ParseException{
         DbSetup db = new DbSetup();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
         String sdate = "15/12/2024";
         String edate = "20/12/2024";
         Boolean isAvailable;
-        try {
-            Date startDate = formatter.parse(sdate);
-            Date endDate = formatter.parse(edate);
-            //System.out.println(startDate.getYear() + " " + endDate.getTime());
-            ReservationServices conn = new ReservationServices();
-            isAvailable = conn.checkIfAvailable(102,startDate,endDate);
-            System.out.println(isAvailable);
-        } catch (ParseException | SQLException e) {
-            System.out.println("exception in checkifavailable test code");
-            throw new RuntimeException(e);
-        }
-        //assert(!isAvailable);
+
+        Date startDate = formatter.parse(sdate);
+        Date endDate = formatter.parse(edate);
+        
+        isAvailable = conn.checkIfAvailable(102,startDate,endDate);
+        
+        assert(!isAvailable);
     }
 
     /**
@@ -131,9 +128,7 @@ public class ReservationServiceTest {
         ReservationServices conn = new ReservationServices();
         Reservation myRes;
 
-            myRes = conn.get(102, new Date("01/01/2008"));
-
-
+        myRes = conn.get(102, new Date("01/01/2008"));
 
         assert(myRes == null);
     }

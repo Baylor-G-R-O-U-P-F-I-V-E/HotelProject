@@ -81,6 +81,7 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         buttonPanel = new JPanel();
         buttonPanel.setOpaque(false);
         addModifyButton(buttonPanel);
+        addChangePasswordButton(buttonPanel);
 
         add(buttonPanel);
 
@@ -192,6 +193,16 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         buttonPanel.add(ModifyButton);
     }
 
+    private void addChangePasswordButton(JPanel buttonPanel) {
+        PanelButton changePasswordButton = new PanelButton("Change Password", 300, 50);
+
+        changePasswordButton.addActionListener(e -> {
+            page.onPageSwitch("password");
+        });
+
+        buttonPanel.add(changePasswordButton);
+    }
+
     /**
      * Makes the text fields editable, sets their properties,
      * removes the modify button, and adds save and back buttons.
@@ -263,6 +274,20 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         PanelButton saveButton = new PanelButton("Save Changes");
 
         saveButton.addActionListener(e -> {
+
+            // Check if the fields are empty
+            if (firstNameField.getText().equals("") || lastNameField.getText().equals("")) {
+                // Pop up a message saying the fields cannot be empty
+                JOptionPane.showMessageDialog(null, "First name and last name cannot be empty.");
+                return;
+            }
+
+            // Check if the username is empty
+            if (usernameField.getText().equals("")) {
+                // Pop up a message saying the username cannot be empty
+                JOptionPane.showMessageDialog(null, "Username cannot be empty.");
+                return;
+            }
             
             // Save the changes
             User newUser = new User(firstNameField.getText(), lastNameField.getText(), usernameField.getText(), user.getPasswordHash(), user.getPrivilege().toString());
@@ -331,6 +356,7 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
 
         // Add back the modify button
         addModifyButton(buttonPanel);
+        addChangePasswordButton(buttonPanel);
 
         // Refresh text fields
         textPanel.revalidate();

@@ -5,6 +5,7 @@ import javax.swing.*;
 import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.accountSettings.AccountSettingsPanel;
+import edu.baylor.GroupFive.ui.accountSettings.ChangePasswordPanel;
 import edu.baylor.GroupFive.ui.createClerk.CreateClerkAccountPanel;
 import edu.baylor.GroupFive.ui.generateBill.GenerateBillPanel;
 import edu.baylor.GroupFive.ui.homePanel.HomePanel;
@@ -15,6 +16,7 @@ import edu.baylor.GroupFive.ui.modifyRoom.RoomsPanel;
 //import edu.baylor.GroupFive.model.Privilege;
 import edu.baylor.GroupFive.ui.reservations.ReservationsPanel;
 import edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel;
+import edu.baylor.GroupFive.ui.resetPassword.ResetPasswordPanel;
 import edu.baylor.GroupFive.ui.shop.ShopPanel;
 import edu.baylor.GroupFive.ui.utils.dashboard.Dashboard;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
@@ -119,6 +121,9 @@ public class Page extends JFrame implements InputDelegate {
             case "account-settings":
                 currentPanel = new AccountSettingsPanel(this, user);
                 break;
+            case "password":
+                currentPanel = new ChangePasswordPanel(this, user);
+                break;
             case "home":
                 currentPanel = new HomePanel(this, user);
                 break;
@@ -126,6 +131,9 @@ public class Page extends JFrame implements InputDelegate {
                 dispose();
                 @SuppressWarnings("unused")
                 LandingPage page = new LandingPage();
+                break;
+            case "reset-password":
+                currentPanel = new ResetPasswordPanel(this);
                 break;
             case "shop":
                 currentPanel = new ShopPanel(this);
