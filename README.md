@@ -12,8 +12,8 @@ Contents
 Developer References
 --------------------
 
-1. [`HotelProjectException`](./EXCEPTIONS_README.md)
-1. [Cloning This Repository Locally](./Installation.md)
+1. [`HotelProjectException`](./docs/EXCEPTIONS_README.md)
+1. [Cloning This Repository Locally](./docs/INSTALLATION.md)
 
 Usage
 -----
