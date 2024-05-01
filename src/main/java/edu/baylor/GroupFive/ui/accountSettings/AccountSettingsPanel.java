@@ -81,6 +81,7 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         buttonPanel = new JPanel();
         buttonPanel.setOpaque(false);
         addModifyButton(buttonPanel);
+        addChangePasswordButton(buttonPanel);
 
         add(buttonPanel);
 
@@ -190,6 +191,16 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
         });
 
         buttonPanel.add(ModifyButton);
+    }
+
+    private void addChangePasswordButton(JPanel buttonPanel) {
+        PanelButton changePasswordButton = new PanelButton("Change Password", 300, 50);
+
+        changePasswordButton.addActionListener(e -> {
+            page.onPageSwitch("password");
+        });
+
+        buttonPanel.add(changePasswordButton);
     }
 
     /**

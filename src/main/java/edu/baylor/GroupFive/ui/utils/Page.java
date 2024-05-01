@@ -5,6 +5,7 @@ import javax.swing.*;
 import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.accountSettings.AccountSettingsPanel;
+import edu.baylor.GroupFive.ui.accountSettings.ChangePasswordPanel;
 import edu.baylor.GroupFive.ui.createClerk.CreateClerkAccountPanel;
 import edu.baylor.GroupFive.ui.generateBill.GenerateBillPanel;
 import edu.baylor.GroupFive.ui.homePanel.HomePanel;
@@ -118,6 +119,9 @@ public class Page extends JFrame implements InputDelegate {
         switch (option) {
             case "account-settings":
                 currentPanel = new AccountSettingsPanel(this, user);
+                break;
+            case "password":
+                currentPanel = new ChangePasswordPanel(this, user);
                 break;
             case "home":
                 currentPanel = new HomePanel(this, user);

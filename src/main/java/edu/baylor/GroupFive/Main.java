@@ -40,13 +40,13 @@ public class Main {
                 @SuppressWarnings("unused")
                 //InputDelegate landing = new LandingPage();
                 // Uncomment the following line to skip login page with Admin
-                //InputDelegate landing = new Page(AccountController.getUser("Bongo"));
+                InputDelegate landing = new Page(AccountController.getUser("Bongo"));
 
                 // Uncomment this one for clerk
                 //InputDelegate landing = new Page(AccountController.getUser("KevDog"));
 
                 // Uncomment this one for guest
-                InputDelegate landing = new Page(AccountController.getUser("Ant"));
+                //InputDelegate landing = new Page(AccountController.getUser("Ant"));
             }
         });
     }
