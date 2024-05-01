@@ -24,7 +24,6 @@ public class Dashboard extends JPanel {
 
         // For all users
         add(new DashboardButton(page, "src/main/resources/button-icons/logout-icon.png", "logout"));
-        add(new DashboardButton(page, "src/main/resources/button-icons/account-settings-icon.png", "account-settings"));
         add(new DashboardButton(page, "src/main/resources/button-icons/home-icon.png", "home"));
 
         // For Admin only
@@ -35,6 +34,7 @@ public class Dashboard extends JPanel {
 
         // For Admin and Clerk
         if (privilige != Privilege.GUEST) {
+            add(new DashboardButton(page, "src/main/resources/button-icons/account-settings-icon.png", "account-settings"));
             add(new DashboardButton(page, "src/main/resources/button-icons/view-rooms-icon.png", "modify-rooms"));
             add(new DashboardButton(page, "src/main/resources/button-icons/reservations-icon.png", "reservations"));
             add(new DashboardButton(page, "src/main/resources/button-icons/generate-bill-icon.png", "generate-bill"));
