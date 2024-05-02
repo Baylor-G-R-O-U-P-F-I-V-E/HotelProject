@@ -19,6 +19,7 @@ import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
+import edu.baylor.GroupFive.util.CoreUtils;
 
 import java.awt.*;
 
@@ -101,13 +102,15 @@ public class ReservationsPanel extends JPanel implements PagePanel {
         JPanel buttonPanel = new JPanel();
 
         // Create buttons
-        PanelButton modifyReservation = new PanelButton("Modify Selected Reservation");
-        PanelButton viewRoom = new PanelButton("View Selected Room");
-        PanelButton deleteReservation = new PanelButton("Delete Selected Reservation");
+        PanelButton modifyReservation = new PanelButton("Modify", 300, 50);
+        PanelButton status = new PanelButton("Change Status", 300, 50);
+        PanelButton viewRoom = new PanelButton("View Room", 300, 50);
+        PanelButton deleteReservation = new PanelButton("Delete", 300, 50);
 
         // Add buttons to panel
-        addButtonListeners(modifyReservation, viewRoom, deleteReservation);
+        addButtonListeners(modifyReservation, status, viewRoom, deleteReservation);
         buttonPanel.add(modifyReservation);
+        buttonPanel.add(status);
         buttonPanel.add(viewRoom);
         buttonPanel.add(deleteReservation);
 
@@ -121,7 +124,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
      * @param viewRoom The view room button.
      * @param deleteReservation The delete reservation button.
      */
-    private void addButtonListeners(JButton viewReservation, JButton viewRoom, JButton deleteReservation) {
+    private void addButtonListeners(JButton viewReservation, JButton status,  JButton viewRoom, JButton deleteReservation) {
         
         // Add action listener to modify reservation button
         viewReservation.addActionListener(e -> {
@@ -138,6 +141,66 @@ public class ReservationsPanel extends JPanel implements PagePanel {
                 page.addInfo(startDate);
 
                 page.onPageSwitch("modifyReservation");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
+            }
+        });
+
+        // Add action listener to change status button
+        status.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row != -1) {
+                Integer roomColumnIndex = table.getColumnModel().getColumnIndex("Room ID");
+                String roomID = (String) table.getValueAt(row, roomColumnIndex);
+                Integer startDateColumnIndex = table.getColumnModel().getColumnIndex("Start Date");
+                String startDate = (String) table.getValueAt(row, startDateColumnIndex);
+
+                // Get Date object from startDate string
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                Date startDateObj = null;
+                try {
+                    startDateObj = dateFormat.parse(startDate);
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+
+                // Ensure date was parsed successfully
+                if (startDateObj == null) {
+                    JOptionPane.showMessageDialog(null, "Error getting start date.");
+                    return;
+                }
+
+                Reservation reservation = ReservationController.getReservation(Integer.parseInt(roomID), startDateObj);
+
+                if (reservation == null) {
+                    JOptionPane.showMessageDialog(null, "Error getting reservation.");
+                    return;
+                }
+
+                Boolean checkingIn = null;
+
+                if (reservation.getCheckedInStatus()) {
+                    reservation.setCheckedInStatus(false);
+                    checkingIn = false;
+                } else {
+                    reservation.setCheckedInStatus(true);
+                    checkingIn = true;
+                }
+
+                Boolean result = ReservationController.modifyReservation(reservation);
+
+                if (result) {
+                    if (checkingIn == true) {
+                        JOptionPane.showMessageDialog(null, "Guest has been checked in.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Guest has been checked out.");
+                    }
+                    ((DefaultTableModel)table.getModel()).setValueAt(checkingIn, row, table.getColumnModel().getColumnIndex("Checked In"));
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to change reservation status.");
+                    return;
+                }
 
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
