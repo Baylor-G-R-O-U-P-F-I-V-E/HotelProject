@@ -223,14 +223,14 @@ public class ReservationController {
      * This function takes in a pair of start and end dates and determines
      * if there is any overlap.
      *
-     * @param start1 Start date of interval 1.
-     * @param end1 End date of interval 1.
-     * @param start2 Start date of interval 2.
-     * @param end2 End date of interval 2.
+     * @param start1 Start date of interval 1. This is a {@code java.util.Date} object.
+     * @param end1 End date of interval 1. This is a {@code java.util.Date} object.
+     * @param start2 Start date of interval 2. This is a {@code java.util.Date} object.
+     * @param end2 End date of interval 2. This is a {@code java.util.Date} object.
      * @return {@code true} if there is an overlap. {@code false} otherwise
      * */
     private static boolean isOverlap(Date start1, Date end1, Date start2, Date end2) {
-        return !start1.after(end2) && !end1.before(start2);
+        return !(end2.before(start1) || start2.after(end1));
     }
 
     /**
