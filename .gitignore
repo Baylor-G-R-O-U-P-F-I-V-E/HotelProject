@@ -35,8 +35,8 @@ lib/derby.jar
 FinalProject/
 FinalProject*/
 
-# Javadoc
-doc/
+# Dev Docs
+docs/TODO.md
 
 # Log files
 derby.log
