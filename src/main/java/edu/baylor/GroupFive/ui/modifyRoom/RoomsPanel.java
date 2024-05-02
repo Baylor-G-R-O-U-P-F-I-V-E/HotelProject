@@ -136,7 +136,7 @@ public class RoomsPanel extends JPanel implements PagePanel {
 
             // Get the room number from the selected row
             Integer roomColumnIndex = table.getColumnModel().getColumnIndex("Room Number");
-            int roomNumber = (Integer) table.getValueAt(table.getSelectedRow(), roomColumnIndex);
+            int roomNumber = ((Integer) table.getValueAt(table.getSelectedRow(), roomColumnIndex)).intValue();
             
             Room room = RoomController.getRoomInfo(roomNumber);
 
