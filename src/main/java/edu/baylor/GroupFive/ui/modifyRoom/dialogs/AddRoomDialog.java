@@ -132,8 +132,8 @@ public class AddRoomDialog extends JDialog {
                 }
 
                 // Add new row to table
-                Object[] row = new Object[] { roomNumber.getText(), roomType.getSelectedItem(), quality.getSelectedItem(),
-                    bedType.getSelectedItem(), bedCount.getText(), smokingBox.getSelectedItem(), price.getText() };
+                Object[] row = new Object[] { Integer.parseInt(roomNumber.getText()), roomType.getSelectedItem(), ((String) quality.getSelectedItem()).toLowerCase(),
+                    ((String) bedType.getSelectedItem()).toLowerCase(), bedCount.getText(), smokingBox.getSelectedItem(), price.getText() };
                     ((javax.swing.table.DefaultTableModel) table.getModel()).addRow(row);
                 
                 dispose();

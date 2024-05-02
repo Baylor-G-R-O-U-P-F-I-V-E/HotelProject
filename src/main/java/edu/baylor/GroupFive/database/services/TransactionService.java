@@ -57,8 +57,19 @@ public class TransactionService {
      * @return A List containing all transactions.
      */
     public static List<Reservation> getCurrentGuestTransactions() {
-        // FIXME return type, function call. -Icko
-        return ReservationServices.getCurrentGuestTransactions();
+        List<Reservation> reservations = ReservationServices.getCurrentGuestTransactions();
+
+        // Filter out duplicate usernames
+        for (int i = 0; i < reservations.size(); i++) {
+            for (int j = i + 1; j < reservations.size(); j++) {
+                if (reservations.get(i).getGuestUsername().equals(reservations.get(j).getGuestUsername())) {
+                    reservations.remove(j);
+                    j--;
+                }
+            }
+        }
+
+        return reservations;
     }
 
     /**

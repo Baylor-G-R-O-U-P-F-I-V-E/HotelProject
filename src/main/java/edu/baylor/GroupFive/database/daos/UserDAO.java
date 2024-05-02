@@ -62,13 +62,14 @@ public class UserDAO extends BaseDAO<User> {
             List<User> output = new ArrayList<>();
 
             while (rs.next()) {
-                //int id = rs.getInt("id");
+                int id = rs.getInt("id");
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
                 String userName = rs.getString("userName");
                 String pswdHash = rs.getString("password");
                 String privilege = rs.getString("privilege");
                 User out = new User(firstName, lastName, userName, pswdHash, privilege);
+                out.setId(id);
 
                 // Add a print statement to see if the user is being found
                 System.out.println("User got: " + userName + " [pswd]=" + pswdHash);
@@ -149,7 +150,7 @@ public class UserDAO extends BaseDAO<User> {
      * @param user User to insert.
      * @return Number of lines affected by query.
      */
-    public Integer insert(User user){
+    public Integer insert(User user) {
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
@@ -172,20 +173,28 @@ public class UserDAO extends BaseDAO<User> {
      * @param user User object with changes.
      * @return Number of lines affected by query.
      */
-    public Integer update(User user){
-
+    public Integer update(User user) {
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
-
-            String sqlUpdate = "UPDATE users SET firstName = '" + user.getFirstName() + "', lastName = '" + user.getLastName() + "', password = '" + user.getPasswordHash() + "', privilege = '" + user.getPrivilege().toString() + "' WHERE username = '" + user.getUsername() + "'";
+            
+            // Get the original user to update the guestusername in the RESERVATIONs table
+            User oldUser = get(user.getId());
+    
+            // Step 1: Change the user in the users table
+            String sqlUpdate = "UPDATE users SET username = '" + user.getUsername() + "', firstName = '" + user.getFirstName() + "', lastName = '" + user.getLastName() + "', password = '" + user.getPasswordHash() + "', privilege = '" + user.getPrivilege().toString() + "' WHERE id = " + user.getId();
             statement.executeUpdate(sqlUpdate);
 
-            return 1;
+            // Step 2: Change the guestusername in the RESERVATIONs table
+            String updateGuestUsername = "UPDATE RESERVATIONs SET guestusername = '" + user.getUsername() + "' WHERE guestusername = '" + oldUser.getUsername() + "'";
+            statement.executeUpdate(updateGuestUsername);
 
+            // Step 3: Change the username in the TRANSACTIONs table
+            String updateUsername = "UPDATE TRANSACTIONS SET username = '" + user.getUsername() + "' WHERE username = '" + oldUser.getUsername() + "'";
+    
+            return 1;
         } catch (SQLException | BadConnectionException e) {
             System.err.println(e.getMessage());
             return 0;
         }
-
     }
 
     /**
@@ -198,7 +207,7 @@ public class UserDAO extends BaseDAO<User> {
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
 
-            String sqlDelete = "DELETE FROM users WHERE username = '" + user.getUsername() + "'";
+            String sqlDelete = "DELETE FROM users WHERE id = '" + user.getId() + "'";
             statement.executeUpdate(sqlDelete);
 
             return 1;

@@ -113,13 +113,11 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
 
         // Create buttons
         PanelButton reserveRoom = new PanelButton("Reserve Room");
-        PanelButton viewRoom = new PanelButton("View Room");
         PanelButton adjustDates = new PanelButton("Adjust Dates");
 
         // Add buttons to panel
-        addButtonListeners(reserveRoom, viewRoom, adjustDates);
+        addButtonListeners(reserveRoom, adjustDates);
         buttonPanel.add(reserveRoom);
-        buttonPanel.add(viewRoom);
         buttonPanel.add(adjustDates);
 
         add(buttonPanel);
@@ -132,7 +130,7 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
      * @param viewRoom The view room button.
      * @param adjustDates The adjust dates button.
      */
-    private void addButtonListeners(JButton reserveRoom, JButton viewRoom, JButton adjustDates) {
+    private void addButtonListeners(JButton reserveRoom, JButton adjustDates) {
         reserveRoom.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row != -1) {
@@ -140,18 +138,6 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
                 if (dates != null) {
                     promptReservation(dates.get(0), dates.get(1));
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
-            }
-        });
-
-        viewRoom.addActionListener(e -> {
-            int row = table.getSelectedRow();
-            if (row != -1) {
-                int roomColumnIndex = table.getColumnModel().getColumnIndex("Room");
-                Integer roomNumber = Integer.parseInt((String) table.getValueAt(row, roomColumnIndex));
-                Room room = RoomController.getRoomInfo(roomNumber);
-                JOptionPane.showMessageDialog(null, room.toString());
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a reservation to view.");
             }

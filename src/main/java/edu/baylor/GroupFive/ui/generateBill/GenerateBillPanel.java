@@ -4,6 +4,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -120,6 +121,11 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
         generateButton.setPreferredSize(new Dimension(400, 50));
 
         generateButton.addActionListener(e -> {
+
+            if (getSelectedGuest() == null) {
+                JOptionPane.showMessageDialog(null, "Please select a guest to generate a bill for.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             // Destroy the current panel
             page.remove(page.currentPanel);
             page.currentPanel = new GuestBillPanel(page, getSelectedGuest());

@@ -179,6 +179,35 @@ import org.apache.logging.log4j.Logger;
         return out;
     }
 
+    /**
+     * Retrieves all reservations from the database.
+     * @return A List containing all reservations
+     * @throws SQLException If an error occurs during database communication
+     */
+    public List<Reservation> getAllActive() {
+        String query = "SELECT * FROM Reservations WHERE active = true";
+        try (Connection conn = DbConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
+            ResultSet rs = statement.executeQuery();
+            List<Reservation> reservations = new ArrayList<>();
+            while (rs.next()) {
+                reservations.add(new Reservation(
+                    rs.getInt("id"),
+                    rs.getDate("startDate"),
+                    rs.getDate("endDate"),
+                    rs.getString("guestUsername"),
+                    rs.getInt("roomNumber"),
+                    rs.getDouble("price"),
+                    rs.getBoolean("active"),
+                    rs.getBoolean("checkedIn")
+                ));
+            }
+            return reservations;
+        } catch (SQLException | BadConnectionException e) {
+            G5Logger.logger.error(e.getMessage());
+            return null;
+        }
+    }
+
      /**
       * This method either inserts or updates behind-the-scenes depending
       * on if the reservation already exists in our database.
@@ -332,19 +361,20 @@ import org.apache.logging.log4j.Logger;
         }
 
         // Build query
-        String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = ? AND startDate = ?";
+        String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = ? AND startDate BETWEEN ? AND ? AND endDate BETWEEN ? AND ? AND active = true";
         PreparedStatement statement = connection.prepareStatement(sqlQuery);
         statement.setInt(1, roomNumber);
-        statement.setDate(2, CoreUtils.getSqlDate(startDate));
+        statement.setString(2, CoreUtils.formatDate(startDate));
+        statement.setString(3, CoreUtils.formatDate(endDate));
+        statement.setString(4, CoreUtils.formatDate(startDate));
+        statement.setString(5, CoreUtils.formatDate(endDate));
 
         // Execute query
         ResultSet rs = statement.executeQuery();
 
         // Check violations
-        while (rs.next()) {
-            if (rs.getBoolean("active") == true && !isOverlap(startDate, endDate, rs.getDate("startDate"), rs.getDate("endDate"))) {
-                return false;
-            }
+        if (rs.next()) {
+            return false;
         }
 
         // Close connections
@@ -376,10 +406,11 @@ import org.apache.logging.log4j.Logger;
 
         // Build query
         // FIXME This logically seems incorrect -Icko
-        String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = ? AND startDate = ?";
+        String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = ? AND startDate BETWEEN ? AND ?";
         PreparedStatement statement = connection.prepareStatement(sqlQuery);
         statement.setInt(1, reservation.getRoomNumber());
         statement.setDate(2, CoreUtils.getSqlDate(reservation.getStartDate()));
+        statement.setDate(3, CoreUtils.getSqlDate(reservation.getEndDate()));
 
         // Execute query
         ResultSet rs = statement.executeQuery();

@@ -158,12 +158,19 @@ public class RoomDAO extends BaseDAO<Room>{
     public Integer update(Room updatedInfo){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+
+            // Get the old room
+            Room oldRoom = get(updatedInfo.getRoomNumber());
             
             String sqlUpdate = "UPDATE ROOM SET quality = '" + Quality.formatQuality(updatedInfo.getQuality()) +
                 "', theme = '" + updatedInfo.getTheme().toString() + "', smoking = " + updatedInfo.isSmoking().toString() +
                 ", bedType = '" + updatedInfo.getBedType().toString() + "', numbeds = " + updatedInfo.getNumBeds().toString() +
                 ", dailyPrice = " + updatedInfo.getDailyPrice().toString() + " WHERE roomNumber = " + updatedInfo.getRoomNumber().toString();
             statement.executeUpdate(sqlUpdate);
+
+            // Update reservations with new daily price
+            String sqlUpdate2 = "UPDATE RESERVATION SET dailyPrice = " + updatedInfo.getDailyPrice().toString() + " WHERE roomNumber = " + updatedInfo.getRoomNumber().toString();
+            statement.executeUpdate(sqlUpdate2);
 
             return 1;
 

@@ -288,9 +288,16 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
                 JOptionPane.showMessageDialog(null, "Username cannot be empty.");
                 return;
             }
+
+            if (AccountController.getUser(usernameField.getText()) != null) {
+                // Pop up a message saying the username is already taken
+                JOptionPane.showMessageDialog(null, "Username is already taken.");
+                return;
+            }
             
             // Save the changes
             User newUser = new User(firstNameField.getText(), lastNameField.getText(), usernameField.getText(), user.getPasswordHash(), user.getPrivilege().toString());
+
             newUser.setId(user.getId());
 
             Boolean success = AccountController.modifyAccount(newUser);

@@ -1,5 +1,6 @@
 package edu.baylor.GroupFive.ui.homePanel;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import edu.baylor.GroupFive.database.controllers.ReservationController;
@@ -8,7 +9,6 @@ import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.utils.interfaces.DataModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 import edu.baylor.GroupFive.util.CoreUtils;
-import edu.baylor.GroupFive.util.logging.G5Logger;
 
 /**
  * Model for managing home-related data.
@@ -62,7 +62,7 @@ public class HomeModel extends HotelModel implements DataModel {
             try {
 
                 // Add the row to the table
-                addRow(new Object[] {String.valueOf(reservation.getRoomNumber()), CoreUtils.formatDate(reservation.getStartDate()), CoreUtils.formatDate(reservation.getEndDate()), String.valueOf(reservation.getPrice())});
+                addRow(new Object[] {String.valueOf(reservation.getRoomNumber()), CoreUtils.formatDate(reservation.getStartDate()), CoreUtils.formatDate(reservation.getEndDate()), String.format("%.2f", reservation.calculatePrice())});
                 // Print the row to the console
                 System.out.println("Added row to table: " + user.getFirstName() + ", " + user.getLastName() + ", " + reservation.getStartDate() + ", " + reservation.getEndDate() + ", " + user.getUsername() + ", " + reservation.getRoomNumber());
 

@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import edu.baylor.GroupFive.database.controllers.ReservationController;
 import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.ui.modifyRoom.dialogs.AddRoomDialog;
@@ -107,10 +108,17 @@ public class RoomsPanel extends JPanel implements PagePanel {
             if (choice != JOptionPane.YES_OPTION) {
                 return;
             }
+
+            // Check if the room is in use
+            if (ReservationController.getRoomReservations(roomNumber).size() > 0) {
+                JOptionPane.showMessageDialog(this, "Room is in use and cannot be deleted.");
+                return;
+            }
             
             Boolean result = RoomController.deleteRoom(roomNumber);
 
             if (result) {
+                JOptionPane.showMessageDialog(this, "Room deleted successfully.");
                 model.getData();
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to delete room.");
@@ -128,7 +136,7 @@ public class RoomsPanel extends JPanel implements PagePanel {
 
             // Get the room number from the selected row
             Integer roomColumnIndex = table.getColumnModel().getColumnIndex("Room Number");
-            int roomNumber = (Integer) table.getValueAt(table.getSelectedRow(), roomColumnIndex);
+            int roomNumber = ((Integer) table.getValueAt(table.getSelectedRow(), roomColumnIndex)).intValue();
             
             Room room = RoomController.getRoomInfo(roomNumber);
 
