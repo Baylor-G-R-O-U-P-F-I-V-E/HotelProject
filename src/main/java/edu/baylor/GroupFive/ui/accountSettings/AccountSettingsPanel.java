@@ -289,7 +289,7 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
                 return;
             }
 
-            if (AccountController.getUser(usernameField.getText()) != null) {
+            if (!(user.getUsername().equals(usernameField.getText())) && AccountController.getUser(usernameField.getText()) != null) {
                 // Pop up a message saying the username is already taken
                 JOptionPane.showMessageDialog(null, "Username is already taken.");
                 return;
