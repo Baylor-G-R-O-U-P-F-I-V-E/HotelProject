@@ -1,6 +1,7 @@
 package edu.baylor.GroupFive.database.controllers;
 
 import edu.baylor.GroupFive.util.CoreUtils;
+import edu.baylor.GroupFive.util.exceptions.TimeLockedOperationException;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.Reservation;
@@ -215,6 +216,24 @@ public class ReservationController {
         } catch (SQLException ex) {
             logger.log(Level.WARN, "SQLException cancelling reservation with id " + reservation.getDbId());
         }
+
+        return false;
+    }
+
+    /**
+     * Given a {@code reservation}, checks in the guest.
+     *
+     * @param reservation Reservation we are checking in the guest for.
+     * @param currentDate Today.
+     * @return {@code true} if guest has been checked in. {@code false} otherwise.
+     * */
+    public static boolean checkInGuest(Reservation reservation, Date currentDate) throws TimeLockedOperationException {
+        logger.info("Attempting to check-in guest to reservation with id " + reservation.getDbId());
+
+        int result = ReservationServices.checkInGuest(reservation, currentDate);
+
+        if (result == -1) logger.log(Level.WARN, "BadConnectionException or SQLException checking in guest to reservation with id " + reservation.getDbId());
+        if (result > 0) return true;
 
         return false;
     }

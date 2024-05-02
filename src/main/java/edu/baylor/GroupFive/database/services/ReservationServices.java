@@ -18,6 +18,7 @@ import edu.baylor.GroupFive.util.CoreUtils;
 import edu.baylor.GroupFive.database.daos.ReservationDao;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
+import edu.baylor.GroupFive.util.exceptions.TimeLockedOperationException;
 import edu.baylor.GroupFive.util.logging.G5Logger;
 import edu.baylor.GroupFive.database.DbConnection;
 import org.apache.logging.log4j.LogManager;
@@ -499,6 +500,41 @@ import org.apache.logging.log4j.Logger;
         }
 
         return reservations;
+    }
+
+     /**
+      * This function checks in a guest by updating the checked-in flag in the database.
+      * Assumes {@code reservation} exists in our database and is active.
+      * Assumes {@code reservation} contains the checkedIn flag from our database.
+      *
+      * @param reservation Reservation of guest.
+      * @throws TimeLockedOperationException If user tries to check-in guest within 24 hours
+      *     of {@code reservation} start date.
+      * @return Returns number of rows affected by query. Returns -1 if an exception occurs during database communication.
+      * */
+    public static int checkInGuest(Reservation reservation, Date currentDate) throws TimeLockedOperationException {
+        // Check if within 24 hours of start time
+        Date startDate = reservation.getStartDate();
+        long diff = CoreUtils.getMillisecondDifference(startDate, currentDate);
+        if (diff > CoreUtils.MILLISECONDS_IN_24_HR) {
+            throw new TimeLockedOperationException();
+        }
+
+        // Check in guest
+        String sql = "UPDATE reservations set checkedIn = ? WHERE id = ?";
+
+        try (Connection connection = DbConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setBoolean(1, true);
+            statement.setInt(2, reservation.getDbId());
+
+            return statement.executeUpdate();
+        } catch (BadConnectionException | SQLException e) {
+            G5Logger.logger.error(e.getMessage());
+        }
+
+        // Returned if exception occurs.
+        return -1;
     }
 
     /**

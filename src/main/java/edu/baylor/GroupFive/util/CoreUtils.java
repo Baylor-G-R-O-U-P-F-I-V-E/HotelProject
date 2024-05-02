@@ -20,7 +20,14 @@ public class CoreUtils {
      */
     private CoreUtils() {}
 
+    /**
+     * Dates in our project are printed in the form MM/dd/yyyy.
+     * */
     public static final String DATE_FORMAT = "MM/dd/yyyy";
+    /**
+     * Number of milliseconds in 24 hours.
+     * */
+    public static final int MILLISECONDS_IN_24_HR = 24 * 60 * 60 * 1000;
 
      /**
       * Converts a {@code java.sql.Date} into a {@code java.util.Date}.
@@ -108,6 +115,17 @@ public class CoreUtils {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         java.util.Date date = sdf.parse(dateStr);
         return getSqlDate(date);
+    }
+
+    /**
+     * Gets the absolute millisecond difference between two dates.
+     *
+     * @param date1 First date.
+     * @param date2 Second date.
+     * @return Returns date2 - date1. >0 if date2 is after date1. <0 if date1 is after date2.
+     * */
+    public static long getMillisecondDifference(java.util.Date date1, java.util.Date date2) {
+        return date2.getTime() - date1.getTime();
     }
 
 }
