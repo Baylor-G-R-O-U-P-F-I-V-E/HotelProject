@@ -291,6 +291,7 @@ public class AccountSettingsPanel extends JPanel implements PagePanel {
             
             // Save the changes
             User newUser = new User(firstNameField.getText(), lastNameField.getText(), usernameField.getText(), user.getPasswordHash(), user.getPrivilege().toString());
+
             newUser.setId(user.getId());
 
             Boolean success = AccountController.modifyAccount(newUser);

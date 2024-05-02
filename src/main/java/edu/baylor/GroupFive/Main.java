@@ -30,6 +30,7 @@ public class Main {
         G5Logger.initLogging(args);
         Logger logger = LogManager.getLogger(Main.class);
         logger.info("Logging initiated. Invoking dbSetup...");
+
         @SuppressWarnings("unused")
         DbSetup db = new DbSetup();
 
@@ -40,7 +41,7 @@ public class Main {
                 @SuppressWarnings("unused")
                 //InputDelegate landing = new LandingPage();
                 // Uncomment the following line to skip login page with Admin
-                InputDelegate landing = new Page(AccountController.getUser("Bongo"));
+                InputDelegate landing = new Page(AccountController.getUser("Boingo"));
 
                 // Uncomment this one for clerk
                 //InputDelegate landing = new Page(AccountController.getUser("KevDog"));

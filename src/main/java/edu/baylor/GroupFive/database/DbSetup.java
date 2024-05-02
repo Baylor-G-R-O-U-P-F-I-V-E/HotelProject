@@ -145,16 +145,6 @@ public class DbSetup {
                 logger.info("FK_23 does not exist");
             }
 
-            // Check if FK_12 constraint exists
-            rs = dbm.getImportedKeys(null, null, "RESERVATIONs");
-            if (rs.next()) {
-                // Drop the FK_12 constraint
-                statement.executeUpdate("ALTER TABLE RESERVATIONs DROP CONSTRAINT FK_12");
-            } else {
-                // FK_12 does not exist
-                logger.info("FK_12 does not exist");
-            }
-
             // Check if PK_USER constraint exists
             rs = dbm.getPrimaryKeys(null, null, "USERs");
             if (rs.next()) {
@@ -163,6 +153,16 @@ public class DbSetup {
             } else {
                 // PK_USER does not exist
                 logger.info("PK_USER does not exist");
+            }
+
+            // Check if FK_12 constraint exists
+            rs = dbm.getImportedKeys(null, null, "RESERVATIONs");
+            if (rs.next()) {
+                // Drop the FK_12 constraint
+                statement.executeUpdate("ALTER TABLE RESERVATIONs DROP CONSTRAINT FK_12");
+            } else {
+                // FK_12 does not exist
+                logger.info("FK_12 does not exist");
             }
 
             statement.executeUpdate(sqlDropReservationTable);
@@ -256,12 +256,14 @@ public class DbSetup {
     private static final String sqlDropUserTable = "DROP TABLE USERs";
     private static final String sqlDropTransactionsTable = "DROP TABLE TRANSACTIONS";
     private static final String sqlCreateUserTable = "CREATE TABLE USERs(" +
+            "id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
             "firstName VARCHAR(30)," +
             "lastName VARCHAR(30)," +
             "username VARCHAR(30) NOT NULL ," +
             "password VARCHAR(256)," +
             "privilege VARCHAR(20)," +
-            "CONSTRAINT PK_USER PRIMARY KEY(username))";
+            "CONSTRAINT PK_USER PRIMARY KEY(id)," +
+            "CONSTRAINT UQ_USER UNIQUE(username))";
 
     private static final String sqlCreateRoomTable = "CREATE TABLE ROOM(" +
             "roomNumber INTEGER NOT NULL , " +
@@ -277,13 +279,11 @@ public class DbSetup {
             "startDate DATE," +
             "endDate Date," +
             "price DECIMAL(5,2)," +
-            "guestusername VARCHAR(30)," +
+            "guestusername VARCHAR(30) NOT NULL," +
             "roomNumber INTEGER," +
             "id INTEGER," +
             "active BOOLEAN," +
             "checkedIn BOOLEAN," +
-            "CONSTRAINT FK_12 FOREIGN KEY (guestusername) REFERENCES users(username)," +
-            "CONSTRAINT FK_23 FOREIGN KEY (roomNumber) REFERENCES ROOM(roomNumber)," +
             "CONSTRAINT PK_RES3 PRIMARY KEY(roomNumber, startDate)" +
             ")";
     
@@ -293,7 +293,6 @@ public class DbSetup {
             "purchaseDate DATE," +
             "description VARCHAR(100)," +
             "username VARCHAR(30)," +
-            "CONSTRAINT FK_34 FOREIGN KEY (username) REFERENCES users(username)," +
             "CONSTRAINT PK_TRANS PRIMARY KEY(id)" +
             ")";
 
