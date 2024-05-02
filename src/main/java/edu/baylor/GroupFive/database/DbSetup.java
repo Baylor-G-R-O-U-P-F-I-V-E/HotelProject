@@ -266,7 +266,7 @@ public class DbSetup {
             "CONSTRAINT UQ_USER UNIQUE(username))";
 
     private static final String sqlCreateRoomTable = "CREATE TABLE ROOM(" +
-            "roomNumber INTEGER NOT NULL , " +
+            "roomNumber INTEGER NOT NULL, " +
             "quality VARCHAR(15)," +
             "theme VARCHAR(50)," +
             "smoking Boolean," +
