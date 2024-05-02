@@ -9,8 +9,6 @@ help:
 		<target>       | Description \n\
 		---------------|------------ \n\
 		build          | Runs \`mvn package\` \n\
-		build-no-tests | Runs \`mvn package -Dmaven.test.skip=true\` \n\
-		               | This packages the project without running test cases \n\
 		update         | Pull all dependencies without compiling project \n\
 		run            | Run the jar \n\
 		docker-build   | Build Docker image \n\
@@ -21,12 +19,8 @@ help:
 .PHONY: help
 
 build:
-	mvn package
-.PHONY: build
-
-build-no-tests:
 	mvn package -Dmaven.test.skip=true
-.PHONY: build-no-tests
+.PHONY: build
 
 update:
 	mvn dependency:copy-dependencies
