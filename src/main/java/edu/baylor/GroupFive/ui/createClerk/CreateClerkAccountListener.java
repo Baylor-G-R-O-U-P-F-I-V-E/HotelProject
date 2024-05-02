@@ -11,6 +11,7 @@ import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.models.enums.Privilege;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.Page;
+import edu.baylor.GroupFive.util.CoreUtils;
 
 /**
  * ActionListener implementation for creating a clerk account.
@@ -81,7 +82,22 @@ public class CreateClerkAccountListener implements ActionListener {
 
         } else {
             // Create the clerk account
-            User user = new User(firstName, lastName, username, password, "clerk");
+            User user = new User(firstName, lastName, username, CoreUtils.hashPassword(password), "clerk");
+
+            if (AccountController.getUser(username) != null) {
+                // Display an error message
+                String message = "Account already exists";
+
+                try {
+
+                    new BadInputDialog(message, "Cannot make account");
+
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+                return;
+            }
+
             if (AccountController.register(user)) {
                 // Display a success message
                 JOptionPane.showMessageDialog(null, "Account created successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -89,7 +105,7 @@ public class CreateClerkAccountListener implements ActionListener {
                 
             } else {
                 // Display an error message
-                String message = "Account already exists";
+                String message = "Account with that username already exists";
 
                 try {
 
