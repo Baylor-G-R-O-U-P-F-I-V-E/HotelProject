@@ -136,7 +136,7 @@ public class CreateAccountActionListener implements ActionListener {
         }
 
         // Create a new user and add to database
-        User user = new User(firstName, lastName, userName, CoreUtils.hashPassword(guestPassword), "guest");
+        User user = new User(firstName, lastName, userName, guestPassword, "guest");
         if(AccountController.register(user)) { 
             landingPage.setUsername(userName);
             landingPage.onPageSwitch("success");
