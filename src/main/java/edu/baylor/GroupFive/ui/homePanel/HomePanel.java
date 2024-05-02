@@ -15,6 +15,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Panel;
 import java.text.ParseException;
+import java.util.Date;
 
 import edu.baylor.GroupFive.database.controllers.ReservationController;
 import edu.baylor.GroupFive.models.Reservation;
@@ -173,6 +174,25 @@ public class HomePanel extends JPanel implements PagePanel {
                 reservation = ((HomeModel) reservationsTable.getModel()).getReservation(selectedRow);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error fetching reservation data.");
+                return;
+            }
+
+            if (reservation == null) {
+                JOptionPane.showMessageDialog(this, "Error fetching reservation data.");
+                return;
+            }
+
+            Date start = reservation.getStartDate();
+
+            // Check if the reservation has already started
+            if (start.before(new Date())) {
+                JOptionPane.showMessageDialog(this, "This reservation has already started and cannot be modified.");
+                return;
+            }
+
+            // If reservation is within 48 hours, do not allow modification
+            if (start.getTime() - new Date().getTime() < 48 * 60 * 60 * 1000) {
+                JOptionPane.showMessageDialog(this, "This reservation is within 48 hours and cannot be modified. Please see a clerk for assistance.");
                 return;
             }
 

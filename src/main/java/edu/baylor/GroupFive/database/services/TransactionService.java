@@ -1,5 +1,6 @@
 package edu.baylor.GroupFive.database.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -70,6 +71,25 @@ public class TransactionService {
         }
 
         return reservations;
+    }
+
+    /**
+     * Gets all active reservations as transactions tied to the currently logged in user.
+     *
+     * @param username Username of user.
+     * @return A List containing all active reservations tied to {@code username}.
+     */
+    public static List<Transaction> getActiveReservationsAsTransactions(String username) {
+        List<Reservation> reservations = ReservationServices.getReservationsByGuest(username);
+
+        List<Transaction> transactions = new ArrayList<>();
+
+        for (Reservation reservation : reservations) {
+            Transaction transaction = new Transaction(username, "Reservation", new Date(), reservation.getPrice().floatValue());
+            transactions.add(transaction);
+        }
+
+        return transactions;
     }
 
     /**
