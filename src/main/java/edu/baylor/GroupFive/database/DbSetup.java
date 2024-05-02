@@ -276,12 +276,12 @@ public class DbSetup {
             "CONSTRAINT PK_ROOM PRIMARY KEY(roomNumber))";
 
     private static final String sqlCreateReservationTable = "CREATE TABLE RESERVATIONs(" +
+            "id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
             "startDate DATE," +
             "endDate Date," +
             "price DECIMAL(5,2)," +
             "guestusername VARCHAR(30) NOT NULL," +
             "roomNumber INTEGER," +
-            "id INTEGER," +
             "active BOOLEAN," +
             "checkedIn BOOLEAN," +
             "CONSTRAINT PK_RES3 PRIMARY KEY(roomNumber, startDate)" +
@@ -311,7 +311,7 @@ public class DbSetup {
 
     private static final String BASE_USER_INSERT_QUERY = "INSERT INTO USERS(firstName, lastName, userName, password, privilege) VALUES ( ?, ?, ?, ?, ? )";
     private static final String BASE_ROOM_INSERT_QUERY = "INSERT INTO ROOM(roomNumber, quality, theme, smoking, bedType, numBeds, dailyPrice) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
-    private static final String BASE_RESERVATION_INSERT_QUERY = "INSERT INTO RESERVATIONS(startDate, endDate, price, guestUsername, roomNumber, id, active, checkedIn) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
+    private static final String BASE_RESERVATION_INSERT_QUERY = "INSERT INTO RESERVATIONS(startDate, endDate, price, guestUsername, roomNumber, active, checkedIn) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
     private static final String BASE_TRANSACTION_INSERT_QUERY = "INSERT INTO TRANSACTIONS(amount, purchaseDate, description, username) VALUES ( ?, ?, ?, ? )";
     private static final String BASE_PRODUCT_INSERT_QUERY = "INSERT INTO PRODUCTS(productName, baseCost, description) VALUES (?,?,?)";
     private static final String BASE_STOCK_INSERT_QUERY = "INSERT INTO STOCKS(productId, stock) VALUES (?,?)";
@@ -350,15 +350,15 @@ public class DbSetup {
         roomInits.add(new Object[] { 108, "comfort", "NatureRetreat",   false,    "QUEEN",    2,    92.22 });
         roomInits.add(new Object[] { 109, "executive", "VintageCharm",    true,     "KING",     2,    98.22 });
 
-        reservationInits.add(new Object[] { "12/17/2024",   "12/19/2024",   97.99,  "Axel112",            102, 1, true,     false });
-        reservationInits.add(new Object[] { "07/12/2024",   "07/22/2024",   95.99,  "LarryTheLobster",    103, 2, true,     false });
-        reservationInits.add(new Object[] { "07/20/2024",   "07/23/2024",   96.99,  "BigA",               101, 3, true,     false });
-        reservationInits.add(new Object[] { "07/20/2024",   "07/23/2024",   97.99,  "Jman",               104, 4, true,     true });
-        reservationInits.add(new Object[] { "07/11/2024",   "07/13/2024",   88.99,  "T-Lee",              105, 5, false,    false });
-        reservationInits.add(new Object[] { "07/09/2024",   "07/12/2024",   97.99,  "andyEv",             101, 6, false,    false });
-        reservationInits.add(new Object[] { "07/10/2024",   "07/17/2024",   88.99,  "KevDog",             102, 7, true,     true });
-        reservationInits.add(new Object[] { "07/22/2024",   "07/25/2024",   97.99,  "Bongo",              103, 8, true,     false });
-        reservationInits.add(new Object[] { "07/14/2024",   "07/19/2024",   97.99,  "Ant",                104, 9, true,     true });
+        reservationInits.add(new Object[] { "12/17/2024",   "12/19/2024",   97.99,  "Axel112",            102, true,     false });
+        reservationInits.add(new Object[] { "07/12/2024",   "07/22/2024",   95.99,  "LarryTheLobster",    103, true,     false });
+        reservationInits.add(new Object[] { "07/20/2024",   "07/23/2024",   96.99,  "BigA",               101, true,     false });
+        reservationInits.add(new Object[] { "07/20/2024",   "07/23/2024",   97.99,  "Jman",               104, true,     true });
+        reservationInits.add(new Object[] { "07/11/2024",   "07/13/2024",   88.99,  "T-Lee",              105, false,    false });
+        reservationInits.add(new Object[] { "07/09/2024",   "07/12/2024",   97.99,  "andyEv",             101, false,    false });
+        reservationInits.add(new Object[] { "07/10/2024",   "07/17/2024",   88.99,  "KevDog",             102, true,     true });
+        reservationInits.add(new Object[] { "07/22/2024",   "07/25/2024",   97.99,  "Bongo",              103, true,     false });
+        reservationInits.add(new Object[] { "07/14/2024",   "07/19/2024",   97.99,  "Ant",                104, true,     true });
 
         transactionInits.add(new Object[] { 3.79, "07/14/2024", "Yogurt", "Ant" });
         transactionInits.add(new Object[] { 4.05, "07/14/2024", "Cereal", "Ant" });
@@ -457,9 +457,8 @@ public class DbSetup {
             statement.setDouble(3, (double) reservation[2]);
             statement.setString(4, (String) reservation[3]);
             statement.setInt(5, (int) reservation[4]);
-            statement.setInt(6, (int) reservation[5]);
+            statement.setBoolean(6, (boolean) reservation[5]);
             statement.setBoolean(7, (boolean) reservation[6]);
-            statement.setBoolean(8, (boolean) reservation[7]);
 
             try {
                 statement.executeUpdate();

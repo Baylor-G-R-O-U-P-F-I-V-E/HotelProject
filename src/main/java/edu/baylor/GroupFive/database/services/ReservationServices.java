@@ -240,16 +240,15 @@ import org.apache.logging.log4j.Logger;
         // Build query
         // 1      2        3      4         5           6        7        8
         // id startDate endDate price guestUsername roomNumber active checkedIn
-        String sqlInsert = "INSERT INTO Reservations(ID,STARTDATE,ENDDATE,PRICE,GUESTUsername,ROOMNumber,ACTIVE,CHECKEDIN) VALUES( ?, ?, ?, ?, ?, ?, ?, ? )";
+        String sqlInsert = "INSERT INTO Reservations(STARTDATE,ENDDATE,PRICE,GUESTUsername,ROOMNumber,ACTIVE,CHECKEDIN) VALUES( ?, ?, ?, ?, ?, ?, ? )";
         PreparedStatement statement = connection.prepareStatement(sqlInsert);
-        statement.setInt(1, reservation.getDbId());
-        statement.setDate(2, CoreUtils.getSqlDate(reservation.getStartDate()));
-        statement.setDate(3, CoreUtils.getSqlDate(reservation.getEndDate()));
-        statement.setDouble(4, reservation.getPrice());
-        statement.setString(5, reservation.getGuestUsername());
-        statement.setInt(6, reservation.getRoomNumber());
-        statement.setBoolean(7, reservation.getActiveStatus());
-        statement.setBoolean(8, reservation.getCheckedInStatus());
+        statement.setDate(1, CoreUtils.getSqlDate(reservation.getStartDate()));
+        statement.setDate(2, CoreUtils.getSqlDate(reservation.getEndDate()));
+        statement.setDouble(3, reservation.getPrice());
+        statement.setString(4, reservation.getGuestUsername());
+        statement.setInt(5, reservation.getRoomNumber());
+        statement.setBoolean(6, reservation.getActiveStatus());
+        statement.setBoolean(7, reservation.getCheckedInStatus());
 
         // Execute query
         int result = statement.executeUpdate();

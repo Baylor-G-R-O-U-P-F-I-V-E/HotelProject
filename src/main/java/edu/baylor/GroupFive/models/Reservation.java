@@ -111,7 +111,6 @@ public class Reservation {
     public Reservation(Date startDate, Date endDate,
                        String guestUsername, String roomNumber, Double price, 
                        boolean active, boolean checkedIn) {
-        this.setDbId(-1);
         this.setStartDate(startDate);
         this.setEndDate(endDate);
         this.setGuestID(guestUsername);
