@@ -176,6 +176,22 @@ public class Reservation {
     }
 
     /**
+     * Returns the days between the start and end dates of this reservation.
+     * @return Number of days between the start and end dates of this reservation.
+     */
+    public int daysBetween() {
+        long days = 0;
+        for (long i = startDate.getTime(); i < endDate.getTime(); i += 86400000) {
+            days++;
+        }
+        return (int) days;
+    }
+    
+    public double calculatePrice() {
+        return daysBetween() * price;
+    }
+
+    /**
      * Returns a String representation of this reservation object.
      *
      * @return String representation of this reservation object.
