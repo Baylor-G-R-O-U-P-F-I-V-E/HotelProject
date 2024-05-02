@@ -7,9 +7,14 @@ import java.util.Date;
 import javax.swing.*;
 import javax.swing.table.*;
 
+import org.apache.derby.iapi.store.access.TransactionController;
+
+import edu.baylor.GroupFive.database.controllers.BillingController;
+import edu.baylor.GroupFive.database.controllers.PaymentController;
 import edu.baylor.GroupFive.database.controllers.ReservationController;
 import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.models.Room;
+import edu.baylor.GroupFive.models.Transaction;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
@@ -199,11 +204,28 @@ public class ReservationsPanel extends JPanel implements PagePanel {
                     return;
                 }
 
+                Float fee = 0.0f;
+
+                // If within 48 hours, ask user if they are willing to accept the cancellation fee of 80% one nights stay
+                if (parsedStartDate.getTime() - new Date().getTime() < 48 * 60 * 60 * 1000) {
+                    int feeDialogResult = JOptionPane.showConfirmDialog(null, "This reservation is within 48 hours of the start date. \nAre you sure you want to cancel this reservation? \nGuest will be charged 80% of one night's stay.", "Warning", JOptionPane.YES_NO_OPTION);
+                    if (feeDialogResult != JOptionPane.YES_OPTION) {
+                        return;
+                    };
+                    fee = (float) (reservation.getPrice() * 0.8);
+                }
+
                 // Cancel the reservation
                 Boolean result = ReservationController.cancelReservation(reservation);
 
                 if (result) {
                     JOptionPane.showMessageDialog(null, "Reservation deleted successfully.");
+                    if (fee > 0) {
+                        // Create a transaction for the fee
+                        BillingController.addTransaction(reservation.getGuestUsername(), "Cancellation Fee", fee);
+
+                        JOptionPane.showMessageDialog(null, "Guest has been charged $" + String.format("%.2f", fee) + " for cancelling within 48 hours.");
+                    }
                     ((DefaultTableModel)table.getModel()).removeRow(row);
                 } else {
                     JOptionPane.showMessageDialog(null, "Failed to delete reservation.");
