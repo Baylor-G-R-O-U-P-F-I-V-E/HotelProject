@@ -81,7 +81,7 @@ public class LoginPanel extends JPanel implements PagePanel {
         JPanel namePanel = new JPanel();
         namePanel.setOpaque(true);
 
-        JLabel nameLabel = new JLabel("Name:");
+        JLabel nameLabel = new JLabel("Username:");
         nameLabel.setBounds(200, 50, 200, 50);
         nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
