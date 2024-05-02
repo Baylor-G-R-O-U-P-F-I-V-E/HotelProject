@@ -9,7 +9,7 @@ package edu.baylor.GroupFive.util.exceptions;
  */
 public class SkillIssueException extends HotelProjectException {
     /**
-     * Constructs a new SkillIssueException object.
+     * Constructs a new {@code SkillIssueException} object.
      */
     public SkillIssueException() {
         super("69");

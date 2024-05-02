@@ -9,7 +9,7 @@ package edu.baylor.GroupFive.util.exceptions;
  */
 public class InvalidCredentialsException extends HotelProjectException {
     /**
-     * Constructs a new InvalidCredentialsException object.
+     * Constructs a new {@code InvalidCredentialsException} object.
      */
     public InvalidCredentialsException() {
         super("1");

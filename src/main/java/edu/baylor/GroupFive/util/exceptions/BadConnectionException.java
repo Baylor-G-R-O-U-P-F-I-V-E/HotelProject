@@ -9,7 +9,7 @@ package edu.baylor.GroupFive.util.exceptions;
  */
 public class BadConnectionException extends HotelProjectException {
     /**
-     * Constructs a new BadConnectionException object.
+     * Constructs a new {@code BadConnectionException} object.
      */
     public BadConnectionException() {
         super("3");

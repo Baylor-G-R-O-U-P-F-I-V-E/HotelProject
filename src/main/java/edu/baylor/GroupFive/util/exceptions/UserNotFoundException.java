@@ -9,7 +9,7 @@ package edu.baylor.GroupFive.util.exceptions;
  */
 public class UserNotFoundException extends HotelProjectException {
     /**
-     * Constructs a new UserNotFoundException object.
+     * Constructs a new {@code UserNotFoundException} object.
      */
     public UserNotFoundException() {
         super("4");

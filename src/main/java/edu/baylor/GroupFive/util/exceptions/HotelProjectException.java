@@ -9,7 +9,7 @@ import java.lang.Exception;
  */
 public abstract class HotelProjectException extends Exception {
     /**
-     * Constructs a new HotelProjectException with the specified message.
+     * Constructs a new {@code HotelProjectException} with the specified message.
      *
      * @param msg Error message.
      */

@@ -9,7 +9,7 @@ package edu.baylor.GroupFive.util.exceptions;
  */
 public class UnknownException extends HotelProjectException {
     /**
-     * Constructs a new UnknownException object.
+     * Constructs a new {@code UnknownException} object.
      */
     public UnknownException() {
         super("2");
