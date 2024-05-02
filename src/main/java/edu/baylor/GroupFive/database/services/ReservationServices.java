@@ -361,19 +361,20 @@ import org.apache.logging.log4j.Logger;
         }
 
         // Build query
-        String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = ? AND startDate = ?";
+        String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = ? AND startDate BETWEEN ? AND ? AND endDate BETWEEN ? AND ? AND active = true";
         PreparedStatement statement = connection.prepareStatement(sqlQuery);
         statement.setInt(1, roomNumber);
-        statement.setDate(2, CoreUtils.getSqlDate(startDate));
+        statement.setString(2, CoreUtils.formatDate(startDate));
+        statement.setString(3, CoreUtils.formatDate(endDate));
+        statement.setString(4, CoreUtils.formatDate(startDate));
+        statement.setString(5, CoreUtils.formatDate(endDate));
 
         // Execute query
         ResultSet rs = statement.executeQuery();
 
         // Check violations
-        while (rs.next()) {
-            if (rs.getBoolean("active") == true && !isOverlap(startDate, endDate, rs.getDate("startDate"), rs.getDate("endDate"))) {
-                return false;
-            }
+        if (rs.next()) {
+            return false;
         }
 
         // Close connections
@@ -405,10 +406,11 @@ import org.apache.logging.log4j.Logger;
 
         // Build query
         // FIXME This logically seems incorrect -Icko
-        String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = ? AND startDate = ?";
+        String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = ? AND startDate BETWEEN ? AND ?";
         PreparedStatement statement = connection.prepareStatement(sqlQuery);
         statement.setInt(1, reservation.getRoomNumber());
         statement.setDate(2, CoreUtils.getSqlDate(reservation.getStartDate()));
+        statement.setDate(3, CoreUtils.getSqlDate(reservation.getEndDate()));
 
         // Execute query
         ResultSet rs = statement.executeQuery();
