@@ -20,8 +20,6 @@ import java.awt.*;
  */
 public class InventoryPanel extends JPanel implements PagePanel {
 
-
-
     private Page page;
     private HotelTable table;
     private AddInventoryModel model;
