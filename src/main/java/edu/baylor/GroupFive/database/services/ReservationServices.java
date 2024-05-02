@@ -501,43 +501,30 @@ import org.apache.logging.log4j.Logger;
         return reservations;
     }
 
-     /**
-      * Formats a Date object into a string.
-      *
-      * @param myDate Date object
-      * @return String representation of {@code myDate}
-      * @deprecated use {@link edu.baylor.GroupFive.util.CoreUtils#formatDate(Date)} instead.
-      */
-    @Deprecated
-    private static String formatDate(Date myDate) {
-        DateFormat dateFormat = new SimpleDateFormat(CoreUtils.DATE_FORMAT);
-        return dateFormat.format(myDate.getTime());
+    /**
+     * This function takes in a pair of start and end dates and determines
+     * if there is any overlap.
+     *
+     * @param start1 Start date of interval 1. This is a {@code java.util.Date} object.
+     * @param end1 End date of interval 1. This is a {@code java.util.Date} object.
+     * @param start2 Start date of interval 2. This is a {@code java.util.Date} object.
+     * @param end2 End date of interval 2. This is a {@code java.util.Date} object.
+     * @return {@code true} if there is an overlap. {@code false} otherwise
+     * */
+    protected static boolean isOverlap(Date start1, Date end1, Date start2, Date end2) {
+        return !(end2.before(start1) || start2.after(end1));
     }
 
-     /**
-      * Checks if there is any overlapping conflict between two pairs of
-      * start and end dates.
-      *
-      * @param start1 Start date of interval 1.
-      * @param end1 End date of interval 1.
-      * @param start2 Start date of interval 2.
-      * @param end2 End date of interval 2.
-      * @return {@code true} if overlap is present. {@code false} otherwise.
-      */
-    private static boolean isOverlap(Date start1, Date end1, Date start2, Date end2) {
-        return !start1.after(end2) && !end1.before(start2);
-    }
-
-     /**
-      * Checks if a room if booked during time interval given a start and end date.
-      *
-      * @param roomNumber Room number.
-      * @param startDate Start date.
-      * @param endDate End date.
-      * @return {@code true} if room is booked between {@code startDate} and {@code endDate}.
-      *         {@code false} otherwise.
-      * @throws SQLException
-      */
+    /**
+     * Checks if a room if booked during time interval given a start and end date.
+     *
+     * @param roomNumber Room number.
+     * @param startDate Start date.
+     * @param endDate End date.
+     * @return {@code true} if room is booked between {@code startDate} and {@code endDate}.
+     *         {@code false} otherwise.
+     * @throws SQLException
+     */
     public boolean isRoomBookedOn(int roomNumber, Date startDate, Date endDate) throws SQLException {
         List<Reservation> reservations = getAll();
         List<Reservation> roomReservations = reservations.stream()
