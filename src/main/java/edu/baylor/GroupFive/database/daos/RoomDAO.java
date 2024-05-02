@@ -158,9 +158,6 @@ public class RoomDAO extends BaseDAO<Room>{
     public Integer update(Room updatedInfo){
 
         try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
-
-            // Get the old room
-            Room oldRoom = get(updatedInfo.getRoomNumber());
             
             String sqlUpdate = "UPDATE ROOM SET quality = '" + Quality.formatQuality(updatedInfo.getQuality()) +
                 "', theme = '" + updatedInfo.getTheme().toString() + "', smoking = " + updatedInfo.isSmoking().toString() +

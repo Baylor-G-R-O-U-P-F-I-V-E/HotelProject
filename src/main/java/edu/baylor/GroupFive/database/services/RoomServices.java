@@ -97,4 +97,23 @@ public class RoomServices {
         return availableRooms;
     }
 
+    /**
+     * Checks if a room is available between two dates.
+     *
+     * @param roomNum Room number to check.
+     * @param startDate Start date of interval.
+     * @param endDate End date of interval.
+     * @return {@code true} if room is available. {@code false} otherwise.
+     */
+    public static Boolean isRoomAvailable(Integer roomNum, Date startDate, Date endDate){
+        ReservationServices conn = new ReservationServices();
+        try {
+            return conn.checkIfAvailable(roomNum,startDate,endDate);
+        } catch (SQLException ex) {
+            System.err.println("ADD LOGGER IMPLEMENTATION IN database.services.RoomServices");
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
 }

@@ -4,6 +4,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -13,7 +14,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Panel;
+import java.text.ParseException;
 
+import edu.baylor.GroupFive.database.controllers.ReservationController;
+import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
@@ -108,6 +112,7 @@ public class HomePanel extends JPanel implements PagePanel {
 
         addShopButton(buttonPanel);
         addFindRoomsButton(buttonPanel);
+        addModifyReservationButton(buttonPanel);
     
         add(buttonPanel);
         add(Box.createVerticalGlue());
@@ -136,7 +141,7 @@ public class HomePanel extends JPanel implements PagePanel {
     public void addFindRoomsButton(JPanel buttonPanel) {
         
         // Add a button to the panel
-        PanelButton findRoomsButton = new PanelButton("Find Rooms");
+        PanelButton findRoomsButton = new PanelButton("Make a Reservation");
 
         findRoomsButton.addActionListener(e -> page.onPageSwitch("find-rooms"));
 
@@ -144,13 +149,38 @@ public class HomePanel extends JPanel implements PagePanel {
     }
 
     /**
-     * Filters the table for reservations that include the users username
+     * Adds a "Modify Reservation" button to the specified button panel.
      *
-     * @param table
+     * @param buttonPanel The panel to which the button will be added.
      */
-    public void filterTable(JTable table) {
-        // TODO Filter the table for reservations that include the users username
+    public void addModifyReservationButton(JPanel buttonPanel) {
+        
+        // Add a button to the panel
+        PanelButton modifyReservationButton = new PanelButton("Modify Reservation");
 
+        modifyReservationButton.addActionListener(e -> {
+            if (reservationsTable.getSelectedRow() == -1) {
+                JOptionPane.showMessageDialog(this, "Please select a reservation to modify.");
+                return;
+            }
+
+            // Get the selected rows reservation
+            int selectedRow = reservationsTable.getSelectedRow();
+
+            Reservation reservation;
+
+            try {
+                reservation = ((HomeModel) reservationsTable.getModel()).getReservation(selectedRow);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error fetching reservation data.");
+                return;
+            }
+
+            new ModifyReservationListener(page, user, reservation);
+            ((HomeModel) reservationsTable.getModel()).refreshData();
+        });
+
+        buttonPanel.add(modifyReservationButton);
     }
 
     /**
