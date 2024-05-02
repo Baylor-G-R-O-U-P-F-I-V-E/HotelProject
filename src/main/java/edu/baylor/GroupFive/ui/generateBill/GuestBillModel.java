@@ -51,9 +51,16 @@ public class GuestBillModel extends HotelModel implements DataModel {
         // Fetch users transactions from the database
         List<Transaction> transactions = BillingController.getUserTransactions(username);
 
+        // Get any active reservations for the user
+        List<Transaction> activeReservations = BillingController.getActiveReservations(username);
+
         // Check if data was fetched successfully
         if (transactions == null) {
             throw new RuntimeException("Error fetching data from the database");
+        }
+
+        for (Transaction transaction : activeReservations) {
+            transactions.add(transaction);
         }
 
         // Add the data to the table

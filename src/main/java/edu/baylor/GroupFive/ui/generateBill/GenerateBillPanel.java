@@ -84,7 +84,7 @@ public class GenerateBillPanel extends JPanel implements PagePanel {
         add(Box.createVerticalGlue());
 
         // Add the title
-        JLabel titleLabel = new JLabel("Current Guests");
+        JLabel titleLabel = new JLabel("Guests With Outstanding Bills");
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
         add(titleLabel);

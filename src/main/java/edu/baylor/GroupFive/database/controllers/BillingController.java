@@ -100,4 +100,17 @@ public class BillingController {
         return TransactionService.getCurrentGuestTransactions();
     }
 
+    /**
+     * This function returns a list of all active reservations as transactions
+     * associated with the guest currently logged into our system.
+     * This function calls {@link TransactionService#getActiveReservations(String)}
+     *
+     * @param username Users username.
+     * @return A List of active reservations tied to logged in guest.
+     * @see TransactionService#getActiveReservations(String)
+     * */
+    public static List<Transaction> getActiveReservations(String username) {
+        return TransactionService.getActiveReservationsAsTransactions(username);
+    }
+
 }
