@@ -10,6 +10,7 @@ import edu.baylor.GroupFive.database.controllers.AccountController;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;
+import edu.baylor.GroupFive.util.CoreUtils;
 
 /**
  * ActionListener for creating a new account.
@@ -134,7 +135,7 @@ public class CreateAccountActionListener implements ActionListener {
         }
 
         // Create a new user and add to database
-        User user = new User(firstName, lastName, userName, guestPassword, "guest");
+        User user = new User(firstName, lastName, userName, CoreUtils.hashPassword(guestPassword), "guest");
         if(AccountController.register(user)) { 
             landingPage.setUsername(userName);
             landingPage.onPageSwitch("success");
