@@ -1,5 +1,6 @@
 package edu.baylor.GroupFive.ui.homePanel;
 
+import java.text.ParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -51,11 +52,14 @@ public class HomeModel extends HotelModel implements DataModel {
     public void getData() throws RuntimeException {
         // Fetch user data from the database
         List<Reservation> reservations = ReservationController.getReservationsForUser(user.getUsername());
-        
+
         // Check if data was fetched successfully
         if (reservations == null) {
-              throw new RuntimeException("Error fetching data from the database");
+            throw new RuntimeException("Error fetching data from the database");
         }
+
+        // Filter out reservations that are not active
+        reservations.removeIf(reservation -> !reservation.getActiveStatus());
 
         // Add the data to the table
         for (Reservation reservation : reservations) {
@@ -71,6 +75,30 @@ public class HomeModel extends HotelModel implements DataModel {
                 System.out.println("Error adding row to table");
             }
         }
+    }
+
+    public void refreshData() {
+        //Clear the table
+        for (int i = getRowCount() - 1; i >= 0; i--) {
+            removeRow(i);
+        }
+        try {
+            getData();
+        } catch (RuntimeException e) {
+            System.out.println(e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Retrieves the reservation at the specified row.
+     *
+     * @param row The row index of the reservation to retrieve.
+     * @return The reservation at the specified row.
+     * @throws ParseException 
+     * @throws NumberFormatException 
+     */
+    public Reservation getReservation(int row) throws NumberFormatException, ParseException {
+        return ReservationController.getReservation(Integer.parseInt((String) getValueAt(row, 0)), CoreUtils.getUtilDate(CoreUtils.getSqlDate((String) getValueAt(row, 1))));
     }
 
 }

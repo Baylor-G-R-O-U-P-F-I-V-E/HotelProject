@@ -79,6 +79,27 @@ public class RoomController {
         return RoomServices.getAvailableRooms(startDate,endDate);
     }
 
+    /**
+     * This function takes in a room number and checks if the room is available
+     * between the given start and end date.
+     *
+     * @param roomNum Room number to check.
+     * @param startDate Start date of interval.
+     * @param endDate End date of interval.
+     * @return {@code true} if room is available. {@code false} otherwise
+     * @see RoomServices#isRoomAvailable(int, Date, Date)
+     * */
+    public static Boolean isRoomAvailable(int roomNum, Date startDate, Date endDate){
+        return RoomServices.isRoomAvailable(roomNum, startDate, endDate);
+    }
+
+    /**
+     * This function takes in a room number and deletes the room from our database.
+     *
+     * @param roomNum Room number of room to delete.
+     * @return {@code true} if room was deleted successfully. {@code false} otherwise
+     * @see RoomServices#deleteRoom(int)
+     * */
     public static Boolean deleteRoom(int roomNum){
         return RoomServices.deleteRoom(roomNum);
     }

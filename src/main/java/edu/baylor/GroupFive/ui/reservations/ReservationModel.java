@@ -67,6 +67,16 @@ public class ReservationModel extends HotelModel implements DataModel {
     }
 
     /**
+     * Retrieves the reservation at the specified row.
+     *
+     * @param row The row index of the reservation to retrieve.
+     * @return The reservation at the specified row.
+     */
+    public Reservation getReservation(int row) {
+        return ReservationController.getReservation(Integer.parseInt((String) getValueAt(row, 0)), (Date) getValueAt(row, 1));
+    }
+
+    /**
      * Formats the given date object into a string representation.
      *
      * @deprecated Use {@link edu.baylor.GroupFive.util.CoreUtils#formatDate(Date)} instead.

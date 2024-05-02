@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import edu.baylor.GroupFive.database.controllers.ReservationController;
+import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.DatePanel;
@@ -128,6 +129,15 @@ public class ModifyReservationActionListener implements ActionListener {
         if (start.after(end)) {
             message = """
                         Oopsie! The end date must be after the start date.
+                    """;
+            makeBadInputDialog(message);
+            return;
+        }
+
+        // Check if room exists
+        if (RoomController.getRoomInfo(Integer.parseInt(room)) == null) {
+            message = """
+                        Oopsie! The room does not exist. Please try a different room.
                     """;
             makeBadInputDialog(message);
             return;

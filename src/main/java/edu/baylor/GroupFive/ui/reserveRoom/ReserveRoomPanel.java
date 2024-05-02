@@ -230,8 +230,7 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
                 return;
             }
 
-            // TODO should this be the total price or daily price?
-            boolean result = ReservationController.createReservation(new Reservation(-1, startDate, endDate, user.getUsername(), roomObj.getRoomNumber(), roomObj.getDailyPrice()));
+            boolean result = ReservationController.createReservation(new Reservation(startDate, endDate, user.getUsername(), String.valueOf(roomObj.getRoomNumber()), roomObj.getDailyPrice(), true, false));
 
             if (!result) {
                 JOptionPane.showMessageDialog(null, "Room could not be reserved for the selected dates.");

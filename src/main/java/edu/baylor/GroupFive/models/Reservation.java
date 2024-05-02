@@ -111,7 +111,6 @@ public class Reservation {
     public Reservation(Date startDate, Date endDate,
                        String guestUsername, String roomNumber, Double price, 
                        boolean active, boolean checkedIn) {
-        this.setDbId(-1);
         this.setStartDate(startDate);
         this.setEndDate(endDate);
         this.setGuestID(guestUsername);
@@ -180,14 +179,15 @@ public class Reservation {
      * @return Number of days between the start and end dates of this reservation.
      */
     public int daysBetween() {
-        long days = 0;
-        for (long i = startDate.getTime(); i < endDate.getTime(); i += 86400000) {
-            days++;
-        }
-        return (int) days;
+        int days = 0;
+        long diff = endDate.getTime() - startDate.getTime();
+        days = (int) (diff / (1000 * 60 * 60 * 24));
+        System.out.println("Days between: " + days);
+        return days;
     }
     
     public double calculatePrice() {
+        System.out.println("Price: " + price);
         return daysBetween() * price;
     }
 
