@@ -220,6 +220,16 @@ public class ReservationController {
     }
 
     /**
+     * This function returns all active reservations in our database.
+     * @return List of all active reservations in database
+     */
+    public static List<Reservation> getAllActiveReservations() {
+        ReservationServices rs = new ReservationServices();
+        List<Reservation> reservations = rs.getAllActive();
+        return reservations;
+    }
+
+    /**
      * This function takes in a pair of start and end dates and determines
      * if there is any overlap.
      *
@@ -249,6 +259,22 @@ public class ReservationController {
             .toList();
         return roomReservations.stream().anyMatch(rsv ->
             isOverlap(startDate, endDate, rsv.getStartDate(), rsv.getEndDate()));
+    }
+
+    /**
+     * This function looks through our reservations and checks if a given
+     * user is booked during a certain time period.
+     *
+     * @param username Username of User.
+     * @param startDate Starting date of interval.
+     * @param endDate End date of interval.
+     * @return {@code true} if user is booked. {@code false} otherwise
+     * */
+    public static List<Reservation> getRoomReservations(int roomNumber) {
+        List<Reservation> reservations = getAllReservations();
+        return reservations.stream()
+            .filter(rsv -> rsv.getRoomNumber() == roomNumber)
+            .toList();
     }
 
 }

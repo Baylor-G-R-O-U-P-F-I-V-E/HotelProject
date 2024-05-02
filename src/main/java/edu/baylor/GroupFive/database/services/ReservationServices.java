@@ -179,6 +179,35 @@ import org.apache.logging.log4j.Logger;
         return out;
     }
 
+    /**
+     * Retrieves all reservations from the database.
+     * @return A List containing all reservations
+     * @throws SQLException If an error occurs during database communication
+     */
+    public List<Reservation> getAllActive() {
+        String query = "SELECT * FROM Reservations WHERE active = true";
+        try (Connection conn = DbConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
+            ResultSet rs = statement.executeQuery();
+            List<Reservation> reservations = new ArrayList<>();
+            while (rs.next()) {
+                reservations.add(new Reservation(
+                    rs.getInt("id"),
+                    rs.getDate("startDate"),
+                    rs.getDate("endDate"),
+                    rs.getString("guestUsername"),
+                    rs.getInt("roomNumber"),
+                    rs.getDouble("price"),
+                    rs.getBoolean("active"),
+                    rs.getBoolean("checkedIn")
+                ));
+            }
+            return reservations;
+        } catch (SQLException | BadConnectionException e) {
+            G5Logger.logger.error(e.getMessage());
+            return null;
+        }
+    }
+
      /**
       * This method either inserts or updates behind-the-scenes depending
       * on if the reservation already exists in our database.

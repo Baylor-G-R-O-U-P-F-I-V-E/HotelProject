@@ -119,6 +119,8 @@ public class ReservationsPanel extends JPanel implements PagePanel {
      * @param deleteReservation The delete reservation button.
      */
     private void addButtonListeners(JButton viewReservation, JButton viewRoom, JButton deleteReservation) {
+        
+        // Add action listener to modify reservation button
         viewReservation.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row != -1) {
@@ -139,6 +141,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
             }
         });
 
+        // Add action listener to view room button
         viewRoom.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row != -1) {
@@ -151,15 +154,25 @@ public class ReservationsPanel extends JPanel implements PagePanel {
             }
         });
 
+        // Add action listener to delete reservation button
         deleteReservation.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row != -1) {
+                // Get the room ID and start date from the selected row
                 Integer roomColumnIndex = table.getColumnModel().getColumnIndex("Room ID");
                 String roomID = (String) table.getValueAt(row, roomColumnIndex);
                 Integer startDateColumnIndex = table.getColumnModel().getColumnIndex("Start Date");
                 Integer endDateColumnIndex = table.getColumnModel().getColumnIndex("End Date");
                 String startDate = (String) table.getValueAt(row, startDateColumnIndex);
                 String endDate = (String) table.getValueAt(row, endDateColumnIndex);
+
+                // Add a confirmation dialog
+                int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this reservation?", "Warning", JOptionPane.YES_NO_OPTION);
+
+                // Check if the user clicked yes
+                if (dialogResult != JOptionPane.YES_OPTION) {
+                    return;
+                }
 
                 // Parse the startDate from a string to a Date object
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -177,10 +190,26 @@ public class ReservationsPanel extends JPanel implements PagePanel {
                     return;
                 }
 
-                // FIXME cancelReservation now takes in a Reservation object
-                // ReservationController.cancelReservation(Integer.parseInt(roomID), parsedStartDate);
-                ReservationController.cancelReservation(new Reservation(-1, parsedStartDate, parsedEndDate, "BigErnesto", 110, 420.69));
-                ((DefaultTableModel)table.getModel()).removeRow(row);
+                // Get the reservation from the database
+                Reservation reservation = ReservationController.getReservation(Integer.parseInt(roomID), parsedStartDate);
+
+                // Ensure reservation was fetched successfully
+                if (reservation == null) {
+                    JOptionPane.showMessageDialog(null, "Error getting reservation.");
+                    return;
+                }
+
+                // Cancel the reservation
+                Boolean result = ReservationController.cancelReservation(reservation);
+
+                if (result) {
+                    JOptionPane.showMessageDialog(null, "Reservation deleted successfully.");
+                    ((DefaultTableModel)table.getModel()).removeRow(row);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to delete reservation.");
+                    return;
+                }
+
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a reservation to delete.");
             }
