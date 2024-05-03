@@ -277,6 +277,52 @@ import org.apache.logging.log4j.Logger;
             return null;
         }
 
+        String sqlCheck = "SELECT COUNT(*) FROM RESERVATIONs WHERE roomNumber = ? AND startDate = ?";
+        PreparedStatement psCheck = connection.prepareStatement(sqlCheck);
+        psCheck.setInt(1, reservation.getRoomNumber());
+        psCheck.setDate(2, CoreUtils.getSqlDate(reservation.getStartDate()));
+
+        ResultSet rs = psCheck.executeQuery();
+
+        // Check if the reservation exists, if it does modify that, and then mark the other as inactive
+        if (rs.next() && rs.getInt(1) > 0) {
+
+            // Deactivate the old reservation
+            String sqlDeactivate = "UPDATE Reservations set ACTIVE = ? WHERE id = ?";
+            PreparedStatement psDeactivate = connection.prepareStatement(sqlDeactivate);
+            psDeactivate.setBoolean(1, false);
+            psDeactivate.setInt(2, reservation.getDbId());
+
+            // Execute query
+            int resultDeactivate = psDeactivate.executeUpdate();
+
+            // If the deactivation failed, return 0
+            if (resultDeactivate == 0) {
+                return 0;
+            }
+
+            String sqlUpdate = "UPDATE Reservations set STARTDATE = ?, ENDDATE = ?, PRICE = ?, GUESTUsername = ?, ROOMNumber = ?, ACTIVE = ?, CHECKEDIN = ? where roomNumber = ? AND startDate = ?";
+            PreparedStatement statement = connection.prepareStatement(sqlUpdate);
+            statement.setDate(1, CoreUtils.getSqlDate(reservation.getStartDate()));
+            statement.setDate(2, CoreUtils.getSqlDate(reservation.getEndDate()));
+            statement.setDouble(3, reservation.getPrice());
+            statement.setString(4, reservation.getGuestUsername());
+            statement.setInt(5, reservation.getRoomNumber());
+            statement.setBoolean(6, reservation.getActiveStatus());
+            statement.setBoolean(7, reservation.getCheckedInStatus());
+            statement.setInt(8, reservation.getRoomNumber());
+            statement.setDate(9, CoreUtils.getSqlDate(reservation.getStartDate()));
+
+            // Execute query
+            int result = statement.executeUpdate();
+
+            // Close connections
+            statement.close();
+            connection.close();
+
+            return result;
+        }
+
         // Build query
         //     1       2       3      4         5        6       7      8
         // startDate,endDate,price,username,roomNumber,active,checkedIn,id
