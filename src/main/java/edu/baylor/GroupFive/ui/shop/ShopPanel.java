@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import edu.baylor.GroupFive.database.controllers.StockController;
 import edu.baylor.GroupFive.models.Stock;
+import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.shop.dialogs.AddToCartDialog;
 import edu.baylor.GroupFive.ui.shop.dialogs.CheckoutDialog;
 import edu.baylor.GroupFive.ui.shop.dialogs.RemoveFromCartDialog;
@@ -30,6 +31,7 @@ public class ShopPanel extends JPanel implements PagePanel {
 
 
     private Page page;
+    private User user;
     private HotelTable table;
     private HotelTable cartTable;
     private AddShopModel model;
@@ -60,10 +62,11 @@ public class ShopPanel extends JPanel implements PagePanel {
      *
      * // @param delegate Page
      */
-    public ShopPanel(Page page) {
+    public ShopPanel(Page page, User user) {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.page = page;
+        this.user = user;
 
         // Create a model of the data.
         model = new AddShopModel(columnNames, columnClass);
@@ -152,9 +155,11 @@ public class ShopPanel extends JPanel implements PagePanel {
         checkoutButton.setPreferredSize(new Dimension(200, 100));
         buttonPanel.add(checkoutButton);
 
-
-
         add(buttonPanel);
+    }
+
+    public String getUsername() {
+        return user.getUsername();
     }
 
     /**

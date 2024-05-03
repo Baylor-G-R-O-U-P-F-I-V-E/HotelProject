@@ -29,7 +29,7 @@ public class RemoveFromCartDialog extends JDialog {
     private void createGUI() {
         // Sets up dialog panel
         setPreferredSize(new Dimension(600, 400));
-        setTitle("Add to cart");
+        setTitle("Remove from Cart");
 
         // Sets up list
         JPanel listPane = new JPanel();

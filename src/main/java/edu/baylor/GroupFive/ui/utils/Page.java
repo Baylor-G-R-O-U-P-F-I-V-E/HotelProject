@@ -135,7 +135,7 @@ public class Page extends JFrame implements InputDelegate {
                 currentPanel = new ResetPasswordPanel(this);
                 break;
             case "shop":
-                currentPanel = new ShopPanel(this);
+                currentPanel = new ShopPanel(this, user);
                 break;
 //            case "inventory":
 //                currentPanel = new InventoryPanel(this);
