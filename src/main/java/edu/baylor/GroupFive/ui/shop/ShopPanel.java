@@ -97,6 +97,8 @@ public class ShopPanel extends JPanel implements PagePanel {
             AddToCartDialog dialog = new AddToCartDialog(table);
             dialog.setVisible(true);
         });
+
+        add(addToCartButton);
 //
 //        PanelButton deleteRoomButton = new PanelButton("Delete Room");
 //        deleteRoomButton.addActionListener(e -> {
