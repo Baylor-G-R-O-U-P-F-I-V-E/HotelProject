@@ -1,8 +1,8 @@
 package edu.baylor.GroupFive.database.daos;
 
-import edu.baylor.GroupFive.database.TestDatabase;
-import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.util.CoreUtils;
+import edu.baylor.GroupFive.database.TestHotelDatabase;
+import edu.baylor.GroupFive.models.User;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -48,7 +48,7 @@ public class UserDAOTest {
      */
     @BeforeEach
     void init() {
-        TestDatabase db = new TestDatabase();
+        new TestHotelDatabase();
     }
 
     /**
@@ -56,7 +56,7 @@ public class UserDAOTest {
      */
     @AfterEach
     void tearDown() {
-        TestDatabase.dbTearDown();
+        new TestHotelDatabase().dbTearDown();
     }
 
     /**

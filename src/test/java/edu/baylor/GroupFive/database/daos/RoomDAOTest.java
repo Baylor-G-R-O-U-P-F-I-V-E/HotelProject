@@ -1,11 +1,12 @@
 package edu.baylor.GroupFive.database.daos;
-import edu.baylor.GroupFive.database.TestDatabase;
 
+import edu.baylor.GroupFive.database.TestHotelDatabase;
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.enums.Theme;
 import edu.baylor.GroupFive.models.enums.BedType;
 import edu.baylor.GroupFive.models.enums.Quality;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,7 @@ public class RoomDAOTest {
      */
     @BeforeEach
     void init(){
-        TestDatabase db = new TestDatabase();
+        new TestHotelDatabase();
     }
 
     /**
@@ -29,7 +30,7 @@ public class RoomDAOTest {
      */
     @Test
     void addARoom(){
-        TestDatabase db = new TestDatabase();
+        new TestHotelDatabase();
         Room newRoom = new Room(995, Quality.ECONOMY, Theme.UrbanElegance, true, 5, BedType.KING, 12.34);
         RoomDAO conn = new RoomDAO();
         Integer added = conn.save(newRoom);
@@ -41,10 +42,11 @@ public class RoomDAOTest {
      */
     @Test
     void addAndGetRoom(){
-        TestDatabase db = new TestDatabase();
+        new TestHotelDatabase();
         Room newRoom = new Room(995, Quality.COMFORT, Theme.NatureRetreat, true, 5, BedType.KING, 12.34);
         RoomDAO conn = new RoomDAO();
         Integer added = conn.save(newRoom);
+        assertNotNull(added);
         Room pulledRoom = conn.get(995);
         System.out.println(pulledRoom.getDailyPrice());
         assert(pulledRoom.equals(newRoom));
@@ -55,7 +57,7 @@ public class RoomDAOTest {
      */
     @Test
     void getSetupRoom(){
-        TestDatabase db = new TestDatabase();
+        new TestHotelDatabase();
         RoomDAO conn = new RoomDAO();
         Room pulledRoom = conn.get(109);
         assert(pulledRoom != null);
@@ -66,7 +68,7 @@ public class RoomDAOTest {
      */
     @Test
     void getNonexistingRoom(){
-        TestDatabase db = new TestDatabase();
+        new TestHotelDatabase();
         RoomDAO conn = new RoomDAO();
         Room pulledRoom = conn.get(1709);
         assert(pulledRoom == null);
@@ -78,7 +80,7 @@ public class RoomDAOTest {
      */
     @Test
     void modifyRoom(){
-        TestDatabase db = new TestDatabase();
+        new TestHotelDatabase();
         Room myRoom = new Room(99, Quality.EXECUTIVE, Theme.VintageCharm,true, 11, BedType.KING, 90D);
         RoomDAO conn = new RoomDAO();
 

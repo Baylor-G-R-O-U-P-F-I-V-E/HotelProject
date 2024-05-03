@@ -6,6 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests the isOverlap function of {@link edu.baylor.GroupFive.database.services.ReservationServices}.
+ *
+ * @author Icko
+ * */
 public class ReservationServicesIsOverlapTest {
 
     /**

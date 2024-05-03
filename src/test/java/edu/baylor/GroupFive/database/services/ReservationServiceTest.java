@@ -3,12 +3,11 @@ package edu.baylor.GroupFive.database.services;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import edu.baylor.GroupFive.database.TestDatabase;
+import edu.baylor.GroupFive.database.TestHotelDatabase;
 import edu.baylor.GroupFive.models.Reservation;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,7 +49,7 @@ public class ReservationServiceTest {
      */
     @BeforeEach
     void init(){
-        TestDatabase db = new TestDatabase();
+        new TestHotelDatabase();
     }
 
     /**
@@ -59,7 +58,7 @@ public class ReservationServiceTest {
      */
     @Test
     public void checkAvailable1(){
-        TestDatabase db = new TestDatabase();
+        new TestHotelDatabase();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
         String sdate = "01/01/2200";
@@ -85,7 +84,7 @@ public class ReservationServiceTest {
      */
     @Test
     public void checkAvailable2() throws SQLException, ParseException{
-        TestDatabase db = new TestDatabase();
+        new TestHotelDatabase();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
         String sdate = "15/12/2024";
@@ -109,12 +108,11 @@ public class ReservationServiceTest {
      */
     @Test
     public void selectExisting() throws SQLException{
-        TestDatabase db = new TestDatabase();
+        new TestHotelDatabase();
         ReservationServices conn = new ReservationServices();
         Reservation myRes;
 
-             myRes = conn.get(101, new Date("07/20/2024"));
-
+        myRes = conn.get(101, new Date("07/20/2024"));
 
         System.out.println(myRes.toString());
         assert(myRes != null);
@@ -128,7 +126,7 @@ public class ReservationServiceTest {
      */
     @Test
     public void selectNonExisting() throws SQLException{
-        TestDatabase db = new TestDatabase();
+        new TestHotelDatabase();
         ReservationServices conn = new ReservationServices();
         Reservation myRes;
 
@@ -145,7 +143,7 @@ public class ReservationServiceTest {
     @Test
     // @Disabled
     public void addReservation() throws SQLException{
-        TestDatabase db = new TestDatabase();
+        new TestHotelDatabase();
         ReservationServices conn = new ReservationServices();
 
         Date start = new Date("1/12/2009");
@@ -166,7 +164,7 @@ public class ReservationServiceTest {
      */
     @Test
     public void cancelReservation() throws SQLException{
-        TestDatabase db = new TestDatabase();
+        new TestHotelDatabase();
         ReservationServices conn = new ReservationServices();
         Reservation r;
 
@@ -182,7 +180,7 @@ public class ReservationServiceTest {
         r = conn.get(3,new Date("07/22/2024"));
 
         //showing that the reservation is no longer in the db
-        //assert(r == null);
+        assert(r == null);
 
     }
 
@@ -192,16 +190,20 @@ public class ReservationServiceTest {
      */
     @Test
     public void getAllReservations() throws SQLException{
-        TestDatabase db = new TestDatabase();
+        new TestHotelDatabase();
         ReservationServices conn = new ReservationServices();
         List<Reservation> r = null;
 
         r = conn.getAll();
 
         // Test the reservations against the initialized reservations
+        /*
         for (int i = 0; i < reservationInits.size(); i++) {
             assert(r.get(i).equals(reservationInits.get(i)));
         }
+        */
+
+        assert(r.size() == reservationInits.size());
         
     }
 

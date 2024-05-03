@@ -25,21 +25,20 @@ import java.text.ParseException;
  * @author Cole
  * @author Icko
  */
-public class DbSetup {
+public class HotelDatabase {
 
-    protected static final Logger logger = LogManager.getLogger(DbSetup.class.getName());
+    protected Logger logger = LogManager.getLogger(HotelDatabase.class.getName());
 
-    protected static String _dbUrl;
-    protected static final String _dbUser = "";
-    protected static final String _dbPass = "";
+    protected String _dbUrl;
+    protected final String _dbUser = "";
+    protected final String _dbPass = "";
 
     // ALL QUERIES MOVED TO BOTTOM OF CLASS - brendon
-
 
     /**
      * Tears down our database, creates all tables, then inserts initial values
      */
-    public DbSetup(String dbUrl) {
+    public HotelDatabase(String dbUrl) {
 
         logger.info("Running");
 
@@ -125,7 +124,7 @@ public class DbSetup {
 
     }
 
-    public static void dbTearDown() {
+    public void dbTearDown() {
         try (Connection connection = DriverManager.getConnection(_dbUrl, _dbUser, _dbPass);
                 Statement statement = connection.createStatement()) {
             
@@ -187,7 +186,7 @@ public class DbSetup {
     /**
      * Displays the values in the database
      */
-    public static void dbInfo() {
+    public void dbInfo() {
 
         try (Connection connection = DriverManager.getConnection(_dbUrl, _dbUser, _dbPass); Statement statement = connection.createStatement()) {
 
@@ -399,7 +398,7 @@ public class DbSetup {
       * @param statement PreparedStatement containing sql insert query
       * @throws SQLException If error occurs during database communication
       * */
-    protected static void initializeUsers(PreparedStatement statement) throws SQLException {
+    protected void initializeUsers(PreparedStatement statement) throws SQLException {
         for (Object[] user : userInits) {
             statement.setString(1, (String) user[0]);
             statement.setString(2, (String) user[1]);
@@ -424,7 +423,7 @@ public class DbSetup {
       * @param statement PreparedStatement containing sql insert query
       * @throws SQLException If error occurs during database communication
       * */
-    protected static void initializeRooms(PreparedStatement statement) throws SQLException {
+    protected void initializeRooms(PreparedStatement statement) throws SQLException {
         for (Object[] room : roomInits) {
             statement.setInt(1, (int) room[0]);
             statement.setString(2, (String) room[1]);
@@ -451,7 +450,7 @@ public class DbSetup {
       * @param statement PreparedStatement containing sql insert query
       * @throws SQLException If error occurs during database communication
       * */
-    protected static void initializeReservations(PreparedStatement statement) throws SQLException {
+    protected void initializeReservations(PreparedStatement statement) throws SQLException {
         for (Object[] reservation : reservationInits) {
             try {
                 statement.setDate(1, CoreUtils.getSqlDate((String) reservation[0]));            
@@ -483,7 +482,7 @@ public class DbSetup {
       * @param statement PreparedStatement containing sql insert query
       * @throws SQLException If error occurs during database communication
       */
-    protected static void initializeTransactions(PreparedStatement statement) throws SQLException {
+    protected void initializeTransactions(PreparedStatement statement) throws SQLException {
         for (Object[] transaction : transactionInits) {
             statement.setDouble(1, (double) transaction[0]);
             try {
@@ -512,7 +511,7 @@ public class DbSetup {
      * @param statement PreparedStatement containing sql insert query
      * @throws SQLException If error occurs during database communication
      */
-    protected static void initializeProducts(PreparedStatement statement) throws SQLException {
+    protected void initializeProducts(PreparedStatement statement) throws SQLException {
         for (Object[] product : productInits) {
             statement.setString(1, (String) product[0]);
             statement.setDouble(2, (Double) product[1]);
@@ -538,7 +537,7 @@ public class DbSetup {
      * @param statement PreparedStatement containing sql insert query
      * @throws SQLException If error occurs during database communication
      */
-    protected static void initializeStocks(PreparedStatement statement) throws SQLException {
+    protected void initializeStocks(PreparedStatement statement) throws SQLException {
         for (Object[] item : stockInits) {
             statement.setInt(1, (Integer) item[0]);
             statement.setInt(2, (Integer) item[1]);

@@ -6,6 +6,7 @@
 
 package edu.baylor.GroupFive.database;
 
+import edu.baylor.GroupFive.util.CoreUtils;
 import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
 import edu.baylor.GroupFive.util.logging.G5Logger;
 
@@ -18,6 +19,8 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 
+import java.lang.Deprecated;
+
  /**
   * DbConnection
   *
@@ -28,11 +31,8 @@ import java.sql.PreparedStatement;
   * @author Icko
   * */
 public class DbConnection {
-    private static final Logger logger = LogManager.getLogger(DbConnection.class.getName());
-    private static String dbhost = "jdbc:derby:FinalProject;";
 
     private DbConnection() {}
-
 
      /**
       * Establishes a Connection with a database and returns it.
@@ -49,7 +49,7 @@ public class DbConnection {
     public static Connection getConnection() throws BadConnectionException {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(dbhost, "", "");
+            connection = DriverManager.getConnection(CoreUtils.DB_URL, "", "");
             assert(connection != null);             // [1]
         } catch (SQLException e) {                  // [2]
             G5Logger.logger.error("Could not establish database connection");
@@ -61,8 +61,10 @@ public class DbConnection {
      /**
       * Closes a PreparedStatement.
       *
+      * @deprecated Open statements using try blocks with resource management.
       * @param statement PreparedStatement to close
       */
+    @Deprecated
     public static void closeStatement(PreparedStatement statement){
         if (statement != null) {
             try {
@@ -77,8 +79,10 @@ public class DbConnection {
      /**
       * Closes a Statement.
       *
+      * @deprecated Open statements using try blocks with resource management.
       * @param statement Statement to close
       */
+    @Deprecated
     public static void closeStatement(Statement statement){
         if (statement != null) {
             try {
@@ -93,8 +97,10 @@ public class DbConnection {
      /**
       * Closes a Connection.
       *
+      * @deprecated Open connections using try blocks with resource management.
       * @param connection Connection to close
       */
+    @Deprecated
     public static void closeConnection(Connection connection){
         if (connection != null) {
             try {

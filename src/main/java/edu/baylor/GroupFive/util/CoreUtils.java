@@ -18,9 +18,11 @@ public class CoreUtils {
      */
     private CoreUtils() {}
 
-    public static final String DATE_FORMAT =    "MM/dd/yyyy";
-    public static final String DB_URL =         "jdbc:derby:HotelDatabase;create=true";
-    public static final String TEST_DB_URL =    "jdbc:derby:TestHotelDatabase;create=true";
+    public static final String DATE_FORMAT =            "MM/dd/yyyy";
+    public static final String DB_URL =                 "jdbc:derby:HotelDatabase;";
+    public static final String DB_URL_CREATE =          "jdbc:derby:HotelDatabase;create=true";
+    public static final String TEST_DB_URL =            "jdbc:derby:TestHotelDatabase;";
+    public static final String TEST_DB_URL_CREATE =     "jdbc:derby:TestHotelDatabase;create=true";
 
      /**
       * Converts a {@code java.sql.Date} into a {@code java.util.Date}.
