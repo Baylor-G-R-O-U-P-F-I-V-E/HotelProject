@@ -2,13 +2,13 @@ package edu.baylor.GroupFive.database.controllers;
 
 import org.junit.jupiter.api.BeforeAll;
 
-import edu.baylor.GroupFive.database.DbSetup;
+import edu.baylor.GroupFive.database.TestDatabase;
 
 public class AccountControllerTest {
 
     @BeforeAll
     static void init() {
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
     }
 
     

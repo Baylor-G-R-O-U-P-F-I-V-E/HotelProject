@@ -3,7 +3,7 @@ package edu.baylor.GroupFive.database.services;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import edu.baylor.GroupFive.database.DbSetup;
+import edu.baylor.GroupFive.database.TestDatabase;
 import edu.baylor.GroupFive.models.Reservation;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -50,7 +50,7 @@ public class ReservationServiceTest {
      */
     @BeforeEach
     void init(){
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
     }
 
     /**
@@ -59,7 +59,7 @@ public class ReservationServiceTest {
      */
     @Test
     public void checkAvailable1(){
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
         String sdate = "01/01/2200";
@@ -85,7 +85,7 @@ public class ReservationServiceTest {
      */
     @Test
     public void checkAvailable2() throws SQLException, ParseException{
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
         String sdate = "15/12/2024";
@@ -95,6 +95,7 @@ public class ReservationServiceTest {
         Date startDate = formatter.parse(sdate);
         Date endDate = formatter.parse(edate);
         
+        ReservationServices conn = new ReservationServices();
         isAvailable = conn.checkIfAvailable(102,startDate,endDate);
         
         assert(!isAvailable);
@@ -108,7 +109,7 @@ public class ReservationServiceTest {
      */
     @Test
     public void selectExisting() throws SQLException{
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
         ReservationServices conn = new ReservationServices();
         Reservation myRes;
 
@@ -127,7 +128,7 @@ public class ReservationServiceTest {
      */
     @Test
     public void selectNonExisting() throws SQLException{
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
         ReservationServices conn = new ReservationServices();
         Reservation myRes;
 
@@ -142,9 +143,9 @@ public class ReservationServiceTest {
      * @throws SQLException 
      */
     @Test
-    @Disabled
+    // @Disabled
     public void addReservation() throws SQLException{
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
         ReservationServices conn = new ReservationServices();
 
         Date start = new Date("1/12/2009");
@@ -165,7 +166,7 @@ public class ReservationServiceTest {
      */
     @Test
     public void cancelReservation() throws SQLException{
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
         ReservationServices conn = new ReservationServices();
         Reservation r;
 
@@ -191,7 +192,7 @@ public class ReservationServiceTest {
      */
     @Test
     public void getAllReservations() throws SQLException{
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
         ReservationServices conn = new ReservationServices();
         List<Reservation> r = null;
 

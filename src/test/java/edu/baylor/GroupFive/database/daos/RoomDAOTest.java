@@ -1,5 +1,5 @@
 package edu.baylor.GroupFive.database.daos;
-import edu.baylor.GroupFive.database.DbSetup;
+import edu.baylor.GroupFive.database.TestDatabase;
 
 import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.enums.Theme;
@@ -21,7 +21,7 @@ public class RoomDAOTest {
      */
     @BeforeEach
     void init(){
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
     }
 
     /**
@@ -29,7 +29,7 @@ public class RoomDAOTest {
      */
     @Test
     void addARoom(){
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
         Room newRoom = new Room(995, Quality.ECONOMY, Theme.UrbanElegance, true, 5, BedType.KING, 12.34);
         RoomDAO conn = new RoomDAO();
         Integer added = conn.save(newRoom);
@@ -41,7 +41,7 @@ public class RoomDAOTest {
      */
     @Test
     void addAndGetRoom(){
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
         Room newRoom = new Room(995, Quality.COMFORT, Theme.NatureRetreat, true, 5, BedType.KING, 12.34);
         RoomDAO conn = new RoomDAO();
         Integer added = conn.save(newRoom);
@@ -55,7 +55,7 @@ public class RoomDAOTest {
      */
     @Test
     void getSetupRoom(){
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
         RoomDAO conn = new RoomDAO();
         Room pulledRoom = conn.get(109);
         assert(pulledRoom != null);
@@ -66,7 +66,7 @@ public class RoomDAOTest {
      */
     @Test
     void getNonexistingRoom(){
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
         RoomDAO conn = new RoomDAO();
         Room pulledRoom = conn.get(1709);
         assert(pulledRoom == null);
@@ -78,7 +78,7 @@ public class RoomDAOTest {
      */
     @Test
     void modifyRoom(){
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
         Room myRoom = new Room(99, Quality.EXECUTIVE, Theme.VintageCharm,true, 11, BedType.KING, 90D);
         RoomDAO conn = new RoomDAO();
 

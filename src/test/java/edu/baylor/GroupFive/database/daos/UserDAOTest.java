@@ -1,6 +1,6 @@
 package edu.baylor.GroupFive.database.daos;
 
-import edu.baylor.GroupFive.database.DbSetup;
+import edu.baylor.GroupFive.database.TestDatabase;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.util.CoreUtils;
 
@@ -48,7 +48,7 @@ public class UserDAOTest {
      */
     @BeforeEach
     void init() {
-        DbSetup db = new DbSetup();
+        TestDatabase db = new TestDatabase();
     }
 
     /**
@@ -56,7 +56,7 @@ public class UserDAOTest {
      */
     @AfterEach
     void tearDown() {
-        DbSetup.dbTearDown();
+        TestDatabase.dbTearDown();
     }
 
     /**
