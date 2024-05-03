@@ -66,7 +66,7 @@ public class UserDAOTest {
     @Test
     public void addAUser() {
         UserDAO conn = new UserDAO();
-        User newUser = new User("Cole", "Flenniken", "colef8", "cole123", "admin");
+        User newUser = new User("Cole", "Flenniken", "colef8", CoreUtils.hashPassword("cole123"), "admin");
 
         assertTrue(conn.save(newUser) == 1);
     }
@@ -78,7 +78,7 @@ public class UserDAOTest {
     @Test
     public void addThenGetUser(){
         UserDAO conn = new UserDAO();
-        User newUser = new User("test", "user", "test", "p1234", "admin");
+        User newUser = new User("test", "user", "test", CoreUtils.hashPassword("p1234"), "admin");
         assertTrue(conn.save(newUser) == 1);
         User test = conn.getByUsername("test");
         assert(test.equals(newUser));
@@ -131,7 +131,7 @@ public class UserDAOTest {
     @DisplayName("Update User")
     @Test
     public void modifyUser(){
-        User newUser = new User("ColeS", "Flenniken", "colef888", "cole123", "Clerk");
+        User newUser = new User("ColeS", "Flenniken", "colef888", CoreUtils.hashPassword("cole123"), "Clerk");
         UserDAO conn = new UserDAO();
 
         // Add user
@@ -152,7 +152,7 @@ public class UserDAOTest {
     @DisplayName("Delete User")
     @Test
     public void deleteUser(){
-        User newUser = new User("Cole", "Flenniken", "colef888", "cole123", "Clerk");
+        User newUser = new User("Cole", "Flenniken", "colef888", CoreUtils.hashPassword("cole123"), "Clerk");
         UserDAO conn = new UserDAO();
 
         // Delete user
