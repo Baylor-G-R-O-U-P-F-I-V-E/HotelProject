@@ -110,4 +110,9 @@ public class StockServices {
         StockDAO stockDAO = new StockDAO();
         return stockDAO.getByProductId(productID).getStock();
     }
+
+    public static Stock getStockByProductID(Integer productID){
+        StockDAO stockDAO = new StockDAO();
+        return stockDAO.getByProductId(productID);
+    }
 }
