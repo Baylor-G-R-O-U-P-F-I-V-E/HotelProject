@@ -10,11 +10,9 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 import edu.baylor.GroupFive.database.controllers.BillingController;
-import edu.baylor.GroupFive.database.controllers.PaymentController;
 import edu.baylor.GroupFive.database.controllers.ReservationController;
 import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.models.Room;
-import edu.baylor.GroupFive.models.Transaction;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
@@ -22,7 +20,6 @@ import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 import edu.baylor.GroupFive.ui.utils.BadInputDialog;
-import edu.baylor.GroupFive.util.CoreUtils;
 
 import java.awt.*;
 
@@ -137,9 +134,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
                 Integer roomColumnIndex = table.getColumnModel().getColumnIndex("Room ID");
                 String roomID = (String) table.getValueAt(row, roomColumnIndex);
                 Integer startDateColumnIndex = table.getColumnModel().getColumnIndex("Start Date");
-                Integer endDateColumnIndex = table.getColumnModel().getColumnIndex("End Date");
                 String startDate = (String) table.getValueAt(row, startDateColumnIndex);
-                String endDate = (String) table.getValueAt(row, endDateColumnIndex);
 
                 page.addInfo(roomID);
                 page.addInfo(startDate);
@@ -250,9 +245,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
                 Integer roomColumnIndex = table.getColumnModel().getColumnIndex("Room ID");
                 String roomID = (String) table.getValueAt(row, roomColumnIndex);
                 Integer startDateColumnIndex = table.getColumnModel().getColumnIndex("Start Date");
-                Integer endDateColumnIndex = table.getColumnModel().getColumnIndex("End Date");
                 String startDate = (String) table.getValueAt(row, startDateColumnIndex);
-                String endDate = (String) table.getValueAt(row, endDateColumnIndex);
 
                 // Add a confirmation dialog
                 int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this reservation?", "Warning", JOptionPane.YES_NO_OPTION);

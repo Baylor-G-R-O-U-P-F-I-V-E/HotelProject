@@ -30,6 +30,7 @@ import edu.baylor.GroupFive.util.CoreUtils;
  */
 public class ResetPasswordPanel extends JPanel implements PagePanel {
 
+    @SuppressWarnings("unused")
     private Page page;
     private JPanel textPanel;
     private JTextField usernameField, newPasswordField;

@@ -16,8 +16,25 @@ import edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 
+/**
+ * Panel for creating a reservation for a guest.
+ * This panel extends {@link edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel}
+ * and provides functionality for creating a reservation for a guest.
+ * 
+ * What does this need to have?
+ * - A table of available rooms
+ * - A button to reserve a room
+ * - A button to adjust the dates
+ * 
+ * @see edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
+ * @see edu.baylor.GroupFive.ui.utils.Page
+ * 
+ * @author Brendon
+ */
 public class CreateReservationPanel extends ReserveRoomPanel {
 
+    @SuppressWarnings("unused")
     private Page page;
 
     public CreateReservationPanel(Page page) {

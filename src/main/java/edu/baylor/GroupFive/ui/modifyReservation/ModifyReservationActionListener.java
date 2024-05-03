@@ -18,7 +18,6 @@ import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.DatePanel;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
-import net.bytebuddy.agent.builder.AgentBuilder.LocationStrategy.Simple;
 
 /**
  * ActionListener implementation for modifying a reservation.
@@ -35,10 +34,6 @@ public class ModifyReservationActionListener implements ActionListener {
 
     private static final String SUCCESS_MSG = """
         Changes made!
-        """;
-
-    private static final String BAD_CONNECTION_MSG = """
-        Oopsie! We could not establish a connection to the database!
         """;
 
      /**

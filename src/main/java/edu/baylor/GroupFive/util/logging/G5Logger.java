@@ -1,6 +1,5 @@
 package edu.baylor.GroupFive.util.logging;
 
-import edu.baylor.GroupFive.database.controllers.ReservationController;
 import org.apache.logging.log4j.*;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Filter;
@@ -96,7 +95,9 @@ public class G5Logger {
         consoleAppender.start();
 
         // Configure Root Logger - Processes console & aggregate logs
+        @SuppressWarnings("unused")
         Appender appLogAppender = createRollingLog(newRoot, "latest", "latest");
+        @SuppressWarnings("unused")
         Appender errLogAppender = createRollingLog(newRoot, "latest.error", "error", getLevelFilter(Level.WARN));
         newRoot.addAppender(consoleAppender, minLogLevel, null);
 

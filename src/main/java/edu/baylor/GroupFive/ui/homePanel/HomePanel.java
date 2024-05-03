@@ -2,7 +2,6 @@ package edu.baylor.GroupFive.ui.homePanel;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -10,21 +9,15 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Panel;
-import java.text.ParseException;
 import java.util.Date;
 
-import edu.baylor.GroupFive.database.controllers.ReservationController;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
-import edu.baylor.GroupFive.ui.reservations.ReservationModel;
 
 /**
  * Panel for displaying the home screen.
@@ -37,13 +30,6 @@ import edu.baylor.GroupFive.ui.reservations.ReservationModel;
  * @author Brendon
  */
 public class HomePanel extends JPanel implements PagePanel {
-
-    /*
-     * What it needs:
-     * 
-     * - A title label
-     * - A list of reservations
-     */
 
     private Page page;
     private User user;

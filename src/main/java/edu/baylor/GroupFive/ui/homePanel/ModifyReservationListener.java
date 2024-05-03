@@ -1,32 +1,44 @@
 package edu.baylor.GroupFive.ui.homePanel;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 
 import edu.baylor.GroupFive.database.controllers.ReservationController;
 import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.models.User;
-import edu.baylor.GroupFive.ui.reservations.ReservationModel;
 import edu.baylor.GroupFive.ui.utils.DatePanel;
 import edu.baylor.GroupFive.ui.utils.Page;
 
+/**
+ * Listener for modifying a reservation.
+ * This listener prompts the user to modify or cancel a reservation.
+ * If the user chooses to modify the reservation, they are prompted to enter new dates.
+ * If the user chooses to cancel the reservation, the reservation is cancelled.
+ * 
+ * @see edu.baylor.GroupFive.ui.utils.Page
+ * @see edu.baylor.GroupFive.models.Reservation
+ * @see edu.baylor.GroupFive.models.User
+ * 
+ * @author Brendon
+ 
+ */
 public class ModifyReservationListener {
 
     private Page page;
-    private User user;
     private Reservation reservation;
 
+    /**
+     * Constructs a ModifyReservationListener with the specified page, user, and reservation.
+     * @param page
+     * @param user
+     * @param reservation
+     */
     public ModifyReservationListener(Page page, User user, Reservation reservation) {
         this.page = page;
-        this.user = user;
         this.reservation = reservation;
 
         // Check if the reservation is null
@@ -101,6 +113,12 @@ public class ModifyReservationListener {
 
     }
 
+    /**
+     * Validates the specified start and end dates.
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     public Boolean validateDates(Date startDate, Date endDate) {
         // Check if the dates are valid
         if (startDate == null || endDate == null) {

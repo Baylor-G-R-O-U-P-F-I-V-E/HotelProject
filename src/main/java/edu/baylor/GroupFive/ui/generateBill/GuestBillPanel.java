@@ -37,7 +37,6 @@ public class GuestBillPanel extends JPanel implements PagePanel {
     private JTable table;
     private JPanel buttonPanel;
     private Page page;
-    private String username;
 
     private String[] columnNames = {
             "Item",
@@ -60,7 +59,6 @@ public class GuestBillPanel extends JPanel implements PagePanel {
         super();
 
         this.page = page;
-        this.username = username;
 
         // Set the layout of the panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

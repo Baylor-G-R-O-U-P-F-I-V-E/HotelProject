@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -24,6 +23,21 @@ import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 
+/**
+ * Panel for editing a room.
+ * This panel displays the current information for a room and allows the user to edit it.
+ * 
+ * What does this need to have?
+ * - A text field for the room number
+ * - A drop down for the room type
+ * - A drop down for the quality
+ * - A drop down for the bed type
+ * 
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
+ * @see edu.baylor.GroupFive.ui.utils.Page
+ * 
+ * @author Brendon
+ */
 public class EditRoomPanel extends JPanel implements PagePanel {
 
     private Page page;
@@ -32,6 +46,12 @@ public class EditRoomPanel extends JPanel implements PagePanel {
     private JComboBox<String> roomTypeField, bedTypeField, smokingField, qualityField;
     private JPanel buttonPanel, textPanel;
 
+    /**
+     * Constructs an EditRoomPanel with the specified page and room.
+     *
+     * @param page the page containing this panel.
+     * @param room the room to be edited.
+     */
     public EditRoomPanel(Page page, Room room) {
         super();
         this.page = page;
@@ -80,6 +100,10 @@ public class EditRoomPanel extends JPanel implements PagePanel {
 
     }
 
+    /**
+     * Adds a panel for entering the room number to the specified panel.
+     * @param textPanel
+     */
     private void addRoomNumberPanel(JPanel textPanel) {
         JPanel numberPanel = new JPanel();
         numberPanel.setOpaque(true);
@@ -102,6 +126,10 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         textPanel.add(numberPanel);
     }
 
+    /**
+     * Adds a panel for entering the room type to the specified panel.
+     * @param textPanel
+     */
     private void addRoomTypePanel(JPanel textPanel) {
         JPanel roomTypePanel = new JPanel();
         roomTypePanel.setOpaque(true);
@@ -124,6 +152,10 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         textPanel.add(roomTypePanel);
     }
 
+    /**
+     * Adds a panel for entering the quality to the specified panel.
+     * @param textPanel
+     */
     private void addQualityPanel(JPanel textPanel) {
         JPanel qualityPanel = new JPanel();
         qualityPanel.setOpaque(true);
@@ -143,6 +175,10 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         textPanel.add(qualityPanel);
     }
 
+    /**
+     * Adds a panel for entering the bed type to the specified panel.
+     * @param textPanel
+     */
     private void addBedTypePanel(JPanel textPanel) {
         JPanel bedTypePanel = new JPanel();
         bedTypePanel.setOpaque(true);
@@ -165,6 +201,10 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         textPanel.add(bedTypePanel);
     }
 
+    /**
+     * Adds a panel for entering the bed count to the specified panel.
+     * @param textPanel
+     */
     private void addBedCountPanel(JPanel textPanel) {
         JPanel bedCountPanel = new JPanel();
         bedCountPanel.setOpaque(true);
@@ -187,6 +227,10 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         textPanel.add(bedCountPanel);
     }
 
+    /**
+     * Adds a panel for entering the smoking status to the specified panel.
+     * @param textPanel
+     */
     private void addSmokingPanel(JPanel textPanel) {
         JPanel smokingPanel = new JPanel();
         smokingPanel.setOpaque(true);
@@ -209,6 +253,10 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         textPanel.add(smokingPanel);
     }
 
+    /**
+     * Adds a panel for entering the price to the specified panel.
+     * @param textPanel
+     */
     private void addPricePanel(JPanel textPanel) {
         JPanel pricePanel = new JPanel();
         pricePanel.setOpaque(true);
@@ -231,6 +279,10 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         textPanel.add(pricePanel);
     }
 
+    /**
+     * Adds a back button to the specified panel.
+     * @param panel
+     */
     private void addBackButton(JPanel panel) {
 
         // Create and style the back button
@@ -246,6 +298,10 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         panel.add(backButton);
     }
 
+    /**
+     * Adds a save button to the specified panel.
+     * @param panel
+     */
     private void addSaveButton(JPanel panel) {
 
         // Create and style the save button
@@ -260,6 +316,9 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         panel.add(saveButton);
     }
 
+    /**
+     * Saves the changes made to the room.
+     */
     private void saveChanges() {
         // Get the values from the text fields
         int roomNumber = Integer.parseInt(numberField.getText());
@@ -289,6 +348,9 @@ public class EditRoomPanel extends JPanel implements PagePanel {
         page.refresh();
     }
 
+    /**
+     * Clears the input fields.
+     */
     @Override
     public void clear() {
         // Set textfields back to original values

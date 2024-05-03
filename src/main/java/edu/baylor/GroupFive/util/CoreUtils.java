@@ -1,7 +1,5 @@
 package edu.baylor.GroupFive.util;
 
-import edu.baylor.GroupFive.util.exceptions.SkillIssueException;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
