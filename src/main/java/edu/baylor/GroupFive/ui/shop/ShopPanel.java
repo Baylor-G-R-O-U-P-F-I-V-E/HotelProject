@@ -133,6 +133,7 @@ public class ShopPanel extends JPanel implements PagePanel {
             AddToCartDialog dialog = new AddToCartDialog(this, table, cartTable, subtotalLabel);
             dialog.setVisible(true);
         });
+        addToCartButton.setPreferredSize(new Dimension(200, 100));
         buttonPanel.add(addToCartButton);
 
         PanelButton removeFromCartButton = new PanelButton("Remove From Cart");
@@ -140,6 +141,7 @@ public class ShopPanel extends JPanel implements PagePanel {
             RemoveFromCartDialog dialog = new RemoveFromCartDialog(this, cartTable, subtotalLabel);
             dialog.setVisible(true);
         });
+        removeFromCartButton.setPreferredSize(new Dimension(300, 100));
         buttonPanel.add(removeFromCartButton);
 
         PanelButton checkoutButton = new PanelButton("Checkout");
@@ -147,6 +149,7 @@ public class ShopPanel extends JPanel implements PagePanel {
             CheckoutDialog dialog = new CheckoutDialog(this, cartTable, subtotalLabel);
             dialog.setVisible(true);
         });
+        checkoutButton.setPreferredSize(new Dimension(200, 100));
         buttonPanel.add(checkoutButton);
 
 
