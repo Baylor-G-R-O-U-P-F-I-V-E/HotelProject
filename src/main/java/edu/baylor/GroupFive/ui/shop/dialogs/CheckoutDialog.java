@@ -1,6 +1,8 @@
 package edu.baylor.GroupFive.ui.shop.dialogs;
 
 
+import edu.baylor.GroupFive.database.controllers.BillingController;
+import edu.baylor.GroupFive.database.services.TransactionService;
 import edu.baylor.GroupFive.ui.shop.ShopPanel;
 
 import javax.swing.*;
@@ -27,7 +29,7 @@ public class CheckoutDialog extends JDialog {
     private void createGUI() {
         // Sets up dialog panel
         setPreferredSize(new Dimension(600, 400));
-        setTitle("Add to cart");
+        setTitle("Checkout Items");
 
         // Sets up list
         JPanel listPane = new JPanel();
@@ -38,8 +40,27 @@ public class CheckoutDialog extends JDialog {
             return;
         }
 
-        List<JLabel> labels = new ArrayList<>();
-
+        JTable duplicateCart = duplicateCart(cartTable);
+        JScrollPane cartItems = new JScrollPane(duplicateCart);
+        cartItems.setPreferredSize(new Dimension(600, 200));
+        listPane.add(cartItems);
+        JFrame frame = new JFrame();
+        JButton checkoutButton = new JButton("Checkout Items");
+        checkoutButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        checkoutButton.addActionListener((e -> {
+            for(int i = cartTable.getRowCount() - 1 ; i >= 0; --i) {
+                String description = String.valueOf(cartTable.getValueAt(i, 1));
+                float amount = Float.parseFloat(String.valueOf(cartTable.getValueAt(i,2)))
+                        * Float.parseFloat(String.valueOf(cartTable.getValueAt(i,3)));
+                System.out.println("Creating transaction '"+description+"' with cost "+amount+"for "+owner.getUsername());
+                BillingController.addTransaction(owner.getUsername(), description, amount);
+                ((DefaultTableModel) cartTable.getModel()).removeRow(i);
+            }
+            JOptionPane.showMessageDialog(frame, "Items added to your Stay Bill!");
+        }));
+        listPane.add(checkoutButton);
+        /*
+         List<JLabel> labels = new ArrayList<>();
         // Create labels for each field
         JLabel quantityLabel = new JLabel("Number to remove:");
         // Add labels to list
@@ -93,14 +114,31 @@ public class CheckoutDialog extends JDialog {
             JOptionPane.showMessageDialog(cartTable, "Items removed from your cart.");
         });
         listPane.add(addButton);
+        */
         add(listPane);
         pack();
         setLocationRelativeTo(getParent());
+
     }
 
     @Override
     public void dispose() {
         super.dispose();
     }
+
+    private JTable duplicateCart(JTable cartTable) {
+        String[][] cart = new String[cartTable.getRowCount()][cartTable.getColumnCount()];
+        for(int i = 0; i < cartTable.getRowCount(); ++i) {
+            for(int j = 0; j < cartTable.getColumnCount(); ++j) {
+                cart[i][j] = String.valueOf(cartTable.getValueAt(i,j));
+            }
+        }
+        String[] vals = new String[cartTable.getColumnCount()];
+        for(int i = 0; i < cartTable.getColumnCount(); ++i) {
+            vals[i] = cartTable.getColumnName(i);
+        }
+        return new JTable(cart, vals);
+    }
+
 
 }
