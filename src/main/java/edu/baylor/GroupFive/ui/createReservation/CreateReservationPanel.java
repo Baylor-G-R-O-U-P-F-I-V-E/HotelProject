@@ -122,6 +122,34 @@ public class CreateReservationPanel extends ReserveRoomPanel {
                     return;
                 }
 
+                Reservation prev = ReservationController.getReservation(roomNumber, startDate);
+
+                if (prev != null) {
+                    if (prev.getActiveStatus()) {
+                        JOptionPane.showMessageDialog(null, "Room is already reserved for the selected dates.");
+                        return;
+                    }
+                    // Update the prev reservation values
+                    prev.setEndDate(endDate);
+                    prev.setActiveStatus(true);
+                    prev.setCheckedInStatus(false);
+                    prev.setPrice(price);
+                    prev.setGuestID(guestUsername);
+                    prev.setRoomID(String.valueOf(roomNumber));
+                    prev.setStartDate(startDate);
+
+                    Boolean updateResult = ReservationController.modifyReservation(prev);
+
+                    if (!updateResult) {
+                        JOptionPane.showMessageDialog(null, "Error updating reservation.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Reservation made successfully.");
+                    }
+
+                    return;
+
+                }
+
                 // Create the reservation
                 Boolean createResult = ReservationController.createReservation(new Reservation(startDate, endDate, guestUsername, String.valueOf(roomNumber), price, true, false));
 
