@@ -22,7 +22,15 @@ import java.util.*;
  */
 public class RoomDAO extends BaseDAO<Room>{
 
-    public RoomDAO(){}
+    protected Connection connection;
+
+    public RoomDAO(){
+        try {
+            connection = DbConnection.getConnection();
+        } catch (BadConnectionException e) {
+            G5Logger.logger.error(e.getMessage());
+        }
+    }
 
     /**
      * Retrieves all rooms in our database.
@@ -31,7 +39,7 @@ public class RoomDAO extends BaseDAO<Room>{
      */
     public List<Room> getAll() {
 
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
             
             String sqlQuery = "SELECT * FROM Room";
             ResultSet rs = statement.executeQuery(sqlQuery);
@@ -53,7 +61,7 @@ public class RoomDAO extends BaseDAO<Room>{
 
             return output;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());;
             return null;
         }
@@ -68,7 +76,7 @@ public class RoomDAO extends BaseDAO<Room>{
      */
     public Integer save(Room room){
 
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
             
             Room exists = get(room.getRoomNumber());
             
@@ -78,7 +86,7 @@ public class RoomDAO extends BaseDAO<Room>{
                 return update(room);
             }
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());;
             return null;
         }
@@ -93,7 +101,7 @@ public class RoomDAO extends BaseDAO<Room>{
      */
     public Integer insert(Room newRoom){
 
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
             
             String sqlInsert = "INSERT INTO ROOM(roomNumber,quality,theme,smoking,bedType,numbeds,dailyprice) VALUES (" +
                 newRoom.getRoomNumber().toString() + ",'" + Quality.formatQuality(newRoom.getQuality()) +
@@ -105,7 +113,7 @@ public class RoomDAO extends BaseDAO<Room>{
 
             return 1;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());;
             return 0;
         }
@@ -121,7 +129,7 @@ public class RoomDAO extends BaseDAO<Room>{
      */
     public Room get(int roomNumber){
 
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
             
             String sqlQuery = "SELECT * FROM Room WHERE roomNumber = " + String.valueOf(roomNumber);
             ResultSet rs = statement.executeQuery(sqlQuery);
@@ -141,7 +149,7 @@ public class RoomDAO extends BaseDAO<Room>{
 
             return null;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());;
             return null;
         }
@@ -157,7 +165,7 @@ public class RoomDAO extends BaseDAO<Room>{
      */
     public Integer update(Room updatedInfo){
 
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
             
             String sqlUpdate = "UPDATE ROOM SET quality = '" + Quality.formatQuality(updatedInfo.getQuality()) +
                 "', theme = '" + updatedInfo.getTheme().toString() + "', smoking = " + updatedInfo.isSmoking().toString() +
@@ -171,7 +179,7 @@ public class RoomDAO extends BaseDAO<Room>{
 
             return 1;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());;
             return 0;
         }
@@ -186,7 +194,7 @@ public class RoomDAO extends BaseDAO<Room>{
      */
     public Integer delete(Room room){
 
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
             
             // FIXME should not actually delete? -Icko
             // At this point if it doesnt break the proj lets just keep it - Cole
@@ -195,7 +203,7 @@ public class RoomDAO extends BaseDAO<Room>{
 
             return 1;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());
             return 0;
         }

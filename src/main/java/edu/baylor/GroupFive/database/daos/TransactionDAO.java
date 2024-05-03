@@ -26,7 +26,15 @@ import edu.baylor.GroupFive.util.logging.G5Logger;
  */
 public class TransactionDAO extends BaseDAO<Transaction> {
 
-    public TransactionDAO() {}
+    protected Connection connection;
+
+    public TransactionDAO() {
+        try {
+            connection = DbConnection.getConnection();
+        } catch (BadConnectionException e) {
+            G5Logger.logger.error(e.getMessage());
+        }
+    }
 
     /**
      * Saves a transaction into the database. Either inserts or updates behind
@@ -52,14 +60,14 @@ public class TransactionDAO extends BaseDAO<Transaction> {
     public Integer insert(Transaction transaction) {
         String sql = "INSERT INTO transactions (username, description, purchaseDate, amount) VALUES (?, ?, ?, ?)";
         
-        try (Connection connection = DbConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, transaction.getUsername());
             statement.setString(2, transaction.getDescription());
             statement.setDate(3, CoreUtils.getSqlDate(transaction.getPurchaseDate()));
             statement.setFloat(4, transaction.getAmount());
             statement.executeUpdate();
             return 1;
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());
             return 0;
         }
@@ -74,7 +82,7 @@ public class TransactionDAO extends BaseDAO<Transaction> {
     public Integer update(Transaction transaction) {
         String sql = "UPDATE transactions SET username = ?, description = ?, purchaseDate = ?, amount = ? WHERE id = ?";
         
-        try (Connection connection = DbConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, transaction.getUsername());
             statement.setString(2, transaction.getDescription());
             statement.setDate(3, CoreUtils.getSqlDate(transaction.getPurchaseDate()));
@@ -82,7 +90,7 @@ public class TransactionDAO extends BaseDAO<Transaction> {
             statement.setLong(5, transaction.getId());
             statement.executeUpdate();
             return 1;
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());
             return 0;
         }
@@ -97,11 +105,11 @@ public class TransactionDAO extends BaseDAO<Transaction> {
     public Integer delete(Transaction transaction) {
         String sql = "DELETE FROM transactions WHERE id = ?";
         
-        try (Connection connection = DbConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, transaction.getId());
             statement.executeUpdate();
             return 1;
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());
             return 0;
         }
@@ -116,7 +124,7 @@ public class TransactionDAO extends BaseDAO<Transaction> {
     public Transaction get(int id) {
         String sql = "SELECT * FROM transactions WHERE id = ?";
         
-        try (Connection connection = DbConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, id);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
@@ -130,7 +138,7 @@ public class TransactionDAO extends BaseDAO<Transaction> {
                 return null;
             }
             
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());
             return null;
         }
@@ -145,7 +153,7 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         String sql = "SELECT * FROM transactions";
         List<Transaction> transactions = null;
         
-        try (Connection connection = DbConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             
             ResultSet result = statement.executeQuery();
 
@@ -155,7 +163,7 @@ public class TransactionDAO extends BaseDAO<Transaction> {
                 transactions.add(parseResultSet(result));
             }
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());
             return null;
         }
@@ -173,7 +181,7 @@ public class TransactionDAO extends BaseDAO<Transaction> {
         String sql = "SELECT * FROM transactions WHERE username = ?";
         List<Transaction> transactions = null;
         
-        try (Connection connection = DbConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
             ResultSet result = statement.executeQuery();
 
@@ -183,7 +191,7 @@ public class TransactionDAO extends BaseDAO<Transaction> {
                 transactions.add(parseResultSet(result));
             }
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());
             return null;
         }

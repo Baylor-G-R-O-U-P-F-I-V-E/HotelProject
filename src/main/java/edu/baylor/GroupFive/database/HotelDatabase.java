@@ -40,12 +40,12 @@ public class HotelDatabase {
      */
     public HotelDatabase(String dbUrl) {
 
+        _dbUrl = dbUrl;
+
         logger.info("Running");
 
         logger.info("Initializing database tables");
         PreparedStatement ps;
-
-        _dbUrl = dbUrl;
 
         try (Connection connection = DriverManager.getConnection(_dbUrl, _dbUser, _dbPass);
                 Statement statement = connection.createStatement()) {

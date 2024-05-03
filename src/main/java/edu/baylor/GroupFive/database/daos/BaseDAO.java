@@ -1,5 +1,6 @@
 package edu.baylor.GroupFive.database.daos;
 
+import edu.baylor.GroupFive.util.CoreUtils;
 import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
 import edu.baylor.GroupFive.util.logging.G5Logger;
 
@@ -28,26 +29,6 @@ import java.util.List;
  * @author Cole
  * */
 public abstract class BaseDAO<T> {
-
-    private static String dbhost = "jdbc:derby:FinalProject;";
-
-    /**
-     * Retrieves connection to our database and returns it
-     *
-     * @return connection to our database
-     * @throws BadConnectionException
-     */
-    protected Connection getConnection() throws BadConnectionException {
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(dbhost, "", "");
-            assert(connection != null);             
-        } catch (SQLException e) {
-            G5Logger.logger.info("Could not establish database connection");
-            throw new BadConnectionException();
-        }
-        return connection;
-    }
 
     /**
      * Formats a Date object into a String representation

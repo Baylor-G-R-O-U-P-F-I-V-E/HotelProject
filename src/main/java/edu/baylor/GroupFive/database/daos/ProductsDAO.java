@@ -27,7 +27,16 @@ import java.util.List;
  * @author Cole
  */
 public class ProductsDAO extends BaseDAO<Product> {
-    public ProductsDAO(){}
+
+    protected Connection connection;
+
+    public ProductsDAO(){
+        try {
+            connection = DbConnection.getConnection();
+        } catch (BadConnectionException e) {
+            G5Logger.logger.error(e.getMessage());
+        }
+    }
 
 
     /**
@@ -39,7 +48,8 @@ public class ProductsDAO extends BaseDAO<Product> {
      */
     @Override
     public Product get(int id) throws SQLException {
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+
+        try (Statement statement = connection.createStatement()) {
 
             String sqlQuery = "SELECT * FROM PRODUCTS WHERE id = " + String.valueOf(id);
             ResultSet rs = statement.executeQuery(sqlQuery);
@@ -55,7 +65,7 @@ public class ProductsDAO extends BaseDAO<Product> {
 
             return null;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());
             return null;
         }
@@ -68,7 +78,7 @@ public class ProductsDAO extends BaseDAO<Product> {
      */
     @Override
     public List<Product> getAll() throws SQLException {
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
             List<Product> prods = new ArrayList<>();
             String sqlQuery = "SELECT * FROM PRODUCTS";
             ResultSet rs = statement.executeQuery(sqlQuery);
@@ -85,7 +95,7 @@ public class ProductsDAO extends BaseDAO<Product> {
 
             return prods;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());;
 
         }
@@ -123,7 +133,7 @@ public class ProductsDAO extends BaseDAO<Product> {
      */
     @Override
     public Integer insert(Product product) throws SQLException {
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
 
             String sqlInsert = "INSERT INTO PRODUCTS(baseCost, Description,productName) VALUES (" +
                     product.getBaseCost() + ",'" + product.getDescription() + "','" + product.getProductName() +
@@ -132,7 +142,7 @@ public class ProductsDAO extends BaseDAO<Product> {
 
             return 1;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());;
             return 0;
         }
@@ -146,7 +156,7 @@ public class ProductsDAO extends BaseDAO<Product> {
      */
     public Integer update(Product updatedInfo){
 
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
 
             String sqlUpdate = "UPDATE PRODUCTS SET baseCost = " + updatedInfo.getBaseCost() +
                     ", description = '" + updatedInfo.getDescription() + "' productName = '" + updatedInfo.getProductName() + "' WHERE id = " + updatedInfo.getProductID();
@@ -154,7 +164,7 @@ public class ProductsDAO extends BaseDAO<Product> {
 
             return 1;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());;
             return 0;
         }
@@ -169,7 +179,7 @@ public class ProductsDAO extends BaseDAO<Product> {
      */
     public Integer delete(Product product){
 
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
 
 
             String sqlDelete = "DELETE FROM Products WHERE id = " + product.getProductID();
@@ -177,7 +187,7 @@ public class ProductsDAO extends BaseDAO<Product> {
 
             return 1;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());
             return 0;
         }

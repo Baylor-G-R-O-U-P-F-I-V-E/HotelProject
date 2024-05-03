@@ -15,7 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StockDAO extends BaseDAO<Stock>{
-    public StockDAO(){}
+
+    protected Connection connection;
+
+    public StockDAO(){
+        try {
+            connection = DbConnection.getConnection();
+        } catch (BadConnectionException e) {
+            G5Logger.logger.error(e.getMessage());
+        }
+    }
 
 
     /**
@@ -27,7 +36,7 @@ public class StockDAO extends BaseDAO<Stock>{
      */
     @Override
     public Stock get(int id) throws SQLException {
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
 
             String sqlQuery = "SELECT * FROM STOCKS WHERE id = " + String.valueOf(id);
             ResultSet rs = statement.executeQuery(sqlQuery);
@@ -42,7 +51,7 @@ public class StockDAO extends BaseDAO<Stock>{
 
             return null;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());
             return null;
         }
@@ -50,7 +59,7 @@ public class StockDAO extends BaseDAO<Stock>{
 
 
     public Stock getByProductId(int id) {
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
 
             String sqlQuery = "SELECT * FROM STOCKS WHERE productid = " + id;
             ResultSet rs = statement.executeQuery(sqlQuery);
@@ -65,7 +74,7 @@ public class StockDAO extends BaseDAO<Stock>{
 
             return null;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());
             return null;
         }
@@ -78,7 +87,7 @@ public class StockDAO extends BaseDAO<Stock>{
      */
     @Override
     public List<Stock> getAll() throws SQLException {
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
             List<Stock> prods = new ArrayList<>();
             String sqlQuery = "SELECT * FROM STOCKS";
             ResultSet rs = statement.executeQuery(sqlQuery);
@@ -94,7 +103,7 @@ public class StockDAO extends BaseDAO<Stock>{
 
             return prods;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());;
             return null;
         }
@@ -131,7 +140,7 @@ public class StockDAO extends BaseDAO<Stock>{
      */
     @Override
     public Integer insert(Stock stock) throws SQLException {
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
 
             String sqlInsert = "INSERT INTO STOCKS(productID, stock) VALUES (" +
                     stock.getProductID() + "," + stock.getStock() +
@@ -140,7 +149,7 @@ public class StockDAO extends BaseDAO<Stock>{
 
             return 1;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());;
             return 0;
         }
@@ -157,7 +166,7 @@ public class StockDAO extends BaseDAO<Stock>{
         //stockID
         //productID
         //stock
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
 
             String sqlUpdate = "UPDATE STOCKS SET stock = " + updatedInfo.getStock() +
                     ", productID = " + updatedInfo.getProductID() + " WHERE id = " + updatedInfo.getStockID();
@@ -165,7 +174,7 @@ public class StockDAO extends BaseDAO<Stock>{
 
             return 1;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());;
             return 0;
         }
@@ -180,7 +189,7 @@ public class StockDAO extends BaseDAO<Stock>{
      */
     public Integer delete(Stock stock){
 
-        try (Connection connection = DbConnection.getConnection(); Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
 
 
             String sqlDelete = "DELETE FROM STOCKS WHERE id = " + stock.getStockID();
@@ -188,7 +197,7 @@ public class StockDAO extends BaseDAO<Stock>{
 
             return 1;
 
-        } catch (SQLException | BadConnectionException e) {
+        } catch (SQLException e) {
             G5Logger.logger.error(e.getMessage());
             return 0;
         }

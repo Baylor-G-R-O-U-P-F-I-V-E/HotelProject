@@ -35,10 +35,20 @@ import org.apache.logging.log4j.Logger;
  public class ReservationServices implements ReservationDao {
     private static final Logger logger = LogManager.getLogger(ReservationServices.class.getName());
 
+    /**
+     * Get a connection to the correct database.
+     * 
+     * @throws BadConnectionException If connection cannot be established
+     * */
+    protected static Connection establishConnection() throws BadConnectionException {
+        return DbConnection.getConnection();
+    }
+
      /**
       * Constructs a new ReservationServices object.
       */
-    public ReservationServices(){}
+    public ReservationServices(){
+    }
 
      /**
       * Singular find. Searches for a reservation based on their database id.
@@ -50,11 +60,11 @@ import org.apache.logging.log4j.Logger;
       */
     public Reservation get(int id) throws SQLException {
         Reservation out = null; // Result of our query
+        Connection connection = null;
 
         // Establish database connection
-        Connection connection = null;
         try {
-            connection =  DbConnection.getConnection();
+            connection = establishConnection();
         } catch (BadConnectionException ex) {
             logger.info("DbConnection failed");
             return null;
@@ -101,7 +111,7 @@ import org.apache.logging.log4j.Logger;
         // Establish database connection
         Connection connection = null;
         try {
-            connection =  DbConnection.getConnection();
+            connection = establishConnection();
         } catch (BadConnectionException ex) {
             logger.info("DbConnection failed");
             return null;
@@ -148,7 +158,7 @@ import org.apache.logging.log4j.Logger;
         // Establish database connection
         Connection connection;
         try {
-            connection =  DbConnection.getConnection();
+            connection = establishConnection();
         } catch (BadConnectionException ex) {
             logger.info("DbConnection failed");
             return null;
@@ -186,7 +196,8 @@ import org.apache.logging.log4j.Logger;
      */
     public List<Reservation> getAllActive() {
         String query = "SELECT * FROM Reservations WHERE active = true";
-        try (Connection conn = DbConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
+
+        try (Connection conn = establishConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
             ResultSet rs = statement.executeQuery();
             List<Reservation> reservations = new ArrayList<>();
             while (rs.next()) {
@@ -236,7 +247,7 @@ import org.apache.logging.log4j.Logger;
         // Establish database connection
         Connection connection;
         try {
-            connection = DbConnection.getConnection();
+            connection = establishConnection();
         } catch (BadConnectionException ex) {
             logger.info("DbConnection failed");
             return null;
@@ -276,7 +287,7 @@ import org.apache.logging.log4j.Logger;
         // Establish database connection
         Connection connection;
         try {
-            connection =  DbConnection.getConnection();
+            connection = establishConnection();
         } catch (BadConnectionException ex) {
             logger.info("DbConnection failed");
             return null;
@@ -367,7 +378,7 @@ import org.apache.logging.log4j.Logger;
         // Establish database connection
         Connection connection;
         try {
-            connection =  DbConnection.getConnection();
+            connection = establishConnection();
         } catch (BadConnectionException ex) {
             logger.info("DbConnection failed");
             return null;
@@ -404,7 +415,7 @@ import org.apache.logging.log4j.Logger;
         // Establish database connection
         Connection connection;
         try {
-            connection =  DbConnection.getConnection();
+            connection = establishConnection();
         } catch (BadConnectionException ex) {
             logger.info("DbConnection failed");
             return null;
@@ -448,7 +459,7 @@ import org.apache.logging.log4j.Logger;
         // Establish database connection
         Connection connection;
         try {
-            connection =  DbConnection.getConnection();
+            connection = establishConnection();
         } catch (BadConnectionException ex) {
             logger.info("DbConnection failed");
             return null;
@@ -488,7 +499,7 @@ import org.apache.logging.log4j.Logger;
         String sql = "SELECT * FROM reservations JOIN transactions ON transactions.username = reservations.guestusername";
         List<Reservation> currentGuests = null;
         
-        try (Connection connection = DbConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection = establishConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet result = statement.executeQuery();
 
             currentGuests = new ArrayList<>();
@@ -524,7 +535,7 @@ import org.apache.logging.log4j.Logger;
         String sql = "SELECT * FROM reservations WHERE guestUsername = ?";
         List<Reservation> reservations = null;
         
-        try (Connection connection = DbConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection = establishConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
             ResultSet result = statement.executeQuery();
 
