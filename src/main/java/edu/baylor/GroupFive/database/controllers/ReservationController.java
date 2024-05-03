@@ -130,11 +130,23 @@ public class ReservationController {
         logger.info("Attempting to save reservation with id " + reservation.getDbId());
 
         try {
-            int result = rs.save(reservation);
+
+            Integer result = rs.save(reservation);
+
+            if (result == null) {
+                logger.info("""
+                        ReservationServices.save returned a null integer when called
+                        from ReservationController.saveReservation.
+                        """);
+                return false;
+            }
+
             logger.info("Number of lines affected by query: " + result);
+
             if (result > 1 || result < 0) {
                 logger.log(Level.ERROR, "Multiple lines changed by save");
             }
+
             return true;
         } catch (SQLException ex) {
             logger.log(Level.WARN, "SQLException saving reservation with id " + reservation.getDbId());
@@ -155,8 +167,19 @@ public class ReservationController {
         logger.info("Attempting to create reservation with id " + reservation.getDbId());
 
         try {
-            int result = rs.save(reservation);
+
+            Integer result = rs.save(reservation);
+
+            if (result == null) {
+                logger.info("""
+                        ReservationServices.save returned a null integer when called
+                        from ReservationController.createReservation
+                        """);
+                return false;
+            }
+
             logger.info("Number of lines affected by query: " + result);
+
             if (result > 1 || result < 0) {
                 logger.log(Level.ERROR, "Multiple lines changed by create");
             }

@@ -217,30 +217,11 @@ import org.apache.logging.log4j.Logger;
       * @throws SQLException If error occurs during database communication
       * */
     public Integer save(Reservation reservation) throws SQLException {
-        String query = "SELECT * FROM Reservations WHERE roomNumber = ? AND startDate = ?";
-        try (Connection conn = DbConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
-            ResultSet rs = statement.executeQuery();
-            List<Reservation> reservations = new ArrayList<>();
-            while (rs.next()) {
-                reservations.add(new Reservation(
-                            rs.getInt("id"),
-                            rs.getDate("startDate"),
-                            rs.getDate("endDate"),
-                            rs.getString("guestUsername"),
-                            rs.getInt("roomNumber"),
-                            rs.getDouble("price"),
-                            rs.getBoolean("active"),
-                            rs.getBoolean("checkedIn")
-                ));
-            }
-            if (reservations.size() == 0) {
-                return this.insert(reservation);
-            } else {
-                return this.update(reservation);
-            }
-        } catch (SQLException | BadConnectionException e) {
-            G5Logger.logger.error(e.getMessage());
-            return null;
+        List<Reservation> reservations = getAllActive();
+        if (reservations.size() == 0) {
+            return this.insert(reservation);
+        } else {
+            return this.update(reservation);
         }
     }
 
