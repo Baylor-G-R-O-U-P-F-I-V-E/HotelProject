@@ -27,21 +27,28 @@ import java.text.ParseException;
  */
 public class DbSetup {
 
-    private static final Logger logger = LogManager.getLogger(DbSetup.class.getName());
+    protected static final Logger logger = LogManager.getLogger(DbSetup.class.getName());
+
+    protected static String _dbUrl;
+    protected static final String _dbUser = "";
+    protected static final String _dbPass = "";
 
     // ALL QUERIES MOVED TO BOTTOM OF CLASS - brendon
+
 
     /**
      * Tears down our database, creates all tables, then inserts initial values
      */
-    public DbSetup() {
+    public DbSetup(String dbUrl) {
 
         logger.info("Running");
 
         logger.info("Initializing database tables");
         PreparedStatement ps;
 
-        try (Connection connection = DriverManager.getConnection(url, user, password);
+        _dbUrl = dbUrl;
+
+        try (Connection connection = DriverManager.getConnection(_dbUrl, _dbUser, _dbPass);
                 Statement statement = connection.createStatement()) {
 
             try {
@@ -119,7 +126,7 @@ public class DbSetup {
     }
 
     public static void dbTearDown() {
-        try (Connection connection = DriverManager.getConnection(url, user, password);
+        try (Connection connection = DriverManager.getConnection(_dbUrl, _dbUser, _dbPass);
                 Statement statement = connection.createStatement()) {
             
             logger.info("Tearing down database tables");
@@ -182,7 +189,7 @@ public class DbSetup {
      */
     public static void dbInfo() {
 
-        try (Connection connection = DriverManager.getConnection(url, user, password); Statement statement = connection.createStatement()) {
+        try (Connection connection = DriverManager.getConnection(_dbUrl, _dbUser, _dbPass); Statement statement = connection.createStatement()) {
 
             // Get reservation information
 
@@ -246,16 +253,13 @@ public class DbSetup {
 
     }
 
-    private static final String url = "jdbc:derby:FinalProject;create=true";
-    private static final String user = "";
-    private static final String password = "";
-    private static final String sqlDropReservationTable = "DROP TABLE RESERVATIONs";
-    private static final String sqlDropProductTable = "DROP TABLE PRODUCTS";
-    private static final String sqlDropStockTable = "DROP TABLE STOCKS";
-    private static final String sqlDropRoomTable = "DROP TABLE ROOM";
-    private static final String sqlDropUserTable = "DROP TABLE USERs";
-    private static final String sqlDropTransactionsTable = "DROP TABLE TRANSACTIONS";
-    private static final String sqlCreateUserTable = "CREATE TABLE USERs(" +
+    protected static final String sqlDropReservationTable = "DROP TABLE RESERVATIONs";
+    protected static final String sqlDropProductTable = "DROP TABLE PRODUCTS";
+    protected static final String sqlDropStockTable = "DROP TABLE STOCKS";
+    protected static final String sqlDropRoomTable = "DROP TABLE ROOM";
+    protected static final String sqlDropUserTable = "DROP TABLE USERs";
+    protected static final String sqlDropTransactionsTable = "DROP TABLE TRANSACTIONS";
+    protected static final String sqlCreateUserTable = "CREATE TABLE USERs(" +
             "id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
             "firstName VARCHAR(30)," +
             "lastName VARCHAR(30)," +
@@ -265,7 +269,7 @@ public class DbSetup {
             "CONSTRAINT PK_USER PRIMARY KEY(id)," +
             "CONSTRAINT UQ_USER UNIQUE(username))";
 
-    private static final String sqlCreateRoomTable = "CREATE TABLE ROOM(" +
+    protected static final String sqlCreateRoomTable = "CREATE TABLE ROOM(" +
             "roomNumber INTEGER NOT NULL, " +
             "quality VARCHAR(15)," +
             "theme VARCHAR(50)," +
@@ -275,7 +279,7 @@ public class DbSetup {
             "dailyPrice DECIMAL(5,2)," +
             "CONSTRAINT PK_ROOM PRIMARY KEY(roomNumber))";
 
-    private static final String sqlCreateReservationTable = "CREATE TABLE RESERVATIONs(" +
+    protected static final String sqlCreateReservationTable = "CREATE TABLE RESERVATIONs(" +
             "id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
             "startDate DATE," +
             "endDate Date," +
@@ -287,7 +291,7 @@ public class DbSetup {
             "CONSTRAINT PK_RES3 PRIMARY KEY(roomNumber, startDate)" +
             ")";
     
-    private static final String sqlCreateTransactionsTable = "CREATE TABLE TRANSACTIONS(" +
+    protected static final String sqlCreateTransactionsTable = "CREATE TABLE TRANSACTIONS(" +
             "id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
             "amount DECIMAL(5,2)," +
             "purchaseDate DATE," +
@@ -296,32 +300,32 @@ public class DbSetup {
             "CONSTRAINT PK_TRANS PRIMARY KEY(id)" +
             ")";
 
-    private static final String sqlCreateProductsTable = "CREATE TABLE PRODUCTS(id  INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+    protected static final String sqlCreateProductsTable = "CREATE TABLE PRODUCTS(id  INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
     "productName VARCHAR(100), " +
     "baseCost DECIMAL(5,2)," +
     "description VARCHAR(200)," +
     "CONSTRAINT PK_PRODUCTS PRIMARY KEY(id))";
 
-    private static final String sqlCreateStocksTable = "CREATE TABLE STOCKS(id  INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+    protected static final String sqlCreateStocksTable = "CREATE TABLE STOCKS(id  INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
             "productId INTEGER," +
             "stock INTEGER," +
             "CONSTRAINT PK_STOCKS PRIMARY KEY(id),"+
             "CONSTRAINT FK_STOCKS FOREIGN KEY (productid) REFERENCES products(id))";
 
 
-    private static final String BASE_USER_INSERT_QUERY = "INSERT INTO USERS(firstName, lastName, userName, password, privilege) VALUES ( ?, ?, ?, ?, ? )";
-    private static final String BASE_ROOM_INSERT_QUERY = "INSERT INTO ROOM(roomNumber, quality, theme, smoking, bedType, numBeds, dailyPrice) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
-    private static final String BASE_RESERVATION_INSERT_QUERY = "INSERT INTO RESERVATIONS(startDate, endDate, price, guestUsername, roomNumber, active, checkedIn) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
-    private static final String BASE_TRANSACTION_INSERT_QUERY = "INSERT INTO TRANSACTIONS(amount, purchaseDate, description, username) VALUES ( ?, ?, ?, ? )";
-    private static final String BASE_PRODUCT_INSERT_QUERY = "INSERT INTO PRODUCTS(productName, baseCost, description) VALUES (?,?,?)";
-    private static final String BASE_STOCK_INSERT_QUERY = "INSERT INTO STOCKS(productId, stock) VALUES (?,?)";
+    protected static final String BASE_USER_INSERT_QUERY = "INSERT INTO USERS(firstName, lastName, userName, password, privilege) VALUES ( ?, ?, ?, ?, ? )";
+    protected static final String BASE_ROOM_INSERT_QUERY = "INSERT INTO ROOM(roomNumber, quality, theme, smoking, bedType, numBeds, dailyPrice) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
+    protected static final String BASE_RESERVATION_INSERT_QUERY = "INSERT INTO RESERVATIONS(startDate, endDate, price, guestUsername, roomNumber, active, checkedIn) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
+    protected static final String BASE_TRANSACTION_INSERT_QUERY = "INSERT INTO TRANSACTIONS(amount, purchaseDate, description, username) VALUES ( ?, ?, ?, ? )";
+    protected static final String BASE_PRODUCT_INSERT_QUERY = "INSERT INTO PRODUCTS(productName, baseCost, description) VALUES (?,?,?)";
+    protected static final String BASE_STOCK_INSERT_QUERY = "INSERT INTO STOCKS(productId, stock) VALUES (?,?)";
 
-    private static final List<Object[]> userInits = new ArrayList<>();
-    private static final List<Object[]> roomInits = new ArrayList<>();
-    private static final List<Object[]> reservationInits = new ArrayList<>();
-    private static final List<Object[]> transactionInits = new ArrayList<>();
-    private static final List<Object[]> productInits = new ArrayList<>();
-    private static final List<Object[]> stockInits = new ArrayList<>();
+    protected static final List<Object[]> userInits = new ArrayList<>();
+    protected static final List<Object[]> roomInits = new ArrayList<>();
+    protected static final List<Object[]> reservationInits = new ArrayList<>();
+    protected static final List<Object[]> transactionInits = new ArrayList<>();
+    protected static final List<Object[]> productInits = new ArrayList<>();
+    protected static final List<Object[]> stockInits = new ArrayList<>();
 
 
 
@@ -329,6 +333,7 @@ public class DbSetup {
      * Initializes our initial values for inserting into database
      */
     static {
+
         userInits.add(new Object[] { "Joe",     "Smith",        "Bongo",            "p1234",    "admin" });
         userInits.add(new Object[] { "Kevin",   "James",        "KevDog",           "1234",     "clerk" });
         userInits.add(new Object[] { "Axel",    "Washington",   "Axel112",          "1234",     "clerk" });
@@ -394,7 +399,7 @@ public class DbSetup {
       * @param statement PreparedStatement containing sql insert query
       * @throws SQLException If error occurs during database communication
       * */
-    private static void initializeUsers(PreparedStatement statement) throws SQLException {
+    protected static void initializeUsers(PreparedStatement statement) throws SQLException {
         for (Object[] user : userInits) {
             statement.setString(1, (String) user[0]);
             statement.setString(2, (String) user[1]);
@@ -419,7 +424,7 @@ public class DbSetup {
       * @param statement PreparedStatement containing sql insert query
       * @throws SQLException If error occurs during database communication
       * */
-    private static void initializeRooms(PreparedStatement statement) throws SQLException {
+    protected static void initializeRooms(PreparedStatement statement) throws SQLException {
         for (Object[] room : roomInits) {
             statement.setInt(1, (int) room[0]);
             statement.setString(2, (String) room[1]);
@@ -446,7 +451,7 @@ public class DbSetup {
       * @param statement PreparedStatement containing sql insert query
       * @throws SQLException If error occurs during database communication
       * */
-    private static void initializeReservations(PreparedStatement statement) throws SQLException {
+    protected static void initializeReservations(PreparedStatement statement) throws SQLException {
         for (Object[] reservation : reservationInits) {
             try {
                 statement.setDate(1, CoreUtils.getSqlDate((String) reservation[0]));            
@@ -478,7 +483,7 @@ public class DbSetup {
       * @param statement PreparedStatement containing sql insert query
       * @throws SQLException If error occurs during database communication
       */
-    private static void initializeTransactions(PreparedStatement statement) throws SQLException {
+    protected static void initializeTransactions(PreparedStatement statement) throws SQLException {
         for (Object[] transaction : transactionInits) {
             statement.setDouble(1, (double) transaction[0]);
             try {
@@ -507,7 +512,7 @@ public class DbSetup {
      * @param statement PreparedStatement containing sql insert query
      * @throws SQLException If error occurs during database communication
      */
-    private static void initializeProducts(PreparedStatement statement) throws SQLException {
+    protected static void initializeProducts(PreparedStatement statement) throws SQLException {
         for (Object[] product : productInits) {
             statement.setString(1, (String) product[0]);
             statement.setDouble(2, (Double) product[1]);
@@ -533,7 +538,7 @@ public class DbSetup {
      * @param statement PreparedStatement containing sql insert query
      * @throws SQLException If error occurs during database communication
      */
-    private static void initializeStocks(PreparedStatement statement) throws SQLException {
+    protected static void initializeStocks(PreparedStatement statement) throws SQLException {
         for (Object[] item : stockInits) {
             statement.setInt(1, (Integer) item[0]);
             statement.setInt(2, (Integer) item[1]);

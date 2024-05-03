@@ -2,6 +2,7 @@ package edu.baylor.GroupFive;
 
 import javax.swing.SwingUtilities;
 
+import edu.baylor.GroupFive.util.CoreUtils;
 import edu.baylor.GroupFive.ui.landing.LandingPage;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
@@ -32,14 +33,17 @@ public class Main {
         logger.info("Logging initiated. Invoking dbSetup...");
 
         @SuppressWarnings("unused")
-        DbSetup db = new DbSetup();
+        DbSetup db = new DbSetup(CoreUtils.DB_URL);
 
         logger.info("dbSetup finished. Queuing initial window/page load with swing...");
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 logger.info("Loading landing page...");
                 @SuppressWarnings("unused")
+
+                // Uncomment the following for a normal log-in page
                 InputDelegate landing = new LandingPage();
+
                 // Uncomment the following line to skip login page with Admin
                 //InputDelegate landing = new Page(AccountController.getUser("Bongo"));
 
