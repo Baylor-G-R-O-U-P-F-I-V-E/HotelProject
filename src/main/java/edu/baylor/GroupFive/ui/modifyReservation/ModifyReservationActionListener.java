@@ -3,6 +3,7 @@ package edu.baylor.GroupFive.ui.modifyReservation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -17,6 +18,7 @@ import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.ui.utils.DatePanel;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.interfaces.InputDelegate;
+import net.bytebuddy.agent.builder.AgentBuilder.LocationStrategy.Simple;
 
 /**
  * ActionListener implementation for modifying a reservation.
@@ -114,10 +116,13 @@ public class ModifyReservationActionListener implements ActionListener {
         Date start = startDate.getDate();
         Date end = endDate.getDate();
         Date today = Date.from(ZonedDateTime.now(ZoneId.of("America/Chicago")).toInstant());
-        System.out.println(today.toString());
 
-        // Check if start date is before today
-        if (start.before(today)) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String startString = sdf.format(start);
+        String todayString = sdf.format(today);
+
+        // Check if start date is before today, compare the days, not the time
+        if (start.before(today) && !startString.equals(todayString)) {
             message = """
                         Oopsie! The start date must be after today!
                     """;

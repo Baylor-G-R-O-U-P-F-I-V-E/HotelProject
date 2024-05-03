@@ -189,9 +189,10 @@ public class ReservationController {
             return true;
         } catch (SQLException ex) {
             logger.log(Level.WARN, "SQLException modifying reservation with id " + reservation.getDbId());
+            throw new RuntimeException(ex);
         }
 
-        return false;
+        //return false;
     }
 
     /**
