@@ -1,5 +1,7 @@
 package edu.baylor.GroupFive.ui.reservations;
 
+import java.io.IOException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,6 +21,7 @@ import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
+import edu.baylor.GroupFive.ui.utils.BadInputDialog;
 import edu.baylor.GroupFive.util.CoreUtils;
 
 import java.awt.*;
@@ -103,7 +106,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
 
         // Create buttons
         PanelButton modifyReservation = new PanelButton("Modify", 300, 50);
-        PanelButton status = new PanelButton("Change Status", 300, 50);
+        PanelButton status = new PanelButton("Check-in/out", 300, 50);
         PanelButton viewRoom = new PanelButton("View Room", 300, 50);
         PanelButton deleteReservation = new PanelButton("Delete", 300, 50);
 
@@ -180,12 +183,25 @@ public class ReservationsPanel extends JPanel implements PagePanel {
 
                 Boolean checkingIn = null;
 
+                // Guest is already checked in
                 if (reservation.getCheckedInStatus()) {
                     reservation.setCheckedInStatus(false);
                     checkingIn = false;
-                } else {
-                    reservation.setCheckedInStatus(true);
-                    checkingIn = true;
+                } 
+                // Guest is not checked in yet
+                else {
+                    // Guest can only check in between start and end date
+                    Date currDate = new Date();
+                    if (currDate.after(reservation.getStartDate()) && currDate.before(reservation.getEndDate())) {
+                        reservation.setCheckedInStatus(true);
+                        checkingIn = true;
+                    } else {
+                        try {
+                            new BadInputDialog("Guest cannot be checked in unless within reservation dates.", "Time Locked Operation");
+                        } catch (IOException ex) {
+                            System.err.println(ex.getMessage());
+                        }
+                    }
                 }
 
                 Boolean result = ReservationController.modifyReservation(reservation);
@@ -266,6 +282,10 @@ public class ReservationsPanel extends JPanel implements PagePanel {
                 }
 
                 Float fee = 0.0f;
+
+/*
+ * TODO when guest is checkout out. mark active as false
+ * */
 
                 // If within 48 hours, ask user if they are willing to accept the cancellation fee of 80% one nights stay
                 if (parsedStartDate.getTime() - new Date().getTime() < 48 * 60 * 60 * 1000) {
