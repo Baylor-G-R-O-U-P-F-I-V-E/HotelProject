@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ShopController {
     // Use this controller instead of StockController to display product descriptions & prices
-    // TODO: getAllProducts(): retrieve unique products with stock > 0
+
 
     /**
      * This function returns all unique products in our database
