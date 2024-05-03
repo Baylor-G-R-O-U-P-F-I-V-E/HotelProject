@@ -40,6 +40,8 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
 
     private JTable table;
     private Page delegate;
+    protected JPanel buttonPanel;
+    protected JLabel title;
 
     private String[] columnNames = {
             "Room",
@@ -77,7 +79,7 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
         JScrollPane scrollPane = new JScrollPane(table);
 
         // Create a title
-        JLabel title = new JLabel("Available Rooms");
+        title = new JLabel("Available Rooms");
         title.setFont(new java.awt.Font("Arial", Font.BOLD, 36));
         title.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -107,9 +109,9 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
     /**
      * Adds buttons to the button panel.
      */
-    private void addButtonPanel() {
+    public void addButtonPanel() {
         // Create button panel
-        JPanel buttonPanel = new JPanel();
+        buttonPanel = new JPanel();
 
         // Create buttons
         PanelButton reserveRoom = new PanelButton("Reserve Room");
@@ -130,7 +132,7 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
      * @param viewRoom The view room button.
      * @param adjustDates The adjust dates button.
      */
-    private void addButtonListeners(JButton reserveRoom, JButton adjustDates) {
+    public void addButtonListeners(JButton reserveRoom, JButton adjustDates) {
         reserveRoom.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row != -1) {
@@ -260,6 +262,21 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
                         + " to " + formatter.format(endDate));
             }
         }
+    }
+
+    /**
+     * Remove the button panel
+     */
+    public void removeButtonPanel() {
+        remove(buttonPanel);
+    }
+
+    /**
+     * Get the table
+     * @return The table
+     */
+    public JTable getTable() {
+        return table;
     }
 
     /**
