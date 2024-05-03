@@ -108,6 +108,25 @@ public class CreateReservationPanel extends ReserveRoomPanel {
      * @param endDate The end date of the reservation.
      */
     public void promptReservation(Date startDate, Date endDate) {
+
+        // Ensure dates are valid
+        if (startDate == null || endDate == null) {
+            JOptionPane.showMessageDialog(null, "Please enter valid dates.");
+            return;
+        }
+
+        // If start date is before current date
+        if (startDate.before(new Date())) {
+            JOptionPane.showMessageDialog(null, "Start date cannot be before today.");
+            return;
+        }
+
+        // If end date is before start date
+        if (endDate.before(startDate)) {
+            JOptionPane.showMessageDialog(null, "End date cannot be before start date.");
+            return;
+        }
+
         int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to reserve this room?", "Confirm Reservation", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
             // Ask for the guest username
