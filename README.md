@@ -113,3 +113,9 @@ later.
 **Store Section**: The store offers a variety of products ranging from clothing 
 and accessories to local artisanal goods. Guests have the option to explore and 
 shop during their stay.  
+
+
+References
+----------
+
+<a href="https://www.flaticon.com/free-icons/booking" title="Booking icons">Booking icons created by Saepul Nahwan - Flaticon</a>
