@@ -16,8 +16,25 @@ import edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 
+/**
+ * Panel for creating a reservation for a guest.
+ * This panel extends {@link edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel}
+ * and provides functionality for creating a reservation for a guest.
+ * 
+ * What does this need to have?
+ * - A table of available rooms
+ * - A button to reserve a room
+ * - A button to adjust the dates
+ * 
+ * @see edu.baylor.GroupFive.ui.reserveRoom.ReserveRoomPanel
+ * @see edu.baylor.GroupFive.ui.utils.interfaces.PagePanel
+ * @see edu.baylor.GroupFive.ui.utils.Page
+ * 
+ * @author Brendon
+ */
 public class CreateReservationPanel extends ReserveRoomPanel {
 
+    @SuppressWarnings("unused")
     private Page page;
 
     public CreateReservationPanel(Page page) {
@@ -91,6 +108,25 @@ public class CreateReservationPanel extends ReserveRoomPanel {
      * @param endDate The end date of the reservation.
      */
     public void promptReservation(Date startDate, Date endDate) {
+
+        // Ensure dates are valid
+        if (startDate == null || endDate == null) {
+            JOptionPane.showMessageDialog(null, "Please enter valid dates.");
+            return;
+        }
+
+        // If start date is before current date
+        if (startDate.before(new Date())) {
+            JOptionPane.showMessageDialog(null, "Start date cannot be before today.");
+            return;
+        }
+
+        // If end date is before start date
+        if (endDate.before(startDate)) {
+            JOptionPane.showMessageDialog(null, "End date cannot be before start date.");
+            return;
+        }
+
         int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to reserve this room?", "Confirm Reservation", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
             // Ask for the guest username
@@ -112,6 +148,11 @@ public class CreateReservationPanel extends ReserveRoomPanel {
                 int roomNumber = Integer.parseInt((String) super.getTable().getValueAt(super.getTable().getSelectedRow(), 0));
 
                 Room room = RoomController.getRoomInfo(roomNumber);
+
+                if (room == null) {
+                    JOptionPane.showMessageDialog(null, "Error getting room information.");
+                    return;
+                }
 
                 // Get the price
                 double price = room.getDailyPrice();

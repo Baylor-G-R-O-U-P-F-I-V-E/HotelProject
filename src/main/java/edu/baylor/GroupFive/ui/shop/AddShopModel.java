@@ -1,9 +1,7 @@
 package edu.baylor.GroupFive.ui.shop;
 
 import edu.baylor.GroupFive.database.controllers.ShopController;
-import edu.baylor.GroupFive.database.controllers.StockController;
 import edu.baylor.GroupFive.models.Product;
-import edu.baylor.GroupFive.models.Stock;
 import edu.baylor.GroupFive.ui.utils.interfaces.DataModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 

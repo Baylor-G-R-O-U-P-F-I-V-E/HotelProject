@@ -49,7 +49,7 @@ public class GuestBillModel extends HotelModel implements DataModel {
      */
     public void getData() throws RuntimeException {
         // Fetch users transactions from the database
-        List<Transaction> transactions = BillingController.getUserTransactions(username);
+        transactions = BillingController.getUserTransactions(username);
 
         // Get any active reservations for the user
         List<Transaction> activeReservations = BillingController.getActiveReservations(username);

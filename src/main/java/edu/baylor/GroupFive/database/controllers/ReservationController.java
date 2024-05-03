@@ -168,16 +168,7 @@ public class ReservationController {
 
         try {
 
-            Integer result = rs.save(reservation);
-
-            if (result == null) {
-                logger.info("""
-                        ReservationServices.save returned a null integer when called
-                        from ReservationController.createReservation
-                        """);
-                return false;
-            }
-
+            int result = rs.insert(reservation);
             logger.info("Number of lines affected by query: " + result);
 
             if (result > 1 || result < 0) {
