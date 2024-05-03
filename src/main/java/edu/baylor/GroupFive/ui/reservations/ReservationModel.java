@@ -56,13 +56,30 @@ public class ReservationModel extends HotelModel implements DataModel {
         for (Reservation reservation : reservations) {
             try {
                 // Add the row to the table
-                addRow(new Object[] {String.valueOf(reservation.getRoomNumber()), formatDate(reservation.getStartDate()), formatDate(reservation.getEndDate()), reservation.getGuestUsername(), String.format("%.2f", reservation.calculatePrice())});
+                addRow(new Object[] {String.valueOf(reservation.getRoomNumber()), formatDate(reservation.getStartDate()), formatDate(reservation.getEndDate()), reservation.getGuestUsername(), String.format("%.2f", reservation.calculatePrice()), String.valueOf(reservation.getCheckedInStatus())});
                 // Print the row to the console
                 System.out.println("Added row to table: " + reservation.getRoomNumber() + ", " + reservation.getStartDate() + ", " + reservation.getEndDate() + ", " + reservation.getGuestUsername() + ", " + reservation.getPrice());
             } catch (Exception e) {
                 // Log any errors
                 System.out.println("Error adding row to table");
             }
+        }
+    }
+
+    /**
+     * Refreshes the data in the model.
+     */
+    public void refreshData() {
+        clearData();
+        getData();
+    }
+
+    /**
+     * Clears all data from the model.
+     */
+    public void clearData() {
+        for (int i = getRowCount() - 1; i >= 0; i--) {
+            removeRow(i);
         }
     }
 
