@@ -253,7 +253,7 @@ public class ReservationController {
      * @return {@code true} if room is booked. {@code false} otherwise
      * */
     public static boolean isRoomBookedOn(int roomNumber, Date startDate, Date endDate){
-        List<Reservation> reservations = getAllReservations();
+        List<Reservation> reservations = getAllActiveReservations();
         List<Reservation> roomReservations = reservations.stream()
             .filter(rsv -> rsv.getRoomNumber() == roomNumber)
             .toList();

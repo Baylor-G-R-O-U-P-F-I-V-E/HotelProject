@@ -230,8 +230,29 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
                 return;
             }
 
-            boolean result = ReservationController.createReservation(new Reservation(startDate, endDate, user.getUsername(), String.valueOf(roomObj.getRoomNumber()), roomObj.getDailyPrice(), true, false));
+            Reservation prev = null;
+            Boolean result = null;
 
+            // Check if there is an inactive reservation for the room, if so update it
+            if (((prev = ReservationController.getReservation(Integer.parseInt(room), startDate)) != null) && !prev.getActiveStatus()) {
+
+                // Update the reservation
+                prev.setStartDate(startDate);
+                prev.setEndDate(endDate);
+                prev.setGuestID(user.getUsername());
+                prev.setRoomID(room);
+                prev.setPrice(roomObj.getDailyPrice());
+                prev.setCheckedInStatus(false);
+                prev.setActiveStatus(true);
+
+                result = ReservationController.modifyReservation(prev);
+
+            // Otherwise, create a new reservation
+            } else {
+                result = ReservationController.createReservation(new Reservation(startDate, endDate, user.getUsername(), String.valueOf(roomObj.getRoomNumber()), roomObj.getDailyPrice(), true, false));
+            }
+
+            // Check if the reservation was successful
             if (!result) {
                 JOptionPane.showMessageDialog(null, "Room could not be reserved for the selected dates.");
             } else {
