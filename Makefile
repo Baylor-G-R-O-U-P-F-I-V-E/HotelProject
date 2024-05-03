@@ -1,5 +1,7 @@
 JAR = HotelProject-0.0.1-SNAPSHOT.jar
 JVD = target/site/index.html
+DB = HotelDatabase
+TEST_DB = TestHotelDatabase
 
 DFLAGS = -it -e DISPLAY=$(shell ipconfig getifaddr en0):0
 DIMG = hotel_project
@@ -17,6 +19,12 @@ help:
 		jvd            | Generate javadoc and open in browser \n\
 		"
 .PHONY: help
+
+# Please don't ask why we are deleting the db
+clean-build:
+	rm -r $(DB)
+	make build
+.PHONY: clean-build
 
 build:
 	mvn package -Dmaven.test.skip=true
@@ -39,7 +47,14 @@ docker-run:
 .PHONY: docker-run
 
 clean-db:
-	rm -ir FinalProject
+	@if [ -d "${DB}" ]; then \
+		echo "rm -r ${DB}"; \
+		rm -r $(DB); \
+	fi
+	@if [ -d "${TEST_DB}" ]; then \
+		echo "rm -r ${TEST_DB}"; \
+		rm -r $(TEST_DB); \
+	fi
 .PHONY: clean-db
 
 jvd:
