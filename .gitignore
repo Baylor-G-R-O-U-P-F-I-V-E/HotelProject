@@ -32,8 +32,8 @@ release.properties
 
 # Database
 lib/derby.jar
-FinalProject/
-FinalProject*/
+HotelDatabase*/
+TestHotelDatabase*/
 
 # Dev Docs
 docs/TODO.md
