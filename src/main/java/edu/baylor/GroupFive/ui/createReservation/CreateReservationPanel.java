@@ -113,6 +113,11 @@ public class CreateReservationPanel extends ReserveRoomPanel {
 
                 Room room = RoomController.getRoomInfo(roomNumber);
 
+                if (room == null) {
+                    JOptionPane.showMessageDialog(null, "Error getting room information.");
+                    return;
+                }
+
                 // Get the price
                 double price = room.getDailyPrice();
 

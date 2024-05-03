@@ -155,7 +155,7 @@ public class ReservationController {
         logger.info("Attempting to create reservation with id " + reservation.getDbId());
 
         try {
-            int result = rs.save(reservation);
+            int result = rs.insert(reservation);
             logger.info("Number of lines affected by query: " + result);
             if (result > 1 || result < 0) {
                 logger.log(Level.ERROR, "Multiple lines changed by create");
