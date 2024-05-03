@@ -45,11 +45,12 @@ public class ReservationsPanel extends JPanel implements PagePanel {
             "Start Date",
             "End Date",
             "Guest ID",
-            "Price"};
+            "Price",
+            "Checked In"};
 
     // Define data types for the columns
     final Class<?>[] columnClass = new Class[] {
-            String.class, String.class, String.class, String.class, String.class, String.class
+            String.class, String.class, String.class, String.class, String.class, String.class, String.class
     };
 
     /**
@@ -186,6 +187,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
                 // Guest is already checked in
                 if (reservation.getCheckedInStatus()) {
                     reservation.setCheckedInStatus(false);
+                    reservation.setActiveStatus(false);
                     checkingIn = false;
                 } 
                 // Guest is not checked in yet
@@ -198,6 +200,7 @@ public class ReservationsPanel extends JPanel implements PagePanel {
                     } else {
                         try {
                             new BadInputDialog("Guest cannot be checked in unless within reservation dates.", "Time Locked Operation");
+                            return;
                         } catch (IOException ex) {
                             System.err.println(ex.getMessage());
                         }
@@ -213,6 +216,9 @@ public class ReservationsPanel extends JPanel implements PagePanel {
                         JOptionPane.showMessageDialog(null, "Guest has been checked out.");
                     }
                     ((DefaultTableModel)table.getModel()).setValueAt(checkingIn, row, table.getColumnModel().getColumnIndex("Checked In"));
+                    
+                    // Update the table
+                    ((ReservationModel)table.getModel()).refreshData();
                 } else {
                     JOptionPane.showMessageDialog(null, "Failed to change reservation status.");
                     return;
