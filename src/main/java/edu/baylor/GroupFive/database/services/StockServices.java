@@ -1,8 +1,6 @@
 package edu.baylor.GroupFive.database.services;
 
-import edu.baylor.GroupFive.database.daos.RoomDAO;
 import edu.baylor.GroupFive.database.daos.StockDAO;
-import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.Stock;
 import edu.baylor.GroupFive.util.logging.G5Logger;
 

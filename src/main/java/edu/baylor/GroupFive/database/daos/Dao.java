@@ -8,7 +8,6 @@ package edu.baylor.GroupFive.database.daos;
 
 import java.util.List;
 import java.sql.SQLException;
-import java.sql.SQLTimeoutException;
 
  /**
   * {@code Dao<T>} is an interface that represents the base functionalities

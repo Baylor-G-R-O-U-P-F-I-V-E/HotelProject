@@ -2,11 +2,6 @@ package edu.baylor.GroupFive.database.daos;
 
 import edu.baylor.GroupFive.database.DbConnection;
 import edu.baylor.GroupFive.models.Product;
-import edu.baylor.GroupFive.models.ProductDescription;
-import edu.baylor.GroupFive.models.Room;
-import edu.baylor.GroupFive.models.enums.BedType;
-import edu.baylor.GroupFive.models.enums.Quality;
-import edu.baylor.GroupFive.models.enums.Theme;
 import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
 import edu.baylor.GroupFive.util.logging.G5Logger;
 

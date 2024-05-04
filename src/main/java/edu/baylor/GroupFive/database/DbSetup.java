@@ -8,7 +8,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.sql.DriverManager; import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;

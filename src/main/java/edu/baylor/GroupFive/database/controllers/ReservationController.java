@@ -1,8 +1,6 @@
 package edu.baylor.GroupFive.database.controllers;
 
 import edu.baylor.GroupFive.util.CoreUtils;
-import edu.baylor.GroupFive.models.User;
-import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.Reservation;
 import edu.baylor.GroupFive.database.services.ReservationServices;
 import org.apache.logging.log4j.LogManager;
