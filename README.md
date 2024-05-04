@@ -1,29 +1,26 @@
 # G.R.O.U.P. F.I.V.E. Hotel Project
 
-Contents
---------
-
-1.  [Developer References](#developer-references)
-1.  [Usage](#usage)
-1.  [Generating JavaDoc](#generating-javadoc)
-1.  [About This Project](#about-this-project)
-    * [The Stay & Shop Reservation System](#the-stay-shop-reservation-system)
-    * [Hotel Section](#hotel-section)
-
-
-Developer References
---------------------
-
-1.  [`HotelProjectException`](./docs/EXCEPTIONS_README.md)
-1.  [Cloning This Repository Locally](./docs/INSTALLATION.md)
-1.  [Design Models](./docs/design-models/)
-1.  [Deliverables](./docs/deliverables/)
-
-
 Usage
 -----
 
+Cloning this project:
+
 ```zsh
+git clone https://github.com/Baylor-G-R-O-U-P-F-I-V-E/HotelProject.git
+```
+
+See [docs/INSTALLATION.md](docs/INSTALLATION.md) for help with git.
+
+
+-----
+
+
+Using the `make` utility:
+
+```zsh
+# List make commands
+make help
+
 # Package the project
 make build
 
@@ -31,24 +28,54 @@ make build
 make run
 
 # Update dependencies
+# This allows us to pull dependencies without compiling our project
 make update
 
-# Generate javadoc
+# Generate javadoc and open in browser
 make jvd
 
-# Print all make commands
-make
-make help
+# Run test cases (no target for this one lol)
+mvn test
 ```
 
+-----
 
-Generating JavaDoc
-------------------
+
+Using Maven commands:
 
 ```zsh
+# Package the project
+mvn package
+
+# Package the project, skipping test cases
+mvn package -Dmaven.test.skip=true
+
+# Run the project
+java -jar target/HotelProject-0.0.1-SNAPSHOT.jar
+
+# Update local dependencies by pulling from remote
+# This allows us to pull dependencies without compiling our project
+mvn dependency:copy-dependencies
+
+# Generate javadoc and open in browser
 mvn site
 open target/site/index.html
+
+# Run test cases
+mvn test
 ```
+
+-----
+
+
+Developer References
+--------------------
+
+1.  [`HotelProjectException`](./docs/EXCEPTIONS_README.md)
+1.  [Setting up Git and Cloning This Repository](./docs/INSTALLATION.md)
+
+
+-----
 
 
 About This Project
