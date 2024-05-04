@@ -129,7 +129,6 @@ public class ReserveRoomPanel extends JPanel implements PagePanel {
      * Adds action listeners to buttons.
      *
      * @param reserveRoom The reserve room button.
-     * @param viewRoom The view room button.
      * @param adjustDates The adjust dates button.
      */
     public void addButtonListeners(JButton reserveRoom, JButton adjustDates) {
