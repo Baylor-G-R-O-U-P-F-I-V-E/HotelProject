@@ -263,13 +263,10 @@ public class ReservationController {
     }
 
     /**
-     * This function looks through our reservations and checks if a given
-     * user is booked during a certain time period.
+     * This function returns a list of all reservations tied to a certain room.
      *
-     * @param username Username of User.
-     * @param startDate Starting date of interval.
-     * @param endDate End date of interval.
-     * @return {@code true} if user is booked. {@code false} otherwise
+     * @param roomNumber Room number to query across
+     * @return List of reservations linked to {@code roomNumber}
      * */
     public static List<Reservation> getRoomReservations(int roomNumber) {
         List<Reservation> reservations = getAllReservations();

@@ -103,11 +103,11 @@ public class BillingController {
     /**
      * This function returns a list of all active reservations as transactions
      * associated with the guest currently logged into our system.
-     * This function calls {@link TransactionService#getActiveReservations(String)}
+     * This function calls {@link TransactionService#getActiveReservationsAsTransactions(String)} (String)}
      *
      * @param username Users username.
      * @return A List of active reservations tied to logged in guest.
-     * @see TransactionService#getActiveReservations(String)
+     * @see TransactionService#getActiveReservationsAsTransactions(String) (String)
      * */
     public static List<Transaction> getActiveReservations(String username) {
         return TransactionService.getActiveReservationsAsTransactions(username);

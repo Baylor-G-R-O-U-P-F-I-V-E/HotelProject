@@ -87,7 +87,7 @@ public class RoomController {
      * @param startDate Start date of interval.
      * @param endDate End date of interval.
      * @return {@code true} if room is available. {@code false} otherwise
-     * @see RoomServices#isRoomAvailable(int, Date, Date)
+     * @see RoomServices#isRoomAvailable(Integer, Date, Date)
      * */
     public static Boolean isRoomAvailable(int roomNum, Date startDate, Date endDate){
         return RoomServices.isRoomAvailable(roomNum, startDate, endDate);
@@ -98,7 +98,7 @@ public class RoomController {
      *
      * @param roomNum Room number of room to delete.
      * @return {@code true} if room was deleted successfully. {@code false} otherwise
-     * @see RoomServices#deleteRoom(int)
+     * @see RoomServices#deleteRoom(Integer)
      * */
     public static Boolean deleteRoom(int roomNum){
         return RoomServices.deleteRoom(roomNum);
