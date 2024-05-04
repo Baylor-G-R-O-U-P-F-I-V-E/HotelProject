@@ -32,7 +32,7 @@ public class RoomDAOTest {
     void addARoom(){
         new TestHotelDatabase();
         Room newRoom = new Room(995, Quality.ECONOMY, Theme.UrbanElegance, true, 5, BedType.KING, 12.34);
-        RoomDAO conn = new RoomDAO();
+        RoomDAOExt conn = new RoomDAOExt();
         Integer added = conn.save(newRoom);
         assert(added.equals(1));
     }
@@ -44,7 +44,7 @@ public class RoomDAOTest {
     void addAndGetRoom(){
         new TestHotelDatabase();
         Room newRoom = new Room(995, Quality.COMFORT, Theme.NatureRetreat, true, 5, BedType.KING, 12.34);
-        RoomDAO conn = new RoomDAO();
+        RoomDAOExt conn = new RoomDAOExt();
         Integer added = conn.save(newRoom);
         assertNotNull(added);
         Room pulledRoom = conn.get(995);
@@ -58,7 +58,7 @@ public class RoomDAOTest {
     @Test
     void getSetupRoom(){
         new TestHotelDatabase();
-        RoomDAO conn = new RoomDAO();
+        RoomDAOExt conn = new RoomDAOExt();
         Room pulledRoom = conn.get(109);
         assert(pulledRoom != null);
     }
@@ -69,7 +69,7 @@ public class RoomDAOTest {
     @Test
     void getNonexistingRoom(){
         new TestHotelDatabase();
-        RoomDAO conn = new RoomDAO();
+        RoomDAOExt conn = new RoomDAOExt();
         Room pulledRoom = conn.get(1709);
         assert(pulledRoom == null);
     }
@@ -82,7 +82,7 @@ public class RoomDAOTest {
     void modifyRoom(){
         new TestHotelDatabase();
         Room myRoom = new Room(99, Quality.EXECUTIVE, Theme.VintageCharm,true, 11, BedType.KING, 90D);
-        RoomDAO conn = new RoomDAO();
+        RoomDAOExt conn = new RoomDAOExt();
 
         Integer added = conn.save(myRoom);
         if(added != 1){

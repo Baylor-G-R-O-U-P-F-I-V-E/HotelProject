@@ -65,7 +65,7 @@ public class UserDAOTest {
     @DisplayName("Add User")
     @Test
     public void addAUser() {
-        UserDAO conn = new UserDAO();
+        UserDAOExt conn = new UserDAOExt();
         User newUser = new User("Cole", "Flenniken", "colef8", CoreUtils.hashPassword("cole123"), "admin");
 
         assertTrue(conn.save(newUser) == 1);
@@ -77,7 +77,7 @@ public class UserDAOTest {
     @DisplayName("Add and Get User")
     @Test
     public void addThenGetUser(){
-        UserDAO conn = new UserDAO();
+        UserDAOExt conn = new UserDAOExt();
         User newUser = new User("test", "user", "test", CoreUtils.hashPassword("p1234"), "admin");
         assertTrue(conn.save(newUser) == 1);
         User test = conn.getByUsername("test");
@@ -90,7 +90,7 @@ public class UserDAOTest {
     @DisplayName("Get All Users")
     @Test
     public void getAllUsers(){
-        UserDAO conn = new UserDAO();
+        UserDAOExt conn = new UserDAOExt();
         List<User> users = conn.getAll();
         
         // Compare the users in the database to the users we initialized
@@ -105,7 +105,7 @@ public class UserDAOTest {
     @DisplayName("Find Existing User")
     @Test
     public void findExistingUserFromSetup(){
-        UserDAO conn = new UserDAO();
+        UserDAOExt conn = new UserDAOExt();
         User test = new User("Axel", "Washington", "Axel112", CoreUtils.hashPassword("1234"), "clerk");
         User result = conn.getByUsername("Axel112");
         System.out.println(test.toString());
@@ -119,7 +119,7 @@ public class UserDAOTest {
     @DisplayName("Find Non-Existing User")
     @Test
     public void findNonExistingUser(){
-        UserDAO conn = new UserDAO();
+        UserDAOExt conn = new UserDAOExt();
         User test = conn.getByUsername("Axel113");
         assertNull(test);
     }
@@ -132,7 +132,7 @@ public class UserDAOTest {
     @Test
     public void modifyUser(){
         User newUser = new User("ColeS", "Flenniken", "colef888", CoreUtils.hashPassword("cole123"), "Clerk");
-        UserDAO conn = new UserDAO();
+        UserDAOExt conn = new UserDAOExt();
 
         // Add user
         assert(conn.save(newUser) == 1);
@@ -153,7 +153,7 @@ public class UserDAOTest {
     @Test
     public void deleteUser(){
         User newUser = new User("Cole", "Flenniken", "colef888", CoreUtils.hashPassword("cole123"), "Clerk");
-        UserDAO conn = new UserDAO();
+        UserDAOExt conn = new UserDAOExt();
 
         // Delete user
         assert(conn.delete(newUser) == 1);

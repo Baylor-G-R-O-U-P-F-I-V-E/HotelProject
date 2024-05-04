@@ -2,6 +2,7 @@ package edu.baylor.GroupFive.database.services;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import edu.baylor.GroupFive.database.TestHotelDatabase;
 import edu.baylor.GroupFive.models.Reservation;
@@ -26,9 +27,8 @@ import org.junit.jupiter.api.Test;
  */
 public class ReservationServiceTest {
 
-    ReservationServices conn;
+    ReservationServicesExt conn;
     private static List<Reservation> reservationInits = new ArrayList<>();
-
 
     @SuppressWarnings("deprecation")
     @BeforeAll
@@ -196,14 +196,15 @@ public class ReservationServiceTest {
 
         r = conn.getAll();
 
+        assertNotNull(r);
+        assert(r.size() == reservationInits.size());
+
         // Test the reservations against the initialized reservations
         /*
         for (int i = 0; i < reservationInits.size(); i++) {
             assert(r.get(i).equals(reservationInits.get(i)));
         }
         */
-
-        assert(r.size() == reservationInits.size());
         
     }
 

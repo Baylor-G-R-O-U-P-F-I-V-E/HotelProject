@@ -36,10 +36,10 @@ public class TestDbConnection {
     public static Connection getConnection() throws BadConnectionException {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(CoreUtils.DB_URL, "", "");
+            connection = DriverManager.getConnection(CoreUtils.TEST_DB_URL, "", "");
             assert(connection != null);             // [1]
         } catch (SQLException e) {                  // [2]
-            G5Logger.logger.error("Could not establish database connection");
+            G5Logger.logger.error("Could not establish test database connection");
             throw new BadConnectionException();
         }
         return connection;

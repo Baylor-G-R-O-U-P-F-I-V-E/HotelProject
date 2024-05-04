@@ -1,8 +1,21 @@
 package edu.baylor.GroupFive.database.services;
 
+import edu.baylor.GroupFive.util.exceptions.BadConnectionException;
+import edu.baylor.GroupFive.database.TestDbConnection;
+
 import java.util.Date;
+import java.sql.Connection;
 
 public class ReservationServicesExt extends ReservationServices {
+    /**
+     * Get a connection to the correct database.
+     * 
+     * @throws BadConnectionException If connection cannot be established
+     * */
+    protected static Connection establishConnection() throws BadConnectionException {
+        return TestDbConnection.getConnection();
+    }
+
     /**
      * Helper function for testing the protected {@link ReservationServices#isOverlap(Date s1, Date e1, Date s2, Date e2)}
      *

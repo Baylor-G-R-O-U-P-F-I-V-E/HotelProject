@@ -35,6 +35,8 @@ import org.apache.logging.log4j.Logger;
  public class ReservationServices implements ReservationDao {
     private static final Logger logger = LogManager.getLogger(ReservationServices.class.getName());
 
+    private Connection connection;
+
     /**
      * Get a connection to the correct database.
      * 
@@ -48,6 +50,11 @@ import org.apache.logging.log4j.Logger;
       * Constructs a new ReservationServices object.
       */
     public ReservationServices(){
+        try {
+            connection = DbConnection.getConnection();
+        } catch (BadConnectionException e) {
+            logger.error("DbConnection failed in ReservationServices");
+        }
     }
 
      /**
@@ -63,12 +70,15 @@ import org.apache.logging.log4j.Logger;
         Connection connection = null;
 
         // Establish database connection
+        /**
+          // TODO del
         try {
             connection = establishConnection();
         } catch (BadConnectionException ex) {
             logger.info("DbConnection failed");
             return null;
         }
+        */
 
         // Build query
         String sqlQuery = "SELECT * FROM reservations WHERE id = ?";
