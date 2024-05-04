@@ -330,7 +330,7 @@ public class DbSetup {
      * Initializes our initial values for inserting into database
      */
     static {
-        userInits.add(new Object[] { "Joe",     "Smith",        "Bongo",            "p1234",    "admin" });
+        userInits.add(new Object[] { "admin",     "user",        "admin",            "setup",    "admin" });
         userInits.add(new Object[] { "Kevin",   "James",        "KevDog",           "1234",     "clerk" });
         userInits.add(new Object[] { "Axel",    "Washington",   "Axel112",          "1234",     "clerk" });
         userInits.add(new Object[] { "Andrew",  "Wiles",        "BigA",             "1234",     "clerk" });
