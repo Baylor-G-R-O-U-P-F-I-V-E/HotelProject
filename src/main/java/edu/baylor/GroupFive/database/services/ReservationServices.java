@@ -179,8 +179,8 @@ import org.apache.logging.log4j.Logger;
 
     /**
      * Retrieves all reservations from the database.
+     *
      * @return A List containing all reservations
-     * @throws SQLException If an error occurs during database communication
      */
     public List<Reservation> getAllActive() {
         String query = "SELECT * FROM Reservations WHERE active = true";

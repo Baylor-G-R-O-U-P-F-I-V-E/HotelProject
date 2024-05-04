@@ -26,7 +26,7 @@ import edu.baylor.GroupFive.util.CoreUtils;
  * 
  * @see PagePanel
  * 
- * @author: Brendon
+ * @author Brendon
  */
 public class ChangePasswordPanel extends JPanel implements PagePanel {
 
