@@ -33,6 +33,9 @@ make update
 
 # Generate javadoc and open in browser
 make jvd
+
+# Run test cases (no target for this one lol)
+mvn test
 ```
 
 -----
@@ -57,6 +60,9 @@ mvn dependency:copy-dependencies
 # Generate javadoc and open in browser
 mvn site
 open target/site/index.html
+
+# Run test cases
+mvn test
 ```
 
 -----
