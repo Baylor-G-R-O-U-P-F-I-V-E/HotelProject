@@ -80,12 +80,4 @@ public class AccountController {
          return AccountService.modifyAccount(user);
     }
 
-    /**
-     * TODO does not do anything atm
-     *
-     * @param username Users username
-     * */
-    public static void changePassword(String username) {
-    }
-
 }

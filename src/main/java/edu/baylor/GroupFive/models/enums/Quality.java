@@ -26,14 +26,6 @@ public enum Quality {
     private Quality(int i) {
     }
 
-    public static String[] getQualities() {
-        String[] qualities = new String[Quality.values().length];
-        for (int i = 0; i < Quality.values().length; i++) {
-            qualities[i] = Quality.values()[i].toString();
-        }
-        return qualities;
-    }
-
     public static String formatQuality(Quality quality) {
         return quality.toString().toLowerCase();
     }
