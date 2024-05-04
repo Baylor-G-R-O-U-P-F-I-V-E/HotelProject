@@ -405,6 +405,10 @@ import org.apache.logging.log4j.Logger;
             return null;
         }
 
+        /**
+         * TODO this query causes a big bad RollbackException when querying
+         * a reservation that is unavailable. -icko
+         * */
         // Build query
         String sqlQuery = "SELECT * FROM reservations WHERE roomNumber = ? AND startDate BETWEEN ? AND ? AND endDate BETWEEN ? AND ? AND active = true";
         PreparedStatement statement = connection.prepareStatement(sqlQuery);
