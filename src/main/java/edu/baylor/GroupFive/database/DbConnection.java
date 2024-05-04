@@ -58,52 +58,6 @@ public class DbConnection {
         return connection;
     }
 
-     /**
-      * Closes a PreparedStatement.
-      *
-      * @param statement PreparedStatement to close
-      */
-    public static void closeStatement(PreparedStatement statement){
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                G5Logger.logger.error("Error closing statement");
-            }
-        }
-
-    }
-
-     /**
-      * Closes a Statement.
-      *
-      * @param statement Statement to close
-      */
-    public static void closeStatement(Statement statement){
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                G5Logger.logger.error("Error closing statement");
-            }
-        }
-
-    }
-
-     /**
-      * Closes a Connection.
-      *
-      * @param connection Connection to close
-      */
-    public static void closeConnection(Connection connection){
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                G5Logger.logger.error("Error closing connection");
-            }
-        }
-    }
 }
 
 /**
