@@ -32,7 +32,7 @@ public class RoomDAOTest {
         DbSetup db = new DbSetup();
         Room newRoom = new Room(995, Quality.ECONOMY, Theme.UrbanElegance, true, 5, BedType.KING, 12.34);
         RoomDAO conn = new RoomDAO();
-        Integer added = conn.save(newRoom);
+        Integer added = conn.insert(newRoom);
         assert(added.equals(1));
     }
 
@@ -44,7 +44,7 @@ public class RoomDAOTest {
         DbSetup db = new DbSetup();
         Room newRoom = new Room(995, Quality.COMFORT, Theme.NatureRetreat, true, 5, BedType.KING, 12.34);
         RoomDAO conn = new RoomDAO();
-        Integer added = conn.save(newRoom);
+        Integer added = conn.insert(newRoom);
         Room pulledRoom = conn.get(995);
         System.out.println(pulledRoom.getDailyPrice());
         assert(pulledRoom.equals(newRoom));
