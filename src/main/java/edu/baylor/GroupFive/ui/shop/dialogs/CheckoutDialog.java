@@ -24,7 +24,6 @@ public class CheckoutDialog extends JDialog {
 
     private ShopPanel owner;
     private JTable cartTable;
-    private JLabel subtotalLabel;
     private AddShopModel model;
 
     /**
@@ -33,11 +32,10 @@ public class CheckoutDialog extends JDialog {
      * @param cartTable
      * @param subtotalLabel
      */
-    public CheckoutDialog(ShopPanel owner, JTable cartTable, AddShopModel model, JLabel subtotalLabel) {
+    public CheckoutDialog(ShopPanel owner, JTable cartTable, AddShopModel model) {
         super(SwingUtilities.windowForComponent(cartTable));
         this.owner = owner;
         this.cartTable = cartTable;
-        this.subtotalLabel = subtotalLabel;
         this.model = model;
         createGUI();
     }

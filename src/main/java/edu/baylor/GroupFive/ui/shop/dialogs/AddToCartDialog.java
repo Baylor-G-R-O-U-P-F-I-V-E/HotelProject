@@ -38,7 +38,7 @@ public class AddToCartDialog extends JDialog {
 
     private void createGUI() {
         // Sets up dialog panel
-        setPreferredSize(new Dimension(600, 400));
+        setPreferredSize(new Dimension(300, 150));
         setTitle("Add to Cart");
 
         // Sets up list

@@ -383,7 +383,6 @@ public class DbSetup {
         stockInits.add(new Object[] {5, 124});
         stockInits.add(new Object[] {6, 95});
 
-
     }
 
      /**

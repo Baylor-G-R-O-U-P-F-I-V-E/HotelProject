@@ -15,20 +15,18 @@ public class RemoveFromCartDialog extends JDialog {
 
     private ShopPanel owner;
     private JTable cartTable;
-    private JLabel subtotalLabel;
 
-    public RemoveFromCartDialog(ShopPanel owner, JTable cartTable, JLabel subtotalLabel) {
+    public RemoveFromCartDialog(ShopPanel owner, JTable cartTable) {
         super(SwingUtilities.windowForComponent(cartTable));
         this.owner = owner;
         this.cartTable = cartTable;
-        this.subtotalLabel = subtotalLabel;
         createGUI();
     }
 
 
     private void createGUI() {
         // Sets up dialog panel
-        setPreferredSize(new Dimension(600, 400));
+        setPreferredSize(new Dimension(300, 150));
         setTitle("Remove from Cart");
 
         // Sets up list
@@ -52,6 +50,7 @@ public class RemoveFromCartDialog extends JDialog {
         int row = cartTable.getSelectedRow();
         Integer numAlreadyInCart = (Integer) cartTable.getValueAt(row, 3);
         quantityField.setText(numAlreadyInCart.toString()); // default to all items removed
+        
         // Set default textfield sizes
         quantityField.setPreferredSize(new Dimension(200, 30));
 
@@ -60,7 +59,6 @@ public class RemoveFromCartDialog extends JDialog {
         textFields.add(quantityField);
 
         // Make a new panel for each text field and label and add them
-//        System.out.println("ccount: "+ cartTable.getColumnCount());
         for (int i = 0; i < textFields.size(); i++) {
             JPanel panel = new JPanel();
             panel.add(labels.get(i));
@@ -72,26 +70,36 @@ public class RemoveFromCartDialog extends JDialog {
         JButton addButton = new JButton("Remove items from cart");
         addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         addButton.addActionListener((e) -> {
-//                // Check that all fields are filled
+
+            // Check that all fields are filled
+            if (quantityField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "You must enter a quantity to remove.");
+                return;
+            }
+
+            // Check that the quantity is a number
             int numToRemove = Integer.parseInt(quantityField.getText());
-            if(numToRemove > numAlreadyInCart){
+
+            if (numToRemove <= 0) {
+                JOptionPane.showMessageDialog(this, "You must remove at least one item from your cart.");
+                return;
+            }
+
+            // Get the number of items already in the cart
+            if (numToRemove > numAlreadyInCart) {
                 JOptionPane.showMessageDialog(this.owner, "Cannot remove more items than are present in cart. Please remove "+numAlreadyInCart+" or less items.");
                 return;
             }
 
-            Boolean valid = true; //RoomController.addRoom(room);
-
-            if (!valid) {
-                JOptionPane.showMessageDialog(cartTable, "Failed to add room to database.");
-                return;
-            }
-            if(numAlreadyInCart - numToRemove == 0)
+            // Update the cart
+            if (numAlreadyInCart - numToRemove == 0)
                 ((DefaultTableModel) cartTable.getModel()).removeRow(row);
             else
                 cartTable.getModel().setValueAt(numAlreadyInCart - numToRemove, row, 3);
 
             this.owner.updateSubTotal();
 
+            // Close the dialog
             dispose();
             JOptionPane.showMessageDialog(cartTable, "Items removed from your cart.");
         });
