@@ -3,20 +3,13 @@ package edu.baylor.GroupFive.ui.shop.dialogs;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
 
-import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.database.services.StockServices;
-import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.Stock;
-import edu.baylor.GroupFive.models.enums.Theme;
-import edu.baylor.GroupFive.models.enums.BedType;
-import edu.baylor.GroupFive.models.enums.Quality;
 import edu.baylor.GroupFive.ui.shop.ShopPanel;
 
 public class AddToCartDialog extends JDialog {
@@ -24,14 +17,12 @@ public class AddToCartDialog extends JDialog {
     private ShopPanel owner;
     private JTable shopTable;
     private JTable cartTable;
-    private JLabel subtotalLabel;
 
-    public AddToCartDialog(ShopPanel owner, JTable shopTable, JTable cartTable, JLabel subtotalLabel) {
+    public AddToCartDialog(ShopPanel owner, JTable shopTable, JTable cartTable) {
         super(javax.swing.SwingUtilities.windowForComponent(cartTable));
         this.owner = owner;
         this.shopTable = shopTable;
         this.cartTable = cartTable;
-        this.subtotalLabel = subtotalLabel;
         createGUI();
     }
 

@@ -119,7 +119,7 @@ public class ShopPanel extends JPanel implements PagePanel {
         // Update the subtotal label
         double finalSubTotal = subTotal;
         SwingUtilities.invokeLater(() -> {
-            this.subtotalLabel.setText("Subtotal: "+ finalSubTotal);
+            this.subtotalLabel.setText("Subtotal: "+ String.format("%.2f", finalSubTotal));
         });
 
     }
@@ -138,7 +138,7 @@ public class ShopPanel extends JPanel implements PagePanel {
         PanelButton addToCartButton = new PanelButton("Add To Cart", 200, 50);
         addToCartButton.addActionListener(e -> {
             // Show the dialog to add to cart
-            AddToCartDialog dialog = new AddToCartDialog(this, table, cartTable, subtotalLabel);
+            AddToCartDialog dialog = new AddToCartDialog(this, table, cartTable);
             dialog.setVisible(true);
         });
         buttonPanel.add(addToCartButton);
