@@ -85,14 +85,28 @@ public class AddToCartDialog extends JDialog {
             String itemDescription = (String) shopTable.getValueAt(row, 1);
             Stock stock = StockServices.getStockByProductID(productID);
             int numInStock = stock.getStock();
+            
             // Check item is in stock
             if(numInStock <= 0){
                 JOptionPane.showMessageDialog(cartTable, "Item '"+itemDescription+"' has no stock left, please select another item.");
                 return;
             }
 
+            // Check that the quantity is not empty
             if (quantityField.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(cartTable, "Please enter a number of items to purchase.");
+                return;
+            }
+
+            // Check that the quantity is a number
+            if (!quantityField.getText().matches("[0-9]+")) {
+                JOptionPane.showMessageDialog(cartTable, "Please enter a valid number.");
+                return;
+            }
+
+            // Check that the quantity is greater than 0
+            if (Integer.parseInt(quantityField.getText()) <= 0) {
+                JOptionPane.showMessageDialog(cartTable, "Please enter a number greater than 0.");
                 return;
             }
 

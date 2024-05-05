@@ -78,6 +78,12 @@ public class RemoveFromCartDialog extends JDialog {
             }
 
             // Check that the quantity is a number
+            if (!quantityField.getText().matches("[0-9]+")) {
+                JOptionPane.showMessageDialog(cartTable, "Please enter a valid number.");
+                return;
+            }
+
+            // Get the number of items to remove
             int numToRemove = Integer.parseInt(quantityField.getText());
 
             if (numToRemove <= 0) {
