@@ -153,8 +153,9 @@ public class ShopPanel extends JPanel implements PagePanel {
                 return;
             }
 
-            CheckoutDialog dialog = new CheckoutDialog(this, cartTable, subtotalLabel);
+            CheckoutDialog dialog = new CheckoutDialog(this, cartTable, model, subtotalLabel);
             dialog.setVisible(true);
+
         });
         buttonPanel.add(checkoutButton);
 

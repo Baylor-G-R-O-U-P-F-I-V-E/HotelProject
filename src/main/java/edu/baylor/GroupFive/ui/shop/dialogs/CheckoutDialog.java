@@ -4,7 +4,9 @@ package edu.baylor.GroupFive.ui.shop.dialogs;
 import edu.baylor.GroupFive.database.controllers.BillingController;
 import edu.baylor.GroupFive.database.controllers.StockController;
 import edu.baylor.GroupFive.models.Stock;
+import edu.baylor.GroupFive.ui.shop.AddShopModel;
 import edu.baylor.GroupFive.ui.shop.ShopPanel;
+import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +25,7 @@ public class CheckoutDialog extends JDialog {
     private ShopPanel owner;
     private JTable cartTable;
     private JLabel subtotalLabel;
+    private AddShopModel model;
 
     /**
      * Constructs a new CheckoutDialog with the specified owner, cart table, and subtotal label.
@@ -30,11 +33,12 @@ public class CheckoutDialog extends JDialog {
      * @param cartTable
      * @param subtotalLabel
      */
-    public CheckoutDialog(ShopPanel owner, JTable cartTable, JLabel subtotalLabel) {
+    public CheckoutDialog(ShopPanel owner, JTable cartTable, AddShopModel model, JLabel subtotalLabel) {
         super(SwingUtilities.windowForComponent(cartTable));
         this.owner = owner;
         this.cartTable = cartTable;
         this.subtotalLabel = subtotalLabel;
+        this.model = model;
         createGUI();
     }
 
@@ -82,6 +86,9 @@ public class CheckoutDialog extends JDialog {
                 BillingController.addTransaction(owner.getUsername(), description, amount);
 
                 ((DefaultTableModel) cartTable.getModel()).removeRow(i);
+
+                model.refreshData();
+                
             }
             JOptionPane.showMessageDialog(frame, "Items added to your Stay Bill!");
         }));
