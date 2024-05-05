@@ -27,6 +27,14 @@ import java.text.ParseException;
  */
 public class DbSetup {
 
+    public static void main(String[] args){
+        if(!(args.length == 0) && args[0].toLowerCase().equals("-teardown"))
+            try {
+                dbTearDown();
+            }
+            catch(Exception ignored){}
+        new DbSetup();
+    }
     private static final Logger logger = LogManager.getLogger(DbSetup.class.getName());
 
     // ALL QUERIES MOVED TO BOTTOM OF CLASS - brendon
