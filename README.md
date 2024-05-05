@@ -1,4 +1,11 @@
-# G.R.O.U.P. F.I.V.E. Hotel Project
+G.R.O.U.P. F.I.V.E. Hotel Project
+=================================
+
+-----
+
+[Use Case Videos](./docs/USE_CASE_VIDEOS.md)
+
+-----
 
 Usage
 -----
