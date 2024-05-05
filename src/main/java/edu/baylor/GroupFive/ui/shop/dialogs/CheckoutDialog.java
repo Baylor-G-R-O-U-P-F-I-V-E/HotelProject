@@ -52,7 +52,6 @@ public class CheckoutDialog extends JDialog {
                 String description = String.valueOf(cartTable.getValueAt(i, 1));
                 float amount = Float.parseFloat(String.valueOf(cartTable.getValueAt(i,2)))
                         * Float.parseFloat(String.valueOf(cartTable.getValueAt(i,3)));
-                System.out.println("Creating transaction '"+description+"' with cost "+amount+"for "+owner.getUsername());
                 BillingController.addTransaction(owner.getUsername(), description, amount);
                 ((DefaultTableModel) cartTable.getModel()).removeRow(i);
             }
