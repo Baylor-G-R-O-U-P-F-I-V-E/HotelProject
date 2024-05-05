@@ -358,14 +358,11 @@ public class DbSetup {
         reservationInits.add(new Object[] { "07/11/2024",   "07/13/2024",   88.99,  "T-Lee",              105, false,    false });
         reservationInits.add(new Object[] { "07/09/2024",   "07/12/2024",   97.99,  "andyEv",             101, false,    false });
         reservationInits.add(new Object[] { "07/10/2024",   "07/17/2024",   88.99,  "KevDog",             102, true,     true });
-        reservationInits.add(new Object[] { "07/22/2024",   "07/25/2024",   97.99,  "Bongo",              103, true,     false });
         reservationInits.add(new Object[] { "07/14/2024",   "07/19/2024",   97.99,  "Ant",                104, true,     true });
 
         transactionInits.add(new Object[] { 3.79, "07/14/2024", "Yogurt", "Ant" });
         transactionInits.add(new Object[] { 4.05, "07/14/2024", "Cereal", "Ant" });
         transactionInits.add(new Object[] { 42.60, "07/15/2024", "Room service order", "Ant" });
-        transactionInits.add(new Object[] { 14.60, "07/17/2024", "Room service order", "Bongo" });
-        transactionInits.add(new Object[] { 4.50, "07/13/2024", "Large Soda", "Bongo" });
         transactionInits.add(new Object[] { 3.00, "08/23/2024", "Candy Bar", "Ant" });
         transactionInits.add(new Object[] { 97.99, "10/14/2024", "Room service order", "LarryTheLobster" });
         transactionInits.add(new Object[] { 2.79, "10/16/2024", "Soap", "LarryTheLobster" });
