@@ -5,18 +5,23 @@ import edu.baylor.GroupFive.database.services.TransactionService;
 import edu.baylor.GroupFive.models.Transaction;
 import edu.baylor.GroupFive.ui.generateBill.GuestBillPanel;
 import edu.baylor.GroupFive.ui.shop.ShopPanel;
+import edu.baylor.GroupFive.ui.utils.Page;
+import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class PayBillDialog extends JDialog {
 
     private GuestBillPanel owner;
     private JTable billTable;
-    public PayBillDialog(GuestBillPanel owner, JTable billTable) {
+    private Page page;
+    public PayBillDialog(GuestBillPanel owner, JTable billTable, Page page) {
         super(SwingUtilities.windowForComponent(owner));
         this.owner = owner;
         this.billTable = billTable;
+        this.page = page;
         createGUI();
     }
 
@@ -58,14 +63,33 @@ public class PayBillDialog extends JDialog {
 
         payButton.addActionListener(e -> {
             int response = JOptionPane.showConfirmDialog(this, "Confirm payment?");
+            String msg = "";
+            if(cardNumber.getText().isEmpty())
+                msg += "credit card number, ";
+            if(cvv.getText().isEmpty())
+                msg += "cvv, ";
+            if(expirationDate.getText().isEmpty())
+                msg += "expiration date, ";
+            if(cardName.getText().isEmpty())
+                msg += "name on card.";
+
+            if(!msg.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Please enter your "+msg);
+                return;
+            }
+
             if(response == JOptionPane.OK_OPTION){
                 for(int row = 0; row < this.billTable.getRowCount(); row++){
                     Long id = (Long) this.billTable.getValueAt(row, 0);
                     System.out.println("deleting transaction id "+id);
                     Transaction txn  = TransactionService.getTransaction(id);
-                    BillingController.deleteTransaction(txn);
+                    if(txn != null)
+                        BillingController.deleteTransaction(txn);
                 }
             }
+            JOptionPane.showMessageDialog(this, "Your bill has been paid!");
+            this.page.onPageSwitch("home");
+            dispose();
         });
 
 

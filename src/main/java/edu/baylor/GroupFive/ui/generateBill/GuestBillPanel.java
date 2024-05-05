@@ -122,7 +122,7 @@ public class GuestBillPanel extends JPanel implements PagePanel {
 
         PanelButton payBillButton = new PanelButton("Pay Bill");
         payBillButton.addActionListener(e -> {
-            PayBillDialog dialog = new PayBillDialog(this, table);
+            PayBillDialog dialog = new PayBillDialog(this, table, this.page);
             dialog.setVisible(true);
         });
         buttonPanel.add(payBillButton);
