@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import edu.baylor.GroupFive.ui.generateBill.dialogs.PayBillDialog;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
@@ -39,6 +40,7 @@ public class GuestBillPanel extends JPanel implements PagePanel {
     private Page page;
 
     private String[] columnNames = {
+            "TransactionID",
             "Item",
             "Price",
             "Purchase Date"
@@ -46,7 +48,7 @@ public class GuestBillPanel extends JPanel implements PagePanel {
 
     // Define data types for the columns
     final Class<?>[] columnClass = new Class[] {
-            String.class, String.class, String.class
+            Integer.class, String.class, String.class, String.class
     };
 
     /**
@@ -91,14 +93,22 @@ public class GuestBillPanel extends JPanel implements PagePanel {
 
         // Add button panel
         buttonPanel = new JPanel();
-        addBackButton();
+        addButtons();
         add(buttonPanel);
     }
 
+    public double getSubtotal(){
+        double subTotal = 0;
+        for(int row = 0; row < table.getRowCount(); row++){
+            double unitPrice = Double.parseDouble((String) table.getValueAt(row, 2));
+            subTotal += unitPrice;
+        }
+        return subTotal;
+    }
     /**
      * Adds a back button to the panel.
      */
-    public void addBackButton() {
+    public void addButtons() {
         // Add back button
         PanelButton backButton = new PanelButton("Back");
         backButton.addActionListener(new ActionListener() {
@@ -109,6 +119,13 @@ public class GuestBillPanel extends JPanel implements PagePanel {
             }
         });
         buttonPanel.add(backButton);
+
+        PanelButton payBillButton = new PanelButton("Pay Bill");
+        payBillButton.addActionListener(e -> {
+            PayBillDialog dialog = new PayBillDialog(this, table);
+            dialog.setVisible(true);
+        });
+        buttonPanel.add(payBillButton);
     }
 
     /**
