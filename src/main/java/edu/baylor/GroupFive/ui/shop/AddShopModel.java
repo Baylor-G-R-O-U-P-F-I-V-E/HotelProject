@@ -58,13 +58,25 @@ public class AddShopModel extends HotelModel implements DataModel {
             try {
                 int numInStock = StockServices.getNumStockByProductID(product.getProductID());
                 // Add the row to the table
-                addRow(new Object[] {String.valueOf(product.getProductID()), String.valueOf(product.getDescription()), String.valueOf(product.getBaseCost()), numInStock});
+                addRow(new Object[] {String.valueOf(product.getProductID()), String.valueOf(product.getDescription()), String.valueOf(product.getBaseCost()), String.valueOf(numInStock)});
                 // Print the row to the console
                 System.out.println("Added row to table: " + product.getProductID() + ", " + product.getDescription() + ", " + product.getBaseCost() + ", " + numInStock);
             } catch (Exception e) {
                 // Log any errors
                 System.out.println("Error adding row to table");
             }
+        }
+    }
+
+    /**
+     * Refreshes the data in the table.
+     */
+    public void refreshData() {
+        clearTable();
+        try {
+            getData();
+        } catch (RuntimeException e) {
+            System.out.println(e.getLocalizedMessage());
         }
     }
 

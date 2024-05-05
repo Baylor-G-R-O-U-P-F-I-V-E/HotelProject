@@ -60,9 +60,54 @@ public class StockController {
         return StockServices.createEntry(newStock);
     }
 
-
-
+    /**
+     * This function takes in a stock id and a number of items to add to stock
+     * and adds the items to the stock.
+     *
+     * @param stockID stock id of Stock.
+     * @param addToStock number of items to add to stock.
+     * @return {@code true} if stock was added successfully. {@code false} otherwise
+     * @see StockServices#fillStock(Integer, Integer)
+     * */
     public static Boolean deleteStock(int stockID) throws SQLException {
         return StockServices.deleteStock(stockID);
     }
+
+    /**
+     * This function takes in a stock id and a number of items to add to stock
+     * and adds the items to the stock.
+     *
+     * @param stockID stock id of Stock.
+     * @param addToStock number of items to add to stock.
+     * @return {@code true} if stock was added successfully. {@code false} otherwise
+     * @see StockServices#fillStock(Integer, Integer)
+     * */
+    public static Boolean fillStock(Integer stockID, Integer addToStock){
+        return StockServices.fillStock(stockID, addToStock);
+    }
+
+    /**
+     * This function takes in a stock id and a number of items to remove from stock
+     * and removes the items from the stock.
+     *
+     * @param stockID stock id of Stock.
+     * @param removeFromStock number of items to remove from stock.
+     * @return {@code true} if stock was removed successfully. {@code false} otherwise
+     * @see StockServices#takeStock(Integer, Integer)
+     * */
+    public static Boolean takeStock(Integer stockID, Integer removeFromStock){
+        return StockServices.takeStock(stockID, removeFromStock);
+    }
+
+    /**
+     * This function returns the stock of a product with a given product id.
+     *
+     * @param productID product id of product.
+     * @return Stock of product.
+     * @see StockServices#getStockByProductID(Integer)
+     * */
+    public static Stock getStockByProductID(Integer productID) {
+        return StockServices.getStockByProductID(productID);
+    }
+
 }
