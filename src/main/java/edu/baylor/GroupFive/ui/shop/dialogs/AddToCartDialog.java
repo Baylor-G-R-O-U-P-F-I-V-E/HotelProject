@@ -19,7 +19,7 @@ public class AddToCartDialog extends JDialog {
     private JTable cartTable;
 
     public AddToCartDialog(ShopPanel owner, JTable shopTable, JTable cartTable) {
-        super(javax.swing.SwingUtilities.windowForComponent(cartTable));
+        super();
         this.owner = owner;
         this.shopTable = shopTable;
         this.cartTable = cartTable;

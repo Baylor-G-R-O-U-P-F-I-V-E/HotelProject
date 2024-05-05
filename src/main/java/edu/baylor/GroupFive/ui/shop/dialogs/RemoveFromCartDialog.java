@@ -17,10 +17,20 @@ public class RemoveFromCartDialog extends JDialog {
     private JTable cartTable;
 
     public RemoveFromCartDialog(ShopPanel owner, JTable cartTable) {
-        super(SwingUtilities.windowForComponent(cartTable));
+        super();
         this.owner = owner;
         this.cartTable = cartTable;
+
+        // Check that exactly one item is selected
+        if (cartTable.getSelectedRowCount() != 1) {
+            JOptionPane.showMessageDialog(this, "You must select exactly one item type to remove from your cart.");
+            return;
+        }
+
         createGUI();
+
+        pack();
+        setLocationRelativeTo(getParent());
     }
 
 
@@ -32,11 +42,6 @@ public class RemoveFromCartDialog extends JDialog {
         // Sets up list
         JPanel listPane = new JPanel();
         listPane.setLayout(new BoxLayout(listPane, BoxLayout.Y_AXIS));
-
-        if (cartTable.getSelectedRowCount() != 1) {
-            JOptionPane.showMessageDialog(this, "You must select exactly one item type to remove from your cart.");
-            return;
-        }
 
         List<JLabel> labels = new ArrayList<>();
 
@@ -74,12 +79,14 @@ public class RemoveFromCartDialog extends JDialog {
             // Check that all fields are filled
             if (quantityField.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "You must enter a quantity to remove.");
+                dispose();
                 return;
             }
 
             // Check that the quantity is a number
             if (!quantityField.getText().matches("[0-9]+")) {
-                JOptionPane.showMessageDialog(cartTable, "Please enter a valid number.");
+                JOptionPane.showMessageDialog(this, "Please enter a valid number.");
+                dispose();
                 return;
             }
 
@@ -88,12 +95,14 @@ public class RemoveFromCartDialog extends JDialog {
 
             if (numToRemove <= 0) {
                 JOptionPane.showMessageDialog(this, "You must remove at least one item from your cart.");
+                dispose();
                 return;
             }
 
             // Get the number of items already in the cart
             if (numToRemove > numAlreadyInCart) {
-                JOptionPane.showMessageDialog(this.owner, "Cannot remove more items than are present in cart. Please remove "+numAlreadyInCart+" or less items.");
+                JOptionPane.showMessageDialog(this, "Cannot remove more items than are present in cart. Please remove "+numAlreadyInCart+" or less items.");
+                dispose();
                 return;
             }
 
@@ -106,13 +115,10 @@ public class RemoveFromCartDialog extends JDialog {
             this.owner.updateSubTotal();
 
             // Close the dialog
-            dispose();
             JOptionPane.showMessageDialog(cartTable, "Items removed from your cart.");
         });
         listPane.add(addButton);
         add(listPane);
-        pack();
-        setLocationRelativeTo(getParent());
     }
 
     @Override
