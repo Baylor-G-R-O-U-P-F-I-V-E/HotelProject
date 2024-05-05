@@ -67,7 +67,7 @@ public class GuestBillModel extends HotelModel implements DataModel {
         for (Transaction transaction : transactions) {
             try {
                 // Add the row to the table
-                addRow(new Object[] {transaction.getDescription(), String.valueOf(transaction.getAmount()), transaction.getPurchaseDate()});
+                addRow(new Object[] {transaction.getId(), transaction.getDescription(), String.valueOf(transaction.getAmount()), transaction.getPurchaseDate()});
                 // Print the row to the console
                 System.out.println("Added row to table: " + transaction.getDescription() + ", " + transaction.getAmount() + ", " + transaction.getPurchaseDate());
             } catch (Exception e) {

@@ -28,6 +28,13 @@ public class Transaction {
         this.setDescription(description);
         this.setUsername(username);
     }
+    public Transaction(String username, String description, Date purchaseDate, float amount, int id) {
+        this.setAmount(amount);
+        this.setPurchaseDate(purchaseDate);
+        this.setDescription(description);
+        this.setUsername(username);
+        this.setId(id);
+    }
 
     // Getters
     public long getId() {

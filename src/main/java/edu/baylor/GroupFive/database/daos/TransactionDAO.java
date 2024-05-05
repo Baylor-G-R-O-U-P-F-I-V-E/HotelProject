@@ -124,7 +124,8 @@ public class TransactionDAO extends BaseDAO<Transaction> {
                     result.getString("username"),
                     result.getString("description"),
                     result.getDate("purchaseDate"),
-                    result.getFloat("amount")
+                    result.getFloat("amount"),
+                    result.getInt("id")
                 );
             } else {
                 return null;
@@ -203,7 +204,8 @@ public class TransactionDAO extends BaseDAO<Transaction> {
             result.getString("username"),
             result.getString("description"),
             result.getDate("purchaseDate"),
-            result.getFloat("amount")
+            result.getFloat("amount"),
+            result.getInt("id")
         );
     }
 
