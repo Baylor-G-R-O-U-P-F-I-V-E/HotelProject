@@ -2,8 +2,6 @@ package edu.baylor.GroupFive.ui.shop;
 
 import javax.swing.*;
 
-import edu.baylor.GroupFive.database.controllers.StockController;
-import edu.baylor.GroupFive.models.Stock;
 import edu.baylor.GroupFive.models.User;
 import edu.baylor.GroupFive.ui.shop.dialogs.AddToCartDialog;
 import edu.baylor.GroupFive.ui.shop.dialogs.CheckoutDialog;
@@ -14,7 +12,6 @@ import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
 import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
-import edu.baylor.GroupFive.util.logging.G5Logger;
 
 import java.awt.*;
 
@@ -28,7 +25,6 @@ import java.awt.*;
  * @author Siri
  */
 public class ShopPanel extends JPanel implements PagePanel {
-
 
     private Page page;
     private User user;
@@ -53,9 +49,8 @@ public class ShopPanel extends JPanel implements PagePanel {
     };
 
     final Class<?>[] columnClass = new Class[] {
-            String.class, String.class, String.class, Integer.class
+            String.class, String.class, String.class, String.class
     };
-
 
     /**
      * Constructs a new ShopPanel with the specified delegate
@@ -74,6 +69,7 @@ public class ShopPanel extends JPanel implements PagePanel {
         // Create a table with a sorter.
         table = new HotelTable(model);
 
+        // Create a table for the cart
         cartTable = new HotelTable(new HotelModel(cartColumnNames, columnClass));
 
         // Add the table to a scroll pane.
@@ -107,57 +103,80 @@ public class ShopPanel extends JPanel implements PagePanel {
 
     }
 
-
+    /**
+     * Updates the subtotal label.
+     */
     public void updateSubTotal(){
         double subTotal = 0;
-        for(int row = 0; row < cartTable.getRowCount(); row++){
+
+        // Calculate the subtotal
+        for (int row = 0; row < cartTable.getRowCount(); row++) {
             int numItem = (Integer) cartTable.getValueAt(row, 3);
             double unitPrice = Double.parseDouble((String) cartTable.getValueAt(row, 2));
             subTotal += numItem*unitPrice;
         }
+
+        // Update the subtotal label
         double finalSubTotal = subTotal;
         SwingUtilities.invokeLater(() -> {
-            this.subtotalLabel.setText("Subtotal: "+ finalSubTotal);
+            this.subtotalLabel.setText("Subtotal: "+ String.format("%.2f", finalSubTotal));
         });
 
     }
 
-
-    // TODO: Implement AddToCartDialog first - Siri
+    /**
+     * Adds the button panel to the panel.
+     */
     private void addButtonPanel() {
         JPanel buttonPanel = new JPanel();
 
+        // Add the subtotal label
         this.subtotalLabel = new JLabel("Subtotal: 0.00");
         buttonPanel.add(this.subtotalLabel);
 
-        PanelButton addToCartButton = new PanelButton("Add To Cart");
+        // Add to cart button
+        PanelButton addToCartButton = new PanelButton("Add To Cart", 200, 50);
         addToCartButton.addActionListener(e -> {
-            // Show the dialog to add a room.
-            AddToCartDialog dialog = new AddToCartDialog(this, table, cartTable, subtotalLabel);
+            // Show the dialog to add to cart
+            AddToCartDialog dialog = new AddToCartDialog(this, table, cartTable);
             dialog.setVisible(true);
         });
-        addToCartButton.setPreferredSize(new Dimension(200, 100));
         buttonPanel.add(addToCartButton);
 
-        PanelButton removeFromCartButton = new PanelButton("Remove From Cart");
+        // Remove from cart button
+        PanelButton removeFromCartButton = new PanelButton("Remove From Cart", 300, 50);
         removeFromCartButton.addActionListener(e -> {
-            RemoveFromCartDialog dialog = new RemoveFromCartDialog(this, cartTable, subtotalLabel);
+            // Show the dialog to remove from cart
+            RemoveFromCartDialog dialog = new RemoveFromCartDialog(this, cartTable);
             dialog.setVisible(true);
         });
-        removeFromCartButton.setPreferredSize(new Dimension(300, 100));
         buttonPanel.add(removeFromCartButton);
 
-        PanelButton checkoutButton = new PanelButton("Checkout");
+        // Checkout button
+        PanelButton checkoutButton = new PanelButton("Checkout", 200, 50);
         checkoutButton.addActionListener(e -> {
-            CheckoutDialog dialog = new CheckoutDialog(this, cartTable, subtotalLabel);
+
+            // Check if cart is empty
+            if (cartTable.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "You must have at least one item in your cart to checkout.");
+                return;
+            }
+
+            CheckoutDialog dialog = new CheckoutDialog(this, cartTable, model);
             dialog.setVisible(true);
+
         });
-        checkoutButton.setPreferredSize(new Dimension(200, 100));
         buttonPanel.add(checkoutButton);
 
+        // Add the button panel to the panel.
         add(buttonPanel);
     }
 
+    /**
+     * Returns the username of the user.
+     *
+     * @return The username of the user.
+     */
     public String getUsername() {
         return user.getUsername();
     }

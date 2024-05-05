@@ -3,20 +3,13 @@ package edu.baylor.GroupFive.ui.shop.dialogs;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
 
-import edu.baylor.GroupFive.database.controllers.RoomController;
 import edu.baylor.GroupFive.database.services.StockServices;
-import edu.baylor.GroupFive.models.Room;
 import edu.baylor.GroupFive.models.Stock;
-import edu.baylor.GroupFive.models.enums.Theme;
-import edu.baylor.GroupFive.models.enums.BedType;
-import edu.baylor.GroupFive.models.enums.Quality;
 import edu.baylor.GroupFive.ui.shop.ShopPanel;
 
 public class AddToCartDialog extends JDialog {
@@ -24,21 +17,19 @@ public class AddToCartDialog extends JDialog {
     private ShopPanel owner;
     private JTable shopTable;
     private JTable cartTable;
-    private JLabel subtotalLabel;
 
-    public AddToCartDialog(ShopPanel owner, JTable shopTable, JTable cartTable, JLabel subtotalLabel) {
-        super(javax.swing.SwingUtilities.windowForComponent(cartTable));
+    public AddToCartDialog(ShopPanel owner, JTable shopTable, JTable cartTable) {
+        super();
         this.owner = owner;
         this.shopTable = shopTable;
         this.cartTable = cartTable;
-        this.subtotalLabel = subtotalLabel;
         createGUI();
     }
 
 
     private void createGUI() {
         // Sets up dialog panel
-        setPreferredSize(new Dimension(600, 400));
+        setPreferredSize(new Dimension(300, 150));
         setTitle("Add to Cart");
 
         // Sets up list
@@ -85,14 +76,28 @@ public class AddToCartDialog extends JDialog {
             String itemDescription = (String) shopTable.getValueAt(row, 1);
             Stock stock = StockServices.getStockByProductID(productID);
             int numInStock = stock.getStock();
+            
             // Check item is in stock
             if(numInStock <= 0){
                 JOptionPane.showMessageDialog(cartTable, "Item '"+itemDescription+"' has no stock left, please select another item.");
                 return;
             }
 
+            // Check that the quantity is not empty
             if (quantityField.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(cartTable, "Please enter a number of items to purchase.");
+                return;
+            }
+
+            // Check that the quantity is a number
+            if (!quantityField.getText().matches("[0-9]+")) {
+                JOptionPane.showMessageDialog(cartTable, "Please enter a valid number.");
+                return;
+            }
+
+            // Check that the quantity is greater than 0
+            if (Integer.parseInt(quantityField.getText()) <= 0) {
+                JOptionPane.showMessageDialog(cartTable, "Please enter a number greater than 0.");
                 return;
             }
 

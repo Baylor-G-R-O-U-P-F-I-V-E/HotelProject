@@ -64,6 +64,12 @@ public class StockServices {
         return true;
     }
 
+    /**
+     * Deletes a stock entry from the database.
+     *
+     * @param stockID stock number.
+     * @return {@code true} if successful deletion. {@code false} otherwise.
+     */
     public static Boolean deleteStock(Integer stockID) throws SQLException {
         StockDAO conn = new StockDAO();
         Stock stock = conn.get(stockID);
@@ -89,6 +95,12 @@ public class StockServices {
         return true;
     }
 
+    /**
+     * Adds a new stock entry to the database.
+     *
+     * @param newStock stock to add.
+     * @return {@code true} if successful addition. {@code false} otherwise.
+     */
     public static Boolean createEntry(Stock newStock){
         StockDAO stockDAO = new StockDAO();
         try {
@@ -100,17 +112,30 @@ public class StockServices {
         return true;
     }
 
-
+    /**
+     * Removes a stock entry from the database.
+     *
+     * @param stock stock to remove.
+     * @return {@code true} if successful removal. {@code false} otherwise.
+     */
     public static Integer removeEntry(Stock stock){
         StockDAO stockDAO = new StockDAO();
         return stockDAO.delete(stock);
     }
 
+    /**
+     * @param productID the product ID to get stock for
+     * @return the number of stock for the product
+     */
     public static Integer getNumStockByProductID(Integer productID){
         StockDAO stockDAO = new StockDAO();
         return stockDAO.getByProductId(productID).getStock();
     }
 
+    /**
+     * @param productID the product ID to get stock for
+     * @return the stock object for the product
+     */
     public static Stock getStockByProductID(Integer productID){
         StockDAO stockDAO = new StockDAO();
         return stockDAO.getByProductId(productID);
