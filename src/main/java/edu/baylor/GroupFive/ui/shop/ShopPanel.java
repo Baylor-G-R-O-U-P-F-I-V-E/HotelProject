@@ -4,10 +4,15 @@ import javax.swing.*;
 
 import edu.baylor.GroupFive.database.controllers.StockController;
 import edu.baylor.GroupFive.models.Stock;
+import edu.baylor.GroupFive.models.User;
+import edu.baylor.GroupFive.ui.shop.dialogs.AddToCartDialog;
+import edu.baylor.GroupFive.ui.shop.dialogs.CheckoutDialog;
+import edu.baylor.GroupFive.ui.shop.dialogs.RemoveFromCartDialog;
 import edu.baylor.GroupFive.ui.utils.Page;
 import edu.baylor.GroupFive.ui.utils.buttons.PanelButton;
 import edu.baylor.GroupFive.ui.utils.interfaces.PagePanel;
 import edu.baylor.GroupFive.ui.utils.table.FormPane;
+import edu.baylor.GroupFive.ui.utils.table.HotelModel;
 import edu.baylor.GroupFive.ui.utils.table.HotelTable;
 import edu.baylor.GroupFive.util.logging.G5Logger;
 
@@ -26,18 +31,29 @@ public class ShopPanel extends JPanel implements PagePanel {
 
 
     private Page page;
+    private User user;
     private HotelTable table;
+    private HotelTable cartTable;
     private AddShopModel model;
+    private JLabel subtotalLabel;
     //private ProductTable table;
 
     private String[] columnNames = {
             "Product ID",
             "Description",
             "Cost",
+            "# In Stock"
+    };
+
+    private String[] cartColumnNames = {
+        "Product ID",
+        "Description",
+        "Cost",
+        "# in Cart"
     };
 
     final Class<?>[] columnClass = new Class[] {
-            String.class, String.class, String.class
+            String.class, String.class, String.class, Integer.class
     };
 
 
@@ -46,10 +62,11 @@ public class ShopPanel extends JPanel implements PagePanel {
      *
      * // @param delegate Page
      */
-    public ShopPanel(Page page) {
+    public ShopPanel(Page page, User user) {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.page = page;
+        this.user = user;
 
         // Create a model of the data.
         model = new AddShopModel(columnNames, columnClass);
@@ -57,8 +74,11 @@ public class ShopPanel extends JPanel implements PagePanel {
         // Create a table with a sorter.
         table = new HotelTable(model);
 
+        cartTable = new HotelTable(new HotelModel(cartColumnNames, columnClass));
+
         // Add the table to a scroll pane.
         JScrollPane scrollPane = new JScrollPane(table);
+        JScrollPane cartScrollPane = new JScrollPane(cartTable);
 
         // Add some glue
         add(Box.createVerticalGlue());
@@ -74,6 +94,7 @@ public class ShopPanel extends JPanel implements PagePanel {
 
         // Add the scroll pane to this panel.
         add(scrollPane);
+        add(cartScrollPane);
 
         // Add the form pane
         add(new FormPane(table, table.getSorter(), columnNames));
@@ -86,78 +107,59 @@ public class ShopPanel extends JPanel implements PagePanel {
 
     }
 
+
+    public void updateSubTotal(){
+        double subTotal = 0;
+        for(int row = 0; row < cartTable.getRowCount(); row++){
+            int numItem = (Integer) cartTable.getValueAt(row, 3);
+            double unitPrice = Double.parseDouble((String) cartTable.getValueAt(row, 2));
+            subTotal += numItem*unitPrice;
+        }
+        double finalSubTotal = subTotal;
+        SwingUtilities.invokeLater(() -> {
+            this.subtotalLabel.setText("Subtotal: "+ finalSubTotal);
+        });
+
+    }
+
+
     // TODO: Implement AddToCartDialog first - Siri
     private void addButtonPanel() {
         JPanel buttonPanel = new JPanel();
 
+        this.subtotalLabel = new JLabel("Subtotal: 0.00");
+        buttonPanel.add(this.subtotalLabel);
+
         PanelButton addToCartButton = new PanelButton("Add To Cart");
         addToCartButton.addActionListener(e -> {
             // Show the dialog to add a room.
-//            AddRoomDialog dialog = new AddRoomDialog(table);
-//            dialog.setVisible(true);
+            AddToCartDialog dialog = new AddToCartDialog(this, table, cartTable, subtotalLabel);
+            dialog.setVisible(true);
         });
-//
-//        PanelButton deleteRoomButton = new PanelButton("Delete Room");
-//        deleteRoomButton.addActionListener(e -> {
-//            int row = table.getSelectedRow();
-//            if (row == -1) {
-//                JOptionPane.showMessageDialog(this, "Please select a row to delete.");
-//                return;
-//            }
-//
-//            int roomNumber = (Integer) table.getValueAt(row, 0);
-//            Integer choice = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete room " + roomNumber + "?", "Delete Room", JOptionPane.YES_NO_OPTION);
-//
-//            if (choice != JOptionPane.YES_OPTION) {
-//                return;
-//            }
-//
-//            Boolean result = RoomController.deleteRoom(roomNumber);
-//
-//            if (result) {
-//                model.getData();
-//            } else {
-//                JOptionPane.showMessageDialog(this, "Failed to delete room.");
-//            }
-//        });
-//
-//        PanelButton editRoomButton = new PanelButton("Edit Room");
-//        editRoomButton.addActionListener(e -> {
-//
-//            // Ensure row is selected
-//            if (table.getSelectedRow() == -1) {
-//                JOptionPane.showMessageDialog(this, "Please select a row to edit.");
-//                return;
-//            }
-//
-//            // Get the room number from the selected row
-//            Integer roomColumnIndex = table.getColumnModel().getColumnIndex("Room Number");
-//            int roomNumber = (Integer) table.getValueAt(table.getSelectedRow(), roomColumnIndex);
-//
-//            Room room = RoomController.getRoomInfo(roomNumber);
-//
-//            // Check if room number exists in database
-//            if (room == null) {
-//                G5Logger.logger.error("Room number does not exist in database");
-//                JOptionPane.showMessageDialog(this, "Room number does not exist in database.");
-//                return;
-//            }
-//
-//            // Add the edit room panel to the page
-//            page.remove(page.currentPanel);
-//            page.currentPanel = new EditRoomPanel(page, room);
-//            page.add(page.currentPanel);
-//            page.refresh();
-//        });
-//
-//        // Add the buttons to the button panel
-//        buttonPanel.add(addRoomButton);
-//        buttonPanel.add(deleteRoomButton);
-//        buttonPanel.add(editRoomButton);
-//
-//        // Add the button panel to this panel.
-//        add(buttonPanel);
+        addToCartButton.setPreferredSize(new Dimension(200, 100));
+        buttonPanel.add(addToCartButton);
 
+        PanelButton removeFromCartButton = new PanelButton("Remove From Cart");
+        removeFromCartButton.addActionListener(e -> {
+            RemoveFromCartDialog dialog = new RemoveFromCartDialog(this, cartTable, subtotalLabel);
+            dialog.setVisible(true);
+        });
+        removeFromCartButton.setPreferredSize(new Dimension(300, 100));
+        buttonPanel.add(removeFromCartButton);
+
+        PanelButton checkoutButton = new PanelButton("Checkout");
+        checkoutButton.addActionListener(e -> {
+            CheckoutDialog dialog = new CheckoutDialog(this, cartTable, subtotalLabel);
+            dialog.setVisible(true);
+        });
+        checkoutButton.setPreferredSize(new Dimension(200, 100));
+        buttonPanel.add(checkoutButton);
+
+        add(buttonPanel);
+    }
+
+    public String getUsername() {
+        return user.getUsername();
     }
 
     /**

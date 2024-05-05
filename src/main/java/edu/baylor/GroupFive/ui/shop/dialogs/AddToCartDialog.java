@@ -8,135 +8,139 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import edu.baylor.GroupFive.database.controllers.RoomController;
+import edu.baylor.GroupFive.database.services.StockServices;
 import edu.baylor.GroupFive.models.Room;
+import edu.baylor.GroupFive.models.Stock;
 import edu.baylor.GroupFive.models.enums.Theme;
 import edu.baylor.GroupFive.models.enums.BedType;
 import edu.baylor.GroupFive.models.enums.Quality;
+import edu.baylor.GroupFive.ui.shop.ShopPanel;
 
 public class AddToCartDialog extends JDialog {
 
-    private JTable table;
+    private ShopPanel owner;
+    private JTable shopTable;
+    private JTable cartTable;
+    private JLabel subtotalLabel;
 
-    public AddToCartDialog(JTable owner) {
-        super(javax.swing.SwingUtilities.windowForComponent(owner));
-        table = owner;
+    public AddToCartDialog(ShopPanel owner, JTable shopTable, JTable cartTable, JLabel subtotalLabel) {
+        super(javax.swing.SwingUtilities.windowForComponent(cartTable));
+        this.owner = owner;
+        this.shopTable = shopTable;
+        this.cartTable = cartTable;
+        this.subtotalLabel = subtotalLabel;
         createGUI();
     }
 
+
     private void createGUI() {
-//        // Sets up dialog panel
-//        setPreferredSize(new Dimension(600, 400));
-//        setTitle("Add to cart");
-//
-//        // Sets up list
-//        JPanel listPane = new JPanel();
-//        listPane.setLayout(new BoxLayout(listPane, BoxLayout.Y_AXIS));
-//
-//        if (table == null) {
-//            JOptionPane.showMessageDialog(this, "Table is null");
-//            return;
-//        }
-//
-//        List<JLabel> labels = new ArrayList<>();
-//
-//        // Create labels for each field
-//        JLabel roomNumberLabel = new JLabel("Room Number:");
-//        JLabel roomTypeLabel = new JLabel("Room Type:");
-//        JLabel qualityLabel = new JLabel("Quality:");
-//
-//        // Add labels to list
-//        labels.add(roomNumberLabel);
-//        labels.add(roomTypeLabel);
-//        labels.add(qualityLabel);
-//
-//        // Create textfields for each field
-//        JTextField roomNumber = new JTextField();
-//        JComboBox<String> roomType = new JComboBox<>(new String[] { "NatureRetreat", "UrbanElegance", "VintageCharm"});
-//        JComboBox<String> quality = new JComboBox<>(new String[] { "Economy", "Comfort", "Busniess", "Executive" });
-//        JComboBox<String> bedType = new JComboBox<>(new String[] { "Single", "Double", "Queen", "King" });
-//        JTextField bedCount = new JTextField();
-//        JComboBox<String> smokingBox = new JComboBox<>(new String[] { "true", "false" });
-//        JTextField price = new JTextField();
-//
-//        // Set default textfield sizes
-//        roomNumber.setPreferredSize(new Dimension(200, 30));
-//        bedCount.setPreferredSize(new Dimension(200, 30));
-//        price.setPreferredSize(new Dimension(200, 30));
-//
-//        // Add textfields to list
-//        List<Component> textFields = new ArrayList<>();
-//        textFields.add(roomNumber);
-//        textFields.add(roomType);
-//        textFields.add(quality);
-//        textFields.add(bedType);
-//        textFields.add(bedCount);
-//        textFields.add(smokingBox);
-//        textFields.add(price);
-//
-//        // Make a new panel for each text field and label and add them
-//        for (int i = 0; i < 7; i++) {
-//            JPanel panel = new JPanel();
-//            panel.add(labels.get(i));
-//            panel.add(textFields.get(i));
-//            listPane.add(panel);
-//        }
-//
-//        // Makes add row button
-//        JButton addButton = new JButton("Add room");
-//        addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        addButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
+        // Sets up dialog panel
+        setPreferredSize(new Dimension(600, 400));
+        setTitle("Add to Cart");
+
+        // Sets up list
+        JPanel listPane = new JPanel();
+        listPane.setLayout(new BoxLayout(listPane, BoxLayout.Y_AXIS));
+
+        if (shopTable.getSelectedRowCount() != 1) {
+            JOptionPane.showMessageDialog(this, "You can only add one item-type to cart at a time. Select exactly 1 item.");
+            return;
+        }
+
+        List<JLabel> labels = new ArrayList<>();
+
+        // Create labels for each field
+        JLabel quantityLabel = new JLabel("Number to add:");
+        // Add labels to list
+        labels.add(quantityLabel);
+
+        // Create textfields for each field
+        JTextField quantityField = new JTextField();
+        // Set default textfield sizes
+        quantityField.setPreferredSize(new Dimension(200, 30));
+
+        // Add textfields to list
+        List<Component> textFields = new ArrayList<>();
+        textFields.add(quantityField);
+
+        // Make a new panel for each text field and label and add them
+//        System.out.println("ccount: "+ cartTable.getColumnCount());
+        for (int i = 0; i < textFields.size(); i++) {
+            JPanel panel = new JPanel();
+            panel.add(labels.get(i));
+            panel.add(textFields.get(i));
+            listPane.add(panel);
+        }
+
+        // Makes add row button
+        JButton addButton = new JButton("Add item(s) to cart");
+        addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        addButton.addActionListener((e) -> {
 //                // Check that all fields are filled
-//                if (roomNumber.getText().isEmpty() || bedCount.getText().isEmpty() || price.getText().isEmpty()) {
-//                    JOptionPane.showMessageDialog(table, "Please fill out all fields.");
-//                    return;
-//                }
-//
-//                // Check that room number isnt already in database
-//                if (RoomController.getRoomInfo(Integer.parseInt(roomNumber.getText())) != null) {
-//                    JOptionPane.showMessageDialog(table, "Room number already exists.");
-//                    return;
-//                }
-//
-//                System.out.println("Quality: " + Quality.fromString((String) quality.getSelectedItem()));
-//
-//                // Add room to database
-//                Room room = new Room(Integer.parseInt(roomNumber.getText()), Quality.fromString((String) quality.getSelectedItem()),
-//                        Theme.valueOf((String) roomType.getSelectedItem()), Boolean.parseBoolean((String) smokingBox.getSelectedItem()), Integer.parseInt(bedCount.getText()),
-//                        BedType.valueOf(((String) bedType.getSelectedItem()).toUpperCase()), Double.parseDouble(price.getText()));
-//
-//                Boolean valid = RoomController.addRoom(room);
-//
-//                if (!valid) {
-//                    JOptionPane.showMessageDialog(table, "Failed to add room to database.");
-//                    return;
-//                }
-//
-//                // Add new row to table
-//                Object[] row = new Object[] { roomNumber.getText(), roomType.getSelectedItem(), quality.getSelectedItem(),
-//                        bedType.getSelectedItem(), bedCount.getText(), smokingBox.getSelectedItem(), price.getText() };
-//                ((javax.swing.table.DefaultTableModel) table.getModel()).addRow(row);
-//
-//                dispose();
-//                JOptionPane.showMessageDialog(table, "Room added successfully.");
-//            }
-//        });
-//        listPane.add(addButton);
-//        add(listPane);
-//        pack();
-//        setLocationRelativeTo(getParent());
+            int row = shopTable.getSelectedRow();
+            int productID = Integer.parseInt((String) shopTable.getValueAt(row, 0));
+            String itemDescription = (String) shopTable.getValueAt(row, 1);
+            Stock stock = StockServices.getStockByProductID(productID);
+            int numInStock = stock.getStock();
+            // Check item is in stock
+            if(numInStock <= 0){
+                JOptionPane.showMessageDialog(cartTable, "Item '"+itemDescription+"' has no stock left, please select another item.");
+                return;
+            }
+
+            if (quantityField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(cartTable, "Please enter a number of items to purchase.");
+                return;
+            }
+
+            // Get stock remaining
+            int quantityToAdd = Integer.parseInt(quantityField.getText());
+            int numAlreadyInCart = 0;
+            int existingItemRow = -1;
+
+            // Check if we already have this item in cart
+            boolean alreadyInCart = false;
+            for(int cartRow = 0; cartRow < cartTable.getRowCount(); cartRow++){
+                int curProductID = (Integer) cartTable.getValueAt(cartRow, 0);
+                if(curProductID == productID) {
+                    numAlreadyInCart = (Integer) cartTable.getValueAt(cartRow, 3);
+                    alreadyInCart = true;
+                    existingItemRow = cartRow;
+                    break;
+                }
+            }
+            if(quantityToAdd+numAlreadyInCart > numInStock){
+                JOptionPane.showMessageDialog(cartTable, "You've tried to add more '"+itemDescription+"' to your cart than are in stock. Please add less than "+(numInStock - numAlreadyInCart)+" more of this item.");
+                return;
+            }
+
+            Boolean valid = true; //RoomController.addRoom(room);
+
+            if (!valid) {
+                JOptionPane.showMessageDialog(cartTable, "Failed to add room to database.");
+                return;
+            }
+
+            if(alreadyInCart){
+                cartTable.getModel().setValueAt(quantityToAdd + numAlreadyInCart, existingItemRow, 3);
+            }
+            else {
+                Object[] tableRow = new Object[] { productID, itemDescription, shopTable.getValueAt(row, 2), (quantityToAdd + numAlreadyInCart)  };
+                ((javax.swing.table.DefaultTableModel) cartTable.getModel()).addRow(tableRow);
+            }
+
+            this.owner.updateSubTotal();
+
+            dispose();
+            JOptionPane.showMessageDialog(cartTable, "Items added to your cart.");
+        });
+        listPane.add(addButton);
+        add(listPane);
+        pack();
+        setLocationRelativeTo(getParent());
     }
 
     @Override
